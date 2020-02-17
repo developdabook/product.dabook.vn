@@ -1,6 +1,6 @@
 const nav = {
   home: {
-    icon: 'mdi-home',
+    icon: 'mdi-home-roof',
     name: 'home',
     to: '/'
   },
