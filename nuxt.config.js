@@ -87,7 +87,7 @@ module.exports = {
     theme: {
       themes: {
         dark: {
-          primary: colors.blue.darken2,
+          primary: '#0064D2',
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
@@ -96,7 +96,7 @@ module.exports = {
           success: colors.green.accent3
         },
         light: {
-          primary: colors.blue.darken2,
+          primary: '#0064D2',
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,

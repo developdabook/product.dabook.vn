@@ -1,13 +1,15 @@
 <template>
   <div class="inline-daterange">
-    <vc-date-picker
-      :mode="mode"
-      v-model="selectedDate"
-      :is-inline="true"
-      :is-expanded="true"
-      columns="1"
-      rows="12"
-    />
+    <client-only>
+      <vc-date-picker
+        :mode="mode"
+        v-model="selectedDate"
+        :is-inline="true"
+        :is-expanded="true"
+        :columns="1"
+        :rows="12"
+      />
+    </client-only>
   </div>
 </template>
 <script>
