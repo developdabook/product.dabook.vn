@@ -8,6 +8,7 @@
         :is-expanded="true"
         :columns="1"
         :rows="12"
+        class="tw-border-0"
       />
     </client-only>
   </div>

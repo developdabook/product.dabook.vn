@@ -1,0 +1,140 @@
+<template>
+  <v-card flat class="tw-rounded-none"
+    ><v-card-subtitle class="tw-bg-blue-600 tw-text-white">
+      Please select passenger
+    </v-card-subtitle>
+    <v-card-text class="px-4">
+      <div class="passenger-select-box">
+        <v-btn
+          @click="minusPerson('ADULT')"
+          :disabled="this.passenger.ADULT === 0"
+          fab
+          text
+          icon
+          outlined
+          small
+          color="primary"
+          ><v-icon>mdi-minus</v-icon></v-btn
+        >
+        <div class="passenger-info">
+          <strong class="m-0 p-0 tw-text-base tw-text-blue-600"
+            >{{ passenger.ADULT }} Adult</strong
+          >
+          <span class="tw-text-xs tw-text-gray-600">
+            (Tren 12 tuoi)
+          </span>
+        </div>
+        <v-btn
+          @click="plusPerson('ADULT')"
+          :disabled="this.totalPassenger === 5"
+          fab
+          text
+          icon
+          outlined
+          small
+          color="primary"
+          ><v-icon>mdi-plus</v-icon></v-btn
+        >
+      </div>
+      <div class="passenger-select-box">
+        <v-btn
+          @click="minusPerson('CHILDREN')"
+          :disabled="this.passenger.CHILDREN === 0"
+          fab
+          text
+          icon
+          outlined
+          small
+          color="primary"
+          ><v-icon>mdi-minus</v-icon></v-btn
+        >
+        <div class="passenger-info">
+          <strong class="m-0 p-0 tw-text-base tw-text-blue-600"
+            >{{ passenger.CHILDREN }} Children</strong
+          >
+          <span class="tw-text-xs tw-text-gray-600">
+            (Tu 2 den 12 tuoi)
+          </span>
+        </div>
+        <v-btn
+          @click="plusPerson('CHILDREN')"
+          :disabled="this.totalPassenger === 5"
+          fab
+          text
+          icon
+          outlined
+          small
+          color="primary"
+          ><v-icon>mdi-plus</v-icon></v-btn
+        >
+      </div>
+      <div class="passenger-select-box">
+        <v-btn
+          @click="minusPerson('INFANT')"
+          :disabled="this.passenger.INFANT === 0"
+          fab
+          text
+          icon
+          outlined
+          small
+          color="primary"
+          ><v-icon>mdi-minus</v-icon></v-btn
+        >
+        <div class="passenger-info">
+          <strong class="m-0 p-0 tw-text-base tw-text-blue-600"
+            >{{ passenger.INFANT }} Infant</strong
+          >
+          <span class="tw-text-xs tw-text-gray-600">
+            (Duoi 2 tuoi)
+          </span>
+        </div>
+        <v-btn
+          @click="plusPerson('INFANT')"
+          :disabled="this.totalPassenger === 5"
+          fab
+          text
+          icon
+          outlined
+          small
+          color="primary"
+          ><v-icon>mdi-plus</v-icon></v-btn
+        >
+      </div>
+    </v-card-text>
+  </v-card>
+</template>
+<script>
+export default {
+  name: 'SelectPassenger',
+  data() {
+    return {
+      passenger: {
+        ADULT: 1,
+        CHILDREN: 0,
+        INFANT: 0
+      }
+    }
+  },
+  computed: {
+    totalPassenger() {
+      return (
+        this.passenger.ADULT + this.passenger.CHILDREN + this.passenger.INFANT
+      )
+    }
+  },
+  methods: {
+    plusPerson(target) {
+      if (this.totalPassenger < 5) {
+        this.passenger[target] += 1
+      }
+      this.$emit('input', this.passenger)
+    },
+    minusPerson(target) {
+      if (this.passenger[target] !== 0 && this.totalPassenger > 1) {
+        this.passenger[target] -= 1
+      }
+      this.$emit('input', this.passenger)
+    }
+  }
+}
+</script>

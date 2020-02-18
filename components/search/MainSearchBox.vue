@@ -4,32 +4,35 @@
       <v-card outlined max-width="400px" class="main-search-box tw-rounded-lg">
         <v-card-text class="pb-0">
           <v-text-field
-            @click="drawer.from = true"
-            @blur="drawer.from = false"
+            @click="selectCondition('from')"
+            :value="fromSum"
             label="From"
             color="primary"
             prepend-inner-icon="mdi-airplane-takeoff"
             class="dotted-border my-4"
             hide-details
             name="searchFrom"
+            placeholder="Please select departure airport"
           ></v-text-field>
           <v-text-field
-            @click="drawer.to = true"
-            @blur="drawer.to = false"
+            @click="selectCondition('to')"
+            :value="toSum"
             label="To"
             prepend-inner-icon="mdi-airplane-landing"
             hide-details
             class="my-4"
             name="searchTo"
+            placeholder="Please select arrived/return airport"
           ></v-text-field>
           <div class="tw-relative">
             <v-text-field
-              @click="drawer.departure = true"
-              @blur="drawer.departure = false"
+              @click="selectCondition('departure')"
+              :value="departureSum"
               label="Departure"
               prepend-inner-icon="mdi-calendar-import"
               hide-details
               class="my-4"
+              placeholder="DD-MM-YYY"
               name="searchDeparture"
             ></v-text-field>
             <div class="is-roundtrip">
@@ -44,19 +47,20 @@
           </div>
           <v-expand-transition>
             <v-text-field
-              @click="drawer.arrived = true"
-              @blur="drawer.arrived = false"
+              @click="selectCondition('arrived')"
               v-show="searchCondition.isRoundtrip"
+              :value="arrivedSum"
               label="Arrived"
               prepend-inner-icon="mdi-calendar-export"
               hide-details
               class="my-4"
+              placeholder="DD-MM-YYY"
               name="searchArrived"
             ></v-text-field>
           </v-expand-transition>
           <v-text-field
-            @click="drawer.passenger = true"
-            @blur="drawer.passenger = false"
+            @click="selectCondition('passenger')"
+            :value="passegnerSum"
             label="Passenger"
             prepend-inner-icon="mdi-account-multiple-check-outline"
             hide-details
@@ -64,8 +68,8 @@
             name="searchPassenger"
           ></v-text-field>
           <v-text-field
-            @click="drawer.cabinClass = true"
-            @blur="drawer.cabinClass = false"
+            @click="selectCondition('cabinClass')"
+            :value="cabinClassSum"
             label="CabinClass"
             prepend-inner-icon="mdi-seat-passenger"
             hide-details
@@ -81,7 +85,30 @@
       </v-card>
     </section>
     <section class="section-draw">
-      <v-navigation-drawer :value="isDraw" temporary app fixed right bottom>
+      <v-navigation-drawer
+        v-model="drawer.isDraw"
+        temporary
+        app
+        fixed
+        right
+        bottom
+        width="350px"
+      >
+        <SelectLocation v-if="drawer.from" v-model="searchCondition.from" />
+        <SelectLocation v-if="drawer.to" v-model="searchCondition.to" />
+        <SelectTime
+          v-if="drawer.departure"
+          v-model="searchCondition.departure"
+        />
+        <SelectTime v-if="drawer.arrived" v-model="searchCondition.arrived" />
+        <SelectPassenger
+          v-if="drawer.passenger"
+          v-model="searchCondition.passenger"
+        />
+        <SelectCabinClass
+          v-if="drawer.cabinClass"
+          v-model="searchCondition.cabinClass"
+        />
       </v-navigation-drawer>
     </section>
   </div>
@@ -89,6 +116,12 @@
 <script>
 export default {
   name: 'MainSearchBox',
+  components: {
+    SelectLocation: () => import('@/components/search/SelectLocation'),
+    SelectTime: () => import('@/components/search/SelectTime'),
+    SelectPassenger: () => import('@/components/search/SelectPassenger'),
+    SelectCabinClass: () => import('@/components/search/SelectCabinClass')
+  },
   data() {
     return {
       drawer: {
@@ -97,15 +130,20 @@ export default {
         departure: false,
         arrived: false,
         passenger: false,
-        cabinClass: false
+        cabinClass: false,
+        isDraw: false
       },
       searchCondition: {
-        from: '',
-        to: '',
+        from: {},
+        to: {},
         departure: '',
         arrived: '',
-        passenger: '',
-        cabinClass: '',
+        passenger: {
+          ADULT: 0,
+          CHILDREN: 0,
+          INFANT: 0
+        },
+        cabinClass: ['ECONOMY'],
         isRoundtrip: false
       }
     }
@@ -120,6 +158,54 @@ export default {
         this.drawer.passenger ||
         this.drawer.cabinClass
       )
+    },
+    passegnerSum() {
+      return (
+        this.searchCondition.passenger.ADULT +
+        ' ADULT' +
+        ' | ' +
+        this.searchCondition.passenger.CHILDREN +
+        ' CHILDREN' +
+        ' | ' +
+        this.searchCondition.passenger.INFANT +
+        ' INFANT'
+      )
+    },
+    cabinClassSum() {
+      return this.searchCondition.cabinClass.reduce((lastSum, newVal) => {
+        return lastSum + newVal + ' | '
+      }, '')
+    },
+    departureSum() {
+      return this.searchCondition.departure
+    },
+    arrivedSum() {
+      return this.searchCondition.arrived
+    },
+    fromSum() {
+      return typeof this.searchCondition.from.airportCode === 'undefined'
+        ? ''
+        : `[${this.searchCondition.from.airportCode}] ${this.searchCondition.from.airportName}`
+    },
+    toSum() {
+      return typeof this.searchCondition.to.airportCode === 'undefined'
+        ? ''
+        : `[${this.searchCondition.to.airportCode}] ${this.searchCondition.to.airportName}`
+    }
+  },
+  methods: {
+    selectCondition(target) {
+      this.drawer = {
+        from: false,
+        to: false,
+        departure: false,
+        arrived: false,
+        passenger: false,
+        cabinClass: false,
+        isDraw: false
+      }
+      this.drawer[target] = true
+      this.drawer.isDraw = true
     }
   }
 }
@@ -135,6 +221,9 @@ export default {
   left: -30px !important;
   transform: translateY(-18px) scale(0.75) !important;
   @apply tw-text-gray-600;
+}
+.main-search-box .v-text-field__slot input {
+  @apply text-gray-700 tw-font-bold tw-pl-4 tw-text-sm;
 }
 .is-roundtrip {
   transform: translateY(10%);
@@ -164,5 +253,20 @@ export default {
 }
 .dotted-border .v-input__slot:before {
   @apply tw-border-dotted !important;
+}
+
+.passenger-select-box {
+  @apply tw-flex tw-flex-row tw-justify-between tw-items-center tw-w-full tw-my-4;
+}
+.passenger-info {
+  @apply tw-flex tw-flex-col tw-justify-center tw-items-center;
+}
+.main-search .v-navigation-drawer {
+  @apply tw-rounded-t-lg tw-overflow-hidden;
+}
+@screen md {
+  .main-search .v-navigation-drawer {
+    @apply tw-rounded-none tw-overflow-hidden;
+  }
 }
 </style>

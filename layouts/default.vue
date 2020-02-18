@@ -1,5 +1,5 @@
 <template>
-  <v-app light>
+  <v-app light class="primarytext--text">
     <section class="section-header">
       <HeaderComponent />
     </section>

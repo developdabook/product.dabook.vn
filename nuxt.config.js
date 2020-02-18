@@ -41,7 +41,8 @@ module.exports = {
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/moment'
   ],
   /*
    ** Nuxt.js modules
@@ -83,26 +84,29 @@ module.exports = {
    ** https://github.com/nuxt-community/vuetify-module
    */
   vuetify: {
+    treeShake: true,
     customVariables: ['~/assets/variables.scss'],
     theme: {
       themes: {
         dark: {
           primary: '#0064D2',
-          accent: colors.grey.darken3,
+          accent: '#1A202C',
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+          success: colors.green.accent3,
+          primarytext:'#1A202C',
         },
         light: {
           primary: '#0064D2',
-          accent: colors.grey.darken3,
+          accent: '#1A202C',
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+          success: colors.green.accent3,
+          primarytext:'#1A202C',
         }
       }
     }
