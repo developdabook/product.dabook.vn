@@ -12,6 +12,7 @@
             class="dotted-border my-4"
             hide-details
             name="searchFrom"
+            readonly
             placeholder="Please select departure airport"
           ></v-text-field>
           <v-text-field
@@ -21,6 +22,7 @@
             prepend-inner-icon="mdi-airplane-landing"
             hide-details
             class="my-4"
+            readonly
             name="searchTo"
             placeholder="Please select arrived/return airport"
           ></v-text-field>
@@ -32,6 +34,7 @@
               prepend-inner-icon="mdi-calendar-import"
               hide-details
               class="my-4"
+              readonly
               placeholder="DD-MM-YYY"
               name="searchDeparture"
             ></v-text-field>
@@ -53,6 +56,7 @@
               label="Arrived"
               prepend-inner-icon="mdi-calendar-export"
               hide-details
+              readonly
               class="my-4"
               placeholder="DD-MM-YYY"
               name="searchArrived"
@@ -65,6 +69,7 @@
             prepend-inner-icon="mdi-account-multiple-check-outline"
             hide-details
             class="my-4"
+            readonly
             name="searchPassenger"
           ></v-text-field>
           <v-text-field
@@ -73,6 +78,7 @@
             label="CabinClass"
             prepend-inner-icon="mdi-seat-passenger"
             hide-details
+            readonly
             class="mt-4"
             name="searchCabinClass"
           ></v-text-field>

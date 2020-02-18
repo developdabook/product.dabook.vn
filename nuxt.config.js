@@ -29,7 +29,7 @@ module.exports = {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['./assets/scss/main.scss'],
   /*
    ** Plugins to load before mounting the App
    */
@@ -97,6 +97,7 @@ module.exports = {
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
           primarytext:'#1A202C',
+          componentColor:'#1A202C'
         },
         light: {
           primary: '#1A73E8',
@@ -107,6 +108,7 @@ module.exports = {
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
           primarytext:'#1A202C',
+          componentColor:'#1A202C'
         }
       }
     }
