@@ -19,6 +19,8 @@
         clearable
         hide-details
         prepend-inner-icon="mdi-google-maps"
+        placeholder="Find your target..."
+        class="tw-text-sm"
       ></v-text-field>
     </v-card-subtitle>
     <v-card-text v-if="isSearching">
@@ -29,13 +31,18 @@
           color="primary"
         >
           <v-list-item
-            v-for="(port, i) in airports"
+            v-for="(port, i) in airportsFilter"
             :key="i + 'port'"
             :value="port"
+            :disabled="port.PlaceId.length > 3"
             dense
           >
             <v-list-item-icon>
-              <v-icon color="primary">mdi-airport</v-icon>
+              <v-icon color="primary">{{
+                port.PlaceId.length == 3
+                  ? 'mdi-airport'
+                  : 'mdi-city-variant-outline'
+              }}</v-icon>
             </v-list-item-icon>
             <v-tooltip top color="primary">
               <template v-slot:activator="{ on }">
@@ -53,6 +60,8 @@
             </v-tooltip>
             <v-list-item-action>
               <v-btn
+                v-if="port.PlaceId.length === 3"
+                :disabled="port.PlaceId.length > 3"
                 small
                 class="tw-normal-case primary--text"
                 color="blue lighten-5"
@@ -60,6 +69,28 @@
                 depressed
                 >Select</v-btn
               >
+              <v-tooltip v-else top color="primary">
+                <template v-slot:activator="{ on }">
+                  <v-badge
+                    bordered
+                    color="red darken-1"
+                    icon="mdi-lock"
+                    overlap
+                  >
+                    <v-btn
+                      v-on="on"
+                      :disabled="port.PlaceId.length > 3"
+                      small
+                      class="tw-normal-case primary--text"
+                      color="blue lighten-5"
+                      rounded
+                      depressed
+                      >Select</v-btn
+                    >
+                  </v-badge>
+                </template>
+                <span>Tooltip</span>
+              </v-tooltip>
             </v-list-item-action>
           </v-list-item>
         </v-list-item-group>
@@ -89,7 +120,9 @@
                   color="primary"
                 >
                   <v-list-item
-                    v-for="(port, i) in local.airportList"
+                    v-for="(port, i) in local.airportList.filter(
+                      (el) => el.airportCode !== exceptionLocal.airportCode
+                    )"
                     :key="i + 'port'"
                     :value="port"
                     dense
@@ -136,6 +169,16 @@ import GeneralApi from '@/services/GeneralApi'
 import { defautlAirport } from '@/localdb/defaultAirport'
 export default {
   name: 'SelectLocation',
+  props: {
+    exceptionLocal: {
+      type: [Object, Array],
+      default() {
+        return {
+          PlaceId: ''
+        }
+      }
+    }
+  },
   data() {
     return {
       defautlAirport,
@@ -149,24 +192,50 @@ export default {
   computed: {
     isSearching() {
       return this.search.length > 0
+    },
+    airportsFilter() {
+      try {
+        return this.airports.filter(
+          (el) =>
+            typeof el.PlaceId !== 'undefined' &&
+            el.PlaceId.length > 2 &&
+            el.PlaceId !== this.exceptionLocal.airportCode
+        )
+      } catch (error) {
+        return []
+      }
     }
   },
   methods: {
     selectLocation() {
-      this.$emit('input', this.locationSelected)
+      try {
+        this.$emit('input', this.locationSelected)
+      } catch (error) {}
     },
     async findLocation() {
-      this.loading.search = true
-      const locations = await GeneralApi.GetLocation(this.search)
-      this.loading.search = false
-      this.airports = locations
+      try {
+        this.loading.search = true
+        const locations = await GeneralApi.GetLocation(this.search)
+        this.loading.search = false
+        this.airports = locations
+      } catch (error) {
+        this.loading.search = false
+      }
     },
     selectSearchResult() {
-      this.$emit('input', {
-        airportCode: this.searchSelected.PlaceId,
-        airportName: this.searchSelected.PlaceName,
-        city: this.searchSelected.CityName
-      })
+      try {
+        if (this.searchSelected.PlaceId.length > 3) {
+          this.searchSelected = {
+            PlaceId: 'XXXX'
+          }
+          return
+        }
+        this.$emit('input', {
+          airportCode: this.searchSelected.PlaceId,
+          airportName: this.searchSelected.PlaceName,
+          city: this.searchSelected.CityName
+        })
+      } catch (error) {}
     }
   }
 }

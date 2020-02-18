@@ -77,11 +77,27 @@
             name="searchCabinClass"
           ></v-text-field>
         </v-card-text>
-        <v-card-actions class="py-8">
-          <v-btn color="primary" rounded depressed large class="tw-w-full"
+        <v-card-actions class="pt-12">
+          <v-btn
+            @click="searchFlight"
+            color="primary"
+            rounded
+            depressed
+            large
+            class="tw-w-full"
             >Search</v-btn
           >
         </v-card-actions>
+        <v-card-text class="tw-text-center tw-text-xs tw-pt-0">
+          <span class="tw-text-gray-400 tw-m-1"
+            ><v-icon color="#E2E8F0" small>mdi-check-decagram</v-icon> Alway
+            best price</span
+          >
+          <span class="tw-text-gray-400 tw-m-1"
+            ><v-icon color="#E2E8F0" small>mdi-shield-check-outline</v-icon>
+            Trust by DaiMinh</span
+          >
+        </v-card-text>
       </v-card>
     </section>
     <section class="section-draw">
@@ -94,8 +110,16 @@
         bottom
         width="350px"
       >
-        <SelectLocation v-if="drawer.from" v-model="searchCondition.from" />
-        <SelectLocation v-if="drawer.to" v-model="searchCondition.to" />
+        <SelectLocation
+          v-if="drawer.from"
+          v-model="searchCondition.from"
+          :exceptionLocal="searchCondition.to"
+        />
+        <SelectLocation
+          v-if="drawer.to"
+          v-model="searchCondition.to"
+          :exceptionLocal="searchCondition.from"
+        />
         <SelectTime
           v-if="drawer.departure"
           v-model="searchCondition.departure"
@@ -136,8 +160,10 @@ export default {
       searchCondition: {
         from: {},
         to: {},
-        departure: '',
-        arrived: '',
+        departure: this.$moment().format('DD-MM-YYYY'),
+        arrived: this.$moment()
+          .add(4, 'day')
+          .format('DD-MM-YYYY'),
         passenger: {
           ADULT: 0,
           CHILDREN: 0,
@@ -206,6 +232,45 @@ export default {
       }
       this.drawer[target] = true
       this.drawer.isDraw = true
+    },
+    searchFlight() {},
+    validateDefault() {
+      if (
+        this.searchCondition.from.airportCode === '' ||
+        this.searchCondition.from.airportCode === null ||
+        typeof this.searchCondition.from.airportCode === 'undefined'
+      ) {
+        this.searchCondition.from =
+          this.searchCondition.to.airportCode === 'SGN'
+            ? {
+                airportCode: 'HAN',
+                airportName: 'Noi Bai International Airport',
+                city: 'HaNoi'
+              }
+            : {
+                airportCode: 'SGN',
+                airportName: 'Tan Son Nhat International Airport',
+                city: 'HoChiMinh'
+              }
+      }
+      if (
+        this.searchCondition.to.airportCode === '' ||
+        this.searchCondition.to.airportCode === null ||
+        typeof this.searchCondition.to.airportCode === 'undefined'
+      ) {
+        this.searchCondition.to =
+          this.searchCondition.from.airportCode === 'SGN'
+            ? {
+                airportCode: 'HAN',
+                airportName: 'Noi Bai International Airport',
+                city: 'HaNoi'
+              }
+            : {
+                airportCode: 'SGN',
+                airportName: 'Tan Son Nhat International Airport',
+                city: 'HoChiMinh'
+              }
+      }
     }
   }
 }

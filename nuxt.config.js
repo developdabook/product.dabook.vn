@@ -3,7 +3,7 @@ const colors = require('vuetify/es5/util/colors').default
 module.exports = {
   mode: 'universal',
   server: {
-    port: 2900
+    port: 3505
   },
   /*
    ** Headers of the page
@@ -89,7 +89,7 @@ module.exports = {
     theme: {
       themes: {
         dark: {
-          primary: '#0064D2',
+          primary: '#1A73E8',
           accent: '#1A202C',
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
@@ -99,7 +99,7 @@ module.exports = {
           primarytext:'#1A202C',
         },
         light: {
-          primary: '#0064D2',
+          primary: '#1A73E8',
           accent: '#1A202C',
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,

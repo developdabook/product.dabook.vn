@@ -40,7 +40,6 @@ export default {
   },
   methods: {
     changeDate() {
-      console.log(this.$moment(this.selectedDate).format('DD-MM-YYYY'))
       this.$emit('input', this.$moment(this.selectedDate).format('DD-MM-YYYY'))
     }
   }
