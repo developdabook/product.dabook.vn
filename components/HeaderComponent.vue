@@ -33,7 +33,12 @@
         @click="draw.leftDraw = !draw.leftDraw"
         color="primary"
       ></v-app-bar-nav-icon>
-
+      <v-btn text depressed rounded color="primary" class="tw-normal-case"
+        >Flight <v-icon small>mdi-airplane-takeoff</v-icon></v-btn
+      >
+      <v-btn text depressed rounded color="primary" class="tw-normal-case"
+        >Travel <v-icon small>mdi-beach</v-icon></v-btn
+      >
       <v-toolbar-title>
         <v-img aspect-ratio="1/1" src="/images/logo_trans.png"> </v-img>
       </v-toolbar-title>
@@ -43,7 +48,7 @@
         <v-icon>mdi-map-marker-multiple-outline</v-icon>
       </v-btn>
       <v-btn icon color="primary">
-        <v-icon>mdi-magnify</v-icon>
+        <v-icon class="rotate-45">mdi-ticket-percent</v-icon>
       </v-btn>
 
       <v-btn icon color="primary">
@@ -53,26 +58,43 @@
       <v-btn icon color="primary">
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
-      <v-avatar size="30">
-        <img
-          src="https://randomuser.me/api/portraits/women/44.jpg"
-          alt="John"
-          size="20"
-        />
-      </v-avatar>
+      <v-menu v-model="loginMenu" :close-on-content-click="false" offset-x>
+        <template v-slot:activator="{ on }">
+          <v-avatar v-on="on" size="30">
+            <img
+              src="https://randomuser.me/api/portraits/women/44.jpg"
+              alt="John"
+              size="20"
+            />
+          </v-avatar>
+        </template>
+
+        <v-card class="tw-shadow-lg tw-rounded-lg tw-max-w-screen-sm w-screen">
+          <Signin />
+        </v-card>
+      </v-menu>
     </v-app-bar>
   </div>
 </template>
 <script>
 export default {
   name: 'HeaderComponent',
+  components: {
+    Signin: () => import('@/components/auth/Signin')
+  },
   data() {
     return {
       draw: {
         leftDraw: false
       },
-      menus: []
+      menus: [],
+      loginMenu: false
     }
   }
 }
 </script>
+<style lang="postcss">
+.rotate-45 {
+  transform: rotate(-45deg);
+}
+</style>

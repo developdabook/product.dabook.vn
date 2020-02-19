@@ -33,7 +33,10 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '@/plugins/v-calendar', ssr: false }],
+  plugins: [
+    { src: '@/plugins/v-calendar', ssr: false },
+    { src: 'plugins/owl.js', ssr: false }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -96,8 +99,8 @@ module.exports = {
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
-          primarytext:'#1A202C',
-          componentColor:'#1A202C'
+          primarytext: '#1A202C',
+          componentColor: '#1A202C'
         },
         light: {
           primary: '#1A73E8',
@@ -107,8 +110,8 @@ module.exports = {
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
-          primarytext:'#1A202C',
-          componentColor:'#1A202C'
+          primarytext: '#1A202C',
+          componentColor: '#1A202C'
         }
       }
     }

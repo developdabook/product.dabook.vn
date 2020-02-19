@@ -7,7 +7,6 @@
 button,button:hover,button:focus{
     outline: none !important;
 }
-.v-input.v-text-field--outlined{
-    border: rgba(0, 0, 0, 0.12);
-
+.theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state) > .v-input__control > .v-input__slot fieldset{
+    border-color:#cbd5e0 !important
 }

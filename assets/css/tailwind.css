@@ -5,7 +5,7 @@
 
 /* RESSET */
 button,button:hover,button:focus{
-    outline: none !important;
+    @apply tw-outline-none ;
 }
 
 /* SCROLLBAR */

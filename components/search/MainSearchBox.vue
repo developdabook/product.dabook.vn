@@ -3,20 +3,40 @@
     <section class="section-card">
       <v-card outlined max-width="400px" class="main-search-box tw-rounded-lg">
         <v-card-text class="pb-0">
+          <div class="tw-relative">
+            <v-text-field
+              @click="
+                selectCondition('from')
+                drawer.isMaxHeight = true
+              "
+              :value="fromSum"
+              label="From"
+              color="primary"
+              prepend-inner-icon="mdi-airplane-takeoff"
+              class="dotted-border my-4"
+              hide-details
+              name="searchFrom"
+              readonly
+              placeholder="Please select departure airport"
+            ></v-text-field>
+            <v-btn
+              @click="swapLocation"
+              color="primary"
+              dark
+              small
+              absolute
+              bottom
+              fab
+              class="tw-right-0"
+            >
+              <v-icon>mdi-swap-vertical</v-icon>
+            </v-btn>
+          </div>
           <v-text-field
-            @click="selectCondition('from')"
-            :value="fromSum"
-            label="From"
-            color="primary"
-            prepend-inner-icon="mdi-airplane-takeoff"
-            class="dotted-border my-4"
-            hide-details
-            name="searchFrom"
-            readonly
-            placeholder="Please select departure airport"
-          ></v-text-field>
-          <v-text-field
-            @click="selectCondition('to')"
+            @click="
+              selectCondition('to')
+              drawer.isMaxHeight = true
+            "
             :value="toSum"
             label="To"
             prepend-inner-icon="mdi-airplane-landing"
@@ -28,7 +48,10 @@
           ></v-text-field>
           <div class="tw-relative">
             <v-text-field
-              @click="selectCondition('departure')"
+              @click="
+                selectCondition('departure')
+                drawer.isMaxHeight = true
+              "
               :value="departureSum"
               label="Departure"
               prepend-inner-icon="mdi-calendar-import"
@@ -39,7 +62,9 @@
               name="searchDeparture"
             ></v-text-field>
             <div class="is-roundtrip">
-              <label for="roundtrip"
+              <label
+                for="roundtrip"
+                class="tw-flex tw-flex-col tw-justify-end tw-items-end"
                 >Is Roundtrip?
                 <v-switch
                   v-model="searchCondition.isRoundtrip"
@@ -50,7 +75,10 @@
           </div>
           <v-expand-transition>
             <v-text-field
-              @click="selectCondition('arrived')"
+              @click="
+                selectCondition('arrived')
+                drawer.isMaxHeight = true
+              "
               v-show="searchCondition.isRoundtrip"
               :value="arrivedSum"
               label="Arrived"
@@ -63,7 +91,10 @@
             ></v-text-field>
           </v-expand-transition>
           <v-text-field
-            @click="selectCondition('passenger')"
+            @click="
+              selectCondition('passenger')
+              drawer.isMaxHeight = false
+            "
             :value="passegnerSum"
             label="Passenger"
             prepend-inner-icon="mdi-account-multiple-check-outline"
@@ -73,7 +104,10 @@
             name="searchPassenger"
           ></v-text-field>
           <v-text-field
-            @click="selectCondition('cabinClass')"
+            @click="
+              selectCondition('cabinClass')
+              drawer.isMaxHeight = false
+            "
             :value="cabinClassSum"
             label="CabinClass"
             prepend-inner-icon="mdi-seat-passenger"
@@ -83,7 +117,7 @@
             name="searchCabinClass"
           ></v-text-field>
         </v-card-text>
-        <v-card-actions class="pt-12">
+        <v-card-actions class="pt-12 tw-px-4">
           <v-btn
             @click="searchFlight"
             color="primary"
@@ -109,12 +143,14 @@
     <section class="section-draw">
       <v-navigation-drawer
         v-model="drawer.isDraw"
+        :class="{ 'draw-70': drawer.isMaxHeight }"
         temporary
         app
         fixed
         right
         bottom
         width="350px"
+        height="100vh"
       >
         <SelectLocation
           v-if="drawer.from"
@@ -129,8 +165,13 @@
         <SelectTime
           v-if="drawer.departure"
           v-model="searchCondition.departure"
+          :minDate="new Date()"
         />
-        <SelectTime v-if="drawer.arrived" v-model="searchCondition.arrived" />
+        <SelectTime
+          v-if="drawer.arrived"
+          v-model="searchCondition.arrived"
+          :minDate="new Date($moment(searchCondition.departure, 'DD-MM-YYYY'))"
+        />
         <SelectPassenger
           v-if="drawer.passenger"
           v-model="searchCondition.passenger"
@@ -144,6 +185,7 @@
   </div>
 </template>
 <script>
+import _ from 'lodash'
 export default {
   name: 'MainSearchBox',
   components: {
@@ -161,7 +203,8 @@ export default {
         arrived: false,
         passenger: false,
         cabinClass: false,
-        isDraw: false
+        isDraw: false,
+        isMaxHeight: false
       },
       searchCondition: {
         from: {},
@@ -277,13 +320,18 @@ export default {
                 city: 'HoChiMinh'
               }
       }
+    },
+    swapLocation() {
+      const temp = _.clone(this.searchCondition.from)
+      this.searchCondition.from = _.clone(this.searchCondition.to)
+      this.searchCondition.to = _.clone(temp)
     }
   }
 }
 </script>
 <style lang="postcss">
 .main-search-box {
-  @apply tw-rounded-lg;
+  @apply tw-rounded-lg tw-p-2;
 }
 .main-search-box:hover {
   @apply tw-shadow-lg;
@@ -299,7 +347,7 @@ export default {
 .is-roundtrip {
   transform: translateY(10%);
   z-index: 2;
-  @apply tw-absolute tw-right-0 tw-bottom-0;
+  @apply tw-absolute tw-right-0 tw-bottom-0 tw-text-left;
 }
 .is-roundtrip .v-input--switch {
   @apply tw-m-0 tw-p-0;

@@ -6,6 +6,7 @@
     <v-progress-linear
       :active="loading.search"
       :indeterminate="loading.search"
+      absolute
       color="success"
     ></v-progress-linear>
     <v-card-subtitle>
@@ -24,7 +25,16 @@
       ></v-text-field>
     </v-card-subtitle>
     <v-card-text v-if="isSearching">
-      <v-list rounded dense>
+      <v-list v-if="loading.search">
+        <v-skeleton-loader
+          v-for="i in 4"
+          :key="i + 'skeleton'"
+          type="list-item-avatar-two-line"
+          class="mx-auto"
+        >
+        </v-skeleton-loader
+      ></v-list>
+      <v-list v-else rounded dense>
         <v-list-item-group
           v-model="searchSelected"
           @change="selectSearchResult"
@@ -113,50 +123,52 @@
               {{ local.area }}
             </v-card-subtitle>
             <v-card-text class="px-0">
-              <v-list rounded dense>
-                <v-list-item-group
-                  v-model="locationSelected"
-                  @change="selectLocation"
-                  color="primary"
-                >
-                  <v-list-item
-                    v-for="(port, i) in local.airportList.filter(
-                      (el) => el.airportCode !== exceptionLocal.airportCode
-                    )"
-                    :key="i + 'port'"
-                    :value="port"
-                    dense
+              <v-lazy>
+                <v-list rounded dense>
+                  <v-list-item-group
+                    v-model="locationSelected"
+                    @change="selectLocation"
+                    color="primary"
                   >
-                    <v-list-item-icon>
-                      <v-icon color="primary">mdi-airport</v-icon>
-                    </v-list-item-icon>
-                    <v-tooltip top color="primary">
-                      <template v-slot:activator="{ on }">
-                        <v-list-item-content v-on="on">
-                          <v-list-item-title
-                            >[{{ port.airportCode }}]
-                            {{ port.airportName }}</v-list-item-title
-                          >
-                          <v-list-item-subtitle>{{
-                            port.city
-                          }}</v-list-item-subtitle>
-                        </v-list-item-content>
-                      </template>
-                      <span>{{ port.airportName }} / {{ port.city }}</span>
-                    </v-tooltip>
-                    <v-list-item-action>
-                      <v-btn
-                        small
-                        class="tw-normal-case primary--text"
-                        color="blue lighten-5"
-                        rounded
-                        depressed
-                        >Select</v-btn
-                      >
-                    </v-list-item-action>
-                  </v-list-item>
-                </v-list-item-group>
-              </v-list>
+                    <v-list-item
+                      v-for="(port, i) in local.airportList.filter(
+                        (el) => el.airportCode !== exceptionLocal.airportCode
+                      )"
+                      :key="i + 'port'"
+                      :value="port"
+                      dense
+                    >
+                      <v-list-item-icon>
+                        <v-icon color="primary">mdi-airport</v-icon>
+                      </v-list-item-icon>
+                      <v-tooltip top color="primary">
+                        <template v-slot:activator="{ on }">
+                          <v-list-item-content v-on="on">
+                            <v-list-item-title
+                              >[{{ port.airportCode }}]
+                              {{ port.airportName }}</v-list-item-title
+                            >
+                            <v-list-item-subtitle>{{
+                              port.city
+                            }}</v-list-item-subtitle>
+                          </v-list-item-content>
+                        </template>
+                        <span>{{ port.airportName }} / {{ port.city }}</span>
+                      </v-tooltip>
+                      <v-list-item-action>
+                        <v-btn
+                          small
+                          class="tw-normal-case primary--text"
+                          color="blue lighten-5"
+                          rounded
+                          depressed
+                          >Select</v-btn
+                        >
+                      </v-list-item-action>
+                    </v-list-item>
+                  </v-list-item-group>
+                </v-list>
+              </v-lazy>
             </v-card-text>
           </v-card>
         </v-tab-item>

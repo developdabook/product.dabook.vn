@@ -1,7 +1,7 @@
 {
-  "name": "vuetify-tailwind-nuxt-template",
+  "name": "dabook.vn",
   "version": "1.0.0",
-  "description": "My super Nuxt.js project",
+  "description": "Ve may bay gia re,Tim kiem ve may bay Dabook.vn",
   "author": "khoatbui.dev",
   "private": true,
   "scripts": {
@@ -17,9 +17,11 @@
     "axios": "^0.19.2",
     "cross-env": "^5.2.0",
     "express": "^4.16.4",
+    "lodash": "^4.17.15",
     "nuxt": "^2.0.0",
     "nuxt-purgecss": "^0.2.1",
-    "v-calendar": "^1.0.1"
+    "v-calendar": "^1.0.1",
+    "v-owl-carousel": "^1.0.8"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^1.0.1",

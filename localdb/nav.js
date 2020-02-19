@@ -1,7 +1,7 @@
 const nav = {
   home: {
     icon: 'mdi-home-roof',
-    name: 'home',
+    name: 'Home',
     to: '/'
   },
   flight: {
