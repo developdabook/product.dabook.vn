@@ -118,7 +118,7 @@
           v-for="(area, i) in Object.values(defautlAirport)"
           :key="i + 'areaC'"
         >
-          <v-card v-for="(local, i) in area" :key="i + 'local'" flat>
+          <v-card v-for="(local, j) in area" :key="j + 'local'" flat>
             <v-card-subtitle>
               {{ local.area }}
             </v-card-subtitle>
@@ -131,10 +131,10 @@
                     color="primary"
                   >
                     <v-list-item
-                      v-for="(port, i) in local.airportList.filter(
+                      v-for="(port, k) in local.airportList.filter(
                         (el) => el.airportCode !== exceptionLocal.airportCode
                       )"
-                      :key="i + 'port'"
+                      :key="k + 'port'"
                       :value="port"
                       dense
                     >

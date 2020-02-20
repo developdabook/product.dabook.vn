@@ -186,6 +186,7 @@
 </template>
 <script>
 import _ from 'lodash'
+import utils from '@/utils/utils'
 export default {
   name: 'MainSearchBox',
   components: {
@@ -282,7 +283,28 @@ export default {
       this.drawer[target] = true
       this.drawer.isDraw = true
     },
-    searchFlight() {},
+    searchFlight() {
+      this.validateDefault()
+      const section = utils.uuid()
+      this.$store.dispatch('search/updateSearchCondition', this.searchCondition)
+      this.$store.dispatch('search/updateSearchSection', section)
+      this.$router.push({
+        path: 'search',
+        query: {
+          section,
+          itinerary: '1',
+          origin: this.searchCondition.from.airportCode,
+          destination: this.searchCondition.from.airportCode,
+          date: this.searchCondition.departure,
+          date1: this.searchCondition.isRoundtrip
+            ? this.searchCondition.arrived
+            : '',
+          adults: this.searchCondition.passenger.ADULT,
+          children: this.searchCondition.passenger.CHILDREN,
+          infants: this.searchCondition.passenger.INFANT
+        }
+      })
+    },
     validateDefault() {
       if (
         this.searchCondition.from.airportCode === '' ||

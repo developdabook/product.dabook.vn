@@ -1,21 +1,21 @@
 const nav = {
   home: {
-    icon: 'mdi-home-roof',
+    icon: 'icofont-ui-home icofont-2x',
     name: 'Home',
     to: '/'
   },
   flight: {
-    icon: 'mdi-airplane-takeoff',
+    icon: 'icofont-ui-flight icofont-2x',
     name: 'Flight',
     to: '/flight'
   },
   mybooking: {
-    icon: 'mdi-ticket-percent',
+    icon: 'icofont-air-ticket icofont-2x',
     name: 'MyBooking',
     to: '/mybooking'
   },
   user: {
-    icon: 'mdi-account-outline',
+    icon: 'icofont-badge icofont-2x',
     name: 'User',
     to: '/'
   }

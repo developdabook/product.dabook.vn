@@ -7,7 +7,9 @@
       class="tw-font-normal"
     >
       <span>{{ nav.name }}</span>
-      <v-icon>{{ nav.icon }}</v-icon>
+
+      <i :class="nav.icon"></i>
+      <!-- <v-icon>{{ nav.icon }}</v-icon> -->
     </v-btn>
   </v-bottom-navigation>
 </template>

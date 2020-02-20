@@ -7,7 +7,7 @@
       <div class="passenger-select-box">
         <v-btn
           @click="minusPerson('ADULT')"
-          :disabled="this.passenger.ADULT === 0"
+          :disabled="passenger.ADULT === 0"
           fab
           text
           icon
@@ -26,7 +26,7 @@
         </div>
         <v-btn
           @click="plusPerson('ADULT')"
-          :disabled="this.totalPassenger === 5"
+          :disabled="totalPassenger === 5"
           fab
           text
           icon
@@ -39,7 +39,7 @@
       <div class="passenger-select-box">
         <v-btn
           @click="minusPerson('CHILDREN')"
-          :disabled="this.passenger.CHILDREN === 0"
+          :disabled="passenger.CHILDREN === 0"
           fab
           text
           icon
@@ -58,7 +58,7 @@
         </div>
         <v-btn
           @click="plusPerson('CHILDREN')"
-          :disabled="this.totalPassenger === 5"
+          :disabled="totalPassenger === 5"
           fab
           text
           icon
@@ -71,7 +71,7 @@
       <div class="passenger-select-box">
         <v-btn
           @click="minusPerson('INFANT')"
-          :disabled="this.passenger.INFANT === 0"
+          :disabled="passenger.INFANT === 0"
           fab
           text
           icon
@@ -90,7 +90,7 @@
         </div>
         <v-btn
           @click="plusPerson('INFANT')"
-          :disabled="this.totalPassenger === 5"
+          :disabled="totalPassenger === 5"
           fab
           text
           icon
