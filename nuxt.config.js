@@ -35,7 +35,9 @@ module.exports = {
    */
   plugins: [
     { src: '@/plugins/v-calendar', ssr: false },
-    { src: 'plugins/owl.js', ssr: false }
+    { src: 'plugins/owl.js', ssr: false },
+    '~/plugins/global.js',
+    '~/plugins/axios.js'
   ],
   /*
    ** Nuxt.js dev-modules
@@ -45,7 +47,8 @@ module.exports = {
     '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
     '@nuxtjs/tailwindcss',
-    '@nuxtjs/moment'
+    '@nuxtjs/moment',
+    '@nuxtjs/dotenv'
   ],
   /*
    ** Nuxt.js modules
@@ -81,7 +84,9 @@ module.exports = {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: 'https://cors-anywhere.herokuapp.com/http://45.32.99.26'
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module

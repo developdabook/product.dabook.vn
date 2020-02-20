@@ -8,6 +8,7 @@
 <script>
 export default {
   name: 'RequestResetPage',
+  layout: 'unauthen',
   components: {
     RequestReset: () => import('@/components/auth/RequestReset')
   }

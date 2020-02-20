@@ -33,10 +33,24 @@
         @click="draw.leftDraw = !draw.leftDraw"
         color="primary"
       ></v-app-bar-nav-icon>
-      <v-btn text depressed rounded color="primary" class="tw-normal-case"
+      <v-btn
+        text
+        depressed
+        rounded
+        color="primary"
+        class="tw-normal-case"
+        nuxt
+        to="/flight"
         >Flight <v-icon small>mdi-airplane-takeoff</v-icon></v-btn
       >
-      <v-btn text depressed rounded color="primary" class="tw-normal-case"
+      <v-btn
+        text
+        depressed
+        rounded
+        color="primary"
+        class="tw-normal-case"
+        nuxt
+        to="/travel"
         >Travel <v-icon small>mdi-beach</v-icon></v-btn
       >
       <v-toolbar-title>
@@ -44,33 +58,49 @@
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <v-btn icon color="primary">
+      <v-btn icon color="primary" class="tw-hidden md:tw-inline-block">
         <v-icon>mdi-map-marker-multiple-outline</v-icon>
       </v-btn>
-      <v-btn icon color="primary">
+      <v-btn icon color="primary" class="tw-hidden md:tw-inline-block">
         <v-icon class="rotate-45">mdi-ticket-percent</v-icon>
       </v-btn>
 
-      <v-btn icon color="primary">
+      <v-btn icon color="primary" class="tw-hidden md:tw-inline-block">
         <v-icon>mdi-heart</v-icon>
       </v-btn>
 
       <v-btn icon color="primary">
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
-      <v-menu v-model="loginMenu" :close-on-content-click="false" offset-x>
+      <v-menu
+        v-model="loginMenu"
+        :close-on-content-click="false"
+        absolute
+        offset-x
+      >
         <template v-slot:activator="{ on }">
-          <v-avatar v-on="on" size="30">
-            <img
-              src="https://randomuser.me/api/portraits/women/44.jpg"
-              alt="John"
-              size="20"
-            />
-          </v-avatar>
+          <v-btn v-on="on" text fab icon color="primary">
+            <v-icon v-if="!loginStatus">
+              mdi-shield-check
+            </v-icon>
+
+            <v-avatar v-else size="30">
+              <img
+                src="https://randomuser.me/api/portraits/women/44.jpg"
+                alt="John"
+                size="20"
+              />
+            </v-avatar>
+          </v-btn>
         </template>
 
         <v-card class="tw-shadow-lg tw-rounded-lg tw-max-w-screen-sm w-screen">
-          <Signin />
+          <Signin
+            @loggined="closeMenu($event)"
+            @close="closeMenu(true)"
+            v-show="!loginStatus"
+          />
+          <MenuAuth v-show="loginStatus" @close="closeMenu(true)" />
         </v-card>
       </v-menu>
     </v-app-bar>
@@ -80,7 +110,8 @@
 export default {
   name: 'HeaderComponent',
   components: {
-    Signin: () => import('@/components/auth/Signin')
+    Signin: () => import('@/components/auth/Signin'),
+    MenuAuth: () => import('@/components/auth/MenuAuth')
   },
   data() {
     return {
@@ -90,11 +121,21 @@ export default {
       menus: [],
       loginMenu: false
     }
+  },
+  computed: {
+    loginStatus() {
+      return this.$store.getters['auth/isLogin']
+    }
+  },
+  methods: {
+    closeMenu(payload) {
+      this.loginMenu = !payload
+    }
   }
+  // watch: {
+  //   $route(to, from) {
+  //     this.loginMenu = false
+  //   }
+  // }
 }
 </script>
-<style lang="postcss">
-.rotate-45 {
-  transform: rotate(-45deg);
-}
-</style>

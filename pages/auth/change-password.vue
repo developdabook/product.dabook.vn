@@ -8,6 +8,7 @@
 <script>
 export default {
   name: 'ResetPasswordPage',
+  layout: 'unauthen',
   components: {
     ResetPassword: () => import('@/components/auth/ResetPassword')
   }

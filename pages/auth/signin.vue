@@ -8,6 +8,7 @@
 <script>
 export default {
   name: 'SigninPage',
+  layout: 'unauthen',
   components: {
     Signin: () => import('@/components/auth/Signin')
   }

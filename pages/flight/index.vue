@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'HomePage',
+  name: 'FlightPage',
   layout: 'unauthen',
   components: {
     Background: () => import('@/components/Background'),

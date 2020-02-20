@@ -3,26 +3,27 @@ export const state = () => ({
   currentUser: {
     userName: 'Guest',
     email: '',
-    token: ''
+    token: '',
+    _id: ''
   },
   loginStatus: false
 })
 export const mutations = {
   UPDATE_TOKEN(state, payload) {
     state.currentUser.token = payload
-    axios.defaults.headers.common['x-access-token'] = payload.accessToken
-    // axios.defaults.headers.common.Authorization = `Bearer ${payload}`
-    // this.$axios.defaults.headers.common.Authorization = `Bearer ${payload}`
+    axios.defaults.headers.common.Authorization = `Bearer ${payload}`
+    this.$axios.defaults.headers.common.Authorization = `Bearer ${payload}`
   },
   UPDATE_EMAIL(state, payload) {
     state.currentUser.email = payload
   },
-  UPDATE_ISLOGIN(state, payload) {
+  UPDATE_LOGIN_STATUS(state, payload) {
     state.loginStatus = payload
   },
   REMOVE_TOKEN(state) {
     state.currentUser.token = ''
-    delete axios.defaults.headers.common['x-access-token']
+    delete axios.defaults.headers.common.Authorization
+    delete this.$axios.defaults.headers.common.Authorization
   },
   LOGOUT(state) {
     state.loginStatus = false
@@ -45,7 +46,7 @@ export const actions = {
   async login({ dispatch, commit, state, rootState }, credentials) {
     try {
       const result = await this.$axios.post(
-        `${process.env.RENTS_API}/auth/login`,
+        `/dabook/public/api/login`,
         credentials
       )
       if (result.status === 200 && result.statusText === 'OK') {
@@ -63,7 +64,7 @@ export const actions = {
         } else {
           commit('UPDATE_TOKEN', result.data)
           commit('UPDATE_EMAIL', credentials.email)
-          commit('UPDATE_ISLOGIN', true)
+          commit('UPDATE_LOGIN_STATUS', true)
           dispatch(
             'notification/addNotification',
             {
@@ -89,7 +90,7 @@ export const actions = {
         'notification/addNotification',
         {
           type: 'ERROR',
-          title: 'SIGNUP FAIL!',
+          title: 'SIGNIN FAIL!',
           message
         },
         { root: true }
@@ -100,7 +101,7 @@ export const actions = {
   async requestReset({ dispatch, commit, state, rootState }, credentials) {
     try {
       const res = await this.$axios.post(
-        `${process.env.RENTS_API}/auth/request-reset`,
+        `${process.env.CRAWL_FLIGHT_API}/auth/request-reset`,
         credentials
       )
       if (res.status === 200 && res.statusText === 'OK') {
@@ -117,7 +118,7 @@ export const actions = {
           return false
         } else {
           commit('REMOVE_TOKEN')
-          commit('UPDATE_ISLOGIN', false)
+          commit('UPDATE_LOGIN_STATUS', false)
           dispatch(
             'notification/addNotification',
             {
@@ -154,7 +155,7 @@ export const actions = {
   },
   async reset({ dispatch, commit, state, rootState }, credentials) {
     const res = await this.$axios.post(
-      `${process.env.RENTS_API}/auth/reset`,
+      `${process.env.CRAWL_FLIGHT_API}/auth/reset`,
       credentials
     )
     if (res.status === 200 && res.statusText === 'OK') {
@@ -171,7 +172,7 @@ export const actions = {
         return false
       } else {
         commit('REMOVE_TOKEN')
-        commit('UPDATE_ISLOGIN', false)
+        commit('UPDATE_LOGIN_STATUS', false)
         dispatch(
           'notification/addNotification',
           {
@@ -201,19 +202,32 @@ export const actions = {
     )
   },
   signup({ dispatch, commit }, credentials) {
-    return axios
-      .post(`${process.env.RENTS_API}/auth/signup`, credentials)
+    return this.$axios
+      .post(`/dabook/public/api/signup`, credentials)
       .then((res) => {
         if (res.status === 200 && res.statusText === 'OK') {
-          dispatch(
-            'notification/addNotification',
-            {
-              type: 'SUCCESS',
-              title: 'Signup success, Please login!',
-              message: ''
-            },
-            { root: true }
-          )
+          if ('error' in res.data) {
+            dispatch(
+              'notification/addNotification',
+              {
+                type: 'ERROR',
+                title: 'Signup fail!',
+                message: `${res.data.error}`
+              },
+              { root: true }
+            )
+            return false
+          } else {
+            dispatch(
+              'notification/addNotification',
+              {
+                type: 'SUCCESS',
+                title: 'Signup success, Please login!',
+                message: ''
+              },
+              { root: true }
+            )
+          }
         } else {
           dispatch(
             'notification/addNotification',

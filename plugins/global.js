@@ -1,4 +1,4 @@
 import Vue from 'vue'
-import Error from '../components/generals/Error.vue'
+import PushNotification from '../components/generals/PushNotification'
 
-Vue.component('Error', Error)
+Vue.component('PushNotification', PushNotification)

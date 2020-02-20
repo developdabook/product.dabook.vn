@@ -20,8 +20,8 @@
 
 <script>
 export default {
-  name: 'AuthenLayout',
-  middleware: 'authenticated',
+  name: 'UnAuthenLayout',
+  middleware: 'not_require_authenticated',
   components: {
     HeaderComponent: () => import('@/components/HeaderComponent'),
     BottomNavigator: () => import('@/components/BottomNavigator')

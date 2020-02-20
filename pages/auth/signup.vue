@@ -8,6 +8,7 @@
 <script>
 export default {
   name: 'SignupPage',
+  layout: 'unauthen',
   components: {
     Signup: () => import('@/components/auth/Signup')
   }
