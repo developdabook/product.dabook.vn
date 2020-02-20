@@ -178,7 +178,7 @@ export default {
         first_name: '',
         last_name: '',
         email: '',
-        role: 'RETAIL_USER',
+        role: 'user',
         password: '',
         password_confirmation: ''
       },

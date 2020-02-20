@@ -54,7 +54,7 @@
                 depressed
               >
                 Passenger
-                <v-icon>mdi-menu-down-outline</v-icon>
+                <v-icon>mdi-menu-down</v-icon>
               </v-btn>
             </template>
 
@@ -75,7 +75,7 @@
                 depressed
               >
                 CabinClass
-                <v-icon>mdi-menu-down-outline</v-icon>
+                <v-icon>mdi-menu-down</v-icon>
               </v-btn>
             </template>
 
@@ -105,6 +105,10 @@ export default {
 }
 </script>
 <style lang="postcss">
+.sticky-component {
+  border-style: solid !important;
+  @apply tw-border-b tw-border-blue-600;
+}
 .sticky-search {
   min-height: 3rem;
   @apply tw-flex tw-flex-row tw-justify-between tw-items-center;
