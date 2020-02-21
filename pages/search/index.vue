@@ -5,15 +5,13 @@
       <StickyMobiSearch class="stick-mob tw-flex md:tw-hidden" />
     </section>
     <section id="body-target" class="section-search-result tw-container">
-      <div class="left-filter"></div>
+      <div class="left-filter"><FilterComponent /></div>
       <div class="center-search">
         <Ticket v-for="i in 10" :key="i" class="tw-mb-4" />
       </div>
       <div class="right-pro"></div>
     </section>
-    <section class="section-filter">
-      <FilterComponent />
-    </section>
+    <section class="section-filter"></section>
   </div>
 </template>
 <script>
@@ -48,7 +46,6 @@ export default {
 .center-search {
   @apply tw-w-full tw-px-4 tw-m-0;
 }
-.left-filter,
 .right-pro {
   @apply tw-hidden;
 }

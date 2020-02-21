@@ -14,7 +14,7 @@
       </v-expansion-panel-content>
     </v-expansion-panel>
     <v-expansion-panel>
-      <v-expansion-panel-header class="filter-panel-header tw-border-0">
+      <v-expansion-panel-header class="filter-panel-header">
         <template v-slot:actions>
           <v-icon small>mdi-chevron-down</v-icon>
         </template>
@@ -69,7 +69,7 @@
 </template>
 <script>
 export default {
-  name: 'FilterMobile',
+  name: 'FilterAction',
   components: {
     FilterPrice: () => import('@/components/filter/FilterPrice'),
     FilterTime: () => import('@/components/filter/FilterTime'),
@@ -85,6 +85,7 @@ export default {
 </script>
 <style lang="postcss">
 .filter-panel-header {
+  border-style: solid;
   @apply tw-text-gray-600 tw-font-bold tw-text-sm tw-border-t tw-border-gray-200  tw-p-1;
 }
 </style>
