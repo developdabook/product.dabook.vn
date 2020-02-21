@@ -12,7 +12,7 @@
       <div class="right-pro"></div>
     </section>
     <section class="section-filter">
-      <FilterMobile />
+      <FilterComponent />
     </section>
   </div>
 </template>
@@ -25,7 +25,7 @@ export default {
     StickyDeskSearch: () => import('@/components/search/StickyDeskSearch'),
     StickyMobiSearch: () => import('@/components/search/StickyMobiSearch'),
     Ticket: () => import('@/components/select/Ticket'),
-    FilterMobile: () => import('@/components/filter/FilterMobi')
+    FilterComponent: () => import('@/components/filter/FilterComponent')
   },
   data() {
     return {
