@@ -13,7 +13,6 @@
       height="250"
       transition="scale-transition"
       type="card-avatar"
-      class="tw-m-4"
     >
       <div class="ticket-component">
         <v-card flat>
@@ -44,7 +43,7 @@
                     <div class=" tw-mb-4">
                       <v-chip
                         text-color="primary"
-                        color="blue lighten-4"
+                        color="blue-grey lighten-5"
                         small
                         class="font-weight-bold"
                       >
@@ -59,7 +58,7 @@
                             width="24"
                             tile
                             color="blue-grey lighten-5"
-                            class="tw-rounded-full"
+                            class="tw-rounded"
                           >
                             <img
                               :src="
@@ -253,7 +252,7 @@ export default {
 </script>
 <style lang="postcss">
 .ticket-component {
-  @apply tw-p-4 tw-border tw-border-teal-400 tw-shadow tw-bg-white;
+  @apply tw-p-4 tw-bg-white;
 }
 .ticket-component:hover {
   @apply tw-shadow-lg;

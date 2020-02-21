@@ -1,5 +1,11 @@
 <template>
-  <v-bottom-navigation v-model="currentTarget" grow color="primary">
+  <v-bottom-navigation
+    v-model="currentTarget"
+    grow
+    fixed
+    hide-on-scroll
+    color="primary"
+  >
     <v-btn
       v-for="(nav, i) in navs"
       :key="i + 'navbar'"

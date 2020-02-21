@@ -4,7 +4,7 @@
       Please select trip type
     </v-card-subtitle>
     <v-card-text class="px-4">
-      <v-radio-group v-model="roundTrip">
+      <v-radio-group v-model="roundTrip" @change="changeRoundTrip">
         <div
           v-for="(trip, n) in tripType"
           :key="n"
@@ -40,6 +40,10 @@ export default {
       tripType
     }
   },
-  methods: {}
+  methods: {
+    changeRoundTrip() {
+      this.$emit('input', this.roundTrip)
+    }
+  }
 }
 </script>

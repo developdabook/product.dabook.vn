@@ -1,13 +1,13 @@
 const tripType = [
   {
     text: 'OneWay',
-    value: 'ONEWAY',
+    value: false,
     description: 'Một chiều',
     icon: 'mdi-format-horizontal-align-right'
   },
   {
     text: 'Return',
-    value: 'RETURN',
+    value: true,
     description: 'Khứ hồi 2 chiều',
     icon: 'mdi-swap-horizontal'
   }

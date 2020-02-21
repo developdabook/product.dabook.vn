@@ -11,10 +11,10 @@
               text
               color="primarytext"
               class="tw-normal-case"
-              >Roundtrip <v-icon small>mdi-chevron-down</v-icon></v-btn
+              >{{ roundtripSum }} <v-icon small>mdi-chevron-down</v-icon></v-btn
             >
           </template>
-          <SelectRoundTrip />
+          <SelectRoundTrip v-model="searchCondition.isRoundtrip" />
         </v-menu>
         <v-menu :close-on-content-click="false" :nudge-width="200" offset-y>
           <template v-slot:activator="{ on }">
@@ -25,10 +25,11 @@
               text
               color="primarytext"
               class="tw-normal-case"
-              >Passenger<v-icon small>mdi-chevron-down</v-icon></v-btn
+              ><v-icon small>mdi-account-multiple</v-icon>{{ passengerSum
+              }}<v-icon small>mdi-chevron-down</v-icon></v-btn
             >
           </template>
-          <SelectPassenger />
+          <SelectPassenger v-model="searchCondition.passenger" />
         </v-menu>
         <v-menu :close-on-content-click="false" :nudge-width="200" offset-y>
           <template v-slot:activator="{ on }">
@@ -39,10 +40,10 @@
               text
               color="primarytext"
               class="tw-normal-case"
-              >CabinClass<v-icon small>mdi-chevron-down</v-icon></v-btn
+              >{{ cabinClassSum }}<v-icon small>mdi-chevron-down</v-icon></v-btn
             >
           </template>
-          <SelectCabinClass />
+          <SelectCabinClass v-model="searchCondition.cabinClass" />
         </v-menu>
       </div>
       <div class="desktop-search-box">
@@ -51,18 +52,21 @@
             <template v-slot:activator="{ on }">
               <v-text-field
                 v-on="on"
+                :value="fromSum"
                 label="From"
                 placeholder="HAN- Ha Noi"
                 outlined
                 dense
                 readonly
                 hide-details
-                single-line
                 class="input-sm tw-rounded-r-none tw-mr-2"
               ></v-text-field>
             </template>
             <v-card class="tw-h-128 tw-bg-white tw-max-30">
-              <SelectLocation />
+              <SelectLocation
+                v-model="searchCondition.from"
+                :exceptionLocal="searchCondition.to"
+              />
             </v-card>
           </v-menu>
           <v-btn
@@ -80,18 +84,21 @@
             <template v-slot:activator="{ on }">
               <v-text-field
                 v-on="on"
+                :value="toSum"
                 label="To"
                 placeholder="HAN- Ha Noi"
                 outlined
                 dense
                 readonly
                 hide-details
-                single-line
                 class="input-sm tw-rounded-l-none tw-ml-2"
               ></v-text-field>
             </template>
             <v-card class="tw-h-128 tw-bg-white tw-max-30">
-              <SelectLocation />
+              <SelectLocation
+                v-model="searchCondition.to"
+                :exceptionLocal="searchCondition.from"
+              />
             </v-card>
           </v-menu>
         </div>
@@ -100,33 +107,41 @@
             <template v-slot:activator="{ on }">
               <v-text-field
                 v-on="on"
+                :value="departureSum"
                 label="Departure"
                 placeholder="20 August 2020"
                 outlined
                 dense
                 readonly
                 hide-details
-                single-line
                 class="input-sm tw-rounded-r-none"
               ></v-text-field>
             </template>
-            <SelectTimeDesktop />
+            <SelectTimeDesktop
+              v-model="searchCondition.departure"
+              :minDate="new Date()"
+            />
           </v-menu>
           <v-menu :close-on-content-click="false" :nudge-width="200" offset-y>
             <template v-slot:activator="{ on }">
               <v-text-field
                 v-on="on"
+                :value="arrivedSum"
                 label="Arrived"
                 placeholder="22 August 2020"
                 outlined
                 dense
                 readonly
                 hide-details
-                single-line
                 class="input-sm tw-rounded-l-none"
               ></v-text-field>
             </template>
-            <SelectTimeDesktop />
+            <SelectTimeDesktop
+              v-model="searchCondition.arrived"
+              :minDate="
+                new Date($moment(searchCondition.departure, 'DD-MM-YYYY'))
+              "
+            />
           </v-menu>
         </div>
         <v-btn rounded depressed class="change-search-btn">Change</v-btn>
@@ -146,7 +161,63 @@ export default {
   },
   data() {
     return {
-      menu: false
+      searchCondition: this.$store.getters['search/getSearchCondition'] || {
+        from: {},
+        to: {},
+        departure: this.$moment().format('DD-MM-YYYY'),
+        arrived: this.$moment()
+          .add(4, 'day')
+          .format('DD-MM-YYYY'),
+        passenger: {
+          ADULT: 0,
+          CHILDREN: 0,
+          INFANT: 0
+        },
+        cabinClass: ['ECONOMY'],
+        isRoundtrip: false
+      }
+    }
+  },
+  computed: {
+    passengerSum() {
+      const total =
+        this.searchCondition.passenger.ADULT +
+        +this.searchCondition.passenger.CHILDREN +
+        +this.searchCondition.passenger.INFANT
+      if (total === 0) {
+        return 'Passenger'
+      }
+      return total + ' Person'
+    },
+    cabinClassSum() {
+      if (this.searchCondition.cabinClass.length === 1) {
+        return 'Economy'
+      } else if (this.searchCondition.cabinClass.length > 1) {
+        return 'Economy +'
+      }
+      return 'Cabin'
+    },
+    departureSum() {
+      return this.searchCondition.departure
+    },
+    arrivedSum() {
+      return this.searchCondition.arrived
+    },
+    fromSum() {
+      return typeof this.searchCondition.from.airportCode === 'undefined'
+        ? ''
+        : `[${this.searchCondition.from.airportCode}] ${this.searchCondition.from.airportName}`
+    },
+    toSum() {
+      return typeof this.searchCondition.to.airportCode === 'undefined'
+        ? ''
+        : `[${this.searchCondition.to.airportCode}] ${this.searchCondition.to.airportName}`
+    },
+    roundtripSum() {
+      if (this.searchCondition.isRoundtrip) {
+        return 'Roundtrip'
+      }
+      return 'Oneway'
     }
   },
   methods: {

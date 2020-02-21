@@ -16,7 +16,9 @@ export const state = () => ({
     cabinClass: ['ECONOMY'],
     isRoundtrip: false
   },
-  section: ''
+  section: '',
+  filterCondition: {},
+  sortCondition: {}
 })
 export const mutations = {
   UPDATE_SEARCH_CONDITION(state, payload) {
@@ -32,5 +34,11 @@ export const actions = {
   },
   updateSearchSection({ commit, state }, payload) {
     commit('UPDATE_SECTION', payload)
+  }
+}
+
+export const getters = {
+  getSearchCondition(state) {
+    return _.clone(state.searchCondition)
   }
 }
