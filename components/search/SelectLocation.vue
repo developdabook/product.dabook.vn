@@ -1,13 +1,13 @@
 <template>
   <v-card flat class="tw-rounded-none"
-    ><v-card-subtitle class="tw-bg-blue-600 tw-text-white">
+    ><v-card-subtitle class="tw-text-gray-400 tw-font-bold">
       Please select location
     </v-card-subtitle>
     <v-progress-linear
       :active="loading.search"
       :indeterminate="loading.search"
       absolute
-      color="success"
+      color="teal accent-4"
     ></v-progress-linear>
     <v-card-subtitle>
       <v-text-field

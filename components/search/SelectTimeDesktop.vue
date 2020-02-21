@@ -11,12 +11,12 @@
             :is-inline="true"
             :is-expanded="true"
             :min-date="minDate"
-            :columns="1"
-            :rows="12"
+            :columns="2"
+            :rows="1"
             :attributes="attrs"
             @input="changeDate"
             mode="single"
-            class="tw-border-0"
+            class="tw-border tw-border-gray-200 tw-rounded-sm"
           />
         </client-only>
       </v-lazy>

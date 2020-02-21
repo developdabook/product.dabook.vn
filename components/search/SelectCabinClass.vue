@@ -1,6 +1,6 @@
 <template>
   <v-card flat class="tw-rounded-none"
-    ><v-card-subtitle class="tw-bg-blue-600 tw-text-white">
+    ><v-card-subtitle class="tw-text-gray-400 tw-font-bold">
       Please select cabin class
     </v-card-subtitle>
     <v-card-text class="px-4">
@@ -18,16 +18,18 @@
           <template v-slot:label>
             <div class="tw-flex tw-flex-col tw-justify-start">
               <strong class="tw-text-gray-800 tw-text-sm tw-m-0 tw-p-0">
-                <v-icon color="primary" small>{{ cabin.icon }}</v-icon
-                >{{ cabin.text }}</strong
+                {{ cabin.text }}</strong
               >
             </div>
           </template>
         </v-checkbox>
 
-        <span class="tw-text-gray-600 tw-text-xs tw-m-0 tw-p-0">{{
-          cabin.description
-        }}</span>
+        <span class="tw-text-gray-600 tw-text-xs tw-m-0 tw-p-0"
+          >{{ cabin.description
+          }}<v-icon color="primary" class="tw-ml-2" small>{{
+            cabin.icon
+          }}</v-icon></span
+        >
       </div>
     </v-card-text>
   </v-card>

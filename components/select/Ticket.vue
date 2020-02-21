@@ -1,230 +1,236 @@
 <template>
-  <div class="ticket-component">
-    <v-card flat>
-      <v-card-text class="ticket-box">
-        <div class="ticket-info">
-          <div class="round-item">
-            <div class="round-date">Fri, 21st Feb 2020</div>
-            <div class="round-airline">
-              <div class="newtk-timeline">
-                <v-icon class="tw-text-xs tw-text-gray-600"
-                  >mdi-dots-vertical-circle</v-icon
-                >
-                <span class="tw-flex-grow newtk-timeline-center">
-                  <v-icon class="tw-text-sm rotate-180 tw-text-gray-600"
-                    >mdi-airplane</v-icon
-                  >
-                </span>
-                <v-icon class="tw-text-xs tw-text-gray-600"
-                  >mdi-dots-vertical-circle</v-icon
-                >
-              </div>
-              <div class="detail-airline">
-                <p class="tw-text-sm tw-text-gray-700 tw-m-0 tw-mb-4">
-                  <strong class="tw-mr-2">Augt, 20 2020</strong
-                  ><strong class="tw-mr-2">Ha Noi</strong
-                  ><span class="tw-text-xs">HAN</span>
-                </p>
-                <div class=" tw-mb-4">
+  <v-lazy
+    :options="{
+      threshold: 0.5
+    }"
+    min-height="250"
+    transition="fade-transition"
+  >
+    <v-skeleton-loader
+      ref="skeleton"
+      :tile="false"
+      :loading="loading"
+      height="250"
+      transition="scale-transition"
+      type="card-avatar"
+      class="tw-m-4"
+    >
+      <div class="ticket-component">
+        <v-card flat>
+          <v-card-text class="ticket-box">
+            <div class="ticket-info">
+              <div class="round-item">
+                <div class="round-date">Fri, 21st Feb 2020</div>
+                <div class="round-airline">
+                  <div class="newtk-timeline">
+                    <v-icon class="tw-text-xs tw-text-gray-600"
+                      >mdi-dots-vertical-circle</v-icon
+                    >
+                    <span class="tw-flex-grow newtk-timeline-center">
+                      <v-icon class="tw-text-sm rotate-180 tw-text-gray-600"
+                        >mdi-airplane</v-icon
+                      >
+                    </span>
+                    <v-icon class="tw-text-xs tw-text-gray-600"
+                      >mdi-dots-vertical-circle</v-icon
+                    >
+                  </div>
+                  <div class="detail-airline">
+                    <p class="tw-text-sm tw-text-gray-700 tw-m-0 tw-mb-4">
+                      <strong class="tw-mr-2">Augt, 20 2020</strong
+                      ><strong class="tw-mr-2">Ha Noi</strong
+                      ><span class="tw-text-xs">HAN</span>
+                    </p>
+                    <div class=" tw-mb-4">
+                      <v-chip
+                        text-color="primary"
+                        color="blue lighten-4"
+                        small
+                        class="font-weight-bold"
+                      >
+                        2h 30min
+                      </v-chip>
+
+                      <v-tooltip top color="primary" z-index="999999">
+                        <template v-slot:activator="{ on }">
+                          <v-avatar
+                            v-on="on"
+                            height="24"
+                            width="24"
+                            tile
+                            color="blue-grey lighten-5"
+                            class="tw-rounded-full"
+                          >
+                            <img
+                              :src="
+                                `https://booking.kayak.com/rimg/provider-logos/airlines/v/VN.png?crop=false&width=92&height=92`
+                              "
+                            />
+                          </v-avatar>
+                        </template>
+                        <span
+                          >VietNam Airline
+                          <v-icon color="#FFF" small
+                            >mdi-information-outline</v-icon
+                          >
+                        </span>
+                      </v-tooltip>
+                      <v-chip
+                        small
+                        color="blue-grey lighten-5"
+                        text-color="#4A5568"
+                        class="font-weight-bold"
+                      >
+                        <v-icon class="tw-text-sm">mdi-airplane</v-icon>
+                      </v-chip>
+                      <v-chip
+                        small
+                        color="blue-grey lighten-5"
+                        text-color="#4A5568"
+                        class="font-weight-bold"
+                      >
+                        Direct
+                      </v-chip>
+                    </div>
+                    <p class="tw-text-sm tw-text-gray-700 tw-m-0">
+                      <strong class="tw-mr-2">Jul 21 2019</strong
+                      ><strong class="tw-mr-2">Ho Chi Minh</strong
+                      ><span class="tw-text-xs">SGN</span>
+                    </p>
+                  </div>
+                  <div class="filter-action">
+                    <v-tooltip top color="primary">
+                      <template v-slot:activator="{ on }">
+                        <v-checkbox
+                          v-on="on"
+                          color="primary"
+                          hide-details
+                          class="tw-m-0"
+                        ></v-checkbox>
+                      </template>
+                      <span
+                        >Lọc theo chuyến bay này
+                        <v-icon color="#FFF" small
+                          >mdi-information-outline</v-icon
+                        >
+                      </span>
+                    </v-tooltip>
+                  </div>
+                </div>
+                <v-divider class="ma-4 tw-border-gray-200"></v-divider>
+                <div class="round-subinfo">
                   <v-chip
-                    text-color="primary"
-                    color="blue lighten-4"
                     small
+                    color="blue-grey lighten-5"
+                    text-color="#4A5568"
                     class="font-weight-bold"
                   >
-                    2h 30min
+                    Economy
                   </v-chip>
-
-                  <v-tooltip top color="primary" z-index="999999">
+                  <v-tooltip top color="primary">
                     <template v-slot:activator="{ on }">
-                      <v-avatar
+                      <v-btn
                         v-on="on"
-                        height="24"
-                        width="24"
-                        tile
-                        color="blue-grey lighten-5"
-                        class="tw-rounded-full"
-                      >
-                        <img
-                          :src="
-                            `https://booking.kayak.com/rimg/provider-logos/airlines/v/VN.png?crop=false&width=92&height=92`
-                          "
-                        />
-                      </v-avatar>
+                        @click="drawer.isDraw = true"
+                        small
+                        depressed
+                        rounded
+                        class="tw-normal-case tw-text-xs"
+                        text
+                        color="primary"
+                        >Show more
+                        <v-icon small>mdi-chevron-down</v-icon>
+                      </v-btn>
                     </template>
                     <span
-                      >VietNam Airline
+                      >Click để hiển thị chi tiết thông tin chuyến bay và option
+                      giá
+                      <v-icon color="#FFF" small
+                        >mdi-information-outline</v-icon
+                      ></span
+                    >
+                  </v-tooltip>
+                  <v-chip small color="red lighten-5" text-color="red darken-4">
+                    Lưu ý giá trên chưa bao gồm phụ phí
+                    <v-icon small class="ml-2"
+                      >mdi-information-outline</v-icon
+                    ></v-chip
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="ticket-action">
+              <div class="price-wrap">
+                <div class="sub-action">
+                  <v-tooltip top color="primary">
+                    <template v-slot:activator="{ on }">
+                      <v-btn v-on="on" small text icon fab color="#4A5568">
+                        <v-icon>mdi-heart-outline</v-icon>
+                      </v-btn>
+                    </template>
+                    <span
+                      >Lưu chuyến bay ưa thích của bạn
                       <v-icon color="#FFF" small
                         >mdi-information-outline</v-icon
                       >
                     </span>
                   </v-tooltip>
-                  <v-chip
-                    small
-                    color="blue-grey lighten-5"
-                    text-color="blue-grey darken-4"
-                    class="font-weight-bold"
-                  >
-                    <v-icon class="tw-text-sm">mdi-airplane</v-icon>
-                  </v-chip>
-                  <v-chip
-                    small
-                    color="blue-grey lighten-5"
-                    text-color="blue-grey darken-4"
-                    class="font-weight-bold"
-                  >
-                    Direct
-                  </v-chip>
+                  <v-tooltip top color="primary">
+                    <template v-slot:activator="{ on }">
+                      <v-btn v-on="on" small text icon fab color="#4A5568">
+                        <v-icon>mdi-share-all-outline</v-icon>
+                      </v-btn>
+                    </template>
+                    <span
+                      >Chia sẻ chuyến bay với người thân của bạn
+                      <v-icon color="#FFF" small
+                        >mdi-information-outline</v-icon
+                      >
+                    </span>
+                  </v-tooltip>
+                  <v-tooltip top color="primary">
+                    <template v-slot:activator="{ on }">
+                      <v-btn v-on="on" small text icon fab color="#4A5568">
+                        <v-icon>mdi-information-outline</v-icon>
+                      </v-btn>
+                    </template>
+                    <span
+                      >Click để xem chi tiết
+                      <v-icon color="#FFF" small
+                        >mdi-information-outline</v-icon
+                      >
+                    </span>
+                  </v-tooltip>
                 </div>
-                <p class="tw-text-sm tw-text-gray-700 tw-m-0">
-                  <strong class="tw-mr-2">Jul 21 2019</strong
-                  ><strong class="tw-mr-2">Ho Chi Minh</strong
-                  ><span class="tw-text-xs">SGN</span>
-                </p>
+                <div class="total-price">
+                  <strong class="price-title">58$</strong>
+                </div>
               </div>
-              <div class="filter-action">
-                <v-tooltip top color="primary">
-                  <template v-slot:activator="{ on }">
-                    <v-checkbox
-                      v-on="on"
-                      color="primary"
-                      hide-details
-                      class="tw-m-0"
-                    ></v-checkbox>
-                  </template>
-                  <span
-                    >Lọc theo chuyến bay này
-                    <v-icon color="#FFF" small>mdi-information-outline</v-icon>
-                  </span>
-                </v-tooltip>
-              </div>
-            </div>
-            <v-divider class="ma-4 tw-border-gray-200"></v-divider>
-            <div class="round-subinfo">
-              <v-chip
-                small
-                color="blue-grey lighten-5"
-                text-color="blue-grey darken-4"
-                class="font-weight-bold"
-              >
-                Economy
-              </v-chip>
-              <v-tooltip top color="primary">
-                <template v-slot:activator="{ on }">
-                  <v-btn
-                    v-on="on"
-                    @click="drawer.isDraw = true"
-                    small
-                    depressed
-                    rounded
-                    class="tw-normal-case tw-text-xs"
-                    text
-                    color="primary"
-                    >Show more
-                    <v-icon small>mdi-chevron-down</v-icon>
-                  </v-btn>
-                </template>
-                <span
-                  >Click để hiển thị chi tiết thông tin chuyến bay và option giá
-                  <v-icon color="#FFF" small
-                    >mdi-information-outline</v-icon
-                  ></span
+              <div class="select-action">
+                <v-btn color="primary" depressed rounded class="select-btn"
+                  >Select departure ticket</v-btn
                 >
-              </v-tooltip>
-              <v-chip small color="red lighten-5" text-color="red darken-4">
-                Lưu ý giá trên chưa bao gồm phụ phí
-                <v-icon small class="ml-2"
-                  >mdi-information-outline</v-icon
-                ></v-chip
-              >
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="ticket-action">
-          <div class="price-wrap">
-            <div class="sub-action">
-              <v-tooltip top color="primary">
-                <template v-slot:activator="{ on }">
-                  <v-btn
-                    v-on="on"
-                    small
-                    text
-                    icon
-                    fab
-                    color="blue-grey darken-4"
-                  >
-                    <v-icon>mdi-heart-outline</v-icon>
-                  </v-btn>
-                </template>
-                <span
-                  >Lưu chuyến bay ưa thích của bạn
-                  <v-icon color="#FFF" small>mdi-information-outline</v-icon>
-                </span>
-              </v-tooltip>
-              <v-tooltip top color="primary">
-                <template v-slot:activator="{ on }">
-                  <v-btn
-                    v-on="on"
-                    small
-                    text
-                    icon
-                    fab
-                    color="blue-grey darken-4"
-                  >
-                    <v-icon>mdi-share-all-outline</v-icon>
-                  </v-btn>
-                </template>
-                <span
-                  >Chia sẻ chuyến bay với người thân của bạn
-                  <v-icon color="#FFF" small>mdi-information-outline</v-icon>
-                </span>
-              </v-tooltip>
-              <v-tooltip top color="primary">
-                <template v-slot:activator="{ on }">
-                  <v-btn
-                    v-on="on"
-                    small
-                    text
-                    icon
-                    fab
-                    color="blue-grey darken-4"
-                  >
-                    <v-icon>mdi-information-outline</v-icon>
-                  </v-btn>
-                </template>
-                <span
-                  >Click để xem chi tiết
-                  <v-icon color="#FFF" small>mdi-information-outline</v-icon>
-                </span>
-              </v-tooltip>
-            </div>
-            <div class="total-price">
-              <strong class="price-title">58$</strong>
-            </div>
-          </div>
-          <div class="select-action">
-            <v-btn color="primary" depressed rounded class="select-btn"
-              >Select departure ticket</v-btn
-            >
-          </div>
-        </div>
-      </v-card-text>
-    </v-card>
-    <section class="section-ticket-detail">
-      <v-navigation-drawer
-        v-model="drawer.isDraw"
-        :class="{ 'draw-70': drawer.isMaxHeight }"
-        temporary
-        app
-        fixed
-        right
-        bottom
-        width="350px"
-        height="100vh"
-      >
-      </v-navigation-drawer>
-    </section>
-  </div>
+          </v-card-text>
+        </v-card>
+        <section class="section-ticket-detail">
+          <v-navigation-drawer
+            v-model="drawer.isDraw"
+            :class="{ 'draw-70': drawer.isMaxHeight }"
+            temporary
+            app
+            fixed
+            right
+            bottom
+            width="350px"
+            height="100vh"
+          >
+          </v-navigation-drawer>
+        </section>
+      </div>
+    </v-skeleton-loader>
+  </v-lazy>
 </template>
 <script>
 export default {
@@ -233,14 +239,21 @@ export default {
     return {
       drawer: {
         isDraw: false
-      }
+      },
+      loading: false
     }
+  },
+  mounted() {
+    this.loading = true
+    setTimeout(() => {
+      this.loading = false
+    }, 6000)
   }
 }
 </script>
 <style lang="postcss">
 .ticket-component {
-  @apply tw-p-4 tw-border tw-border-teal-400 tw-shadow;
+  @apply tw-p-4 tw-border tw-border-teal-400 tw-shadow tw-bg-white;
 }
 .ticket-component:hover {
   @apply tw-shadow-lg;

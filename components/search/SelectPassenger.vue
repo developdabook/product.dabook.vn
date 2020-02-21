@@ -1,6 +1,6 @@
 <template>
   <v-card flat class="tw-rounded-none"
-    ><v-card-subtitle class="tw-bg-blue-600 tw-text-white">
+    ><v-card-subtitle class="tw-text-gray-400 tw-font-bold">
       Please select passenger
     </v-card-subtitle>
     <v-card-text class="px-4">
@@ -17,7 +17,7 @@
           ><v-icon>mdi-minus</v-icon></v-btn
         >
         <div class="passenger-info">
-          <strong class="m-0 p-0 tw-text-base tw-text-blue-600"
+          <strong class="m-0 p-0 tw-text-sm tw-text-blue-600"
             >{{ passenger.ADULT }} Adult</strong
           >
           <span class="tw-text-xs tw-text-gray-600">
@@ -49,7 +49,7 @@
           ><v-icon>mdi-minus</v-icon></v-btn
         >
         <div class="passenger-info">
-          <strong class="m-0 p-0 tw-text-base tw-text-blue-600"
+          <strong class="m-0 p-0 tw-text-sm tw-text-blue-600"
             >{{ passenger.CHILDREN }} Children</strong
           >
           <span class="tw-text-xs tw-text-gray-600">
@@ -81,7 +81,7 @@
           ><v-icon>mdi-minus</v-icon></v-btn
         >
         <div class="passenger-info">
-          <strong class="m-0 p-0 tw-text-base tw-text-blue-600"
+          <strong class="m-0 p-0 tw-text-sm tw-text-blue-600"
             >{{ passenger.INFANT }} Infant</strong
           >
           <span class="tw-text-xs tw-text-gray-600">

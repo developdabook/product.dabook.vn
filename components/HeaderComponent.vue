@@ -22,22 +22,16 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar
-      app
-      absolute
-      elevate-on-scroll
-      scroll-target="#body-target"
-      color="white"
-    >
+    <v-app-bar app absolute flat scroll-target="#body-target" color="white">
       <v-app-bar-nav-icon
         @click="draw.leftDraw = !draw.leftDraw"
-        color="primary"
+        color="#718096"
       ></v-app-bar-nav-icon>
       <v-btn
         text
         depressed
         rounded
-        color="primary"
+        color="#718096"
         class="tw-normal-case"
         nuxt
         to="/flight"
@@ -47,7 +41,7 @@
         text
         depressed
         rounded
-        color="primary"
+        color="#718096"
         class="tw-normal-case"
         nuxt
         to="/travel"
@@ -58,18 +52,18 @@
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <v-btn icon color="primary" class="tw-hidden md:tw-inline-block">
-        <v-icon>mdi-map-marker-multiple-outline</v-icon>
+      <v-btn icon color="#718096" class="tw-hidden md:tw-inline-block">
+        <v-icon color="#718096">mdi-map-marker-multiple-outline</v-icon>
       </v-btn>
-      <v-btn icon color="primary" class="tw-hidden md:tw-inline-block">
-        <v-icon class="rotate-45">mdi-ticket-percent</v-icon>
-      </v-btn>
-
-      <v-btn icon color="primary" class="tw-hidden md:tw-inline-block">
-        <v-icon>mdi-heart</v-icon>
+      <v-btn icon color="#718096" class="tw-hidden md:tw-inline-block">
+        <i class="icofont-air-ticket icofont-2x"></i>
       </v-btn>
 
-      <v-btn icon color="primary">
+      <v-btn icon color="#718096" class="tw-hidden md:tw-inline-block">
+        <v-icon color="#718096">mdi-heart-outline</v-icon>
+      </v-btn>
+
+      <v-btn icon color="#718096">
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
       <v-menu
@@ -79,9 +73,9 @@
         offset-x
       >
         <template v-slot:activator="{ on }">
-          <v-btn v-on="on" text fab icon color="primary">
+          <v-btn v-on="on" text fab icon color="#718096">
             <v-icon v-if="!loginStatus">
-              mdi-shield-check
+              mdi-shield-check-outline
             </v-icon>
 
             <v-avatar v-else size="30">
