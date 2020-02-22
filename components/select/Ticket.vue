@@ -229,7 +229,7 @@
             fixed
             right
             bottom
-            width="350px"
+            width="450px"
             height="100vh"
           >
             <TicketDetail :ticket="ticket" />
@@ -272,7 +272,7 @@ export default {
     this.loading = true
     setTimeout(() => {
       this.loading = false
-    }, 6000)
+    }, 600)
   }
 }
 </script>

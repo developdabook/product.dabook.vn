@@ -4,7 +4,7 @@
       <HeaderComponent />
     </section>
     <v-content id="body-target">
-      <v-container>
+      <v-container class="tw-w-full tw-h-full">
         <nuxt />
       </v-container>
     </v-content>
