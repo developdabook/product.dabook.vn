@@ -25,46 +25,49 @@
     <v-app-bar app absolute flat scroll-target="#body-target" color="white">
       <v-app-bar-nav-icon
         @click="draw.leftDraw = !draw.leftDraw"
-        color="#718096"
+        color="primary"
+        class="primarytext--text"
       ></v-app-bar-nav-icon>
       <v-btn
         text
         depressed
         rounded
-        color="#718096"
+        color="primary"
         class="tw-normal-case"
         nuxt
         to="/flight"
-        >Flight <v-icon small>mdi-airplane-takeoff</v-icon></v-btn
+        ><span class="primarytext--text">Flight</span>
+        <v-icon small color="primarytext">mdi-airplane-takeoff</v-icon></v-btn
       >
       <v-btn
         text
         depressed
         rounded
-        color="#718096"
+        color="primary"
         class="tw-normal-case"
         nuxt
         to="/travel"
-        >Travel <v-icon small>mdi-beach</v-icon></v-btn
+        ><span class="primarytext--text">Travel</span>
+        <v-icon small color="primarytext">mdi-beach</v-icon></v-btn
       >
       <v-toolbar-title>
         <v-img aspect-ratio="1/1" src="/images/logo_trans.png"> </v-img>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <v-btn icon color="#718096" class="tw-hidden md:tw-inline-block">
-        <v-icon color="#718096">mdi-map-marker-multiple-outline</v-icon>
+      <v-btn icon color="primary" class="tw-hidden md:tw-inline-block">
+        <v-icon color="primarytext">mdi-map-marker-multiple-outline</v-icon>
       </v-btn>
-      <v-btn icon color="#718096" class="tw-hidden md:tw-inline-block">
-        <i class="icofont-air-ticket icofont-2x"></i>
-      </v-btn>
-
-      <v-btn icon color="#718096" class="tw-hidden md:tw-inline-block">
-        <v-icon color="#718096">mdi-heart-outline</v-icon>
+      <v-btn icon color="primary" class="tw-hidden md:tw-inline-block">
+        <i class="icofont-air-ticket icofont-2x primarytext--text"></i>
       </v-btn>
 
-      <v-btn icon color="#718096">
-        <v-icon>mdi-dots-vertical</v-icon>
+      <v-btn icon color="primary" class="tw-hidden md:tw-inline-block">
+        <v-icon color="primarytext">mdi-heart-outline</v-icon>
+      </v-btn>
+
+      <v-btn icon color="primary">
+        <v-icon color="primarytext">mdi-dots-vertical</v-icon>
       </v-btn>
       <v-menu
         v-model="loginMenu"
@@ -73,8 +76,8 @@
         offset-x
       >
         <template v-slot:activator="{ on }">
-          <v-btn v-on="on" text fab icon color="#718096">
-            <v-icon v-if="!loginStatus">
+          <v-btn v-on="on" text fab icon color="primary">
+            <v-icon v-if="!loginStatus" color="primarytext">
               mdi-shield-check-outline
             </v-icon>
 

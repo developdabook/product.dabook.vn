@@ -67,7 +67,7 @@
                 class="tw-flex tw-flex-col tw-justify-end tw-items-end"
                 >Is Roundtrip?
                 <v-switch
-                  v-model="searchCondition.isRoundtrip"
+                  v-model="searchCondition.isRoundTrip"
                   hide-details
                 ></v-switch
               ></label>
@@ -79,7 +79,7 @@
                 selectCondition('arrived')
                 drawer.isMaxHeight = true
               "
-              v-show="searchCondition.isRoundtrip"
+              v-show="searchCondition.isRoundTrip"
               :value="arrivedSum"
               label="Arrived"
               prepend-inner-icon="mdi-calendar-export"
@@ -215,12 +215,12 @@ export default {
           .add(4, 'day')
           .format('DD-MM-YYYY'),
         passenger: {
-          ADULT: 0,
+          ADULT: 1,
           CHILDREN: 0,
           INFANT: 0
         },
         cabinClass: ['ECONOMY'],
-        isRoundtrip: false
+        isRoundTrip: false
       }
     }
   },
@@ -296,7 +296,7 @@ export default {
           origin: this.searchCondition.from.airportCode,
           destination: this.searchCondition.from.airportCode,
           date: this.searchCondition.departure,
-          date1: this.searchCondition.isRoundtrip
+          date1: this.searchCondition.isRoundTrip
             ? this.searchCondition.arrived
             : '',
           adults: this.searchCondition.passenger.ADULT,

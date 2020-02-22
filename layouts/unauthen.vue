@@ -8,7 +8,9 @@
         <nuxt />
       </v-container>
     </v-content>
-    <section class="section-footer"></section>
+    <section class="section-footer">
+      <FooterComponent />
+    </section>
     <section class="section-bottomnavi">
       <BottomNavigator />
     </section>
@@ -23,7 +25,8 @@ export default {
   name: 'UnAuthenLayout',
   components: {
     HeaderComponent: () => import('@/components/HeaderComponent'),
-    BottomNavigator: () => import('@/components/BottomNavigator')
+    BottomNavigator: () => import('@/components/BottomNavigator'),
+    FooterComponent: () => import('@/components/FooterComponent')
   },
   data() {
     return {}

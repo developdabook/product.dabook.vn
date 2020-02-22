@@ -14,7 +14,7 @@
               >{{ roundtripSum }} <v-icon small>mdi-chevron-down</v-icon></v-btn
             >
           </template>
-          <SelectRoundTrip v-model="searchCondition.isRoundtrip" />
+          <SelectRoundTrip v-model="searchCondition.isRoundTrip" />
         </v-menu>
         <v-menu :close-on-content-click="false" :nudge-width="200" offset-y>
           <template v-slot:activator="{ on }">
@@ -60,7 +60,8 @@
                 readonly
                 hide-details
                 class="input-sm tw-rounded-r-none tw-mr-2"
-              ></v-text-field>
+              >
+              </v-text-field>
             </template>
             <v-card class="tw-h-128 tw-bg-white tw-max-30">
               <SelectLocation
@@ -174,7 +175,7 @@ export default {
           INFANT: 0
         },
         cabinClass: ['ECONOMY'],
-        isRoundtrip: false
+        isRoundTrip: false
       }
     }
   },
@@ -206,15 +207,19 @@ export default {
     fromSum() {
       return typeof this.searchCondition.from.airportCode === 'undefined'
         ? ''
-        : `[${this.searchCondition.from.airportCode}] ${this.searchCondition.from.airportName}`
+        : `[${
+            this.searchCondition.from.airportCode
+          }] ${this.searchCondition.from.airportName.substring(0, 20)}...`
     },
     toSum() {
       return typeof this.searchCondition.to.airportCode === 'undefined'
         ? ''
-        : `[${this.searchCondition.to.airportCode}] ${this.searchCondition.to.airportName}`
+        : `[${
+            this.searchCondition.to.airportCode
+          }] ${this.searchCondition.to.airportName.substring(0, 20)}...`
     },
     roundtripSum() {
-      if (this.searchCondition.isRoundtrip) {
+      if (this.searchCondition.isRoundTrip) {
         return 'Roundtrip'
       }
       return 'Oneway'

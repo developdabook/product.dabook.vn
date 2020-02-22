@@ -6,7 +6,7 @@
           >Tạo thông báo cho kết quả này
           <v-icon small>mdi-bell-outline</v-icon></v-btn
         >
-        <v-menu :close-on-content-click="false" :nudge-width="200">
+        <v-menu>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" color="primarytext" text small>
               <v-icon small>mdi-sort-ascending</v-icon>
@@ -21,9 +21,6 @@
                   :key="i"
                   :value="item.value"
                 >
-                  <v-list-item-icon>
-                    <v-icon>{{ item.icon }}</v-icon>
-                  </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title v-text="item.name"></v-list-item-title>
                   </v-list-item-content>

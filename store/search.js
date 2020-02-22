@@ -14,7 +14,7 @@ export const state = () => ({
       INFANT: 0
     },
     cabinClass: ['ECONOMY'],
-    isRoundtrip: false
+    isRoundTrip: false
   },
   section: '',
   filterCondition: {},
@@ -23,6 +23,18 @@ export const state = () => ({
 export const mutations = {
   UPDATE_SEARCH_CONDITION(state, payload) {
     state.searchCondition = _.clone(payload)
+    state.searchCondition.departure = moment(
+      state.searchCondition.departure,
+      'DD-MM-YYYY'
+    ).format('DD-MM-YYYY')
+    if (!state.searchCondition.isRoundTrip) {
+      state.searchCondition.arrived = ''
+    } else {
+      state.searchCondition.arrived = moment(
+        state.searchCondition.arrived,
+        'DD-MM-YYYY'
+      ).format('DD-MM-YYYY')
+    }
   },
   UPDATE_SECTION(state, payload) {
     state.section = payload

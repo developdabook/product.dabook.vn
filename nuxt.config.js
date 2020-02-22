@@ -107,7 +107,8 @@ module.exports = {
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
-          primarytext: '#2D3748',
+          primarytext: '#3C4043',
+          secondarytext: '#70757A',
           componentColor: '#4A5568'
         },
         light: {
@@ -118,7 +119,8 @@ module.exports = {
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
-          primarytext: '#2D3748',
+          primarytext: '#3C4043',
+          secondarytext: '#70757A',
           componentColor: '#4A5568'
         }
       }

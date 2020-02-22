@@ -19,7 +19,7 @@
           <v-card-text class="ticket-box">
             <div class="ticket-info">
               <div class="round-item">
-                <div class="round-date">Fri, 21st Feb 2020</div>
+                <div class="round-date">{{ ticket.formatStartDate }}</div>
                 <div class="round-airline">
                   <div class="newtk-timeline">
                     <v-icon class="tw-text-xs tw-text-gray-600"
@@ -36,18 +36,21 @@
                   </div>
                   <div class="detail-airline">
                     <p class="tw-text-sm tw-text-gray-700 tw-m-0 tw-mb-4">
-                      <strong class="tw-mr-2">Augt, 20 2020</strong
-                      ><strong class="tw-mr-2">Ha Noi</strong
-                      ><span class="tw-text-xs">HAN</span>
+                      <strong class="tw-mr-2">{{ ticket.StartTime }}</strong
+                      ><strong class="tw-mr-2">{{
+                        ticket.formatStartPoint.city
+                      }}</strong
+                      ><span class="tw-text-xs">{{ ticket.StartPoint }}</span>
                     </p>
                     <div class=" tw-mb-4">
                       <v-chip
                         text-color="primary"
                         color="blue-grey lighten-5"
                         small
+                        label
                         class="font-weight-bold"
                       >
-                        2h 30min
+                        {{ ticket.formatTotalTime }}
                       </v-chip>
 
                       <v-tooltip top color="primary" z-index="999999">
@@ -62,13 +65,13 @@
                           >
                             <img
                               :src="
-                                `https://booking.kayak.com/rimg/provider-logos/airlines/v/VN.png?crop=false&width=92&height=92`
+                                `https://booking.kayak.com/rimg/provider-logos/airlines/v/${ticket.Airline}.png?crop=false&width=92&height=92`
                               "
                             />
                           </v-avatar>
                         </template>
                         <span
-                          >VietNam Airline
+                          >{{ ticket.formatIATA.name }}
                           <v-icon color="#FFF" small
                             >mdi-information-outline</v-icon
                           >
@@ -92,9 +95,11 @@
                       </v-chip>
                     </div>
                     <p class="tw-text-sm tw-text-gray-700 tw-m-0">
-                      <strong class="tw-mr-2">Jul 21 2019</strong
-                      ><strong class="tw-mr-2">Ho Chi Minh</strong
-                      ><span class="tw-text-xs">SGN</span>
+                      <strong class="tw-mr-2">{{ ticket.EndTime }}</strong
+                      ><strong class="tw-mr-2">{{
+                        ticket.formatEndPoint.city
+                      }}</strong
+                      ><span class="tw-text-xs">{{ ticket.EndPoint }}</span>
                     </p>
                   </div>
                   <div class="filter-action">
@@ -124,7 +129,7 @@
                     text-color="#4A5568"
                     class="font-weight-bold"
                   >
-                    Economy
+                    {{ ticket.MinFare.Description }}
                   </v-chip>
                   <v-tooltip top color="primary">
                     <template v-slot:activator="{ on }">
@@ -202,7 +207,9 @@
                   </v-tooltip>
                 </div>
                 <div class="total-price">
-                  <strong class="price-title">58$</strong>
+                  <strong class="price-title">
+                    <PriceValidation :price="ticketSelected.fare.Totalfare"
+                  /></strong>
                 </div>
               </div>
               <div class="select-action">
@@ -225,6 +232,7 @@
             width="350px"
             height="100vh"
           >
+            <TicketDetail :ticket="ticket" />
           </v-navigation-drawer>
         </section>
       </div>
@@ -234,12 +242,30 @@
 <script>
 export default {
   name: 'Ticket',
+  components: {
+    PriceValidation: () => import('@/components/generals/PriceValidation'),
+    TicketDetail: () => import('@/components/select/TicketDetail')
+  },
+  props: {
+    ticket: {
+      type: [Object, Array],
+      required: true
+    },
+    actionBtnTitle: {
+      type: String,
+      default: 'Book this ticket'
+    }
+  },
   data() {
     return {
       drawer: {
         isDraw: false
       },
-      loading: false
+      loading: false,
+      ticketSelected: {
+        ticket: this.ticket,
+        fare: this.ticket.MinFare
+      }
     }
   },
   mounted() {
@@ -290,7 +316,7 @@ export default {
   @apply tw-w-full tw-flex tw-flex-col tw-justify-between tw-items-stretch tw-p-4;
 }
 .select-btn {
-  @apply tw-w-full tw-normal-case;
+  @apply tw-w-full tw-normal-case tw-font-normal !important;
 }
 .price-title {
   @apply tw-text-2xl tw-text-gray-800;
