@@ -87,16 +87,19 @@
                   Kiểm tra phụ phí Một số hãng hàng không / đại lý tính thêm phí
                   hành lý, bảo hiểm hoặc sử dụng thẻ tín dụng và bao gồm phí
                   dịch vụ.
+                  <nuxt-link to="/help/airlinefees" target="_blank"
+                    >Xem phí của hãng hàng không
+                  </nuxt-link>
                 </li>
                 <li>
-                  Xem phí của hãng hàng không Kiểm tra các điều khoản & điều
-                  kiện cho các hành khách trong độ tuổi từ 12-16 Các giới hạn có
-                  thể áp dụng với hành khách nhỏ tuổi đi một mình.
+                  Kiểm tra các điều khoản & điều kiện cho các hành khách trong
+                  độ tuổi từ 12-16 Các giới hạn có thể áp dụng với hành khách
+                  nhỏ tuổi đi một mình.
                 </li>
               </ul>
             </div>
-          </v-card-text></v-card
-        >
+            <ContactBanner class="tw-shadow-none" /> </v-card-text
+        ></v-card>
       </v-tab-item>
     </v-tabs>
   </div>
@@ -106,7 +109,8 @@ import GeneralApi from '@/services/GeneralApi'
 export default {
   name: 'FlightDetail',
   components: {
-    FlightSegment: () => import('@/components/select/FlightSegment')
+    FlightSegment: () => import('@/components/select/FlightSegment'),
+    ContactBanner: () => import('@/components/search/ContactBanner')
   },
   props: {
     ticket: {
@@ -141,14 +145,14 @@ export default {
   @apply tw-text-gray-800 tw-font-normal tw-normal-case !important;
 }
 .flight-timeline:before {
-  left: calc(24px - 1px) !important;
+  left: calc(12px - 1px) !important;
   width: 1px !important;
 }
 .flight-timeline .v-timeline-item.theme--light .v-timeline-item__body {
-  max-width: calc(100% - 24px) !important;
+  max-width: calc(100% - 12px) !important;
 }
 .flight-timeline .v-timeline-item.theme--light .v-timeline-item__divider {
-  min-width: 48px !important;
+  min-width: 24px !important;
 }
 .fare-option-body {
   @apply tw-flex tw-flex-col tw-justify-start tw-my-2;
@@ -161,5 +165,20 @@ export default {
 }
 .tab-condition {
   @apply tw-text-gray-800 tw-text-xs;
+}
+.tab-condition ul {
+  list-style: initial !important;
+}
+@screen md {
+  .flight-timeline:before {
+    left: calc(24px - 1px) !important;
+    width: 1px !important;
+  }
+  .flight-timeline .v-timeline-item.theme--light .v-timeline-item__body {
+    max-width: calc(100% - 24px) !important;
+  }
+  .flight-timeline .v-timeline-item.theme--light .v-timeline-item__divider {
+    min-width: 48px !important;
+  }
 }
 </style>

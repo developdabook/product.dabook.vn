@@ -4,18 +4,18 @@
       <HeaderComponent />
     </section>
     <v-content id="body-target">
-      <v-container class="tw-w-full tw-h-full">
+      <v-container>
         <nuxt />
       </v-container>
     </v-content>
-    <section class="section-footer">
-      <FooterComponent />
-    </section>
     <section class="section-bottomnavi">
       <BottomNavigator />
     </section>
     <section class="global-component">
       <PushNotification />
+    </section>
+    <section class="section-footer">
+      <FooterComponent />
     </section>
   </v-app>
 </template>
@@ -23,6 +23,7 @@
 <script>
 export default {
   name: 'UnAuthenLayout',
+  middleware: 'not_require_authenticated',
   components: {
     HeaderComponent: () => import('@/components/HeaderComponent'),
     BottomNavigator: () => import('@/components/BottomNavigator'),

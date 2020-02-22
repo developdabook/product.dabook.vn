@@ -8,14 +8,14 @@
         <nuxt />
       </v-container>
     </v-content>
-    <section class="section-footer">
-      <FooterComponent />
-    </section>
     <section class="section-bottomnavi">
       <BottomNavigator />
     </section>
     <section class="global-component">
       <PushNotification />
+    </section>
+    <section class="section-footer">
+      <FooterComponent />
     </section>
   </v-app>
 </template>

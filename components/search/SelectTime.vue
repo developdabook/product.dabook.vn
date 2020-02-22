@@ -14,6 +14,7 @@
             :columns="1"
             :rows="12"
             :attributes="attrs"
+            :select-attribute="attrs[0]"
             @input="changeDate"
             mode="single"
             class="tw-border-0"
@@ -40,8 +41,12 @@ export default {
         {
           key: 'today',
           highlight: {
-            backgroundColor: '#1A73E8',
-            fillMode: 'light'
+            class: 'tw-bg-blue-600',
+            contentClass: 'tw-text-white tw-text-xs',
+            backgroundColor: 'red'
+          },
+          popover: {
+            label: 'Nhanh chân lên Còn rất ít chuyến bay khuyến mãi'
           },
           dates: new Date()
         }
@@ -52,6 +57,7 @@ export default {
   methods: {
     changeDate() {
       this.$emit('input', this.$moment(this.selectedDate).format('DD-MM-YYYY'))
+      this.$emit('change')
     }
   }
 }

@@ -41,6 +41,7 @@ export default {
 .absolute-bg {
 }
 .background-component {
+  height: 600px;
   @apply tw-relative tw-w-screen;
 }
 .background-image {
@@ -52,6 +53,9 @@ export default {
   @apply tw-absolute tw-bg-blue-600 tw-top-0 tw-left-0 tw-w-screen;
 }
 @screen md {
+  .background-component {
+    height: 800px;
+  }
   .background-image {
     height: 800px;
   }

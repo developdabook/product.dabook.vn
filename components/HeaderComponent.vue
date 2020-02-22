@@ -22,7 +22,7 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar app absolute flat scroll-target="#body-target" color="white">
+    <v-app-bar app absolute scroll-target="#body-target" color="white">
       <v-app-bar-nav-icon
         @click="draw.leftDraw = !draw.leftDraw"
         color="primary"

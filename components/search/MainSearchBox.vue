@@ -166,6 +166,7 @@
           v-if="drawer.departure"
           v-model="searchCondition.departure"
           :minDate="new Date()"
+          @change="validateArrivedTime"
         />
         <SelectTime
           v-if="drawer.arrived"
@@ -294,7 +295,7 @@ export default {
           section,
           itinerary: '1',
           origin: this.searchCondition.from.airportCode,
-          destination: this.searchCondition.from.airportCode,
+          destination: this.searchCondition.to.airportCode,
           date: this.searchCondition.departure,
           date1: this.searchCondition.isRoundTrip
             ? this.searchCondition.arrived
@@ -341,6 +342,20 @@ export default {
                 airportName: 'Tan Son Nhat International Airport',
                 city: 'HoChiMinh'
               }
+      }
+    },
+    validateArrivedTime() {
+      if (
+        this.$moment(this.searchCondition.departure, 'DD-MM-YYYY').isAfter(
+          this.$moment(this.searchCondition.arrived, 'DD-MM-YYYY')
+        )
+      ) {
+        this.searchCondition.arrived = this.$moment(
+          this.searchCondition.departure,
+          'DD-MM-YYYY'
+        )
+          .add(4, 'day')
+          .format('DD-MM-YYYY')
       }
     },
     swapLocation() {

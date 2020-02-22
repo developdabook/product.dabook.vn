@@ -14,6 +14,7 @@
             :columns="2"
             :rows="1"
             :attributes="attrs"
+            :select-attribute="attrs[0]"
             @input="changeDate"
             mode="single"
             class="tw-border tw-border-gray-200 tw-rounded-sm"
@@ -40,8 +41,11 @@ export default {
         {
           key: 'today',
           highlight: {
-            backgroundColor: '#1A73E8',
-            fillMode: 'light'
+            class: 'tw-bg-blue-600',
+            contentClass: 'tw-text-red-600'
+          },
+          popover: {
+            label: "You just hovered over today's date!"
           },
           dates: new Date()
         }

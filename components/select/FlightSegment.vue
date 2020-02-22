@@ -16,9 +16,7 @@
         >
       </div>
       <div class="detail-airline">
-        <div
-          class="tw-text-sm tw-text-gray-700 tw-m-0 tw-mb-4  tw-flex tw-flex-col tw-justify-start"
-        >
+        <div class="segment-location">
           <div>
             <strong class="tw-mr-2">{{ segment.StartTime }}</strong>
 
@@ -40,7 +38,7 @@
             airPort.from.location
           }}</span>
         </div>
-        <div class=" tw-mb-4">
+        <div class="segment-time">
           <v-tooltip top color="primary" z-index="999999">
             <template v-slot:activator="{ on }">
               <v-chip
@@ -78,9 +76,7 @@
             >
           </v-tooltip>
         </div>
-        <div
-          class="tw-text-sm tw-text-gray-700 tw-flex tw-flex-col tw-justify-start"
-        >
+        <div class="segment-location">
           <div>
             <strong class="tw-mr-2">{{ segment.EndTime }}</strong
             ><v-skeleton-loader
@@ -149,6 +145,12 @@ export default {
 }
 </script>
 <style lang="postcss">
+.segment-location {
+  @apply tw-text-sm tw-text-gray-700 tw-m-0 tw-mb-4  tw-flex tw-flex-col tw-justify-start;
+}
+.segment-time {
+  @apply tw-mb-4 tw-p-2 tw-bg-gray-100 tw-rounded-sm tw-border tw-border-dashed tw-border-r-0;
+}
 .rotate-45 {
   transform: rotate(135deg) !important;
 }
