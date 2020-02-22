@@ -231,7 +231,7 @@ export default {
   @apply tw-rounded-none tw-border-t tw-border-gray-100 !important;
 }
 .sticky-search-box {
-  @apply tw-w-full tw-flex tw-flex-col tw-justify-between tw-items-start tw-p-4 tw-py-6;
+  @apply tw-w-full tw-flex tw-flex-col tw-justify-between tw-items-start tw-px-0 tw-py-6;
 }
 .change-search-btn {
   @apply tw-text-blue-600 tw-bg-gray-300 tw-font-normal tw-normal-case tw-px-6 !important;

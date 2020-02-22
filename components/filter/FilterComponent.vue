@@ -1,7 +1,7 @@
 <template>
   <div class="filter-component">
     <div class="filter-desktop">
-      <v-card outlined class="tw-w-full">
+      <v-card flat class="tw-w-full tw-rounded-none">
         <v-card-text>
           <FilterAction />
         </v-card-text>
@@ -10,7 +10,9 @@
     <div class="filter-mobile">
       <v-btn
         @click="sheet = true"
+        :depressed="false"
         rounded
+        outlined
         small
         color="primary"
         class="float-filter-btn"
@@ -50,6 +52,7 @@ export default {
   bottom: 4rem !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
+  @apply tw-bg-white tw-shadow-lg;
 }
 @screen md {
   .filter-mobile {

@@ -3,11 +3,6 @@
 @import 'tailwindcss/utilities';
 
 
-/* RESSET */
-button,button:hover,button:focus{
-  outline: none !important;
-}
-
 /* SCROLLBAR */
 /* width */
 ::-webkit-scrollbar {

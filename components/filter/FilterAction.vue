@@ -1,5 +1,11 @@
 <template>
-  <v-expansion-panels v-model="panel" accordion flat multiple>
+  <v-expansion-panels
+    v-model="panel"
+    accordion
+    flat
+    multiple
+    class="filter-action-component"
+  >
     <v-expansion-panel>
       <v-expansion-panel-header class="filter-panel-header tw-border-0">
         <template v-slot:actions>
@@ -86,6 +92,9 @@ export default {
 <style lang="postcss">
 .filter-panel-header {
   border-style: solid;
-  @apply tw-text-gray-600 tw-font-bold tw-text-sm tw-border-t tw-border-gray-200  tw-p-1;
+  @apply tw-text-gray-800 tw-font-bold tw-text-sm tw-border-t tw-border-gray-200  tw-p-1;
+}
+.filter-action-component .v-expansion-panel-content__wrap {
+  @apply tw-px-2;
 }
 </style>

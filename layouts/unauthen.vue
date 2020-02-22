@@ -31,6 +31,12 @@ export default {
 }
 </script>
 <style lang="postcss">
+/* RESSET */
+button,
+button:hover,
+button:focus {
+  outline: none !important;
+}
 .section-bottomnavi {
   @apply tw-block;
 }

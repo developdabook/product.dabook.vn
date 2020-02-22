@@ -7,9 +7,12 @@
     <section id="body-target" class="section-search-result tw-container">
       <div class="left-filter"><FilterComponent /></div>
       <div class="center-search">
+        <SortAction class="tw-mb-8" />
         <Ticket v-for="i in 10" :key="i" class="tw-mb-4" />
       </div>
-      <div class="right-pro"></div>
+      <div class="right-pro">
+        <ContactBanner />
+      </div>
     </section>
     <section class="section-filter"></section>
   </div>
@@ -23,7 +26,9 @@ export default {
     StickyDeskSearch: () => import('@/components/search/StickyDeskSearch'),
     StickyMobiSearch: () => import('@/components/search/StickyMobiSearch'),
     Ticket: () => import('@/components/select/Ticket'),
-    FilterComponent: () => import('@/components/filter/FilterComponent')
+    FilterComponent: () => import('@/components/filter/FilterComponent'),
+    SortAction: () => import('@/components/filter/SortAction'),
+    ContactBanner: () => import('@/components/search/ContactBanner')
   },
   data() {
     return {

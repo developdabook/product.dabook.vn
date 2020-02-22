@@ -13,13 +13,6 @@
       >
         <template v-slot:label>
           <div class="tw-flex tw-flex-row tw-justify-start">
-            <v-avatar class="tw-mr-2" size="20px">
-              <img
-                :src="
-                  `https://booking.kayak.com/rimg/provider-logos/airlines/v/${item.iata_code}.png?crop=false&width=20&height=20`
-                "
-              />
-            </v-avatar>
             <strong class="tw-text-gray-800 tw-text-sm tw-m-0 tw-p-0">
               {{ item.name }}</strong
             >
@@ -28,8 +21,14 @@
       </v-checkbox>
 
       <span class="tw-text-gray-600 tw-text-xs tw-m-0 tw-p-0"
-        >[{{ item.iata_code }}]{{ item.name }}</span
-      >
+        >[{{ item.iata_code }}]{{ item.name }}
+        <v-avatar class="tw-mr-2" size="20px">
+          <img
+            :src="
+              `https://booking.kayak.com/rimg/provider-logos/airlines/v/${item.iata_code}.png?crop=false&width=20&height=20`
+            "
+          /> </v-avatar
+      ></span>
     </div>
   </div>
 </template>
@@ -39,7 +38,7 @@ export default {
   name: 'FilterAirline',
   data() {
     return {
-      airlines: airlines.slice(0, 10),
+      airlines: airlines.slice(1, 10),
       airlineSelected: []
     }
   },

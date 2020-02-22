@@ -252,7 +252,7 @@ export default {
 </script>
 <style lang="postcss">
 .ticket-component {
-  @apply tw-p-4 tw-bg-white;
+  @apply tw-p-1 tw-bg-white tw-border tw-border-teal-500;
 }
 .ticket-component:hover {
   @apply tw-shadow-lg;
@@ -299,6 +299,9 @@ export default {
   @apply tw-flex tw-flex-row tw-justify-between tw-items-center;
 }
 @screen md {
+  .ticket-component {
+    @apply tw-p-4 tw-bg-white tw-border tw-border-teal-500;
+  }
   .ticket-box {
     @apply tw-flex tw-flex-row tw-justify-start tw-items-stretch;
   }
