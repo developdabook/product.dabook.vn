@@ -335,7 +335,12 @@
                 </div>
               </div>
               <div class="select-action">
-                <v-btn color="primary" depressed rounded class="select-btn"
+                <v-btn
+                  @click="acceptSelectTicket"
+                  color="primary"
+                  depressed
+                  rounded
+                  class="select-btn"
                   >Select pair ticket</v-btn
                 >
               </div>
@@ -416,6 +421,12 @@ export default {
     },
     acceptSelectTicket() {
       this.$store.dispatch('checkout/updateTicketSelected', this.ticketSelected)
+      this.$router.push({
+        path: 'checkout',
+        query: {
+          section: this.$store.getters['search/getSection']
+        }
+      })
     }
   }
 }

@@ -206,8 +206,13 @@
                 </div>
               </div>
               <div class="select-action">
-                <v-btn color="primary" depressed rounded class="select-btn"
-                  >Select departure ticket</v-btn
+                <v-btn
+                  @click="acceptSelectTicket"
+                  color="primary"
+                  depressed
+                  rounded
+                  class="select-btn"
+                  >{{ actionBtnTitle }}</v-btn
                 >
               </div>
             </div>
@@ -280,6 +285,12 @@ export default {
       const ticket = {}
       ticket[this.ticketSelected.ticket.type] = this.ticketSelected
       this.$store.dispatch('checkout/updateTicketSelected', ticket)
+      this.$router.push({
+        path: 'checkout',
+        query: {
+          section: this.$store.getters['search/getSection']
+        }
+      })
     }
   }
 }

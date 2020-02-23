@@ -30,6 +30,7 @@
               v-for="(ticket, i) in flightGrouping.DEPARTURE"
               :ticket="ticket"
               :key="i + 'departure_ticket'"
+              action-btn-title="Select departure ticket"
               class="tw-mb-4"
             />
           </div>
@@ -38,6 +39,7 @@
               v-for="(ticket, i) in flightGrouping.RETURN"
               :ticket="ticket"
               :key="i + 'retunr-ticket'"
+              action-btn-title="Select return ticket"
               class="tw-mb-4"
             />
           </div>

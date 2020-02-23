@@ -55,5 +55,8 @@ export const getters = {
   },
   isRoundTrip(state) {
     return state.searchCondition.isRoundTrip
+  },
+  getSection(state) {
+    return state.section
   }
 }
