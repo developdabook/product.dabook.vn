@@ -5,9 +5,17 @@
       <v-tab class="tab-title">Price</v-tab>
       <v-tab class="tab-title">Điều kiện</v-tab>
       <v-tab-item>
+        <v-subheader>
+          Chieu di<span class="fly-animate-depart"
+            ><v-icon class="rotate-90 tw-ml-1 tw-text-sm"
+              >mdi-airplane</v-icon
+            ></span
+          >
+        </v-subheader>
+        <v-divider></v-divider>
         <v-timeline dense class="tw-my-4 flight-timeline">
           <v-timeline-item
-            v-for="(seg, i) in ticket.Segments"
+            v-for="(seg, i) in ticket.DEPARTURE.Segments"
             :key="i + 'Segment'"
             small
             color="blue-grey lighten-5"
@@ -24,7 +32,7 @@
                   </v-avatar>
                 </template>
                 <span
-                  >{{ ticket.formatIATA.name }}
+                  >{{ ticket.DEPARTURE.formatIATA.name }}
                   <v-icon color="#FFF" small
                     >mdi-information-outline</v-icon
                   ></span
@@ -34,7 +42,49 @@
             <v-card class="my-4 py-4 tw-shadow" color="#FFF">
               <FlightSegment
                 :segment="seg"
-                :totalTime="ticket.formatTotalTime"
+                :totalTime="ticket.DEPARTURE.formatTotalTime"
+              />
+            </v-card>
+          </v-timeline-item>
+        </v-timeline>
+        <v-subheader>
+          Chieu ve<span class="fly-animate-return"
+            ><v-icon class="rotate-270 tw-ml-1 tw-text-sm"
+              >mdi-airplane</v-icon
+            ></span
+          >
+        </v-subheader>
+        <v-divider></v-divider>
+        <v-timeline dense class="tw-my-4 flight-timeline">
+          <v-timeline-item
+            v-for="(seg, i) in ticket.RETURN.Segments"
+            :key="i + 'Segment'"
+            small
+            color="blue-grey lighten-5"
+          >
+            <template v-slot:icon>
+              <v-tooltip top color="primary" z-index="999999">
+                <template v-slot:activator="{ on }">
+                  <v-avatar v-on="on" height="20" width="20">
+                    <img
+                      :src="
+                        `https://booking.kayak.com/rimg/provider-logos/airlines/v/${seg.Airline}.png?crop=false&width=92&height=92`
+                      "
+                    />
+                  </v-avatar>
+                </template>
+                <span
+                  >{{ ticket.RETURN.formatIATA.name }}
+                  <v-icon color="#FFF" small
+                    >mdi-information-outline</v-icon
+                  ></span
+                >
+              </v-tooltip>
+            </template>
+            <v-card class="my-4 py-4 tw-shadow" color="#FFF">
+              <FlightSegment
+                :segment="seg"
+                :totalTime="ticket.RETURN.formatTotalTime"
               />
             </v-card>
           </v-timeline-item>
@@ -43,9 +93,52 @@
       <v-tab-item>
         <v-card flat class="tw-my-4">
           <v-card-text>
-            <v-radio-group v-model="fareOptionSelected">
+            <v-subheader>
+              Chieu di
+              <span class="fly-animate-depart"
+                ><v-icon class="rotate-90 tw-ml-1 tw-text-sm"
+                  >mdi-airplane</v-icon
+                ></span
+              >
+            </v-subheader>
+            <v-divider></v-divider>
+            <v-radio-group v-model="fareOptionSelected.DEPARTURE">
               <div
-                v-for="(fare, i) in ticket.FareOptions"
+                v-for="(fare, i) in ticket.DEPARTURE.FareOptions"
+                :key="i + 'flightDetail'"
+                class="fare-option-body"
+              >
+                <v-radio :value="fare" hide-details class="tw-m-0"
+                  ><template v-slot:label>
+                    <div class="tw-flex tw-flex-row tw-justify-start">
+                      <strong class="class-info">
+                        {{ fare.Description }} class</strong
+                      ><strong class="teal--text tw-text-sm">{{
+                        new Intl.NumberFormat('vi-VN', {
+                          style: 'currency',
+                          currency: 'VND'
+                        }).format(fare.Totalfare)
+                      }}</strong>
+                    </div>
+                  </template></v-radio
+                >
+                <span class="seat-info"
+                  >{{ fare.SeatsAvailable }} seats available</span
+                >
+              </div>
+            </v-radio-group>
+            <v-subheader>
+              Chieu ve
+              <span class="fly-animate-return"
+                ><v-icon class="rotate-270 tw-ml-1 tw-text-sm"
+                  >mdi-airplane</v-icon
+                ></span
+              >
+            </v-subheader>
+            <v-divider></v-divider>
+            <v-radio-group v-model="fareOptionSelected.RETURN">
+              <div
+                v-for="(fare, i) in ticket.RETURN.FareOptions"
                 :key="i + 'flightDetail'"
                 class="fare-option-body"
               >
@@ -102,7 +195,7 @@
     <div class="detail-action">
       <div class="tw-mr-4">
         <strong class="price-select teal--text">
-          <PriceValidation :price="fareOptionSelected.Totalfare" />
+          <PriceValidation :price="totalFare" />
         </strong>
       </div>
       <v-btn
@@ -129,11 +222,11 @@
 import _ from 'lodash'
 import GeneralApi from '@/services/GeneralApi'
 export default {
-  name: 'TicketDetail',
+  name: 'PairTicketDetail',
   components: {
-    PriceValidation: () => import('@/components/generals/PriceValidation'),
     FlightSegment: () => import('@/components/select/FlightSegment'),
-    ContactBanner: () => import('@/components/search/ContactBanner')
+    ContactBanner: () => import('@/components/search/ContactBanner'),
+    PriceValidation: () => import('@/components/generals/PriceValidation')
   },
   props: {
     ticket: {
@@ -144,12 +237,24 @@ export default {
   data() {
     return {
       tab: null,
-      fareOptionSelected: this.ticket.MinFare
+      fareOptionSelected: {
+        DEPARTURE: this.ticket.DEPARTURE.MinFare,
+        RETURN: this.ticket.RETURN.MinFare
+      }
+    }
+  },
+  computed: {
+    totalFare() {
+      return (
+        this.fareOptionSelected.DEPARTURE.Totalfare +
+        this.fareOptionSelected.RETURN.Totalfare
+      )
     }
   },
   watch: {
     ticket(newVal) {
-      this.fareOptionSelected = _.clone(newVal.MinFare)
+      this.fareOptionSelected.DEPARTURE = _.clone(newVal.DEPARTURE.MinFare)
+      this.fareOptionSelected.RETURN = _.clone(newVal.RETURN.MinFare)
     }
   },
   methods: {
@@ -174,7 +279,7 @@ export default {
 </script>
 <style lang="postcss">
 .flight-detail {
-  @apply tw-text-sm tw-p-4 tw-relative !important;
+  @apply tw-text-sm tw-p-4 !important;
 }
 .tab-title {
   @apply tw-text-gray-800 tw-font-normal tw-normal-case !important;
@@ -204,6 +309,22 @@ export default {
 .tab-condition ul {
   list-style: initial !important;
 }
+.rotate-90 {
+  transform: rotate(90deg);
+}
+.rotate-270 {
+  transform: rotate(270deg);
+}
+.fly-animate-return {
+  animation-name: flyaniretrun;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+.fly-animate-depart {
+  animation-name: flyanidepat;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
 .detail-action {
   width: 100%;
   @apply tw-fixed tw-bottom-0 tw-right-0 tw-flex tw-justify-end tw-items-start tw-py-2 tw-mr-4 tw-bg-white tw-border-t;
@@ -213,6 +334,26 @@ export default {
 }
 .price-select {
   @apply tw-text-sm tw-font-bold tw-flex-grow tw-text-right tw-m-0 tw-p-0;
+}
+@keyframes flyaniretrun {
+  from {
+    transform: translateX(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes flyanidepat {
+  from {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(50px);
+    opacity: 1;
+  }
 }
 @screen md {
   .flight-timeline:before {

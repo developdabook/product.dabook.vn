@@ -62,6 +62,7 @@ module.exports = {
     '@nuxtjs/pwa',
     'nuxt-purgecss'
   ],
+  pageTransition: 'page',
   purgeCSS: {
     mode: 'postcss',
     enabled: true,
@@ -109,7 +110,8 @@ module.exports = {
           success: colors.green.accent3,
           primarytext: '#3C4043',
           secondarytext: '#70757A',
-          componentColor: '#4A5568'
+          componentColor: '#4A5568',
+          headercolor: '#5F6368'
         },
         light: {
           primary: '#1A73E8',
@@ -121,7 +123,8 @@ module.exports = {
           success: colors.green.accent3,
           primarytext: '#3C4043',
           secondarytext: '#70757A',
-          componentColor: '#4A5568'
+          componentColor: '#4A5568',
+          headercolor: '#5F6368'
         }
       }
     }

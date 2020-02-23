@@ -42,10 +42,10 @@ export default {
           key: 'today',
           highlight: {
             class: 'tw-bg-blue-600',
-            contentClass: 'tw-text-red-600'
+            contentClass: 'tw-text-white tw-text-xs'
           },
           popover: {
-            label: "You just hovered over today's date!"
+            label: 'Nhanh chân lên Còn rất ít chuyến bay khuyến mãi'
           },
           dates: new Date()
         }
@@ -56,6 +56,7 @@ export default {
   methods: {
     changeDate() {
       this.$emit('input', this.$moment(this.selectedDate).format('DD-MM-YYYY'))
+      this.$emit('change')
     }
   }
 }

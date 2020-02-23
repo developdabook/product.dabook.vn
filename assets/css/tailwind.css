@@ -27,3 +27,7 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #cbd5e0;
   }
+
+  .tw-text-xxs{
+    font-size: 0.6rem;
+  }

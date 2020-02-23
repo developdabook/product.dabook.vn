@@ -52,5 +52,8 @@ export const actions = {
 export const getters = {
   getSearchCondition(state) {
     return _.clone(state.searchCondition)
+  },
+  isRoundTrip(state) {
+    return state.searchCondition.isRoundTrip
   }
 }

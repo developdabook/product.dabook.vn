@@ -17,6 +17,14 @@
           <SortAction class="tw-mb-8 tw-w-full" />
         </div>
         <div class="result-box">
+          <div class="pair-ticket">
+            <PairTicket
+              v-for="(ticket, i) in flightGrouping.PAIR"
+              :ticket="ticket"
+              :key="i + 'retunr-ticket'"
+              class="tw-mb-4"
+            />
+          </div>
           <div class="departure-ticket">
             <Ticket
               v-for="(ticket, i) in flightGrouping.DEPARTURE"
@@ -33,7 +41,6 @@
               class="tw-mb-4"
             />
           </div>
-          <div class="pair-ticket"></div>
         </div>
       </div>
       <div class="right-pro">
@@ -54,6 +61,7 @@ export default {
     StickyDeskSearch: () => import('@/components/search/StickyDeskSearch'),
     StickyMobiSearch: () => import('@/components/search/StickyMobiSearch'),
     Ticket: () => import('@/components/select/Ticket'),
+    PairTicket: () => import('@/components/select/PairTicket'),
     FilterComponent: () => import('@/components/filter/FilterComponent'),
     SortAction: () => import('@/components/filter/SortAction'),
     ContactBanner: () => import('@/components/search/ContactBanner')
@@ -72,6 +80,9 @@ export default {
     searchCondition() {
       return this.$store.getters['search/getSearchCondition']
     },
+    isRoundTrip() {
+      return this.$store.getters['search/isRoundTrip']
+    },
     flightReFormat() {
       let newFlightList = []
       newFlightList = this.flightList.map((element) => ({
@@ -80,7 +91,13 @@ export default {
         ...this.getSkyCode(element),
         ...this.getLocationAndType(element),
         formatDirect:
-          element.StopNum === 0 ? 'Direct' : `${element.StopNum} Stop`
+          element.StopNum === 1 || element.StopNum === 0
+            ? 'Direct'
+            : `${element.StopNum} Stop`,
+        moreOption:
+          element.FareOptions.length === 1
+            ? 'Show detail'
+            : `More options (${element.FareOptions.length})`
       }))
       return newFlightList
     },

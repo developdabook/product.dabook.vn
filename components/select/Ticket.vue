@@ -4,7 +4,8 @@
       threshold: 0.5
     }"
     min-height="250"
-    transition="fade-transition"
+    transition="slide-x-transition"
+    origin="center center"
   >
     <v-skeleton-loader
       ref="skeleton"
@@ -48,7 +49,7 @@
                         color="blue-grey lighten-5"
                         small
                         label
-                        class="font-weight-bold"
+                        class="chip-info"
                       >
                         {{ ticket.formatTotalTime }}
                       </v-chip>
@@ -81,17 +82,17 @@
                         small
                         color="blue-grey lighten-5"
                         text-color="#4A5568"
-                        class="font-weight-bold"
+                        class="chip-info"
                       >
-                        <v-icon class="tw-text-sm">mdi-airplane</v-icon>
+                        {{ ticket.formatDirect }}
                       </v-chip>
                       <v-chip
                         small
                         color="blue-grey lighten-5"
                         text-color="#4A5568"
-                        class="font-weight-bold"
+                        class="chip-info"
                       >
-                        Direct
+                        {{ ticket.MinFare.Description }}
                       </v-chip>
                     </div>
                     <p class="tw-text-sm tw-text-gray-700 tw-m-0">
@@ -123,14 +124,6 @@
                 </div>
                 <v-divider class="ma-4 tw-border-gray-200"></v-divider>
                 <div class="round-subinfo">
-                  <v-chip
-                    small
-                    color="blue-grey lighten-5"
-                    text-color="#4A5568"
-                    class="font-weight-bold"
-                  >
-                    {{ ticket.MinFare.Description }}
-                  </v-chip>
                   <v-tooltip top color="primary">
                     <template v-slot:activator="{ on }">
                       <v-btn
@@ -142,7 +135,7 @@
                         class="tw-normal-case tw-text-xs"
                         text
                         color="primary"
-                        >Show more
+                        >{{ ticket.moreOption }}
                         <v-icon small>mdi-chevron-down</v-icon>
                       </v-btn>
                     </template>
@@ -232,7 +225,11 @@
             width="450px"
             height="100vh"
           >
-            <TicketDetail :ticket="ticket" />
+            <TicketDetail
+              :ticket="ticket"
+              @change="selectTicket($event)"
+              @close="drawer.isDraw = false"
+            />
           </v-navigation-drawer>
         </section>
       </div>
@@ -273,10 +270,31 @@ export default {
     setTimeout(() => {
       this.loading = false
     }, 600)
+  },
+  methods: {
+    selectTicket(payload) {
+      this.ticketSelected.fare = payload
+      this.acceptSelectTicket()
+    },
+    acceptSelectTicket() {
+      const ticket = {}
+      ticket[this.ticketSelected.ticket.type] = this.ticketSelected
+      this.$store.dispatch('checkout/updateTicketSelected', ticket)
+    }
   }
 }
 </script>
 <style lang="postcss">
+.fade-enter-active,
+.fade-leave-active {
+  transition-property: opacity;
+  transition-timing-function: ease-in-out;
+  transition-duration: 500ms;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
 .ticket-component {
   @apply tw-p-1 tw-bg-white tw-border tw-border-teal-500;
 }
@@ -323,6 +341,9 @@ export default {
 }
 .price-wrap {
   @apply tw-flex tw-flex-row tw-justify-between tw-items-center;
+}
+.chip-info {
+  @apply tw-m-1;
 }
 @screen md {
   .ticket-component {
