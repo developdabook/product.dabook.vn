@@ -156,30 +156,36 @@
           v-if="drawer.from"
           v-model="searchCondition.from"
           :exceptionLocal="searchCondition.to"
+          @close="drawer.isDraw = false"
         />
         <SelectLocation
           v-if="drawer.to"
           v-model="searchCondition.to"
           :exceptionLocal="searchCondition.from"
+          @close="drawer.isDraw = false"
         />
         <SelectTime
           v-if="drawer.departure"
           v-model="searchCondition.departure"
           :minDate="new Date()"
           @change="validateArrivedTime"
+          @close="drawer.isDraw = false"
         />
         <SelectTime
           v-if="drawer.arrived"
           v-model="searchCondition.arrived"
           :minDate="new Date($moment(searchCondition.departure, 'DD-MM-YYYY'))"
+          @close="drawer.isDraw = false"
         />
         <SelectPassenger
           v-if="drawer.passenger"
           v-model="searchCondition.passenger"
+          @close="drawer.isDraw = false"
         />
         <SelectCabinClass
           v-if="drawer.cabinClass"
           v-model="searchCondition.cabinClass"
+          @close="drawer.isDraw = false"
         />
       </v-navigation-drawer>
     </section>

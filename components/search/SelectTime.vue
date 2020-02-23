@@ -58,6 +58,7 @@ export default {
     changeDate() {
       this.$emit('input', this.$moment(this.selectedDate).format('DD-MM-YYYY'))
       this.$emit('change')
+      this.$emit('close')
     }
   }
 }

@@ -216,7 +216,7 @@
         <section class="section-ticket-detail">
           <v-navigation-drawer
             v-model="drawer.isDraw"
-            :class="{ 'draw-70': drawer.isMaxHeight }"
+            class="draw-70"
             temporary
             app
             fixed

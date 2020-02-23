@@ -222,6 +222,7 @@ export default {
     selectLocation() {
       try {
         this.$emit('input', this.locationSelected)
+        this.$emit('close')
       } catch (error) {}
     },
     async findLocation() {
@@ -247,6 +248,7 @@ export default {
           airportName: this.searchSelected.PlaceName,
           city: this.searchSelected.CityName
         })
+        this.$emit('close')
       } catch (error) {}
     }
   }
