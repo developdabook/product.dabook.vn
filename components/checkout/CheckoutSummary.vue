@@ -15,7 +15,7 @@
 </template>
 <style lang="postcss">
 .checkout-summary {
-  @apply tw-p-4  tw-rounded-none;
+  @apply tw-p-4  tw-rounded-none !important;
 }
 .select-pay-btn {
   @apply tw-normal-case tw-font-normal tw-w-full !important;

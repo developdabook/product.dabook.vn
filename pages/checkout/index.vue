@@ -23,7 +23,7 @@ export default {
 </script>
 <style lang="postcss">
 .checkout-page {
-  @apply tw-bg-gray-300 tw-min-h-screen tw-pt-16;
+  @apply tw-bg-gray-300 tw-min-h-screen tw-py-16;
 }
 .checkout-wrap {
   @apply tw-flex tw-flex-col tw-w-full;
