@@ -4,7 +4,7 @@ const search = {
   async SearchFlights(searchData) {
     try {
       const response = await axios.get(
-        `${process.env.CRAWL_FLIGHT_API}/dabook/public/api/flights/search?itinerary=1&origin=${searchData.from.airportCode}&destination=${searchData.to.airportCode}&date=${searchData.departure}&date1=${searchData.arrived}&adults=${searchData.passenger.ADULT}&children=${searchData.passenger.CHILDREN}&infants=${searchData.passenger.INFANT}`
+        `${process.env.CRAWL_FLIGHT_API}/dabook/public/api/flights/search?itinerary=1&origin=${searchData.from.airportCode}&destination=${searchData.to.airportCode}&date=${searchData.departure}&date1=${searchData.arrived}&adults=${searchData.passenger.ADULT}&children=${searchData.passenger.CHILD}&infants=${searchData.passenger.INFANT}`
       )
       return response.data
     } catch (error) {
@@ -14,7 +14,7 @@ const search = {
   async GetSectionId(searchData) {
     try {
       const response = await axios.post(
-        `${process.env.CRAWL_FLIGHT_API}/dabook/public/api/flights/search?itinerary=1&origin=${searchData.from.airportCode}&destination=${searchData.to.airportCode}&date=${searchData.departure}&date1=${searchData.arrived}&adults=${searchData.passenger.ADULT}&children=${searchData.passenger.CHILDREN}&infants=${searchData.passenger.INFANT}`
+        `${process.env.CRAWL_FLIGHT_API}/dabook/public/api/flights/search?itinerary=1&origin=${searchData.from.airportCode}&destination=${searchData.to.airportCode}&date=${searchData.departure}&date1=${searchData.arrived}&adults=${searchData.passenger.ADULT}&children=${searchData.passenger.CHILD}&infants=${searchData.passenger.INFANT}`
       )
       return response.data
     } catch (error) {
@@ -24,7 +24,7 @@ const search = {
   async DeleteSectionId(searchData) {
     try {
       const response = await axios.delete(
-        `${process.env.CRAWL_FLIGHT_API}/dabook/public/api/flights/search?itinerary=1&origin=${searchData.from.airportCode}&destination=${searchData.to.airportCode}&date=${searchData.departure}&date1=${searchData.arrived}&adults=${searchData.passenger.ADULT}&children=${searchData.passenger.CHILDREN}&infants=${searchData.passenger.INFANT}`
+        `${process.env.CRAWL_FLIGHT_API}/dabook/public/api/flights/search?itinerary=1&origin=${searchData.from.airportCode}&destination=${searchData.to.airportCode}&date=${searchData.departure}&date1=${searchData.arrived}&adults=${searchData.passenger.ADULT}&children=${searchData.passenger.CHILD}&infants=${searchData.passenger.INFANT}`
       )
       return response.data
     } catch (error) {
@@ -43,7 +43,7 @@ const search = {
           'DD-MM-YYYY'
         ).format('DD-MM-YYYY')}&date1=&adults=${
           searchData.passenger.ADULT
-        }&children=${searchData.passenger.CHILDREN}&infants=${
+        }&children=${searchData.passenger.CHILD}&infants=${
           searchData.passenger.INFANT
         }`
       )
@@ -64,7 +64,7 @@ const search = {
           'DD-MM-YYYY'
         ).format('DD-MM-YYYY')}&date1=&adults=${
           searchData.passenger.ADULT
-        }&children=${searchData.passenger.CHILDREN}&infants=${
+        }&children=${searchData.passenger.CHILD}&infants=${
           searchData.passenger.INFANT
         }`
       )
@@ -85,7 +85,7 @@ const search = {
           'DD-MM-YYYY'
         ).format('DD-MM-YYYY')}&date1=&adults=${
           searchData.passenger.ADULT
-        }&children=${searchData.passenger.CHILDREN}&infants=${
+        }&children=${searchData.passenger.CHILD}&infants=${
           searchData.passenger.INFANT
         }`
       )
@@ -107,7 +107,7 @@ const search = {
   //           ).format('DD-MM-YYYY')}&date1=${moment(searchData.arrived).format(
   //             'DD-MM-YYYY'
   //           )}&adults=${searchData.passenger.ADULT}&children=${
-  //             searchData.passenger.CHILDREN
+  //             searchData.passenger.CHILD
   //           }&infants=${searchData.passenger.INFANT}`
   //         )
   //         return response.data

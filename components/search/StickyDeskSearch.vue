@@ -171,7 +171,7 @@ export default {
           .format('DD-MM-YYYY'),
         passenger: {
           ADULT: 0,
-          CHILDREN: 0,
+          CHILD: 0,
           INFANT: 0
         },
         cabinClass: ['ECONOMY'],
@@ -183,7 +183,7 @@ export default {
     passengerSum() {
       const total =
         this.searchCondition.passenger.ADULT +
-        +this.searchCondition.passenger.CHILDREN +
+        +this.searchCondition.passenger.CHILD +
         +this.searchCondition.passenger.INFANT
       if (total === 0) {
         return 'Passenger'

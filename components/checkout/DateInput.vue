@@ -1,8 +1,15 @@
 <template>
-  <div class="tw-flex tw-flex-row">
+  <v-form
+    ref="dateinput"
+    v-model="validation.valid"
+    @input="validFire"
+    lazy-validation
+    class="tw-flex tw-flex-row"
+  >
     <v-text-field
       v-model="date.day"
       @change="changeDate"
+      :rules="validation.dayRules"
       label="Date"
       placeholder="DD"
       outlined
@@ -12,6 +19,7 @@
     ></v-text-field>
     <v-select
       :items="months"
+      :rules="validation.monthRules"
       v-model="date.month"
       @change="changeDate"
       label="Month"
@@ -25,6 +33,7 @@
     ></v-select>
     <v-text-field
       v-model="date.year"
+      :rules="validation.yearRules"
       @change="changeDate"
       label="Year"
       placeholder="YYYY"
@@ -34,13 +43,35 @@
       dense
       class="tw-w-1/3 input-sm tw-rounded-l-none"
     ></v-text-field>
-  </div>
+  </v-form>
 </template>
 <script>
 export default {
   name: 'DateInput',
+  props: {
+    validate: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
+      validation: {
+        dayRules: [
+          (v) => !!v || !this.validate || 'Day is required',
+          (v) =>
+            /^(([0]?[1-9])|([1-2][0-9])|(3[01]))$/.test(v) ||
+            !this.validate ||
+            'Day must be valid'
+        ],
+        monthRules: [(v) => !!v || !this.validate || 'Month is required'],
+        yearRules: [
+          (v) => !!v || !this.validate || 'Year is required',
+          (v) =>
+            /^(19|20)\d{2}$/.test(v) || !this.validate || 'Year must be valid'
+        ],
+        valid: false
+      },
       date: {
         day: '',
         month: '',
@@ -70,6 +101,12 @@ export default {
   methods: {
     changeDate() {
       this.$emit('input', this.calDate)
+    },
+    validFire() {
+      this.$emit('validate', this.validation.valid)
+    },
+    checkValidate() {
+      this.$refs.dateinput.validate()
     }
   }
 }

@@ -223,7 +223,7 @@ export default {
           .format('DD-MM-YYYY'),
         passenger: {
           ADULT: 1,
-          CHILDREN: 0,
+          CHILD: 0,
           INFANT: 0
         },
         cabinClass: ['ECONOMY'],
@@ -247,8 +247,8 @@ export default {
         this.searchCondition.passenger.ADULT +
         ' ADULT' +
         ' | ' +
-        this.searchCondition.passenger.CHILDREN +
-        ' CHILDREN' +
+        this.searchCondition.passenger.CHILD +
+        ' CHILD' +
         ' | ' +
         this.searchCondition.passenger.INFANT +
         ' INFANT'
@@ -307,7 +307,7 @@ export default {
             ? this.searchCondition.arrived
             : '',
           adults: this.searchCondition.passenger.ADULT,
-          children: this.searchCondition.passenger.CHILDREN,
+          children: this.searchCondition.passenger.CHILD,
           infants: this.searchCondition.passenger.INFANT
         }
       })

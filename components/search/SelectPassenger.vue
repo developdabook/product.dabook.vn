@@ -39,8 +39,8 @@
         </div>
         <div class="passenger-select-box">
           <v-btn
-            @click="minusPerson('CHILDREN')"
-            :disabled="passenger.CHILDREN === 0"
+            @click="minusPerson('CHILD')"
+            :disabled="passenger.CHILD === 0"
             fab
             text
             icon
@@ -51,14 +51,14 @@
           >
           <div class="passenger-info">
             <strong class="m-0 p-0 tw-text-sm tw-text-blue-600"
-              >{{ passenger.CHILDREN }} Children</strong
+              >{{ passenger.CHILD }} Children</strong
             >
             <span class="tw-text-xs tw-text-gray-600">
               (Tu 2 den 12 tuoi)
             </span>
           </div>
           <v-btn
-            @click="plusPerson('CHILDREN')"
+            @click="plusPerson('CHILD')"
             :disabled="totalPassenger === 5"
             fab
             text
@@ -123,16 +123,14 @@ export default {
     return {
       passenger: {
         ADULT: 1,
-        CHILDREN: 0,
+        CHILD: 0,
         INFANT: 0
       }
     }
   },
   computed: {
     totalPassenger() {
-      return (
-        this.passenger.ADULT + this.passenger.CHILDREN + this.passenger.INFANT
-      )
+      return this.passenger.ADULT + this.passenger.CHILD + this.passenger.INFANT
     }
   },
   methods: {

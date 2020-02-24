@@ -1,5 +1,10 @@
 <template>
-  <div class="checkout-information">
+  <v-form
+    ref="checkoutForm"
+    v-model="validation.valid"
+    lazy-validation
+    class="checkout-information"
+  >
     <v-card
       v-for="(pass, j) in checkout.passengers"
       :key="j + 'pasenger'"
@@ -13,21 +18,25 @@
         </strong>
         <v-select
           :items="passengers_sl"
+          :rules="validation.passengerTypeRules"
           v-model="pass.type"
           item-text="text"
           item-value="value"
           dense
-          class="tw-inline-block tw-flex-grow-0 tw-w-40"
+          class="tw-inline-block tw-flex-grow-0 tw-w-48"
         >
-          <template v-slot:prepend-inner v-if="pass.type === ''">
-            <v-btn color="primary" x-small text>{{
-              pass.type === '' ? 'Select passenger' : pass.type
-            }}</v-btn>
-          </template>
-          <template v-slot:selection v-else>
-            <v-btn color="primary" x-small text>{{
-              pass.type === '' ? 'Select passenger' : pass.type
-            }}</v-btn>
+          <template v-slot:selection="{ item }">
+            <v-btn
+              color="default"
+              class="tw-text-normal tw-normal-case"
+              x-small
+              text
+              >{{
+                pass.type === ''
+                  ? 'Select passenger'
+                  : `${item.text} (${item.detail})`
+              }}</v-btn
+            >
           </template>
         </v-select>
       </v-card-title>
@@ -43,6 +52,7 @@
             <div class=" half-left">
               <v-text-field
                 v-model="pass.given_name"
+                :rules="validation.givenNameRules"
                 label="GivenName"
                 placeholder="ex. Tran"
                 outlined
@@ -54,6 +64,7 @@
             <div class=" half-right">
               <v-text-field
                 v-model="pass.sur_name"
+                :rules="validation.surNameRules"
                 label="SurName"
                 placeholder="ex. Hoang Anh"
                 outlined
@@ -66,8 +77,9 @@
           <div class="input-box">
             <div class="half-left tw-flex tw-flex-row">
               <v-autocomplete
-                v-model="pass.residence"
+                v-model="pass.residency"
                 :items="country"
+                :rules="validation.residencyRules"
                 outlined
                 chips
                 dense
@@ -104,6 +116,7 @@
               <v-select
                 :items="gender"
                 v-model="pass.name_prefix"
+                :rules="validation.namePrefixRules"
                 label="Gender"
                 placeholder="Mr"
                 outlined
@@ -112,7 +125,13 @@
               ></v-select>
             </div>
             <div class="half-right tw-flex tw-flex-row">
-              <DateInput v-model="pass.birthday" />
+              <DateInput
+                ref="birthday"
+                v-model="pass.birthday"
+                :validate="true"
+                :rules="validation.dateRules"
+                @validate="validation.birthdayValid = $event"
+              />
             </div>
           </div>
           <div class="input-box">
@@ -136,6 +155,7 @@
       <v-card-actions> </v-card-actions>
       <v-btn
         @click="removePassenger(pass)"
+        :disabled="checkout.passengers.length === 1"
         color="primary"
         class="remove-btn"
         icon
@@ -307,7 +327,15 @@
           class="invoice-info"
         >
           <v-expansion-panel @change="expandPanel($event)">
-            <v-expansion-panel-header class="tw-border-b tw-px-0">
+            <v-expansion-panel-header
+              class="tw-border-b tw-px-0 tw-flex tw-items-end"
+            >
+              <template v-slot:default v-if="invoiceUsed">
+                <strong class="pass-number"
+                  ><i class="icofont-file-alt tw-text-xl"></i>
+                  Invoice
+                </strong>
+              </template>
               <template v-slot:actions>
                 <div class="tw-flex tw-flex-col tw-items-end">
                   <v-switch v-model="invoiceUsed" hide-details> </v-switch>
@@ -363,20 +391,16 @@
           </v-expansion-panel>
         </v-expansion-panels>
       </v-card-text>
-      <v-card-actions> </v-card-actions>
-      <v-btn color="primary" class="remove-btn" icon x-small absolute fab>
-        <v-icon>mdi-close</v-icon>
-      </v-btn>
     </v-card>
     <div class="select-payment-box">
-      <v-btn color="primary" class="addmore-btn"
+      <v-btn @click="checkoutPayment" color="primary" class="addmore-btn"
         ><v-icon small class="tw-mr-2">mdi-credit-card-settings-outline</v-icon>
         Next <v-icon small>mdi-pan-right</v-icon>
         <v-icon small class="tw-mr-2">mdi-pan-right</v-icon> Select
         payment</v-btn
       >
     </div>
-  </div>
+  </v-form>
 </template>
 <script>
 import country from '@/localdb/country'
@@ -411,6 +435,32 @@ export default {
           address: ''
         }
       },
+      validation: {
+        givenNameRules: [(v) => !!v || 'Given name is required'],
+        surNameRules: [(v) => !!v || 'Sur name is required'],
+        residencyRules: [(v) => !!v || 'Residency is required'],
+        namePrefixRules: [(v) => !!v || 'Gender is required'],
+        passengerTypeRules: [(v) => !!v || 'Passenger Type is required'],
+        dateRules: [
+          (v) => v || this.validation.birthdayValid || 'Birthday is required'
+        ],
+        emailRules: [
+          (v) => !!v || 'E-mail is required',
+          (v) => /.+@.+/.test(v) || 'E-mail must be valid'
+        ],
+        acceptTermRules: [
+          (v) => v === true || 'Please accept our term and condition'
+        ],
+        phoneRules: [
+          (v) => !!v || 'Phone number required',
+          (value) => {
+            const pattern = /^[\\+]?[(]?[0-9]{3}[)]?[-\s\\.]?[0-9]{3}[-\s\\.]?[0-9]{1,6}$/im
+            return pattern.test(value) || 'Invalid phone number.'
+          }
+        ],
+        birthdayValid: false,
+        valid: false
+      },
       invoiceUsed: false
     }
   },
@@ -439,6 +489,12 @@ export default {
         this.checkout.passengers.indexOf(payload),
         1
       )
+    },
+    checkoutPayment() {
+      this.$refs.birthday.forEach((element) => {
+        element.checkValidate()
+      })
+      this.$refs.checkoutForm.validate()
     }
   }
 }

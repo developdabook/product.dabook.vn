@@ -26,7 +26,10 @@ export default {
   @apply tw-bg-gray-300 tw-min-h-screen tw-py-16;
 }
 .checkout-wrap {
-  @apply tw-flex tw-flex-col tw-w-full tw-p-2;
+  @apply tw-flex tw-flex-col-reverse tw-w-full tw-p-2;
+}
+.section-summary {
+  @apply tw-mb-8;
 }
 @screen md {
   .checkout-wrap {

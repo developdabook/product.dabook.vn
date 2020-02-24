@@ -10,7 +10,7 @@ export const state = () => ({
       .format('DD-MM-YYYY'),
     passenger: {
       ADULT: 0,
-      CHILDREN: 0,
+      CHILD: 0,
       INFANT: 0
     },
     cabinClass: ['ECONOMY'],
@@ -79,7 +79,7 @@ export const getters = {
     }
     for (
       let index = 0;
-      index < state.searchCondition.passenger.CHILDREN;
+      index < state.searchCondition.passenger.CHILD;
       index++
     ) {
       result.push({
