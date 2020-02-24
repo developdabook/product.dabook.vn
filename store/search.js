@@ -38,6 +38,15 @@ export const mutations = {
   },
   UPDATE_SECTION(state, payload) {
     state.section = payload
+  },
+  UPDATE_PASSENGER(state, payload) {
+    state.searchCondition.passenger[payload.target] =
+      state.searchCondition.passenger[payload.target] + payload.qty
+  },
+  UPDATE_ALL_PASSENGERS(state, payload) {
+    state.searchCondition.passenger.ADULT = payload.ADULT
+    state.searchCondition.passenger.CHILD = payload.CHILD
+    state.searchCondition.passenger.INFANT = payload.INFANT
   }
 }
 export const actions = {
@@ -46,12 +55,21 @@ export const actions = {
   },
   updateSearchSection({ commit, state }, payload) {
     commit('UPDATE_SECTION', payload)
+  },
+  updatePassengerQty({ commit, state }, payload) {
+    commit('UPDATE_PASSENGER', payload)
+  },
+  updateAllPassengers({ commit, state }, payload) {
+    commit('UPDATE_ALL_PASSENGERS', payload)
   }
 }
 
 export const getters = {
   getSearchCondition(state) {
     return _.clone(state.searchCondition)
+  },
+  getPassengers(state) {
+    return _.clone(state.searchCondition.passenger)
   },
   isRoundTrip(state) {
     return state.searchCondition.isRoundTrip

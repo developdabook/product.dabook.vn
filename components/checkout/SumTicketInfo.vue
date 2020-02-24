@@ -47,12 +47,20 @@
               <div class="titem-ticket-info">
                 <div>
                   <div>
-                    <span class="titem-info-time">20h30</span
-                    ><span class="titem-info-loca">HAN- Ha Noi</span>
+                    <span class="titem-info-time">{{
+                      ticket.ticket.StartTime
+                    }}</span
+                    ><span class="titem-info-loca">{{
+                      `${ticket.ticket.formatStartPoint.airportCode} -${ticket.ticket.formatStartPoint.city} `
+                    }}</span>
                   </div>
                   <div>
-                    <span class="titem-info-time">20h30</span
-                    ><span class="titem-info-loca">SGN- Ho Chi Minh</span>
+                    <span class="titem-info-time">{{
+                      ticket.ticket.EndTime
+                    }}</span
+                    ><span class="titem-info-loca">{{
+                      `${ticket.ticket.formatEndPoint.airportCode} -${ticket.ticket.formatEndPoint.city} `
+                    }}</span>
                   </div>
                 </div>
                 <v-chip
@@ -67,7 +75,7 @@
                     <v-avatar v-on="on" height="24" width="24" tile>
                       <img
                         :src="
-                          `https://booking.kayak.com/rimg/provider-logos/airlines/v/VN.png?crop=false&width=92&height=92`
+                          `https://booking.kayak.com/rimg/provider-logos/airlines/v/${ticket.ticket.Airline}.png?crop=false&width=92&height=92`
                         "
                       />
                     </v-avatar>
@@ -88,6 +96,12 @@
 <script>
 export default {
   name: 'SumTicketInfo',
+  props: {
+    ticket: {
+      type: [Array, Object],
+      required: true
+    }
+  },
   data() {
     return {
       expand: false

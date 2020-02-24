@@ -7,8 +7,12 @@
       </strong>
     </v-card-title>
     <v-card-text>
-      <SumTicketInfo class="tw-mb-2" />
-      <SumTicketInfo class="tw-mb-2" />
+      <SumTicketInfo
+        v-for="(ticket, j) in ticketSelected"
+        :key="j + 'ticketcheckout'"
+        :ticket="ticket"
+        class="tw-mb-2"
+      />
     </v-card-text>
     <v-card-title class="summary-title">
       <strong class="pass-number"
@@ -17,29 +21,13 @@
       </strong>
     </v-card-title>
     <v-card-text>
-      <div class="cash-box">
+      <div
+        v-for="(pass, i) in Object.keys(passengers)"
+        :key="i + 'checkoutpass'"
+        class="cash-box"
+      >
         <div class="cash-box-title">
-          <strong>1 x Adult</strong>
-          <strong>25,000,000</strong>
-        </div>
-        <div class="cash-box-detail">
-          <div class="box-item-detail">
-            <span>Vé</span>
-            <span>20,000,000</span>
-          </div>
-          <div class="box-item-detail">
-            <span>Phí san bay</span>
-            <span>1,000,000</span>
-          </div>
-          <div class="box-item-detail">
-            <span>Phu phi</span>
-            <span>300,000</span>
-          </div>
-        </div>
-      </div>
-      <div class="cash-box">
-        <div class="cash-box-title">
-          <strong>1 x Adult</strong>
+          <strong>{{ `${passengers[pass]} x ${pass}` }}</strong>
           <strong>25,000,000</strong>
         </div>
         <div class="cash-box-detail">
@@ -81,6 +69,14 @@ export default {
   name: 'CheckoutSummary',
   components: {
     SumTicketInfo: () => import('@/components/checkout/SumTicketInfo')
+  },
+  computed: {
+    passengers() {
+      return this.$store.getters['search/getPassengers']
+    },
+    ticketSelected() {
+      return this.$store.getters['checkout/geticketSelected']
+    }
   }
 }
 </script>
@@ -90,9 +86,6 @@ export default {
 }
 .select-pay-btn {
   @apply tw-normal-case tw-font-normal tw-w-full !important;
-}
-.call-us-btn {
-  @apply tw-bg-teal-200 tw-text-teal-600 tw-normal-case tw-font-normal !important;
 }
 .summary-title {
   @apply tw-text-base tw-flex tw-flex-row tw-justify-between tw-items-center tw-mb-4 !important;

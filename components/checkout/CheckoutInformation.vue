@@ -19,6 +19,7 @@
         <v-select
           :items="passengers_sl"
           :rules="validation.passengerTypeRules"
+          @change="changePassengerType"
           v-model="pass.type"
           item-text="text"
           item-value="value"
@@ -188,8 +189,8 @@
       <v-card-text>
         <div class="info-notice">
           <v-alert text dense type="info" class="tw-text-xs">
-            Please fill exactly your contact info. We will send ticket throw
-            those informations
+            Vui lòng điền chỉnh xác thông tin liên lạc, chúng tôi sẽ liên hệ và
+            gửi vé tới bạn qua thông tin này
           </v-alert>
         </div>
         <div class="field-box">
@@ -198,6 +199,7 @@
               <v-select
                 :items="gender"
                 v-model="checkout.contact.name_prefix"
+                :rules="validation.namePrefixRules"
                 label="Gender"
                 placeholder="Mr"
                 outlined
@@ -206,6 +208,7 @@
               ></v-select>
               <v-text-field
                 v-model="checkout.contact.given_name"
+                :rules="validation.givenNameRules"
                 label="GivenName"
                 placeholder="ex. Tran"
                 outlined
@@ -217,6 +220,7 @@
             <div class="half-right">
               <v-text-field
                 v-model="checkout.contact.sur_name"
+                :rules="validation.surNameRules"
                 label="SurName"
                 placeholder="ex. Hoang Anh"
                 outlined
@@ -266,6 +270,7 @@
               </v-autocomplete>
               <v-text-field
                 v-model="checkout.contact.phone_number"
+                :rules="validation.phoneRules"
                 label="Phone"
                 placeholder="+84 933-393-223"
                 outlined
@@ -277,6 +282,7 @@
             <div class="half-right">
               <v-text-field
                 v-model="checkout.contact.email"
+                :rules="validation.emailRules"
                 label="Email"
                 placeholder="ex. your@gmail.com"
                 outlined
@@ -290,6 +296,7 @@
             <div class="half-left">
               <v-text-field
                 v-model="checkout.contact.street"
+                :rules="validation.addressRules"
                 label="Stress"
                 placeholder="Lot 113, Me Tri"
                 outlined
@@ -301,6 +308,7 @@
             <div class="half-right tw-flex tw-flex-row">
               <v-text-field
                 v-model="checkout.contact.city"
+                :rules="validation.requiredRules"
                 label="City"
                 placeholder="Lot 113, Me Tri"
                 outlined
@@ -308,15 +316,43 @@
                 dense
                 class="tw-w-1/2 tw-mr-1 input-sm"
               ></v-text-field>
-              <v-text-field
+              <v-autocomplete
                 v-model="checkout.contact.residency"
-                label="Resident"
-                placeholder="Lot 113, Me Tri"
+                :rules="validation.requiredRules"
+                :items="country"
                 outlined
-                color="primary"
+                chips
                 dense
+                color="primary"
+                label="Resident"
+                placeholder="VietNam"
+                item-text="name"
+                item-value="code"
                 class="tw-w-1/2 input-sm"
-              ></v-text-field>
+              >
+                <template v-slot:selection="data">
+                  <v-chip label color="primary" small>
+                    {{ data.item.name }}
+                  </v-chip>
+                </template>
+                <template v-slot:item="data">
+                  <template v-if="typeof data.item !== 'object'">
+                    <v-list-item-content
+                      v-text="data.item"
+                    ></v-list-item-content>
+                  </template>
+                  <template v-else>
+                    <v-list-item-content>
+                      <v-list-item-title
+                        v-html="data.item.name"
+                      ></v-list-item-title>
+                      <v-list-item-subtitle
+                        v-html="data.item.group"
+                      ></v-list-item-subtitle>
+                    </v-list-item-content>
+                  </template>
+                </template>
+              </v-autocomplete>
             </div>
           </div>
         </div>
@@ -354,6 +390,7 @@
                     <div class="half-left">
                       <v-text-field
                         v-model="checkout.invoice.company"
+                        :rules="validation.companyRules"
                         label="Tên công ty"
                         placeholder="Công ty TNHH Thuong Mai HD"
                         outlined
@@ -365,6 +402,7 @@
                     <div class="half-right tw-flex tw-flex-row">
                       <v-text-field
                         v-model="checkout.invoice.tax"
+                        :rules="validation.taxRules"
                         label="Mã số thuế"
                         placeholder="05300022350"
                         outlined
@@ -377,6 +415,7 @@
                   <div class="input-box">
                     <v-text-field
                       v-model="checkout.invoice.address"
+                      :rules="validation.addressRules"
                       label="Địa chỉ"
                       placeholder="Lot 113, Me Tri, Nam Tu Liem, Ha Noi"
                       outlined
@@ -393,8 +432,7 @@
       </v-card-text>
     </v-card>
     <div class="select-payment-box">
-      <v-btn @click="checkoutPayment" color="primary" class="addmore-btn"
-        ><v-icon small class="tw-mr-2">mdi-credit-card-settings-outline</v-icon>
+      <v-btn @click="checkoutPayment" color="primary" class="addmore-btn">
         Next
         <v-icon small class="tw-mx-2">mdi-chevron-triple-right</v-icon> Select
         payment</v-btn
@@ -436,11 +474,25 @@ export default {
         }
       },
       validation: {
+        requiredRules: [(v) => !!v || 'Field is required'],
         givenNameRules: [(v) => !!v || 'Given name is required'],
         surNameRules: [(v) => !!v || 'Sur name is required'],
         residencyRules: [(v) => !!v || 'Residency is required'],
         namePrefixRules: [(v) => !!v || 'Gender is required'],
         passengerTypeRules: [(v) => !!v || 'Passenger Type is required'],
+        companyRules: [
+          (v) =>
+            !this.invoiceUsed ||
+            !!v & this.invoiceUsed ||
+            'Company name is required'
+        ],
+        taxRules: [
+          (v) =>
+            !this.invoiceUsed ||
+            !!v & this.invoiceUsed ||
+            'Tax code is required'
+        ],
+        addressRules: [(v) => !!v || 'Address is required'],
         dateRules: [
           (v) => v || this.validation.birthdayValid || 'Birthday is required'
         ],
@@ -483,8 +535,16 @@ export default {
         passport: '',
         expired_date: ''
       })
+      this.$store.dispatch('search/updatePassengerQty', {
+        target: 'ADULT',
+        qty: 1
+      })
     },
     removePassenger(payload) {
+      this.$store.dispatch('search/updatePassengerQty', {
+        target: payload.type,
+        qty: -1
+      })
       this.checkout.passengers.splice(
         this.checkout.passengers.indexOf(payload),
         1
@@ -495,6 +555,21 @@ export default {
         element.checkValidate()
       })
       this.$refs.checkoutForm.validate()
+    },
+    changePassengerType() {
+      const payload = this.sumaryPassengers()
+      this.$store.dispatch('search/updateAllPassengers', payload)
+    },
+    sumaryPassengers() {
+      const sum = {
+        ADULT: 0,
+        CHILD: 0,
+        INFANT: 0
+      }
+      this.checkout.passengers.forEach((element) => {
+        sum[element.type]++
+      })
+      return sum
     }
   }
 }

@@ -2,8 +2,7 @@ import _ from 'lodash'
 export const state = () => ({
   ticketSelected: {
     DEPARTURE: {},
-    RETURN: {},
-    passengers: []
+    RETURN: {}
   }
 })
 export const mutations = {
@@ -20,5 +19,11 @@ export const actions = {
     if (!rootState.search.searchCondition.isRoundTrip) {
       commit('REMOVE_TICKET_PART', 'RETURN')
     }
+  }
+}
+
+export const getters = {
+  geticketSelected(state) {
+    return _.clone(state.ticketSelected)
   }
 }
