@@ -58,5 +58,57 @@ export const getters = {
   },
   getSection(state) {
     return state.section
+  },
+  generatePassengers(state) {
+    const result = []
+    for (
+      let index = 0;
+      index < state.searchCondition.passenger.ADULT;
+      index++
+    ) {
+      result.push({
+        type: 'ADULT',
+        name_prefix: '',
+        given_name: '',
+        sur_name: '',
+        birthday: '',
+        residence: '',
+        passport: '',
+        expired_date: ''
+      })
+    }
+    for (
+      let index = 0;
+      index < state.searchCondition.passenger.CHILDREN;
+      index++
+    ) {
+      result.push({
+        type: 'CHILD',
+        name_prefix: '',
+        given_name: '',
+        sur_name: '',
+        birthday: '',
+        residence: '',
+        passport: '',
+        expired_date: ''
+      })
+    }
+    for (
+      let index = 0;
+      index < state.searchCondition.passenger.INFANT;
+      index++
+    ) {
+      result.push({
+        type: 'INFANT',
+        name_prefix: '',
+        given_name: '',
+        sur_name: '',
+        birthday: '',
+        residence: '',
+        passport: '',
+        expired_date: ''
+      })
+    }
+    return result
   }
 }

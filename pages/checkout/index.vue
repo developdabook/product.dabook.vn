@@ -26,11 +26,11 @@ export default {
   @apply tw-bg-gray-300 tw-min-h-screen tw-py-16;
 }
 .checkout-wrap {
-  @apply tw-flex tw-flex-col tw-w-full;
+  @apply tw-flex tw-flex-col tw-w-full tw-p-2;
 }
 @screen md {
   .checkout-wrap {
-    @apply tw-flex tw-flex-row tw-w-full tw-justify-between tw-items-start;
+    @apply tw-flex tw-flex-row tw-w-full tw-justify-between tw-items-start tw-p-0;
   }
   .section-checkout {
     @apply tw-w-3/5 tw-mr-2;

@@ -2,7 +2,8 @@ import _ from 'lodash'
 export const state = () => ({
   ticketSelected: {
     DEPARTURE: {},
-    RETURN: {}
+    RETURN: {},
+    passengers: []
   }
 })
 export const mutations = {
