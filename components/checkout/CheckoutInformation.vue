@@ -395,8 +395,8 @@
     <div class="select-payment-box">
       <v-btn @click="checkoutPayment" color="primary" class="addmore-btn"
         ><v-icon small class="tw-mr-2">mdi-credit-card-settings-outline</v-icon>
-        Next <v-icon small>mdi-pan-right</v-icon>
-        <v-icon small class="tw-mr-2">mdi-pan-right</v-icon> Select
+        Next
+        <v-icon small class="tw-mx-2">mdi-chevron-triple-right</v-icon> Select
         payment</v-btn
       >
     </div>

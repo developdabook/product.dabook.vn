@@ -2,7 +2,7 @@
   <v-card outlined class="t-item">
     <v-expansion-panels v-model="expand" accordion flat>
       <v-expansion-panel>
-        <v-expansion-panel-header class="tw-p-0">
+        <v-expansion-panel-header disable-icon-rotate class="tw-p-0">
           <v-card-subtitle class="titem-title-box">
             <strong class="titem-title">Chiều đi</strong>
             <span class="titem-time">20, Thur, 09-2020</span>
@@ -16,6 +16,13 @@
               >VN-235</v-chip
             >
           </v-card-subtitle>
+          <template v-slot:actions>
+            <v-icon small>{{
+              expand !== 0
+                ? 'mdi-unfold-more-horizontal'
+                : 'mdi-unfold-less-horizontal'
+            }}</v-icon>
+          </template>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-card-text class="titem-body">

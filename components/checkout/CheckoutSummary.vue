@@ -10,6 +10,70 @@
       <SumTicketInfo class="tw-mb-2" />
       <SumTicketInfo class="tw-mb-2" />
     </v-card-text>
+    <v-card-title class="summary-title">
+      <strong class="pass-number"
+        ><v-icon class="summary-title-icon">mdi-earth-arrow-right</v-icon> Cash
+        summary
+      </strong>
+    </v-card-title>
+    <v-card-text>
+      <div class="cash-box">
+        <div class="cash-box-title">
+          <strong>1 x Adult</strong>
+          <strong>25,000,000</strong>
+        </div>
+        <div class="cash-box-detail">
+          <div class="box-item-detail">
+            <span>Vé</span>
+            <span>20,000,000</span>
+          </div>
+          <div class="box-item-detail">
+            <span>Phí san bay</span>
+            <span>1,000,000</span>
+          </div>
+          <div class="box-item-detail">
+            <span>Phu phi</span>
+            <span>300,000</span>
+          </div>
+        </div>
+      </div>
+      <div class="cash-box">
+        <div class="cash-box-title">
+          <strong>1 x Adult</strong>
+          <strong>25,000,000</strong>
+        </div>
+        <div class="cash-box-detail">
+          <div class="box-item-detail">
+            <span>Vé</span>
+            <span>20,000,000</span>
+          </div>
+          <div class="box-item-detail">
+            <span>Phí san bay</span>
+            <span>1,000,000</span>
+          </div>
+          <div class="box-item-detail">
+            <span>Phu phi</span>
+            <span>300,000</span>
+          </div>
+        </div>
+      </div>
+      <div class="cash-box">
+        <div class="cash-box-title tw-text-base tw-text-blue-600">
+          <strong>Total</strong>
+          <strong>14,000,000</strong>
+        </div>
+        <v-alert text dense type="info" class="tw-text-xs">
+          Quý khách lưu ý. Giá trên chưa bao gồm phụ phí phát sinh khi quý khách
+          lựa chọn phương thức thanh toán
+          <strong>( phí thu bởi nhà cung cấp)</strong> Vui lòng điền thông tin
+          và chọn Select Payment để biết thêm thông tin ,hoặc gọi
+          <v-btn depressed rounded x-small href="tel:19001542" color="info" text
+            >1900-1542 <i class="icofont-live-support"></i
+          ></v-btn>
+          để biết thêm thông tin chi tiết
+        </v-alert>
+      </div>
+    </v-card-text>
   </v-card>
 </template>
 <script>
@@ -27,8 +91,9 @@ export default {
 .select-pay-btn {
   @apply tw-normal-case tw-font-normal tw-w-full !important;
 }
-</style>
-<style lang="postcss">
+.call-us-btn {
+  @apply tw-bg-teal-200 tw-text-teal-600 tw-normal-case tw-font-normal !important;
+}
 .summary-title {
   @apply tw-text-base tw-flex tw-flex-row tw-justify-between tw-items-center tw-mb-4 !important;
 }
@@ -39,5 +104,18 @@ export default {
   .checkout-summary {
     @apply tw-p-4  tw-rounded-none !important;
   }
+}
+
+.cash-box {
+  @apply tw-text-gray-800 tw-border-b tw-border-dashed tw-py-2;
+}
+.cash-box-title {
+  @apply tw-flex tw-flex-row tw-justify-between tw-items-center tw-pb-3;
+}
+.cash-box-detail {
+  @apply tw-text-xs tw-pl-4;
+}
+.box-item-detail {
+  @apply tw-flex tw-flex-row tw-justify-between tw-items-center tw-pb-1;
 }
 </style>
