@@ -431,7 +431,7 @@
       </v-card-text>
     </v-card>
     <div class="select-payment-box">
-      <v-btn @click="checkoutPayment" color="primary" class="addmore-btn">
+      <v-btn @click="checkoutPayment" color="primary" class="addmore-btn" large>
         Next
         <v-icon small class="tw-mx-2">mdi-chevron-triple-right</v-icon> Select
         payment</v-btn

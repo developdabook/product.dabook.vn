@@ -125,7 +125,7 @@
     <section class="section-segment">
       <v-dialog v-model="segmentExpand" scrollable max-width="50vh">
         <v-card>
-          <v-card-text class="tw-px-2">
+          <v-card-text class="tw-px-2 md:tw-px-4">
             <v-timeline dense class="tw-my-4 flight-timeline">
               <v-timeline-item small icon="mdi-bag-carry-on-check">
                 <v-alert

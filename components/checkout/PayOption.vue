@@ -1,3 +1,176 @@
 <template>
-  <v-card> </v-card>
+  <div>
+    <v-card outlined class="info-block contact-ingo">
+      <v-card-title class="info-title">
+        <strong class="pass-number"
+          ><v-icon class="info-title-icon"
+            >mdi-account-tie-voice-outline</v-icon
+          >
+          Payment
+        </strong>
+      </v-card-title>
+      <v-card-text>
+        <div class="info-notice">
+          <v-alert text dense type="info" class="tw-text-xs">
+            Sử dụng một trong những phương thức dưới đây để hoàn thành thanh
+            toán và nhận vé của bạn
+          </v-alert>
+          <v-alert text dense type="warning" class="tw-text-xs">
+            <ul class="tw-p-0 tw-m-0 tw-list-disc">
+              <li>
+                Quý khách lưu ý, mỗi phương thức thanh toán có thể phát sinh phụ
+                thu đến từ nhà cung cấp dịch vụ thanh toán. Vui lòng chọn các
+                chức năng thanh toán phù hợp
+              </li>
+              <li>
+                Các hình thức thanh toán online sẽ diễn ra trên hệ thống của nhà
+                cung cấp dịch vụ mà dabook liên kết. Mọi phát sinh lỗi khi giao
+                dịch vui lòng liên hệ nhà cung cấp để xử lý
+              </li>
+            </ul>
+          </v-alert>
+        </div>
+        <div class="field-box">
+          <v-radio-group v-model="paySelected" column>
+            <v-expansion-panels flat>
+              <v-expansion-panel
+                v-for="(item, i) in payOptions"
+                :key="i"
+                :class="{ active: paySelected.code === item.code }"
+                class="pay-item"
+              >
+                <v-expansion-panel-header hide-actions>
+                  <template v-slot:default>
+                    <v-radio :value="item" color="info">
+                      <template v-slot:label>
+                        <div class="pay-item-header">
+                          <div class="tw-flex tw-items-center">
+                            <i
+                              :class="item.icon"
+                              class="pay-item-icon icofont-2x"
+                            ></i>
+                            <span class="pay-item-name">{{ item.name }}</span>
+                          </div>
+                          <strong
+                            :class="{ 'success--text': item.unit === 'FREE' }"
+                            class="pay-item-fee"
+                            >{{
+                              item.unit === 'FREE'
+                                ? 'FREE'
+                                : new Intl.NumberFormat('vi-VN', {
+                                    style: 'currency',
+                                    currency: item.unit
+                                  }).format(item.fee)
+                            }}</strong
+                          >
+                        </div>
+                      </template>
+                    </v-radio>
+                  </template>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content class="pay-item-body">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat.
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+          </v-radio-group>
+        </div>
+        <v-alert text dense type="info" class="tw-text-xs">
+          Tiến trình thanh toán có thể mất vài phút, Chúng tôi đang cải thiện
+          chúng. Mong bạn đừng tắt trình duyệt khi thanh toán
+        </v-alert>
+      </v-card-text>
+    </v-card>
+    <div class="select-payment-box">
+      <v-btn @click="issueTicket" color="primary" class="addmore-btn" large>
+        <v-icon small class="tw-mx-2">mdi-check-decagram</v-icon>
+        Pay and got ticket</v-btn
+      >
+    </div>
+  </div>
 </template>
+<script>
+export default {
+  name: 'PayOption',
+  data() {
+    return {
+      payOptions: [
+        {
+          code: 'OFFICE',
+          icon: 'icofont-building-alt',
+          name: 'Thanh toán tại văn phòng',
+          fee: 0,
+          unit: 'FREE'
+        },
+        {
+          code: 'BANK_TRANSFER',
+          icon: 'icofont-bank-transfer',
+          name: 'Chuyển khoản',
+          fee: 0,
+          unit: 'FREE'
+        },
+        {
+          code: 'DELIVERY',
+          icon: 'icofont-fast-delivery',
+          name: 'Giao vé,thanh toán tại nhà',
+          fee: 20000,
+          unit: 'VND'
+        },
+        {
+          code: 'PAYPAL',
+          icon: 'icofont-paypal-alt',
+          name: 'Paypal',
+          fee: 3.14,
+          unit: 'USD'
+        },
+        {
+          code: 'ONEPAY',
+          icon: 'icofont-pay',
+          name: 'Onepay',
+          fee: 50000,
+          unit: 'VND'
+        }
+      ],
+      paySelected: {}
+    }
+  },
+  methods: {
+    issueTicket() {}
+  }
+}
+</script>
+<style lang="postcss">
+.info-notice {
+  @apply tw-text-xs;
+}
+.field-box {
+  @apply tw-pt-4;
+}
+.pay-item {
+  @apply tw-border tw-border-gray-300 tw-my-2;
+}
+.pay-item:hover {
+  @apply tw-border-2 tw-border-gray-600;
+}
+.pay-item.active {
+  @apply tw-border-2 tw-border-teal-600 !important;
+}
+.pay-item-header {
+  @apply tw-flex tw-flex-row tw-justify-between tw-items-center tw-text-gray-800 tw-w-full tw-text-sm;
+}
+.pay-item-name {
+  @apply tw-text-xs;
+}
+.pay-item-icon {
+  @apply tw-text-gray-800 tw-mr-2 !important;
+}
+.pay-item-fee {
+  @apply tw-text-gray-800;
+}
+.pay-item-body {
+  @apply tw-text-sm;
+}
+</style>
