@@ -1,7 +1,7 @@
 <template>
   <v-card outlined class="checkout-summary">
     <v-card-title class="summary-title">
-      <strong class="pass-number"
+      <strong class="pass-number tw-py-2"
         ><v-icon class="summary-title-icon">mdi-earth-arrow-right</v-icon> Trip
         summary
       </strong>
@@ -16,7 +16,7 @@
     </v-card-text>
     <v-card-title class="summary-title">
       <strong class="pass-number"
-        ><v-icon class="summary-title-icon">mdi-earth-arrow-right</v-icon> Cash
+        ><v-icon class="summary-title-icon">mdi-cash-usd-outline</v-icon> Cash
         summary
       </strong>
     </v-card-title>
@@ -46,7 +46,7 @@
         </div>
       </div>
       <div class="cash-box">
-        <div class="cash-box-title tw-text-base tw-text-blue-600">
+        <div class="cash-box-title tw-text-base tw-text-gray-900">
           <strong>Total</strong>
           <strong>14,000,000</strong>
         </div>
@@ -55,7 +55,14 @@
           lựa chọn phương thức thanh toán
           <strong>( phí thu bởi nhà cung cấp)</strong> Vui lòng điền thông tin
           và chọn Select Payment để biết thêm thông tin ,hoặc gọi
-          <v-btn depressed rounded x-small href="tel:19001542" color="info" text
+          <v-btn
+            depressed
+            rounded
+            small
+            href="tel:19001542"
+            color="info"
+            text
+            class="tw-px-1"
             >1900-1542 <i class="icofont-live-support"></i
           ></v-btn>
           để biết thêm thông tin chi tiết
@@ -103,7 +110,7 @@ export default {
   @apply tw-text-gray-800 tw-border-b tw-border-dashed tw-py-2;
 }
 .cash-box-title {
-  @apply tw-flex tw-flex-row tw-justify-between tw-items-center tw-pb-3;
+  @apply tw-text-sm tw-flex tw-flex-row tw-justify-between tw-items-center tw-pb-3 !important;
 }
 .cash-box-detail {
   @apply tw-text-xs tw-pl-4;

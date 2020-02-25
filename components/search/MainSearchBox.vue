@@ -217,7 +217,9 @@ export default {
       searchCondition: {
         from: {},
         to: {},
-        departure: this.$moment().format('DD-MM-YYYY'),
+        departure: this.$moment()
+          .add(1, 'day')
+          .format('DD-MM-YYYY'),
         arrived: this.$moment()
           .add(4, 'day')
           .format('DD-MM-YYYY'),

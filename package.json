@@ -23,7 +23,8 @@
     "nuxt": "^2.0.0",
     "nuxt-purgecss": "^0.2.1",
     "v-calendar": "^1.0.1",
-    "v-owl-carousel": "^1.0.8"
+    "v-owl-carousel": "^1.0.8",
+    "vuex-persistedstate": "^2.7.1"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^1.0.1",

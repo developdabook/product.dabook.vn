@@ -66,12 +66,12 @@
                 class="font-weight-bold"
               >
                 <v-icon class="tw-mr-1" small>mdi-airplane</v-icon>
-                {{ segment.Airline + '_' + segment.FlightNumber }}
+                {{ segment.Airline + '-' + segment.FlightNumber }}
               </v-chip>
             </template>
             <span
               >Số hiệu chuyến bay
-              {{ segment.Airline + '_' + segment.FlightNumber }}
+              {{ segment.Airline + '-' + segment.FlightNumber }}
               <v-icon color="#FFF" small>mdi-information-outline</v-icon></span
             >
           </v-tooltip>

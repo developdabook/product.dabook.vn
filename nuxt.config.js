@@ -39,6 +39,7 @@ module.exports = {
   plugins: [
     { src: '@/plugins/v-calendar', ssr: false },
     { src: 'plugins/owl.js', ssr: false },
+    { src: '~/plugins/localStorage.js', ssr: false },
     '~/plugins/global.js',
     '~/plugins/axios.js'
   ],

@@ -22,13 +22,14 @@
 
       <span class="tw-text-gray-600 tw-text-xs tw-m-0 tw-p-0"
         >[{{ item.iata_code }}]{{ item.name }}
-        <v-avatar class="tw-mr-2" size="20px">
+        <!-- <v-avatar class="tw-mr-2" size="20px">
           <img
             :src="
               `https://booking.kayak.com/rimg/provider-logos/airlines/v/${item.iata_code}.png?crop=false&width=20&height=20`
             "
-          /> </v-avatar
-      ></span>
+          />
+        </v-avatar> -->
+      </span>
     </div>
   </div>
 </template>

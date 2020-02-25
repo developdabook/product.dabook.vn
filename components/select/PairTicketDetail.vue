@@ -14,6 +14,23 @@
         </v-subheader>
         <v-divider></v-divider>
         <v-timeline dense class="tw-my-4 flight-timeline">
+          <v-timeline-item small icon="mdi-bag-carry-on-check">
+            <v-alert
+              color="info"
+              dense
+              text
+              class="tw-text-xs tw-border-dashed"
+            >
+              <strong>
+                Chuyến bay chiều đi khởi hành lúc
+                {{
+                  `${ticket.DEPARTURE.StartTime} , ${ticket.DEPARTURE.formatStartDate}`
+                }}</strong
+              >
+              Vui lòng di chuyển tới sân bay và làm thủ tục trước khi bay ít
+              nhất 45 phút
+            </v-alert>
+          </v-timeline-item>
           <v-timeline-item
             v-for="(seg, i) in ticket.DEPARTURE.Segments"
             :key="i + 'Segment'"
@@ -46,6 +63,13 @@
               />
             </v-card>
           </v-timeline-item>
+          <v-timeline-item small icon="mdi-bag-checked">
+            <v-alert color="info" dense text class="tw-text-xs tw-border-dashed"
+              ><strong
+                >Hành trình kết thúc lúc {{ ticket.DEPARTURE.EndTime }}</strong
+              >Quý khách lưu ý thời gian chiều về
+            </v-alert>
+          </v-timeline-item>
         </v-timeline>
         <v-subheader>
           Chieu ve<span class="fly-animate-return"
@@ -56,6 +80,23 @@
         </v-subheader>
         <v-divider></v-divider>
         <v-timeline dense class="tw-my-4 flight-timeline">
+          <v-timeline-item small icon="mdi-bag-carry-on-check">
+            <v-alert
+              color="info"
+              dense
+              text
+              class="tw-text-xs tw-border-dashed"
+            >
+              <strong>
+                Chuyến bay chiều về khởi hành lúc
+                {{
+                  `${ticket.RETURN.StartTime} , ${ticket.RETURN.formatStartDate}`
+                }}</strong
+              >
+              Vui lòng di chuyển tới sân bay và làm thủ tục trước khi bay ít
+              nhất 45 phút
+            </v-alert>
+          </v-timeline-item>
           <v-timeline-item
             v-for="(seg, i) in ticket.RETURN.Segments"
             :key="i + 'Segment'"
@@ -87,6 +128,14 @@
                 :totalTime="ticket.RETURN.formatTotalTime"
               />
             </v-card>
+          </v-timeline-item>
+          <v-timeline-item small icon="mdi-bag-checked">
+            <v-alert color="info" dense text class="tw-text-xs tw-border-dashed"
+              ><strong
+                >Hành trình kết thúc lúc {{ ticket.RETURN.EndTime }}</strong
+              >
+              Cảm ơn quý khách đã sử dụng dịch vụ của Đại Minh
+            </v-alert>
           </v-timeline-item>
         </v-timeline>
       </v-tab-item>

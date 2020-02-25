@@ -17,7 +17,7 @@ const nav = {
   user: {
     icon: 'icofont-badge icofont-2x',
     name: 'User',
-    to: '/'
+    to: '/auth/profile'
   }
 }
 module.exports = {

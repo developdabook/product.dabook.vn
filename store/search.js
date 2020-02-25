@@ -4,7 +4,9 @@ export const state = () => ({
   searchCondition: {
     from: {},
     to: {},
-    departure: moment().format('DD-MM-YYYY'),
+    departure: moment()
+      .add(1, 'day')
+      .format('DD-MM-YYYY'),
     arrived: moment()
       .add(4, 'day')
       .format('DD-MM-YYYY'),
@@ -47,6 +49,28 @@ export const mutations = {
     state.searchCondition.passenger.ADULT = payload.ADULT
     state.searchCondition.passenger.CHILD = payload.CHILD
     state.searchCondition.passenger.INFANT = payload.INFANT
+  },
+  REMOVE_SECTION(state) {
+    state.section = ''
+  },
+  REMOVE_SEARCH_CONDITION(state) {
+    state.searchCondition = {
+      from: {},
+      to: {},
+      departure: moment()
+        .add(1, 'day')
+        .format('DD-MM-YYYY'),
+      arrived: moment()
+        .add(4, 'day')
+        .format('DD-MM-YYYY'),
+      passenger: {
+        ADULT: 0,
+        CHILD: 0,
+        INFANT: 0
+      },
+      cabinClass: ['ECONOMY'],
+      isRoundTrip: false
+    }
   }
 }
 export const actions = {

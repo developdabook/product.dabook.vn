@@ -10,7 +10,9 @@
       v-for="(nav, i) in navs"
       :key="i + 'navbar'"
       :value="nav.name"
+      :to="nav.to"
       class="tw-font-normal"
+      nuxt
     >
       <span>{{ nav.name }}</span>
 

@@ -6,6 +6,21 @@
       <v-tab class="tab-title">Điều kiện</v-tab>
       <v-tab-item>
         <v-timeline dense class="tw-my-4 flight-timeline">
+          <v-timeline-item small icon="mdi-bag-carry-on-check">
+            <v-alert
+              color="info"
+              dense
+              text
+              class="tw-text-xs tw-border-dashed"
+            >
+              <strong>
+                Chuyến bay khởi hành lúc
+                {{ `${ticket.StartTime} , ${ticket.formatStartDate}` }}</strong
+              >
+              Vui lòng di chuyển tới sân bay và làm thủ tục trước khi bay ít
+              nhất 45 phút
+            </v-alert>
+          </v-timeline-item>
           <v-timeline-item
             v-for="(seg, i) in ticket.Segments"
             :key="i + 'Segment'"
@@ -37,6 +52,12 @@
                 :totalTime="ticket.formatTotalTime"
               />
             </v-card>
+          </v-timeline-item>
+          <v-timeline-item small icon="mdi-bag-checked">
+            <v-alert color="info" dense text class="tw-text-xs tw-border-dashed"
+              ><strong>Hành trình kết thúc lúc {{ ticket.EndTime }}</strong>
+              Cảm ơn quý khách đã sử dụng dịch vụ của Đại Minh
+            </v-alert>
           </v-timeline-item>
         </v-timeline>
       </v-tab-item>
@@ -126,7 +147,7 @@
   </div>
 </template>
 <script>
-import _ from 'lodash'
+// import _ from 'lodash'
 import GeneralApi from '@/services/GeneralApi'
 export default {
   name: 'TicketDetail',
@@ -147,11 +168,11 @@ export default {
       fareOptionSelected: this.ticket.MinFare
     }
   },
-  watch: {
-    ticket(newVal) {
-      this.fareOptionSelected = _.clone(newVal.MinFare)
-    }
-  },
+  // watch: {
+  //   ticket(newVal) {
+  //     this.fareOptionSelected = _.clone(newVal.MinFare)
+  //   }
+  // },
   methods: {
     getAirPort(payload) {
       GeneralApi.GetAirPort(payload).then((result) => {

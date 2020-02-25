@@ -153,7 +153,6 @@
           </div>
         </div>
       </v-card-text>
-      <v-card-actions> </v-card-actions>
       <v-btn
         @click="removePassenger(pass)"
         :disabled="checkout.passengers.length === 1"
@@ -231,7 +230,19 @@
             </div>
           </div>
           <div class="input-box">
-            <div class="half-left tw-flex tw-flex-row">
+            <div class="half-left">
+              <v-text-field
+                v-model="checkout.contact.email"
+                :rules="validation.emailRules"
+                label="Email"
+                placeholder="ex. your@gmail.com"
+                outlined
+                color="primary"
+                dense
+                class="input-sm"
+              ></v-text-field>
+            </div>
+            <div class="half-right tw-flex tw-flex-row">
               <v-autocomplete
                 v-model="checkout.contact.national"
                 :items="country"
@@ -243,7 +254,7 @@
                 placeholder="VietNam"
                 item-text="name"
                 item-value="code"
-                class="tw-w-1/3 tw-mr-1 input-sm"
+                class="tw-w-1/2 tw-mr-1 input-sm"
               >
                 <template v-slot:selection="data">
                   <v-chip label color="primary" small>
@@ -276,19 +287,7 @@
                 outlined
                 color="primary"
                 dense
-                class="tw-w-2/3 input-sm"
-              ></v-text-field>
-            </div>
-            <div class="half-right">
-              <v-text-field
-                v-model="checkout.contact.email"
-                :rules="validation.emailRules"
-                label="Email"
-                placeholder="ex. your@gmail.com"
-                outlined
-                color="primary"
-                dense
-                class="input-sm"
+                class="tw-w-1/2 input-sm"
               ></v-text-field>
             </div>
           </div>
@@ -554,7 +553,14 @@ export default {
       this.$refs.birthday.forEach((element) => {
         element.checkValidate()
       })
-      this.$refs.checkoutForm.validate()
+      if (this.$refs.checkoutForm.validate() && this.validation.birthdayValid) {
+        this.$router.push({
+          path: 'pay',
+          query: {
+            section: this.$store.getters['search/getSection']
+          }
+        })
+      }
     },
     changePassengerType() {
       const payload = this.sumaryPassengers()
