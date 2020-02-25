@@ -8,12 +8,13 @@
   </div>
 </template>
 <script>
+const images = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 export default {
   name: 'Background',
   data() {
     return {
-      bgs: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-      currentBg: [0, 1, 2, 3, 4, 5, 6, 7, 8][Math.floor(Math.random() * 5)],
+      bgs: images,
+      currentBg: images[Math.floor(Math.random() * 5)],
       polling: null
     }
   },

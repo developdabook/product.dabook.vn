@@ -17,6 +17,23 @@
     <section class="section-footer">
       <FooterComponent />
     </section>
+    <section class="section-topup">
+      <transition name="page">
+        <v-btn
+          @click="topFunction"
+          v-show="isTopup"
+          small
+          fixed
+          dark
+          fab
+          right
+          color="primary"
+          class="topup-btn"
+        >
+          <v-icon small>mdi-arrow-collapse-up</v-icon>
+        </v-btn>
+      </transition>
+    </section>
   </v-app>
 </template>
 
@@ -30,7 +47,32 @@ export default {
     FooterComponent: () => import('@/components/FooterComponent')
   },
   data() {
-    return {}
+    return {
+      isTopup: false
+    }
+  },
+  mounted() {
+    const that = this
+    window.onscroll = function() {
+      that.scrollFunction()
+    }
+  },
+  methods: {
+    scrollFunction() {
+      if (
+        document.body.scrollTop > 100 ||
+        document.documentElement.scrollTop > 100
+      ) {
+        this.isTopup = true
+      } else {
+        this.isTopup = false
+      }
+    },
+
+    topFunction() {
+      document.body.scrollTop = 0 // For Safari
+      document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
+    }
   }
 }
 </script>

@@ -22,7 +22,9 @@
     </v-card-title>
     <v-card-text>
       <div
-        v-for="(pass, i) in Object.keys(passengers)"
+        v-for="(pass, i) in Object.keys(passengers).filter(
+          (item) => passengers[item] > 0
+        )"
         :key="i + 'checkoutpass'"
         class="cash-box"
       >
@@ -83,6 +85,9 @@ export default {
     },
     ticketSelected() {
       return this.$store.getters['checkout/geticketSelected']
+    },
+    feeAdult() {
+      return 0
     }
   }
 }

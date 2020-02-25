@@ -266,15 +266,20 @@ export default {
       loading: false,
       ticketSelected: {
         ticket: this.ticket,
-        fare: this.ticket.MinFare
-      }
+        fare: this.ticket.MinFare,
+        fee: []
+      },
+      timeOut: null
     }
   },
   mounted() {
     this.loading = true
-    setTimeout(() => {
+    this.timeOut = setTimeout(() => {
       this.loading = false
     }, 600)
+  },
+  beforeDestroy() {
+    clearTimeout(this.timeOut)
   },
   methods: {
     selectTicket(payload) {

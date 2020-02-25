@@ -5,6 +5,12 @@
 //     calendar: (background-color: red), 
 //     picker: (body: red),
 // ));
+html {
+  scroll-behavior: smooth;
+}
+.topup-btn{
+  bottom: 4rem;
+}
 .draw-70.v-navigation-drawer--bottom.v-navigation-drawer--is-mobile{
     max-height: 70% !important;
 } 

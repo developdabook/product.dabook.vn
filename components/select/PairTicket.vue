@@ -398,20 +398,26 @@ export default {
       ticketSelected: {
         DEPARTURE: {
           ticket: this.ticket.DEPARTURE,
-          fare: this.ticket.DEPARTURE.MinFare
+          fare: this.ticket.DEPARTURE.MinFare,
+          fee: []
         },
         RETURN: {
           ticket: this.ticket.RETURN,
-          fare: this.ticket.RETURN.MinFare
+          fare: this.ticket.RETURN.MinFare,
+          fee: []
         }
-      }
+      },
+      timeOut: null
     }
   },
   mounted() {
     this.loading = true
-    setTimeout(() => {
+    this.timeOut = setTimeout(() => {
       this.loading = false
     }, 600)
+  },
+  beforeDestroy() {
+    clearTimeout(this.timeOut)
   },
   methods: {
     selectTicket(payload) {

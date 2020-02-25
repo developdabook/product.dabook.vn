@@ -53,7 +53,7 @@
                     small
                     color="blue lighten-5"
                     text-color="blue darken-2"
-                    >Economy</v-chip
+                    >{{ ticket.fare.Description }}</v-chip
                   >
                 </div>
                 <div class="titem-ticket-info">
@@ -95,7 +95,7 @@
                       </v-avatar>
                     </template>
                     <span
-                      >Vietnam Airline
+                      >{{ ticket.ticket.formatIATA.name }}
                       <v-icon color="#FFF" small
                         >mdi-information-outline</v-icon
                       >
