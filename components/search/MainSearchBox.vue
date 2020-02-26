@@ -5,10 +5,6 @@
         <v-card-text class="pb-0">
           <div class="tw-relative">
             <v-text-field
-              @click="
-                selectCondition('from')
-                drawer.isMaxHeight = true
-              "
               :value="fromSum"
               label="From"
               color="primary"
@@ -18,9 +14,12 @@
               name="searchFrom"
               readonly
               placeholder="Please select departure airport"
+              @click="
+                selectCondition('from')
+                drawer.isMaxHeight = true
+              "
             ></v-text-field>
             <v-btn
-              @click="swapLocation"
               color="primary"
               dark
               small
@@ -28,15 +27,12 @@
               bottom
               fab
               class="tw-right-0"
+              @click="swapLocation"
             >
               <v-icon>mdi-swap-vertical</v-icon>
             </v-btn>
           </div>
           <v-text-field
-            @click="
-              selectCondition('to')
-              drawer.isMaxHeight = true
-            "
             :value="toSum"
             label="To"
             prepend-inner-icon="mdi-airplane-landing"
@@ -45,13 +41,13 @@
             readonly
             name="searchTo"
             placeholder="Please select arrived/return airport"
+            @click="
+              selectCondition('to')
+              drawer.isMaxHeight = true
+            "
           ></v-text-field>
           <div class="tw-relative">
             <v-text-field
-              @click="
-                selectCondition('departure')
-                drawer.isMaxHeight = true
-              "
               :value="departureSum"
               label="Departure"
               prepend-inner-icon="mdi-calendar-import"
@@ -60,6 +56,10 @@
               readonly
               placeholder="DD-MM-YYY"
               name="searchDeparture"
+              @click="
+                selectCondition('departure')
+                drawer.isMaxHeight = true
+              "
             ></v-text-field>
             <div class="is-roundtrip">
               <label
@@ -75,10 +75,6 @@
           </div>
           <v-expand-transition>
             <v-text-field
-              @click="
-                selectCondition('arrived')
-                drawer.isMaxHeight = true
-              "
               v-show="searchCondition.isRoundTrip"
               :value="arrivedSum"
               label="Arrived"
@@ -88,13 +84,13 @@
               class="my-4"
               placeholder="DD-MM-YYY"
               name="searchArrived"
+              @click="
+                selectCondition('arrived')
+                drawer.isMaxHeight = true
+              "
             ></v-text-field>
           </v-expand-transition>
           <v-text-field
-            @click="
-              selectCondition('passenger')
-              drawer.isMaxHeight = false
-            "
             :value="passegnerSum"
             label="Passenger"
             prepend-inner-icon="mdi-account-multiple-check-outline"
@@ -102,12 +98,12 @@
             class="my-4"
             readonly
             name="searchPassenger"
-          ></v-text-field>
-          <v-text-field
             @click="
-              selectCondition('cabinClass')
+              selectCondition('passenger')
               drawer.isMaxHeight = false
             "
+          ></v-text-field>
+          <v-text-field
             :value="cabinClassSum"
             label="CabinClass"
             prepend-inner-icon="mdi-seat-passenger"
@@ -115,16 +111,20 @@
             readonly
             class="mt-4"
             name="searchCabinClass"
+            @click="
+              selectCondition('cabinClass')
+              drawer.isMaxHeight = false
+            "
           ></v-text-field>
         </v-card-text>
         <v-card-actions class="pt-12 tw-px-4">
           <v-btn
-            @click="searchFlight"
             color="primary"
             rounded
             depressed
             large
             class="tw-w-full"
+            @click="searchFlight"
             >Search</v-btn
           >
         </v-card-actions>
@@ -155,26 +155,26 @@
         <SelectLocation
           v-if="drawer.from"
           v-model="searchCondition.from"
-          :exceptionLocal="searchCondition.to"
+          :exception-local="searchCondition.to"
           @close="drawer.isDraw = false"
         />
         <SelectLocation
           v-if="drawer.to"
           v-model="searchCondition.to"
-          :exceptionLocal="searchCondition.from"
+          :exception-local="searchCondition.from"
           @close="drawer.isDraw = false"
         />
         <SelectTime
           v-if="drawer.departure"
           v-model="searchCondition.departure"
-          :minDate="new Date()"
+          :min-date="new Date()"
           @change="validateArrivedTime"
           @close="drawer.isDraw = false"
         />
         <SelectTime
           v-if="drawer.arrived"
           v-model="searchCondition.arrived"
-          :minDate="new Date($moment(searchCondition.departure, 'DD-MM-YYYY'))"
+          :min-date="new Date($moment(searchCondition.departure, 'DD-MM-YYYY'))"
           @close="drawer.isDraw = false"
         />
         <SelectPassenger

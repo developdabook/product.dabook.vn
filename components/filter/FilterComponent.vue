@@ -9,13 +9,13 @@
     </div>
     <div class="filter-mobile">
       <v-btn
-        @click="sheet = true"
         :depressed="false"
         rounded
         outlined
         small
         color="primary"
         class="float-filter-btn"
+        @click="sheet = true"
         >Filter <v-icon small class="tw-ml-2">mdi-filter-outline</v-icon></v-btn
       >
       <v-bottom-sheet v-model="sheet">

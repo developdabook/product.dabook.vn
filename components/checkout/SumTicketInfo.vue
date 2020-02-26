@@ -50,9 +50,10 @@
                     `${ticket.ticket.StartTime}  ${ticket.ticket.formatStartDate}`
                   }}</strong>
                   <v-chip
-                    small
-                    color="teal lighten-5"
-                    text-color="teal darken-2"
+                    x-small
+                    color="blue lighten-5"
+                    text-color="blue darken-2"
+                    label
                     >{{ ticket.fare.Description }}</v-chip
                   >
                 </div>
@@ -78,7 +79,7 @@
                   <v-chip
                     label
                     small
-                    text-color="teal darken-2"
+                    text-color="blue darken-2"
                     class="tw-font-bold tw-bg-gray-100"
                     >{{
                       `${ticket.ticket.Segments[0].Airline}-${ticket.ticket.Segments[0].FlightNumber}`
@@ -86,7 +87,7 @@
                   >
                   <v-tooltip top color="primary" z-index="999999">
                     <template v-slot:activator="{ on }">
-                      <v-avatar v-on="on" height="24" width="24" tile>
+                      <v-avatar height="24" width="24" tile v-on="on">
                         <img
                           :src="
                             `https://booking.kayak.com/rimg/provider-logos/airlines/v/${ticket.ticket.Airline}.png?crop=false&width=92&height=92`
@@ -102,12 +103,12 @@
                     </span>
                   </v-tooltip>
                   <v-btn
-                    @click="segmentExpand = true"
                     text
                     icon
                     color="primary"
                     fab
                     small
+                    @click="segmentExpand = true"
                   >
                     <v-icon small>{{
                       segmentExpand
@@ -153,7 +154,7 @@
                 <template v-slot:icon>
                   <v-tooltip top color="primary" z-index="999999">
                     <template v-slot:activator="{ on }">
-                      <v-avatar v-on="on" height="20" width="20">
+                      <v-avatar height="20" width="20" v-on="on">
                         <img
                           :src="
                             `https://booking.kayak.com/rimg/provider-logos/airlines/v/${seg.Airline}.png?crop=false&width=92&height=92`
@@ -172,7 +173,7 @@
                 <v-card class="my-4 py-4 tw-shadow" color="#FFF">
                   <FlightSegment
                     :segment="seg"
-                    :totalTime="ticket.ticket.formatTotalTime"
+                    :total-time="ticket.ticket.formatTotalTime"
                   />
                 </v-card>
               </v-timeline-item>

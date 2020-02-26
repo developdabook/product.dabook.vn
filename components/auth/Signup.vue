@@ -73,7 +73,7 @@
               I agree that
               <v-tooltip top color="primary">
                 <template v-slot:activator="{ on }">
-                  <a @click.stop v-on="on" target="_blank" href="/policy">
+                  <a target="_blank" href="/policy" @click.stop v-on="on">
                     dabook
                   </a>
                 </template>
@@ -86,11 +86,11 @@
       </v-card-text>
       <v-card-actions class="signup-action">
         <v-btn
-          @click="signup"
           depressed
           rounded
           color="primary"
           class="signup-btn"
+          @click="signup"
           >Signup</v-btn
         >
         <v-subheader class="tw-text-center tw-justify-center"

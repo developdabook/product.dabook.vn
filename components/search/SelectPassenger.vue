@@ -7,7 +7,6 @@
       <v-card-text class="px-4">
         <div class="passenger-select-box">
           <v-btn
-            @click="minusPerson('ADULT')"
             :disabled="passenger.ADULT === 0"
             fab
             text
@@ -15,6 +14,7 @@
             outlined
             small
             color="primary"
+            @click="minusPerson('ADULT')"
             ><v-icon>mdi-minus</v-icon></v-btn
           >
           <div class="passenger-info">
@@ -26,7 +26,6 @@
             </span>
           </div>
           <v-btn
-            @click="plusPerson('ADULT')"
             :disabled="totalPassenger === 5"
             fab
             text
@@ -34,12 +33,12 @@
             outlined
             small
             color="primary"
+            @click="plusPerson('ADULT')"
             ><v-icon>mdi-plus</v-icon></v-btn
           >
         </div>
         <div class="passenger-select-box">
           <v-btn
-            @click="minusPerson('CHILD')"
             :disabled="passenger.CHILD === 0"
             fab
             text
@@ -47,6 +46,7 @@
             outlined
             small
             color="primary"
+            @click="minusPerson('CHILD')"
             ><v-icon>mdi-minus</v-icon></v-btn
           >
           <div class="passenger-info">
@@ -58,7 +58,6 @@
             </span>
           </div>
           <v-btn
-            @click="plusPerson('CHILD')"
             :disabled="totalPassenger === 5"
             fab
             text
@@ -66,12 +65,12 @@
             outlined
             small
             color="primary"
+            @click="plusPerson('CHILD')"
             ><v-icon>mdi-plus</v-icon></v-btn
           >
         </div>
         <div class="passenger-select-box">
           <v-btn
-            @click="minusPerson('INFANT')"
             :disabled="passenger.INFANT === 0"
             fab
             text
@@ -79,6 +78,7 @@
             outlined
             small
             color="primary"
+            @click="minusPerson('INFANT')"
             ><v-icon>mdi-minus</v-icon></v-btn
           >
           <div class="passenger-info">
@@ -90,7 +90,6 @@
             </span>
           </div>
           <v-btn
-            @click="plusPerson('INFANT')"
             :disabled="totalPassenger === 5"
             fab
             text
@@ -98,6 +97,7 @@
             outlined
             small
             color="primary"
+            @click="plusPerson('INFANT')"
             ><v-icon>mdi-plus</v-icon></v-btn
           >
         </div>
@@ -105,12 +105,12 @@
     </v-card>
     <div class="detail-action">
       <v-btn
-        @click="close"
         depressed
         small
         text
         color="primary"
         class="detail-action-btn"
+        @click="close"
         >Close</v-btn
       >
     </div>

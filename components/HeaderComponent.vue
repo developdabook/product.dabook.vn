@@ -24,9 +24,9 @@
     </v-navigation-drawer>
     <v-app-bar absolute app flat scroll-target="#body-target" color="white">
       <v-app-bar-nav-icon
-        @click="draw.leftDraw = !draw.leftDraw"
         color="primary"
         class="headercolor--text header-btn"
+        @click="draw.leftDraw = !draw.leftDraw"
       ></v-app-bar-nav-icon>
       <v-btn
         text
@@ -88,7 +88,7 @@
         offset-x
       >
         <template v-slot:activator="{ on }">
-          <v-btn v-on="on" text fab icon color="primary" class=" header-btn">
+          <v-btn text fab icon color="primary" class=" header-btn" v-on="on">
             <v-icon v-if="!loginStatus" color="headercolor">
               mdi-shield-check-outline
             </v-icon>
@@ -105,9 +105,9 @@
 
         <v-card class="tw-shadow-lg tw-rounded-lg tw-max-w-screen-sm w-screen">
           <Signin
+            v-show="!loginStatus"
             @loggined="closeMenu($event)"
             @close="closeMenu(true)"
-            v-show="!loginStatus"
           />
           <MenuAuth v-show="loginStatus" @close="closeMenu(true)" />
         </v-card>

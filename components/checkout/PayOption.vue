@@ -69,10 +69,7 @@
                   </template>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content class="pay-item-body">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.
+                  <component :is="item.component"> </component>
                 </v-expansion-panel-content>
               </v-expansion-panel>
             </v-expansion-panels>
@@ -85,60 +82,76 @@
       </v-card-text>
     </v-card>
     <div class="select-payment-box">
-      <v-btn @click="issueTicket" color="primary" class="addmore-btn" large>
+      <v-btn color="primary" class="addmore-btn" large @click="issueTicket">
         <v-icon small class="tw-mx-2">mdi-check-decagram</v-icon>
         Pay and got ticket</v-btn
       >
     </div>
+    <section class="section-dialog">
+      <v-dialog v-model="issueDialog" max-width="490" persistent>
+        <IssueTicket @close="issueDialog = false" />
+      </v-dialog>
+    </section>
   </div>
 </template>
 <script>
 export default {
   name: 'PayOption',
+  components: {
+    IssueTicket: () => import('@/components/checkout/IssueTicket')
+  },
   data() {
     return {
+      issueDialog: false,
       payOptions: [
         {
           code: 'OFFICE',
           icon: 'icofont-building-alt',
           name: 'Thanh toán tại văn phòng',
           fee: 0,
-          unit: 'FREE'
+          unit: 'FREE',
+          component: 'OfficePay'
         },
         {
           code: 'BANK_TRANSFER',
           icon: 'icofont-bank-transfer',
           name: 'Chuyển khoản',
           fee: 0,
-          unit: 'FREE'
+          unit: 'FREE',
+          component: 'BankTransferPay'
         },
         {
           code: 'DELIVERY',
           icon: 'icofont-fast-delivery',
           name: 'Giao vé,thanh toán tại nhà',
           fee: 20000,
-          unit: 'VND'
+          unit: 'VND',
+          component: 'DeliveryPay'
         },
         {
           code: 'PAYPAL',
           icon: 'icofont-paypal-alt',
           name: 'Paypal',
           fee: 3.14,
-          unit: 'USD'
+          unit: 'USD',
+          component: 'PayPalPay'
         },
         {
           code: 'ONEPAY',
           icon: 'icofont-pay',
           name: 'Onepay',
           fee: 50000,
-          unit: 'VND'
+          unit: 'VND',
+          component: 'OnePayPay'
         }
       ],
       paySelected: {}
     }
   },
   methods: {
-    issueTicket() {}
+    issueTicket() {
+      this.issueDialog = true
+    }
   }
 }
 </script>

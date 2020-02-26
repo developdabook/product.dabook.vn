@@ -8,7 +8,7 @@
         >
         <v-menu>
           <template v-slot:activator="{ on }">
-            <v-btn v-on="on" color="primarytext" text small>
+            <v-btn color="primarytext" text small v-on="on">
               <v-icon small>mdi-sort-ascending</v-icon>
             </v-btn>
           </template>

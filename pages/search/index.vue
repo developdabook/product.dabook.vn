@@ -20,16 +20,16 @@
           <div class="pair-ticket">
             <PairTicket
               v-for="(ticket, i) in flightGrouping.PAIR"
-              :ticket="ticket"
               :key="i + 'retunr-ticket'"
+              :ticket="ticket"
               class="tw-mb-4"
             />
           </div>
           <div class="departure-ticket">
             <Ticket
               v-for="(ticket, i) in flightGrouping.DEPARTURE"
-              :ticket="ticket"
               :key="i + 'departure_ticket'"
+              :ticket="ticket"
               action-btn-title="Select departure ticket"
               class="tw-mb-4"
             />
@@ -37,8 +37,8 @@
           <div class="return-ticket">
             <Ticket
               v-for="(ticket, i) in flightGrouping.RETURN"
-              :ticket="ticket"
               :key="i + 'retunr-ticket'"
+              :ticket="ticket"
               action-btn-title="Select return ticket"
               class="tw-mb-4"
             />

@@ -13,8 +13,8 @@
           <v-checkbox
             v-model="classSelected"
             :value="cabin.value"
-            @change="selectClass"
             hide-details
+            @change="selectClass"
           >
             <template v-slot:label>
               <div class="tw-flex tw-flex-col tw-justify-start">
@@ -36,12 +36,12 @@
     </v-card>
     <div class="detail-action">
       <v-btn
-        @click="close"
         depressed
         small
         text
         color="primary"
         class="detail-action-btn"
+        @click="close"
         >Close</v-btn
       >
     </div>

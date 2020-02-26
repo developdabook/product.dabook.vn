@@ -34,3 +34,6 @@
   .normal-btn{
     @apply tw-normal-case tw-font-normal !important;
   }
+  .normal-list{
+    @apply tw-list-disc tw-m-0 !important
+  }

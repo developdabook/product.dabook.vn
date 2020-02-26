@@ -8,8 +8,8 @@
       <v-checkbox
         v-model="airlineSelected"
         :value="item.iata_code"
-        @change="selectAirline"
         hide-details
+        @change="selectAirline"
       >
         <template v-slot:label>
           <div class="tw-flex tw-flex-row tw-justify-start">

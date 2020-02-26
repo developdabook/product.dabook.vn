@@ -6,12 +6,12 @@
         v-for="(item, i) in items"
         :key="i"
         :to="item.to"
-        @click="$emit('close')"
         dense
         nuxt
+        @click="$emit('close')"
       >
         <v-list-item-icon>
-          <v-icon v-text="item.icon" :class="item.class"></v-icon>
+          <v-icon :class="item.class" v-text="item.icon"></v-icon>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title v-text="item.name"></v-list-item-title>

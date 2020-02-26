@@ -15,9 +15,9 @@
             :rows="1"
             :attributes="attrs"
             :select-attribute="attrs[0]"
-            @input="changeDate"
             mode="single"
             class="tw-border tw-border-gray-200 tw-rounded-sm"
+            @input="changeDate"
           />
         </client-only>
       </v-lazy>

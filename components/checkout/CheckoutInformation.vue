@@ -17,14 +17,14 @@
           {{ j + 1 }}
         </strong>
         <v-select
+          v-model="pass.type"
           :items="passengers_sl"
           :rules="validation.passengerTypeRules"
-          @change="changePassengerType"
-          v-model="pass.type"
           item-text="text"
           item-value="value"
           dense
           class="tw-inline-block tw-flex-grow-0 tw-w-48"
+          @change="changePassengerType"
         >
           <template v-slot:selection="{ item }">
             <v-btn
@@ -115,8 +115,8 @@
                 </template>
               </v-autocomplete>
               <v-select
-                :items="gender"
                 v-model="pass.name_prefix"
+                :items="gender"
                 :rules="validation.namePrefixRules"
                 label="Gender"
                 placeholder="Mr"
@@ -154,7 +154,6 @@
         </div>
       </v-card-text>
       <v-btn
-        @click="removePassenger(pass)"
         :disabled="checkout.passengers.length === 1"
         color="primary"
         class="remove-btn"
@@ -162,16 +161,17 @@
         x-small
         absolute
         fab
+        @click="removePassenger(pass)"
       >
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-card>
     <div class="add-more-box">
       <v-btn
-        @click="addMorePassenger"
         :disabled="checkout.passengers.length >= 5"
         color="primary"
         class="addmore-btn"
+        @click="addMorePassenger"
         ><v-icon small class="tw-mr-2">mdi-account-plus-outline</v-icon> Add
         more passengers</v-btn
       >
@@ -196,8 +196,8 @@
           <div class="input-box">
             <div class="half-left tw-flex tw-flex-row">
               <v-select
-                :items="gender"
                 v-model="checkout.contact.name_prefix"
+                :items="gender"
                 :rules="validation.namePrefixRules"
                 label="Gender"
                 placeholder="Mr"
@@ -365,7 +365,7 @@
             <v-expansion-panel-header
               class="tw-border-b tw-px-0 tw-flex tw-items-end"
             >
-              <template v-slot:default v-if="invoiceUsed">
+              <template v-if="invoiceUsed" v-slot:default>
                 <strong class="pass-number"
                   ><i class="icofont-file-alt tw-text-xl"></i>
                   Invoice
@@ -431,11 +431,25 @@
       </v-card-text>
     </v-card>
     <div class="select-payment-box">
-      <v-btn @click="checkoutPayment" color="primary" class="addmore-btn" large>
-        <v-icon small class="tw-mx-2">mdi-chevron-triple-right</v-icon> Select
-        payment</v-btn
+      <v-btn
+        text
+        color="primary"
+        class="reservation-btn"
+        large
+        @click="makeReservation"
+      >
+        <i class="icofont-air-ticket tw-mr-2 icofont-2x"></i> Make
+        Reservation</v-btn
+      >
+      <v-btn color="primary" class="addmore-btn" large @click="checkoutPayment">
+        <i class="icofont-pay tw-mr-2 icofont-2x"></i> Select payment</v-btn
       >
     </div>
+    <section class="section-dialog">
+      <v-dialog v-model="reservationDialog" max-width="490" persistent>
+        <ReservationBox @close="reservationDialog = false" />
+      </v-dialog>
+    </section>
   </v-form>
 </template>
 <script>
@@ -445,10 +459,12 @@ import passengers from '@/localdb/passenger'
 export default {
   name: 'CheckoutInformation',
   components: {
-    DateInput: () => import('@/components/checkout/DateInput')
+    DateInput: () => import('@/components/checkout/DateInput'),
+    ReservationBox: () => import('@/components/checkout/ReservationBox')
   },
   data() {
     return {
+      reservationDialog: false,
       expandOpended: undefined,
       passengers_sl: passengers,
       country,
@@ -575,6 +591,9 @@ export default {
         sum[element.type]++
       })
       return sum
+    },
+    makeReservation() {
+      this.reservationDialog = true
     }
   }
 }
@@ -619,6 +638,9 @@ export default {
 }
 .select-payment-box {
   @apply tw-flex tw-justify-end tw-items-center tw-my-8;
+}
+.reservation-btn {
+  @apply tw-rounded-none tw-font-normal tw-normal-case;
 }
 .addmore-btn {
   @apply tw-rounded-none tw-font-normal tw-normal-case tw-shadow;

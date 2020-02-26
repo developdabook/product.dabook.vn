@@ -5,12 +5,12 @@
         <v-menu :close-on-content-click="false" :nudge-width="200" offset-y>
           <template v-slot:activator="{ on }">
             <v-btn
-              v-on="on"
               small
               rounded
               text
               color="primarytext"
               class="tw-normal-case"
+              v-on="on"
               >{{ roundtripSum }} <v-icon small>mdi-chevron-down</v-icon></v-btn
             >
           </template>
@@ -19,12 +19,12 @@
         <v-menu :close-on-content-click="false" :nudge-width="200" offset-y>
           <template v-slot:activator="{ on }">
             <v-btn
-              v-on="on"
               small
               rounded
               text
               color="primarytext"
               class="tw-normal-case"
+              v-on="on"
               ><v-icon small>mdi-account-multiple</v-icon>{{ passengerSum
               }}<v-icon small>mdi-chevron-down</v-icon></v-btn
             >
@@ -34,12 +34,12 @@
         <v-menu :close-on-content-click="false" :nudge-width="200" offset-y>
           <template v-slot:activator="{ on }">
             <v-btn
-              v-on="on"
               small
               rounded
               text
               color="primarytext"
               class="tw-normal-case"
+              v-on="on"
               >{{ cabinClassSum }}<v-icon small>mdi-chevron-down</v-icon></v-btn
             >
           </template>
@@ -51,7 +51,6 @@
           <v-menu :close-on-content-click="false" :nudge-width="200" offset-y>
             <template v-slot:activator="{ on }">
               <v-text-field
-                v-on="on"
                 :value="fromSum"
                 label="From"
                 placeholder="HAN- Ha Noi"
@@ -60,31 +59,31 @@
                 readonly
                 hide-details
                 class="input-sm tw-rounded-r-none tw-mr-2"
+                v-on="on"
               >
               </v-text-field>
             </template>
             <v-card class="tw-h-128 tw-bg-white tw-max-30">
               <SelectLocation
                 v-model="searchCondition.from"
-                :exceptionLocal="searchCondition.to"
+                :exception-local="searchCondition.to"
               />
             </v-card>
           </v-menu>
           <v-btn
-            @click="swapLocation"
             color="primary"
             dark
             x-small
             absolute
             depressed
             fab
+            @click="swapLocation"
           >
             <v-icon>mdi-swap-horizontal</v-icon>
           </v-btn>
           <v-menu :close-on-content-click="false" :nudge-width="200" offset-y>
             <template v-slot:activator="{ on }">
               <v-text-field
-                v-on="on"
                 :value="toSum"
                 label="To"
                 placeholder="HAN- Ha Noi"
@@ -93,12 +92,13 @@
                 readonly
                 hide-details
                 class="input-sm tw-rounded-l-none tw-ml-2"
+                v-on="on"
               ></v-text-field>
             </template>
             <v-card class="tw-h-128 tw-bg-white tw-max-30">
               <SelectLocation
                 v-model="searchCondition.to"
-                :exceptionLocal="searchCondition.from"
+                :exception-local="searchCondition.from"
               />
             </v-card>
           </v-menu>
@@ -107,7 +107,6 @@
           <v-menu :close-on-content-click="false" :nudge-width="200" offset-y>
             <template v-slot:activator="{ on }">
               <v-text-field
-                v-on="on"
                 :value="departureSum"
                 label="Departure"
                 placeholder="20 August 2020"
@@ -116,17 +115,17 @@
                 readonly
                 hide-details
                 class="input-sm tw-rounded-r-none"
+                v-on="on"
               ></v-text-field>
             </template>
             <SelectTimeDesktop
               v-model="searchCondition.departure"
-              :minDate="new Date()"
+              :min-date="new Date()"
             />
           </v-menu>
           <v-menu :close-on-content-click="false" :nudge-width="200" offset-y>
             <template v-slot:activator="{ on }">
               <v-text-field
-                v-on="on"
                 :value="arrivedSum"
                 label="Arrived"
                 placeholder="22 August 2020"
@@ -135,11 +134,12 @@
                 readonly
                 hide-details
                 class="input-sm tw-rounded-l-none"
+                v-on="on"
               ></v-text-field>
             </template>
             <SelectTimeDesktop
               v-model="searchCondition.arrived"
-              :minDate="
+              :min-date="
                 new Date($moment(searchCondition.departure, 'DD-MM-YYYY'))
               "
             />

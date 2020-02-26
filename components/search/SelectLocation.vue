@@ -12,7 +12,6 @@
     <v-card-subtitle>
       <v-text-field
         v-model="search"
-        @keydown="findLocation"
         outlined
         rounded
         autofocus
@@ -22,6 +21,7 @@
         prepend-inner-icon="mdi-google-maps"
         placeholder="Find your target..."
         class="tw-text-sm"
+        @keydown="findLocation"
       ></v-text-field>
     </v-card-subtitle>
     <v-card-text v-if="isSearching">
@@ -37,8 +37,8 @@
       <v-list v-else rounded dense>
         <v-list-item-group
           v-model="searchSelected"
-          @change="selectSearchResult"
           color="primary"
+          @change="selectSearchResult"
         >
           <v-list-item
             v-for="(port, i) in airportsFilter"
@@ -88,13 +88,13 @@
                     overlap
                   >
                     <v-btn
-                      v-on="on"
                       :disabled="port.PlaceId.length > 3"
                       small
                       class="tw-normal-case primary--text"
                       color="blue lighten-5"
                       rounded
                       depressed
+                      v-on="on"
                       >Select</v-btn
                     >
                   </v-badge>
@@ -127,8 +127,8 @@
                 <v-list rounded dense>
                   <v-list-item-group
                     v-model="locationSelected"
-                    @change="selectLocation"
                     color="primary"
+                    @change="selectLocation"
                   >
                     <v-list-item
                       v-for="(port, k) in local.airportList.filter(

@@ -40,7 +40,7 @@
             <template v-slot:icon>
               <v-tooltip top color="primary" z-index="999999">
                 <template v-slot:activator="{ on }">
-                  <v-avatar v-on="on" height="20" width="20">
+                  <v-avatar height="20" width="20" v-on="on">
                     <img
                       :src="
                         `https://booking.kayak.com/rimg/provider-logos/airlines/v/${seg.Airline}.png?crop=false&width=92&height=92`
@@ -59,7 +59,7 @@
             <v-card class="my-4 py-4 tw-shadow" color="#FFF">
               <FlightSegment
                 :segment="seg"
-                :totalTime="ticket.DEPARTURE.formatTotalTime"
+                :total-time="ticket.DEPARTURE.formatTotalTime"
               />
             </v-card>
           </v-timeline-item>
@@ -106,7 +106,7 @@
             <template v-slot:icon>
               <v-tooltip top color="primary" z-index="999999">
                 <template v-slot:activator="{ on }">
-                  <v-avatar v-on="on" height="20" width="20">
+                  <v-avatar height="20" width="20" v-on="on">
                     <img
                       :src="
                         `https://booking.kayak.com/rimg/provider-logos/airlines/v/${seg.Airline}.png?crop=false&width=92&height=92`
@@ -125,7 +125,7 @@
             <v-card class="my-4 py-4 tw-shadow" color="#FFF">
               <FlightSegment
                 :segment="seg"
-                :totalTime="ticket.RETURN.formatTotalTime"
+                :total-time="ticket.RETURN.formatTotalTime"
               />
             </v-card>
           </v-timeline-item>
@@ -248,20 +248,20 @@
         </strong>
       </div>
       <v-btn
-        @click="selectFareOption"
         depressed
         small
         color="primary"
         class="detail-action-btn"
+        @click="selectFareOption"
         >Select option</v-btn
       >
       <v-btn
-        @click="close"
         depressed
         small
         text
         color="primary"
         class="detail-action-btn"
+        @click="close"
         >Close</v-btn
       >
     </div>

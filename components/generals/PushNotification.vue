@@ -5,14 +5,14 @@
       :key="$index + 'noti'"
       :value="snackBarStatus"
       :color="classByType(noti.type)"
-      @input="updateStatus($event)"
       top
+      @input="updateStatus($event)"
     >
       <div class="tw-flex tw-flex-col tw-justify-start tw-items-start">
         <span class="tw-mr-2 tw-font-bold">{{ noti.title }}</span>
         <span>{{ noti.message }}</span>
       </div>
-      <v-btn @click="removeNoti(noti)" dark text fab>
+      <v-btn dark text fab @click="removeNoti(noti)">
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-snackbar>

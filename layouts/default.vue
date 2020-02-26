@@ -20,7 +20,6 @@
     <section class="section-topup">
       <transition name="page">
         <v-btn
-          @click="topFunction"
           v-show="isTopup"
           small
           fixed
@@ -29,6 +28,7 @@
           right
           color="primary"
           class="topup-btn"
+          @click="topFunction"
         >
           <v-icon small>mdi-arrow-collapse-up</v-icon>
         </v-btn>

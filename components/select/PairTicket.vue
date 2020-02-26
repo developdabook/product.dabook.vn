@@ -63,12 +63,12 @@
                       <v-tooltip top color="primary" z-index="999999">
                         <template v-slot:activator="{ on }">
                           <v-avatar
-                            v-on="on"
                             height="24"
                             width="24"
                             tile
                             color="blue-grey lighten-5"
                             class="tw-rounded"
+                            v-on="on"
                           >
                             <img
                               :src="
@@ -117,10 +117,10 @@
                     <v-tooltip top color="primary">
                       <template v-slot:activator="{ on }">
                         <v-checkbox
-                          v-on="on"
                           color="primary"
                           hide-details
                           class="tw-m-0"
+                          v-on="on"
                         ></v-checkbox>
                       </template>
                       <span
@@ -178,12 +178,12 @@
                       <v-tooltip top color="primary" z-index="999999">
                         <template v-slot:activator="{ on }">
                           <v-avatar
-                            v-on="on"
                             height="24"
                             width="24"
                             tile
                             color="blue-grey lighten-5"
                             class="tw-rounded"
+                            v-on="on"
                           >
                             <img
                               :src="
@@ -232,10 +232,10 @@
                     <v-tooltip top color="primary">
                       <template v-slot:activator="{ on }">
                         <v-checkbox
-                          v-on="on"
                           color="primary"
                           hide-details
                           class="tw-m-0"
+                          v-on="on"
                         ></v-checkbox>
                       </template>
                       <span
@@ -252,14 +252,14 @@
                   <v-tooltip top color="primary">
                     <template v-slot:activator="{ on }">
                       <v-btn
-                        v-on="on"
-                        @click="drawer.isDraw = true"
                         small
                         depressed
                         rounded
                         class="tw-normal-case tw-text-xs"
                         text
                         color="primary"
+                        v-on="on"
+                        @click="drawer.isDraw = true"
                         >{{ ticket.DEPARTURE.moreOption }}
                         <v-icon small>mdi-chevron-down</v-icon>
                       </v-btn>
@@ -286,7 +286,7 @@
                 <div class="sub-action">
                   <v-tooltip top color="primary">
                     <template v-slot:activator="{ on }">
-                      <v-btn v-on="on" small text icon fab color="#4A5568">
+                      <v-btn small text icon fab color="#4A5568" v-on="on">
                         <v-icon>mdi-heart-outline</v-icon>
                       </v-btn>
                     </template>
@@ -299,7 +299,7 @@
                   </v-tooltip>
                   <v-tooltip top color="primary">
                     <template v-slot:activator="{ on }">
-                      <v-btn v-on="on" small text icon fab color="#4A5568">
+                      <v-btn small text icon fab color="#4A5568" v-on="on">
                         <v-icon>mdi-share-all-outline</v-icon>
                       </v-btn>
                     </template>
@@ -312,7 +312,7 @@
                   </v-tooltip>
                   <v-tooltip top color="primary">
                     <template v-slot:activator="{ on }">
-                      <v-btn v-on="on" small text icon fab color="#4A5568">
+                      <v-btn small text icon fab color="#4A5568" v-on="on">
                         <v-icon>mdi-information-outline</v-icon>
                       </v-btn>
                     </template>
@@ -336,11 +336,11 @@
               </div>
               <div class="select-action">
                 <v-btn
-                  @click="acceptSelectTicket"
                   color="primary"
                   depressed
                   rounded
                   class="select-btn"
+                  @click="acceptSelectTicket"
                   >Select pair ticket</v-btn
                 >
               </div>

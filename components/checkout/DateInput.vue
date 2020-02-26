@@ -2,13 +2,12 @@
   <v-form
     ref="dateinput"
     v-model="validation.valid"
-    @input="validFire"
     lazy-validation
     class="tw-flex tw-flex-row"
+    @input="validFire"
   >
     <v-text-field
       v-model="date.day"
-      @change="changeDate"
       :rules="validation.dayRules"
       label="Date"
       placeholder="DD"
@@ -16,12 +15,12 @@
       color="primary"
       dense
       class="tw-w-1/3 input-sm  tw-rounded-r-none"
+      @change="changeDate"
     ></v-text-field>
     <v-select
+      v-model="date.month"
       :items="months"
       :rules="validation.monthRules"
-      v-model="date.month"
-      @change="changeDate"
       label="Month"
       placeholder="Month"
       item-text="text"
@@ -30,11 +29,11 @@
       single-line
       dense
       class="tw-w-1/3 input-sm tw-rounded-none border-x-none"
+      @change="changeDate"
     ></v-select>
     <v-text-field
       v-model="date.year"
       :rules="validation.yearRules"
-      @change="changeDate"
       label="Year"
       placeholder="YYYY"
       outlined
@@ -42,6 +41,7 @@
       color="primary"
       dense
       class="tw-w-1/3 input-sm tw-rounded-l-none"
+      @change="changeDate"
     ></v-text-field>
   </v-form>
 </template>

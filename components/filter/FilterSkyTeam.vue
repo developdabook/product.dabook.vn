@@ -8,8 +8,8 @@
       <v-checkbox
         v-model="skyteamSelected"
         :value="team.value"
-        @change="selectSkyTeam"
         hide-details
+        @change="selectSkyTeam"
       >
         <template v-slot:label>
           <div class="tw-flex tw-flex-col tw-justify-start">

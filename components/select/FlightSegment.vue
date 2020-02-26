@@ -21,16 +21,16 @@
             <strong class="tw-mr-2">{{ segment.StartTime }}</strong>
 
             <v-skeleton-loader
-              ref="skeleton"
               v-if="airPort.fromLoading"
+              ref="skeleton"
               type="text"
               class="tw-inline-block"
             ></v-skeleton-loader
             ><strong v-else class="tw-mr-2">{{ airPort.from.name }}</strong>
           </div>
           <v-skeleton-loader
-            ref="skeleton"
             v-if="airPort.fromLoading"
+            ref="skeleton"
             type="text"
             class="tw-inline-block"
           ></v-skeleton-loader>
@@ -42,11 +42,11 @@
           <v-tooltip top color="primary" z-index="999999">
             <template v-slot:activator="{ on }">
               <v-chip
-                v-on="on"
                 text-color="blue-grey darken-4"
                 color="blue-grey lighten-5"
                 small
                 class="font-weight-bold"
+                v-on="on"
               >
                 {{ totalTime }}
               </v-chip>
@@ -59,11 +59,11 @@
           <v-tooltip top color="primary" z-index="999999">
             <template v-slot:activator="{ on }">
               <v-chip
-                v-on="on"
                 small
-                color="blue lighten-4"
-                text-color="primary"
+                color="blue-grey lighten-5"
+                text-color="blue darken-1"
                 class="font-weight-bold"
+                v-on="on"
               >
                 <v-icon class="tw-mr-1" small>mdi-airplane</v-icon>
                 {{ segment.Airline + '-' + segment.FlightNumber }}
@@ -80,16 +80,16 @@
           <div>
             <strong class="tw-mr-2">{{ segment.EndTime }}</strong
             ><v-skeleton-loader
-              ref="skeleton"
               v-if="airPort.toLoading"
+              ref="skeleton"
               type="text"
               class="tw-inline-block"
             ></v-skeleton-loader
             ><strong v-else class="tw-mr-2">{{ airPort.to.name }}</strong>
           </div>
           <v-skeleton-loader
-            ref="skeleton"
             v-if="airPort.toLoading"
+            ref="skeleton"
             type="text"
             class="tw-inline-block"
           ></v-skeleton-loader>

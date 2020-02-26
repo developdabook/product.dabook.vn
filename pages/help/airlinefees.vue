@@ -26,7 +26,7 @@
             <template v-slot:prepend-inner>
               <v-tooltip top color="primary">
                 <template v-slot:activator="{ on }">
-                  <v-icon v-on="on" small color="primary"
+                  <v-icon small color="primary" v-on="on"
                     >mdi-airplane-takeoff</v-icon
                   >
                 </template>

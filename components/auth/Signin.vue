@@ -28,12 +28,12 @@
           dense
         ></v-text-field>
         <v-btn
-          @click="$emit('close', true)"
           text
           color="primary"
           class="tw-normal-case tw-px-0"
           nuxt
           to="/auth/reset"
+          @click="$emit('close', true)"
         >
           Forgot password ?
         </v-btn>
@@ -41,11 +41,11 @@
       <v-card-actions class="signin-action">
         <v-btn
           :loading="loading"
-          @click="signin"
           depressed
           rounded
           color="primary"
           class="signin-btn"
+          @click="signin"
           >Signin</v-btn
         >
         <v-subheader class="tw-text-center tw-justify-center"
@@ -111,12 +111,12 @@
       </v-card-actions>
       <v-card-actions>
         <v-btn
-          @click="$emit('close', true)"
           text
           color="primary"
           class="tw-normal-case"
           nuxt
           to="/auth/signup"
+          @click="$emit('close', true)"
         >
           Create your account
         </v-btn>

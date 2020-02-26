@@ -17,11 +17,11 @@
     </span>
     <v-range-slider
       v-model="price"
-      @change="changePrice"
       min="0"
       max="50000000"
       name="price"
       hide-details
+      @change="changePrice"
     >
     </v-range-slider>
   </div>
