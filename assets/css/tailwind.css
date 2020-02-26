@@ -31,3 +31,6 @@
   .tw-text-xxs{
     font-size: 0.6rem;
   }
+  .normal-btn{
+    @apply tw-normal-case tw-font-normal !important;
+  }

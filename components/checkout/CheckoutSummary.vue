@@ -7,12 +7,14 @@
       </strong>
     </v-card-title>
     <v-card-text>
-      <SumTicketInfo
-        v-for="(ticket, j) in ticketSelected"
-        :key="j + 'ticketcheckout'"
-        :ticket="ticket"
-        class="tw-mb-2"
-      />
+      <client-only>
+        <SumTicketInfo
+          v-for="(ticket, j) in ticketSelected"
+          :key="j + 'ticketcheckout'"
+          :ticket="ticket"
+          class="tw-mb-2"
+        />
+      </client-only>
     </v-card-text>
     <v-card-title class="summary-title">
       <strong class="pass-number"
@@ -84,6 +86,14 @@ export default {
       return this.$store.getters['search/getPassengers']
     },
     ticketSelected() {
+      if (
+        typeof this.$store.getters['checkout/geticketSelected'] === 'undefined'
+      ) {
+        return {
+          fare: {},
+          ticket: {}
+        }
+      }
       return this.$store.getters['checkout/geticketSelected']
     },
     feeAdult() {

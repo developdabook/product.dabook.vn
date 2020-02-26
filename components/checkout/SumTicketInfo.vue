@@ -51,8 +51,8 @@
                   }}</strong>
                   <v-chip
                     small
-                    color="blue lighten-5"
-                    text-color="blue darken-2"
+                    color="teal lighten-5"
+                    text-color="teal darken-2"
                     >{{ ticket.fare.Description }}</v-chip
                   >
                 </div>
@@ -78,7 +78,7 @@
                   <v-chip
                     label
                     small
-                    text-color="blue darken-2"
+                    text-color="teal darken-2"
                     class="tw-font-bold tw-bg-gray-100"
                     >{{
                       `${ticket.ticket.Segments[0].Airline}-${ticket.ticket.Segments[0].FlightNumber}`
@@ -217,6 +217,9 @@ export default {
       expand: false,
       segmentExpand: false
     }
+  },
+  mounted() {
+    console.log(this.ticket)
   }
 }
 </script>
