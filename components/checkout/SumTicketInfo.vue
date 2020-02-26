@@ -217,9 +217,6 @@ export default {
       expand: false,
       segmentExpand: false
     }
-  },
-  mounted() {
-    console.log(this.ticket)
   }
 }
 </script>
