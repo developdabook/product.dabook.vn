@@ -79,7 +79,7 @@
                         new Intl.NumberFormat('vi-VN', {
                           style: 'currency',
                           currency: 'VND'
-                        }).format(fare.total)
+                        }).format(fare.total_fare)
                       }}</strong>
                     </div>
                   </template></v-radio
@@ -123,7 +123,7 @@
     <div class="detail-action">
       <div class="tw-mr-4">
         <strong class="price-select teal--text">
-          <PriceValidation :price="fareOptionSelected.total" />
+          <PriceValidation :price="fareOptionSelected.total_fare" />
         </strong>
       </div>
       <v-btn

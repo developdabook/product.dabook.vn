@@ -328,8 +328,8 @@
                   <strong class="price-title">
                     <PriceValidation
                       :price="
-                        ticketSelected.DEPARTURE.fare.total +
-                          ticketSelected.RETURN.fare.total
+                        ticketSelected.DEPARTURE.fare.total_fare +
+                          ticketSelected.RETURN.fare.total_fare
                       "
                   /></strong>
                 </div>

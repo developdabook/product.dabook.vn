@@ -201,7 +201,7 @@
                 </div>
                 <div class="total-price">
                   <strong class="price-title">
-                    <PriceValidation :price="ticketSelected.fare.total"
+                    <PriceValidation :price="ticketSelected.fare.total_fare"
                   /></strong>
                 </div>
               </div>

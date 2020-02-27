@@ -2,12 +2,12 @@
   <div class="search-page">
     <section class="section-stickysearch">
       <StickyDeskSearch
-        class="stick-des tw-hidden md:tw-block"
         :curent-search="searchCondition"
+        class="stick-des tw-hidden md:tw-block"
       />
       <StickyMobiSearch
-        class="stick-mob tw-flex md:tw-hidden"
         :curent-search="searchCondition"
+        class="stick-mob tw-flex md:tw-hidden"
       />
       <v-progress-linear
         :active="loading.search"
@@ -109,6 +109,7 @@ export default {
               ? 'Direct'
               : `${element.stop_num} Stop`,
           moreOption:
+            typeof element.fare_options === 'undefined' ||
             element.fare_options.length === 1
               ? 'Show detail'
               : `More options (${element.fare_options.length})`
@@ -144,31 +145,35 @@ export default {
       return newFlighList
     },
     prepareFilter() {
-      const filters = {
-        airlines: []
-      }
-      filters.airlines = airlines.filter((el) => {
-        return (
-          this.flightList.filter((re) => {
-            return re.airline === el.iata_code
-          }).length > 0
+      try {
+        const filters = {
+          airlines: []
+        }
+        filters.airlines = airlines.filter((el) => {
+          return (
+            this.flightList.filter((re) => {
+              return re.airline === el.iata_code
+            }).length > 0
+          )
+        })
+        filters.prices = this.flightReFormat.reduce(
+          (lastVal, currentVal) => {
+            lastVal.min =
+              lastVal.min <= currentVal.MinFare.total_fare
+                ? lastVal.min
+                : currentVal.MinFare.total_fare
+            lastVal.max =
+              lastVal.max >= currentVal.MinFare.total_fare
+                ? lastVal.max
+                : currentVal.MinFare.total_fare
+            return lastVal
+          },
+          { min: 0, max: 0 }
         )
-      })
-      filters.prices = this.flightReFormat.reduce(
-        (lastVal, currentVal) => {
-          lastVal.min =
-            lastVal.min <= currentVal.MinFare.total
-              ? lastVal.min
-              : currentVal.MinFare.total
-          lastVal.max =
-            lastVal.max >= currentVal.MinFare.total
-              ? lastVal.max
-              : currentVal.MinFare.total
-          return lastVal
-        },
-        { min: 0, max: 0 }
-      )
-      return filters
+        return filters
+      } catch (error) {
+        return []
+      }
     },
     flightFilter() {
       return null
@@ -253,104 +258,112 @@ export default {
       }
     },
     getSmalestPriceFare(ticket) {
-      if (ticket.fare_options == null || ticket.fare_options.length === 0) {
-        ticket.total = 0
-        ticket.formatTotalFare = new Intl.NumberFormat('vi-VN', {
-          style: 'currency',
-          currency: 'VND'
-        }).format(0)
-        ticket.MinFare = {
-          Description: 'Avaible',
-          Totalfare: 0
+      try {
+        if (ticket.fare_options == null || ticket.fare_options.length === 0) {
+          ticket.total_fare = 0
+          ticket.formatTotalFare = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+          }).format(0)
+          ticket.MinFare = {
+            Description: 'Avaible',
+            total_fare: 0
+          }
+        } else {
+          const smallestOption = ticket.fare_options.reduce((acc, loc) =>
+            acc.total_fare < loc.total_fare ? acc : loc
+          )
+          ticket.total_fare = smallestOption.total_fare
+          ticket.formatTotalFare = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+          }).format(smallestOption.total_fare)
+          ticket.MinFare = smallestOption
         }
-      } else {
-        const smallestOption = ticket.fare_options.reduce((acc, loc) =>
-          acc.total < loc.total ? acc : loc
-        )
-        ticket.TotalFare = smallestOption.total
-        ticket.formatTotalFare = new Intl.NumberFormat('vi-VN', {
-          style: 'currency',
-          currency: 'VND'
-        }).format(smallestOption.total)
-        ticket.MinFare = smallestOption
-      }
-      return ticket
+        return ticket
+      } catch (error) {}
     },
     getSkyCode(ticket) {
-      const skyTeam = skyGroup.find((element) => {
-        return (
-          element.iata_codes.findIndex((el) => el === ticket.airline) !== -1
-        )
-      })
-      const IATA = airlines.find((element) => {
-        return element.iata_code === ticket.airline
-      })
-      return {
-        SkyGroup: typeof skyTeam === 'undefined' ? '' : skyTeam.skyGroup,
-        formatIATA: typeof IATA === 'undefined' ? '' : IATA
-      }
+      try {
+        const skyTeam = skyGroup.find((element) => {
+          return (
+            element.iata_codes.findIndex((el) => el === ticket.airline) !== -1
+          )
+        })
+        const IATA = airlines.find((element) => {
+          return element.iata_code === ticket.airline
+        })
+        return {
+          SkyGroup: typeof skyTeam === 'undefined' ? '' : skyTeam.skyGroup,
+          formatIATA: typeof IATA === 'undefined' ? '' : IATA
+        }
+      } catch (error) {}
     },
     getTotalTime(ticket) {
-      if (ticket.segments == null || ticket.segments.length === 0) {
-        ticket.TotalFlyTime = 0
-        ticket.TotalTime = 0
-        ticket.formatTotalTime = '00h'
-        ticket.formatStartDate = ''
-        return ticket
-      }
-      let TotalFlyTime = ''
-      let TotalTime = ''
-      ticket.segments.forEach((element) => {
-        TotalFlyTime = this.$moment.utc(
+      try {
+        if (ticket.segments == null || ticket.segments.length === 0) {
+          ticket.TotalFlyTime = 0
+          ticket.TotalTime = 0
+          ticket.formatTotalTime = '00h'
+          ticket.formatStartDate = ''
+          return ticket
+        }
+        let TotalFlyTime = ''
+        let TotalTime = ''
+        ticket.segments.forEach((element) => {
+          TotalFlyTime = this.$moment.utc(
+            this.$moment(
+              `${element.end_date} ${element.end_time}`,
+              'DD-MM-YYYY HH:mm'
+            ).diff(
+              this.$moment(
+                `${element.start_date} ${element.start_time}`,
+                'DD-MM-YYYY HH:mm'
+              )
+            )
+          )
+        })
+        TotalTime = this.$moment.utc(
           this.$moment(
-            `${element.end_date} ${element.end_time}`,
+            `${ticket.segments[ticket.segments.length - 1].end_date} ${
+              ticket.segments[ticket.segments.length - 1].end_time
+            }`,
             'DD-MM-YYYY HH:mm'
           ).diff(
             this.$moment(
-              `${element.start_date} ${element.start_time}`,
+              `${ticket.segments[0].start_date} ${ticket.segments[0].start_time}`,
               'DD-MM-YYYY HH:mm'
             )
           )
         )
-      })
-      TotalTime = this.$moment.utc(
-        this.$moment(
-          `${ticket.segments[ticket.segments.length - 1].end_date} ${
-            ticket.segments[ticket.segments.length - 1].end_time
-          }`,
-          'DD-MM-YYYY HH:mm'
-        ).diff(
-          this.$moment(
-            `${ticket.segments[0].start_date} ${ticket.segments[0].start_time}`,
-            'DD-MM-YYYY HH:mm'
-          )
-        )
-      )
-      ticket.TotalFlyTime = _.clone(TotalFlyTime.format('HH:mm'))
-      const tempFormatTotalTime = ticket.TotalFlyTime.toString().split(':')
-      ticket.formatTotalTime =
-        tempFormatTotalTime[0] + 'h ' + tempFormatTotalTime[1] + 'm '
-      ticket.TotalTime = _.clone(TotalTime.format('HH:mm'))
-      ticket.formatStartDate = this.$moment(
-        ticket.segments[0].start_date,
-        'DD-MM-YYYY'
-      ).format('ddd, Do MMM YYYY')
-      return ticket
+        ticket.TotalFlyTime = _.clone(TotalFlyTime.format('HH:mm'))
+        const tempFormatTotalTime = ticket.TotalFlyTime.toString().split(':')
+        ticket.formatTotalTime =
+          tempFormatTotalTime[0] + 'h ' + tempFormatTotalTime[1] + 'm '
+        ticket.TotalTime = _.clone(TotalTime.format('HH:mm'))
+        ticket.formatStartDate = this.$moment(
+          ticket.segments[0].start_date,
+          'DD-MM-YYYY'
+        ).format('ddd, Do MMM YYYY')
+        return ticket
+      } catch (error) {}
     },
     getLocationAndType(ticket) {
-      if (ticket.start_point === this.searchCondition.from.airportCode) {
-        return {
-          type: 'DEPARTURE',
-          formatStartPoint: this.searchCondition.from,
-          formatEndPoint: this.searchCondition.to
+      try {
+        if (ticket.start_point === this.searchCondition.from.airportCode) {
+          return {
+            type: 'DEPARTURE',
+            formatStartPoint: this.searchCondition.from,
+            formatEndPoint: this.searchCondition.to
+          }
+        } else {
+          return {
+            type: 'RETURN',
+            formatStartPoint: this.searchCondition.to,
+            formatEndPoint: this.searchCondition.from
+          }
         }
-      } else {
-        return {
-          type: 'RETURN',
-          formatStartPoint: this.searchCondition.to,
-          formatEndPoint: this.searchCondition.from
-        }
-      }
+      } catch (error) {}
     }
   }
 }

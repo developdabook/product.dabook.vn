@@ -166,7 +166,7 @@
                         new Intl.NumberFormat('vi-VN', {
                           style: 'currency',
                           currency: 'VND'
-                        }).format(fare.total)
+                        }).format(fare.total_fare)
                       }}</strong>
                     </div>
                   </template></v-radio
@@ -200,7 +200,7 @@
                         new Intl.NumberFormat('vi-VN', {
                           style: 'currency',
                           currency: 'VND'
-                        }).format(fare.total)
+                        }).format(fare.total_fare)
                       }}</strong>
                     </div>
                   </template></v-radio
@@ -295,8 +295,8 @@ export default {
   computed: {
     totalFare() {
       return (
-        this.fareOptionSelected.DEPARTURE.total +
-        this.fareOptionSelected.RETURN.total
+        this.fareOptionSelected.DEPARTURE.total_fare +
+        this.fareOptionSelected.RETURN.total_fare
       )
     }
   },
