@@ -19,7 +19,21 @@ export const state = () => ({
     isRoundTrip: false
   },
   section: '',
-  filterCondition: {},
+  filterCondition: {
+    airlines: [],
+    prices: {
+      min: 0,
+      max: 0
+    },
+    departureTime: {
+      from: 0,
+      to: 0
+    },
+    arrivedTime: {
+      from: 0,
+      to: 0
+    }
+  },
   sortCondition: {}
 })
 export const mutations = {

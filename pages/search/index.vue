@@ -17,7 +17,9 @@
       ></v-progress-linear>
     </section>
     <section id="body-target" class="section-search-result tw-container">
-      <div class="left-filter"><FilterComponent /></div>
+      <div class="left-filter">
+        <FilterComponent :filters="prepareFilter" />
+      </div>
       <div class="center-search">
         <div class="sort-box">
           <SortAction class="tw-mb-8 tw-w-full" />
@@ -140,6 +142,36 @@ export default {
         })
       }
       return newFlighList
+    },
+    prepareFilter() {
+      const filters = {
+        airlines: []
+      }
+      filters.airlines = airlines.filter((el) => {
+        return (
+          this.flightList.filter((re) => {
+            return re.airline === el.iata_code
+          }).length > 0
+        )
+      })
+      filters.prices = this.flightReFormat.reduce(
+        (lastVal, currentVal) => {
+          lastVal.min =
+            lastVal.min <= currentVal.MinFare.total
+              ? lastVal.min
+              : currentVal.MinFare.total
+          lastVal.max =
+            lastVal.max >= currentVal.MinFare.total
+              ? lastVal.max
+              : currentVal.MinFare.total
+          return lastVal
+        },
+        { min: 0, max: 0 }
+      )
+      return filters
+    },
+    flightFilter() {
+      return null
     }
   },
   mounted() {

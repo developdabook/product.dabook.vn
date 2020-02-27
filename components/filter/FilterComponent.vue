@@ -3,7 +3,7 @@
     <div class="filter-desktop">
       <v-card flat class="tw-w-full tw-rounded-none">
         <v-card-text>
-          <FilterAction />
+          <FilterAction :filters="filters" />
         </v-card-text>
       </v-card>
     </div>
@@ -20,7 +20,7 @@
       >
       <v-bottom-sheet v-model="sheet">
         <v-sheet height="80vh" class="tw-p-3 tw-overflow-scroll">
-          <FilterAction />
+          <FilterAction :filters="filters" />
         </v-sheet>
       </v-bottom-sheet>
     </div>
@@ -31,6 +31,14 @@ export default {
   name: 'FilterComponent',
   components: {
     FilterAction: () => import('@/components/filter/FilterAction')
+  },
+  props: {
+    filters: {
+      type: [Object, Array],
+      default() {
+        return {}
+      }
+    }
   },
   data() {
     return {

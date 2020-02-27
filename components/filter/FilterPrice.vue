@@ -17,8 +17,8 @@
     </span>
     <v-range-slider
       v-model="price"
-      min="0"
-      max="50000000"
+      :min="priceProps.min"
+      :max="priceProps.max"
       name="price"
       hide-details
       @change="changePrice"
@@ -29,9 +29,17 @@
 <script>
 export default {
   name: 'FilterPrice',
+  props: {
+    priceProps: {
+      type: [Object, Array],
+      default() {
+        return {}
+      }
+    }
+  },
   data() {
     return {
-      price: [0, 20000000]
+      price: [0, this.priceProps.max / 2]
     }
   },
   methods: {

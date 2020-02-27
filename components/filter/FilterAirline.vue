@@ -1,7 +1,7 @@
 <template>
   <div class="filter-airline-component">
     <div
-      v-for="(item, i) in airlines"
+      v-for="(item, i) in airlinesProps"
       :key="i + 'item'"
       class="tw-flex tw-flex-col tw-justify-start"
     >
@@ -13,7 +13,7 @@
       >
         <template v-slot:label>
           <div class="tw-flex tw-flex-row tw-justify-start">
-            <strong class="tw-text-gray-800 tw-text-sm tw-m-0 tw-p-0">
+            <strong class="tw-text-gray-900 tw-text-sm tw-m-0 tw-p-0">
               {{ item.name }}</strong
             >
           </div>
@@ -21,14 +21,7 @@
       </v-checkbox>
 
       <span class="tw-text-gray-600 tw-text-xs tw-m-0 tw-p-0"
-        >[{{ item.iata_code }}]{{ item.name }}
-        <!-- <v-avatar class="tw-mr-2" size="20px">
-          <img
-            :src="
-              `https://booking.kayak.com/rimg/provider-logos/airlines/v/${item.iata_code}.png?crop=false&width=20&height=20`
-            "
-          />
-        </v-avatar> -->
+        >[{{ item.iata_code }}] {{ item.name }}
       </span>
     </div>
   </div>
@@ -37,6 +30,14 @@
 import airlines from '@/localdb/airlines'
 export default {
   name: 'FilterAirline',
+  props: {
+    airlinesProps: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
+  },
   data() {
     return {
       airlines: airlines.slice(1, 10),

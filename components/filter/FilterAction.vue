@@ -29,7 +29,7 @@
         </template></v-expansion-panel-header
       >
       <v-expansion-panel-content class="tw-p-1">
-        <FilterAirline />
+        <FilterAirline :airlines-props="filters.airlines" />
       </v-expansion-panel-content>
     </v-expansion-panel>
     <v-expansion-panel>
@@ -42,7 +42,7 @@
         </template>
       </v-expansion-panel-header>
       <v-expansion-panel-content class="tw-p-1">
-        <FilterPrice />
+        <FilterPrice :price-props="filters.prices" />
       </v-expansion-panel-content>
     </v-expansion-panel>
     <v-expansion-panel>
@@ -51,7 +51,7 @@
           <v-icon small>mdi-chevron-down</v-icon>
         </template>
         <template v-slot:default>
-          StartTime
+          Cất cánh chiều đi
         </template></v-expansion-panel-header
       >
       <v-expansion-panel-content class="tw-p-1">
@@ -64,7 +64,33 @@
           <v-icon small>mdi-chevron-down</v-icon>
         </template>
         <template v-slot:default>
-          EndTime
+          Hạ cánh chiều đi
+        </template></v-expansion-panel-header
+      >
+      <v-expansion-panel-content class="tw-p-1">
+        <FilterTime />
+      </v-expansion-panel-content>
+    </v-expansion-panel>
+    <v-expansion-panel v-if="isRoundTrip">
+      <v-expansion-panel-header class="filter-panel-header">
+        <template v-slot:actions>
+          <v-icon small>mdi-chevron-down</v-icon>
+        </template>
+        <template v-slot:default>
+          Cất cánh chiều về
+        </template></v-expansion-panel-header
+      >
+      <v-expansion-panel-content class="tw-p-1">
+        <FilterTime />
+      </v-expansion-panel-content>
+    </v-expansion-panel>
+    <v-expansion-panel v-if="isRoundTrip">
+      <v-expansion-panel-header class="filter-panel-header">
+        <template v-slot:actions>
+          <v-icon small>mdi-chevron-down</v-icon>
+        </template>
+        <template v-slot:default>
+          Hạ cánh chiều về
         </template></v-expansion-panel-header
       >
       <v-expansion-panel-content class="tw-p-1">
@@ -82,9 +108,22 @@ export default {
     FilterSkyteam: () => import('@/components/filter/FilterSkyteam'),
     FilterAirline: () => import('@/components/filter/FilterAirline')
   },
+  props: {
+    filters: {
+      type: [Array, Object],
+      default() {
+        return {}
+      }
+    }
+  },
   data() {
     return {
       panel: [0, 1]
+    }
+  },
+  computed: {
+    isRoundTrip() {
+      return this.$store.getters['search/isRoundTrip']
     }
   }
 }
