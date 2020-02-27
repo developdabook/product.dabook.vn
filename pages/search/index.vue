@@ -1,8 +1,14 @@
 <template>
   <div class="search-page">
     <section class="section-stickysearch">
-      <StickyDeskSearch class="stick-des tw-hidden md:tw-block" />
-      <StickyMobiSearch class="stick-mob tw-flex md:tw-hidden" />
+      <StickyDeskSearch
+        class="stick-des tw-hidden md:tw-block"
+        :curent-search="searchCondition"
+      />
+      <StickyMobiSearch
+        class="stick-mob tw-flex md:tw-hidden"
+        :curent-search="searchCondition"
+      />
       <v-progress-linear
         :active="loading.search"
         :indeterminate="loading.search"
@@ -89,22 +95,26 @@ export default {
       return this.$store.getters['search/isRoundTrip']
     },
     flightReFormat() {
-      let newFlightList = []
-      newFlightList = this.flightList.map((element) => ({
-        ...this.getSmalestPriceFare(element),
-        ...this.getTotalTime(element),
-        ...this.getSkyCode(element),
-        ...this.getLocationAndType(element),
-        formatDirect:
-          element.StopNum === 1 || element.StopNum === 0
-            ? 'Direct'
-            : `${element.StopNum} Stop`,
-        moreOption:
-          element.FareOptions.length === 1
-            ? 'Show detail'
-            : `More options (${element.FareOptions.length})`
-      }))
-      return newFlightList
+      try {
+        let newFlightList = []
+        newFlightList = this.flightList.map((element) => ({
+          ...this.getSmalestPriceFare(element),
+          ...this.getTotalTime(element),
+          ...this.getSkyCode(element),
+          ...this.getLocationAndType(element),
+          formatDirect:
+            element.stop_num === 1 || element.stop_num === 0
+              ? 'Direct'
+              : `${element.stop_num} Stop`,
+          moreOption:
+            element.fare_options.length === 1
+              ? 'Show detail'
+              : `More options (${element.fare_options.length})`
+        }))
+        return newFlightList
+      } catch (error) {
+        return []
+      }
     },
     flightGrouping() {
       const newFlighList = {
@@ -119,13 +129,13 @@ export default {
         })
       } else {
         this.flightReFormat.forEach((a) => {
-          if (a.PairIndex === null || typeof a.PairIndex === 'undefined') {
+          if (a.pair_index === null || typeof a.pair_index === 'undefined') {
             newFlighList[a.type] = newFlighList[a.type] || []
             newFlighList[a.type].push(a)
           } else {
-            newFlighList.PAIR[`PAIR_${a.PairIndex}`] =
-              newFlighList.PAIR[`PAIR_${a.PairIndex}`] || {}
-            newFlighList.PAIR[`PAIR_${a.PairIndex}`][`${a.type}`] = a
+            newFlighList.PAIR[`PAIR_${a.pair_index}`] =
+              newFlighList.PAIR[`PAIR_${a.pair_index}`] || {}
+            newFlighList.PAIR[`PAIR_${a.pair_index}`][`${a.type}`] = a
           }
         })
       }
@@ -211,8 +221,8 @@ export default {
       }
     },
     getSmalestPriceFare(ticket) {
-      if (ticket.FareOptions == null || ticket.FareOptions.length === 0) {
-        ticket.Totalfare = 0
+      if (ticket.fare_options == null || ticket.fare_options.length === 0) {
+        ticket.total = 0
         ticket.formatTotalFare = new Intl.NumberFormat('vi-VN', {
           style: 'currency',
           currency: 'VND'
@@ -222,14 +232,14 @@ export default {
           Totalfare: 0
         }
       } else {
-        const smallestOption = ticket.FareOptions.reduce((acc, loc) =>
-          acc.Totalfare < loc.Totalfare ? acc : loc
+        const smallestOption = ticket.fare_options.reduce((acc, loc) =>
+          acc.total < loc.total ? acc : loc
         )
-        ticket.TotalFare = smallestOption.Totalfare
+        ticket.TotalFare = smallestOption.total
         ticket.formatTotalFare = new Intl.NumberFormat('vi-VN', {
           style: 'currency',
           currency: 'VND'
-        }).format(smallestOption.Totalfare)
+        }).format(smallestOption.total)
         ticket.MinFare = smallestOption
       }
       return ticket
@@ -237,11 +247,11 @@ export default {
     getSkyCode(ticket) {
       const skyTeam = skyGroup.find((element) => {
         return (
-          element.iata_codes.findIndex((el) => el === ticket.Airline) !== -1
+          element.iata_codes.findIndex((el) => el === ticket.airline) !== -1
         )
       })
       const IATA = airlines.find((element) => {
-        return element.iata_code === ticket.Airline
+        return element.iata_code === ticket.airline
       })
       return {
         SkyGroup: typeof skyTeam === 'undefined' ? '' : skyTeam.skyGroup,
@@ -249,7 +259,7 @@ export default {
       }
     },
     getTotalTime(ticket) {
-      if (ticket.Segments == null || ticket.Segments.length === 0) {
+      if (ticket.segments == null || ticket.segments.length === 0) {
         ticket.TotalFlyTime = 0
         ticket.TotalTime = 0
         ticket.formatTotalTime = '00h'
@@ -258,14 +268,14 @@ export default {
       }
       let TotalFlyTime = ''
       let TotalTime = ''
-      ticket.Segments.forEach((element) => {
+      ticket.segments.forEach((element) => {
         TotalFlyTime = this.$moment.utc(
           this.$moment(
-            `${element.EndDate} ${element.EndTime}`,
+            `${element.end_date} ${element.end_time}`,
             'DD-MM-YYYY HH:mm'
           ).diff(
             this.$moment(
-              `${element.StartDate} ${element.StartTime}`,
+              `${element.start_date} ${element.start_time}`,
               'DD-MM-YYYY HH:mm'
             )
           )
@@ -273,13 +283,13 @@ export default {
       })
       TotalTime = this.$moment.utc(
         this.$moment(
-          `${ticket.Segments[ticket.Segments.length - 1].EndDate} ${
-            ticket.Segments[ticket.Segments.length - 1].EndTime
+          `${ticket.segments[ticket.segments.length - 1].end_date} ${
+            ticket.segments[ticket.segments.length - 1].end_time
           }`,
           'DD-MM-YYYY HH:mm'
         ).diff(
           this.$moment(
-            `${ticket.Segments[0].StartDate} ${ticket.Segments[0].StartTime}`,
+            `${ticket.segments[0].start_date} ${ticket.segments[0].start_time}`,
             'DD-MM-YYYY HH:mm'
           )
         )
@@ -290,13 +300,13 @@ export default {
         tempFormatTotalTime[0] + 'h ' + tempFormatTotalTime[1] + 'm '
       ticket.TotalTime = _.clone(TotalTime.format('HH:mm'))
       ticket.formatStartDate = this.$moment(
-        ticket.Segments[0].StartDate,
+        ticket.segments[0].start_date,
         'DD-MM-YYYY'
       ).format('ddd, Do MMM YYYY')
       return ticket
     },
     getLocationAndType(ticket) {
-      if (ticket.StartPoint === this.searchCondition.from.airportCode) {
+      if (ticket.start_point === this.searchCondition.from.airportCode) {
         return {
           type: 'DEPARTURE',
           formatStartPoint: this.searchCondition.from,

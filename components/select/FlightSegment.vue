@@ -1,6 +1,6 @@
 <template>
   <div class="tw-bg-transparent">
-    <div class="round-date">{{ segment.StartDate }}</div>
+    <div class="round-date">{{ segment.start_date }}</div>
     <div class="round-airline">
       <div class="newtk-timeline">
         <v-icon class="tw-text-xs tw-text-gray-600"
@@ -18,7 +18,7 @@
       <div class="detail-airline">
         <div class="segment-location">
           <div>
-            <strong class="tw-mr-2">{{ segment.StartTime }}</strong>
+            <strong class="tw-mr-2">{{ segment.start_time }}</strong>
 
             <v-skeleton-loader
               v-if="airPort.fromLoading"
@@ -66,19 +66,19 @@
                 v-on="on"
               >
                 <v-icon class="tw-mr-1" small>mdi-airplane</v-icon>
-                {{ segment.Airline + '-' + segment.FlightNumber }}
+                {{ segment.airline + '-' + segment.flight_number }}
               </v-chip>
             </template>
             <span
               >Số hiệu chuyến bay
-              {{ segment.Airline + '-' + segment.FlightNumber }}
+              {{ segment.airline + '-' + segment.flight_number }}
               <v-icon color="#FFF" small>mdi-information-outline</v-icon></span
             >
           </v-tooltip>
         </div>
         <div class="segment-location">
           <div>
-            <strong class="tw-mr-2">{{ segment.EndTime }}</strong
+            <strong class="tw-mr-2">{{ segment.end_time }}</strong
             ><v-skeleton-loader
               v-if="airPort.toLoading"
               ref="skeleton"
@@ -132,11 +132,11 @@ export default {
     getAirPort() {
       this.airPort.fromLoading = true
       this.airPort.toLoading = true
-      GeneralApi.GetAirPortByCode(this.segment.StartAirport).then((result) => {
+      GeneralApi.GetAirPortByCode(this.segment.start_airport).then((result) => {
         this.airPort.from = result
         this.airPort.fromLoading = false
       })
-      GeneralApi.GetAirPortByCode(this.segment.EndAirport).then((result) => {
+      GeneralApi.GetAirPortByCode(this.segment.end_airport).then((result) => {
         this.airPort.to = result
         this.airPort.toLoading = false
       })

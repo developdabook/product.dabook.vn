@@ -15,14 +15,14 @@
             >
               <strong>
                 Chuyến bay khởi hành lúc
-                {{ `${ticket.StartTime} , ${ticket.formatStartDate}` }}</strong
+                {{ `${ticket.start_time} , ${ticket.formatStartDate}` }}</strong
               >
               Vui lòng di chuyển tới sân bay và làm thủ tục trước khi bay ít
               nhất 45 phút
             </v-alert>
           </v-timeline-item>
           <v-timeline-item
-            v-for="(seg, i) in ticket.Segments"
+            v-for="(seg, i) in ticket.segments"
             :key="i + 'Segment'"
             small
             color="blue-grey lighten-5"
@@ -33,7 +33,7 @@
                   <v-avatar height="20" width="20" v-on="on">
                     <img
                       :src="
-                        `https://booking.kayak.com/rimg/provider-logos/airlines/v/${seg.Airline}.png?crop=false&width=92&height=92`
+                        `https://booking.kayak.com/rimg/provider-logos/airlines/v/${seg.airline}.png?crop=false&width=92&height=92`
                       "
                     />
                   </v-avatar>
@@ -55,7 +55,7 @@
           </v-timeline-item>
           <v-timeline-item small icon="mdi-bag-checked">
             <v-alert color="info" dense text class="tw-text-xs tw-border-dashed"
-              ><strong>Hành trình kết thúc lúc {{ ticket.EndTime }}</strong>
+              ><strong>Hành trình kết thúc lúc {{ ticket.end_time }}</strong>
               Cảm ơn quý khách đã sử dụng dịch vụ của Đại Minh
             </v-alert>
           </v-timeline-item>
@@ -66,7 +66,7 @@
           <v-card-text>
             <v-radio-group v-model="fareOptionSelected">
               <div
-                v-for="(fare, i) in ticket.FareOptions"
+                v-for="(fare, i) in ticket.fare_options"
                 :key="i + 'flightDetail'"
                 class="fare-option-body"
               >
@@ -74,18 +74,18 @@
                   ><template v-slot:label>
                     <div class="tw-flex tw-flex-row tw-justify-start">
                       <strong class="class-info">
-                        {{ fare.Description }} class</strong
+                        {{ fare.description }} class</strong
                       ><strong class="teal--text tw-text-sm">{{
                         new Intl.NumberFormat('vi-VN', {
                           style: 'currency',
                           currency: 'VND'
-                        }).format(fare.Totalfare)
+                        }).format(fare.total)
                       }}</strong>
                     </div>
                   </template></v-radio
                 >
                 <span class="seat-info"
-                  >{{ fare.SeatsAvailable }} seats available</span
+                  >{{ fare.seats_available }} seats available</span
                 >
               </div>
             </v-radio-group>
@@ -123,7 +123,7 @@
     <div class="detail-action">
       <div class="tw-mr-4">
         <strong class="price-select teal--text">
-          <PriceValidation :price="fareOptionSelected.Totalfare" />
+          <PriceValidation :price="fareOptionSelected.total" />
         </strong>
       </div>
       <v-btn

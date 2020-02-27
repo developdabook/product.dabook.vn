@@ -37,11 +37,11 @@
                   </div>
                   <div class="detail-airline">
                     <p class="tw-text-sm tw-text-gray-700 tw-m-0 tw-mb-4">
-                      <strong class="tw-mr-2">{{ ticket.StartTime }}</strong
+                      <strong class="tw-mr-2">{{ ticket.start_time }}</strong
                       ><strong class="tw-mr-2">{{
                         ticket.formatStartPoint.city
                       }}</strong
-                      ><span class="tw-text-xs">{{ ticket.StartPoint }}</span>
+                      ><span class="tw-text-xs">{{ ticket.start_point }}</span>
                     </p>
                     <div class=" tw-mb-4">
                       <v-chip
@@ -66,7 +66,7 @@
                           >
                             <img
                               :src="
-                                `https://booking.kayak.com/rimg/provider-logos/airlines/v/${ticket.Airline}.png?crop=false&width=92&height=92`
+                                `https://booking.kayak.com/rimg/provider-logos/airlines/v/${ticket.airline}.png?crop=false&width=92&height=92`
                               "
                             />
                           </v-avatar>
@@ -92,15 +92,15 @@
                         text-color="#4A5568"
                         class="chip-info"
                       >
-                        {{ ticket.MinFare.Description }}
+                        {{ ticket.MinFare.description }}
                       </v-chip>
                     </div>
                     <p class="tw-text-sm tw-text-gray-700 tw-m-0">
-                      <strong class="tw-mr-2">{{ ticket.EndTime }}</strong
+                      <strong class="tw-mr-2">{{ ticket.end_time }}</strong
                       ><strong class="tw-mr-2">{{
                         ticket.formatEndPoint.city
                       }}</strong
-                      ><span class="tw-text-xs">{{ ticket.EndPoint }}</span>
+                      ><span class="tw-text-xs">{{ ticket.end_point }}</span>
                     </p>
                   </div>
                   <div class="filter-action">
@@ -201,7 +201,7 @@
                 </div>
                 <div class="total-price">
                   <strong class="price-title">
-                    <PriceValidation :price="ticketSelected.fare.Totalfare"
+                    <PriceValidation :price="ticketSelected.fare.total"
                   /></strong>
                 </div>
               </div>

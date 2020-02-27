@@ -24,7 +24,7 @@
               <strong>
                 Chuyến bay chiều đi khởi hành lúc
                 {{
-                  `${ticket.DEPARTURE.StartTime} , ${ticket.DEPARTURE.formatStartDate}`
+                  `${ticket.DEPARTURE.start_time} , ${ticket.DEPARTURE.formatStartDate}`
                 }}</strong
               >
               Vui lòng di chuyển tới sân bay và làm thủ tục trước khi bay ít
@@ -32,7 +32,7 @@
             </v-alert>
           </v-timeline-item>
           <v-timeline-item
-            v-for="(seg, i) in ticket.DEPARTURE.Segments"
+            v-for="(seg, i) in ticket.DEPARTURE.segments"
             :key="i + 'Segment'"
             small
             color="blue-grey lighten-5"
@@ -43,7 +43,7 @@
                   <v-avatar height="20" width="20" v-on="on">
                     <img
                       :src="
-                        `https://booking.kayak.com/rimg/provider-logos/airlines/v/${seg.Airline}.png?crop=false&width=92&height=92`
+                        `https://booking.kayak.com/rimg/provider-logos/airlines/v/${seg.airline}.png?crop=false&width=92&height=92`
                       "
                     />
                   </v-avatar>
@@ -66,7 +66,7 @@
           <v-timeline-item small icon="mdi-bag-checked">
             <v-alert color="info" dense text class="tw-text-xs tw-border-dashed"
               ><strong
-                >Hành trình kết thúc lúc {{ ticket.DEPARTURE.EndTime }}</strong
+                >Hành trình kết thúc lúc {{ ticket.DEPARTURE.end_time }}</strong
               >Quý khách lưu ý thời gian chiều về
             </v-alert>
           </v-timeline-item>
@@ -90,7 +90,7 @@
               <strong>
                 Chuyến bay chiều về khởi hành lúc
                 {{
-                  `${ticket.RETURN.StartTime} , ${ticket.RETURN.formatStartDate}`
+                  `${ticket.RETURN.start_time} , ${ticket.RETURN.formatStartDate}`
                 }}</strong
               >
               Vui lòng di chuyển tới sân bay và làm thủ tục trước khi bay ít
@@ -98,7 +98,7 @@
             </v-alert>
           </v-timeline-item>
           <v-timeline-item
-            v-for="(seg, i) in ticket.RETURN.Segments"
+            v-for="(seg, i) in ticket.RETURN.segments"
             :key="i + 'Segment'"
             small
             color="blue-grey lighten-5"
@@ -109,7 +109,7 @@
                   <v-avatar height="20" width="20" v-on="on">
                     <img
                       :src="
-                        `https://booking.kayak.com/rimg/provider-logos/airlines/v/${seg.Airline}.png?crop=false&width=92&height=92`
+                        `https://booking.kayak.com/rimg/provider-logos/airlines/v/${seg.airline}.png?crop=false&width=92&height=92`
                       "
                     />
                   </v-avatar>
@@ -132,7 +132,7 @@
           <v-timeline-item small icon="mdi-bag-checked">
             <v-alert color="info" dense text class="tw-text-xs tw-border-dashed"
               ><strong
-                >Hành trình kết thúc lúc {{ ticket.RETURN.EndTime }}</strong
+                >Hành trình kết thúc lúc {{ ticket.RETURN.end_time }}</strong
               >
               Cảm ơn quý khách đã sử dụng dịch vụ của Đại Minh
             </v-alert>
@@ -153,7 +153,7 @@
             <v-divider></v-divider>
             <v-radio-group v-model="fareOptionSelected.DEPARTURE">
               <div
-                v-for="(fare, i) in ticket.DEPARTURE.FareOptions"
+                v-for="(fare, i) in ticket.DEPARTURE.fare_options"
                 :key="i + 'flightDetail'"
                 class="fare-option-body"
               >
@@ -161,18 +161,18 @@
                   ><template v-slot:label>
                     <div class="tw-flex tw-flex-row tw-justify-start">
                       <strong class="class-info">
-                        {{ fare.Description }} class</strong
+                        {{ fare.description }} class</strong
                       ><strong class="teal--text tw-text-sm">{{
                         new Intl.NumberFormat('vi-VN', {
                           style: 'currency',
                           currency: 'VND'
-                        }).format(fare.Totalfare)
+                        }).format(fare.total)
                       }}</strong>
                     </div>
                   </template></v-radio
                 >
                 <span class="seat-info"
-                  >{{ fare.SeatsAvailable }} seats available</span
+                  >{{ fare.seats_available }} seats available</span
                 >
               </div>
             </v-radio-group>
@@ -187,7 +187,7 @@
             <v-divider></v-divider>
             <v-radio-group v-model="fareOptionSelected.RETURN">
               <div
-                v-for="(fare, i) in ticket.RETURN.FareOptions"
+                v-for="(fare, i) in ticket.RETURN.fare_options"
                 :key="i + 'flightDetail'"
                 class="fare-option-body"
               >
@@ -195,18 +195,18 @@
                   ><template v-slot:label>
                     <div class="tw-flex tw-flex-row tw-justify-start">
                       <strong class="class-info">
-                        {{ fare.Description }} class</strong
+                        {{ fare.description }} class</strong
                       ><strong class="teal--text tw-text-sm">{{
                         new Intl.NumberFormat('vi-VN', {
                           style: 'currency',
                           currency: 'VND'
-                        }).format(fare.Totalfare)
+                        }).format(fare.total)
                       }}</strong>
                     </div>
                   </template></v-radio
                 >
                 <span class="seat-info"
-                  >{{ fare.SeatsAvailable }} seats available</span
+                  >{{ fare.seats_available }} seats available</span
                 >
               </div>
             </v-radio-group>
@@ -295,8 +295,8 @@ export default {
   computed: {
     totalFare() {
       return (
-        this.fareOptionSelected.DEPARTURE.Totalfare +
-        this.fareOptionSelected.RETURN.Totalfare
+        this.fareOptionSelected.DEPARTURE.total +
+        this.fareOptionSelected.RETURN.total
       )
     }
   },

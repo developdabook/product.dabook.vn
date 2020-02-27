@@ -17,7 +17,7 @@
                 text-color="blue darken-2"
                 class="tw-border tw-border-dashed"
                 >{{
-                  `${ticket.ticket.Segments[0].Airline}-${ticket.ticket.Segments[0].FlightNumber}`
+                  `${ticket.ticket.segments[0].airline}-${ticket.ticket.segments[0].flight_number}`
                 }}</v-chip
               >
             </v-card-subtitle>
@@ -47,21 +47,21 @@
               <div class="titem-content">
                 <div class="titem-content-time">
                   <strong class="titem-title-time">{{
-                    `${ticket.ticket.StartTime}  ${ticket.ticket.formatStartDate}`
+                    `${ticket.ticket.start_time}  ${ticket.ticket.formatStartDate}`
                   }}</strong>
                   <v-chip
                     x-small
                     color="blue lighten-5"
                     text-color="blue darken-2"
                     label
-                    >{{ ticket.fare.Description }}</v-chip
+                    >{{ ticket.fare.description }}</v-chip
                   >
                 </div>
                 <div class="titem-ticket-info">
                   <div>
                     <div>
                       <span class="titem-info-time">{{
-                        ticket.ticket.StartTime
+                        ticket.ticket.start_time
                       }}</span
                       ><span class="titem-info-loca">{{
                         `${ticket.ticket.formatStartPoint.airportCode} -${ticket.ticket.formatStartPoint.city} `
@@ -69,7 +69,7 @@
                     </div>
                     <div>
                       <span class="titem-info-time">{{
-                        ticket.ticket.EndTime
+                        ticket.ticket.end_time
                       }}</span
                       ><span class="titem-info-loca">{{
                         `${ticket.ticket.formatEndPoint.airportCode} -${ticket.ticket.formatEndPoint.city} `
@@ -82,7 +82,7 @@
                     text-color="blue darken-2"
                     class="tw-font-bold tw-bg-gray-100"
                     >{{
-                      `${ticket.ticket.Segments[0].Airline}-${ticket.ticket.Segments[0].FlightNumber}`
+                      `${ticket.ticket.segments[0].airline}-${ticket.ticket.segments[0].flight_number}`
                     }}</v-chip
                   >
                   <v-tooltip top color="primary" z-index="999999">
@@ -90,7 +90,7 @@
                       <v-avatar height="24" width="24" tile v-on="on">
                         <img
                           :src="
-                            `https://booking.kayak.com/rimg/provider-logos/airlines/v/${ticket.ticket.Airline}.png?crop=false&width=92&height=92`
+                            `https://booking.kayak.com/rimg/provider-logos/airlines/v/${ticket.ticket.airline}.png?crop=false&width=92&height=92`
                           "
                         />
                       </v-avatar>
@@ -138,7 +138,7 @@
                   <strong>
                     Chuyến bay khởi hành lúc
                     {{
-                      `${ticket.ticket.StartTime} , ${ticket.ticket.formatStartDate}`
+                      `${ticket.ticket.start_time} , ${ticket.ticket.formatStartDate}`
                     }}</strong
                   >
                   Vui lòng di chuyển tới sân bay và làm thủ tục 3 tiếng trước
@@ -146,7 +146,7 @@
                 </v-alert>
               </v-timeline-item>
               <v-timeline-item
-                v-for="(seg, i) in ticket.ticket.Segments"
+                v-for="(seg, i) in ticket.ticket.segments"
                 :key="i + 'Segment'"
                 small
                 color="blue-grey lighten-5"
@@ -157,7 +157,7 @@
                       <v-avatar height="20" width="20" v-on="on">
                         <img
                           :src="
-                            `https://booking.kayak.com/rimg/provider-logos/airlines/v/${seg.Airline}.png?crop=false&width=92&height=92`
+                            `https://booking.kayak.com/rimg/provider-logos/airlines/v/${seg.airline}.png?crop=false&width=92&height=92`
                           "
                         />
                       </v-avatar>
@@ -184,7 +184,8 @@
                   text
                   class="tw-text-xs tw-border-dashed"
                   ><strong
-                    >Hành trình kết thúc lúc {{ ticket.ticket.EndTime }}</strong
+                    >Hành trình kết thúc lúc
+                    {{ ticket.ticket.end_time }}</strong
                   >
                   Cảm ơn quý khách đã sử dụng dịch vụ của Đại Minh
                 </v-alert>

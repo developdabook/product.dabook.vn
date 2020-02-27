@@ -40,13 +40,13 @@
                   <div class="detail-airline">
                     <p class="tw-text-sm tw-text-gray-700 tw-m-0 tw-mb-4">
                       <strong class="tw-mr-2">{{
-                        ticket.DEPARTURE.StartTime
+                        ticket.DEPARTURE.start_time
                       }}</strong
                       ><strong class="tw-mr-2">{{
                         ticket.DEPARTURE.formatStartPoint.city
                       }}</strong
                       ><span class="tw-text-xs">{{
-                        ticket.DEPARTURE.StartPoint
+                        ticket.DEPARTURE.start_point
                       }}</span>
                     </p>
                     <div class=" tw-mb-4">
@@ -72,7 +72,7 @@
                           >
                             <img
                               :src="
-                                `https://booking.kayak.com/rimg/provider-logos/airlines/v/${ticket.DEPARTURE.Airline}.png?crop=false&width=92&height=92`
+                                `https://booking.kayak.com/rimg/provider-logos/airlines/v/${ticket.DEPARTURE.airline}.png?crop=false&width=92&height=92`
                               "
                             />
                           </v-avatar>
@@ -98,18 +98,18 @@
                         text-color="#4A5568"
                         class="chip-info"
                       >
-                        {{ ticket.DEPARTURE.MinFare.Description }}
+                        {{ ticket.DEPARTURE.MinFare.description }}
                       </v-chip>
                     </div>
                     <p class="tw-text-sm tw-text-gray-700 tw-m-0">
                       <strong class="tw-mr-2">{{
-                        ticket.DEPARTURE.EndTime
+                        ticket.DEPARTURE.end_time
                       }}</strong
                       ><strong class="tw-mr-2">{{
                         ticket.DEPARTURE.formatEndPoint.city
                       }}</strong
                       ><span class="tw-text-xs">{{
-                        ticket.DEPARTURE.EndPoint
+                        ticket.DEPARTURE.end_point
                       }}</span>
                     </p>
                   </div>
@@ -155,13 +155,13 @@
                   <div class="detail-airline">
                     <p class="tw-text-sm tw-text-gray-700 tw-m-0 tw-mb-4">
                       <strong class="tw-mr-2">{{
-                        ticket.RETURN.StartTime
+                        ticket.RETURN.start_time
                       }}</strong
                       ><strong class="tw-mr-2">{{
                         ticket.RETURN.formatStartPoint.city
                       }}</strong
                       ><span class="tw-text-xs">{{
-                        ticket.RETURN.StartPoint
+                        ticket.RETURN.start_point
                       }}</span>
                     </p>
                     <div class=" tw-mb-4">
@@ -187,7 +187,7 @@
                           >
                             <img
                               :src="
-                                `https://booking.kayak.com/rimg/provider-logos/airlines/v/${ticket.RETURN.Airline}.png?crop=false&width=92&height=92`
+                                `https://booking.kayak.com/rimg/provider-logos/airlines/v/${ticket.RETURN.airline}.png?crop=false&width=92&height=92`
                               "
                             />
                           </v-avatar>
@@ -213,18 +213,18 @@
                         text-color="#4A5568"
                         class="chip-info"
                       >
-                        {{ ticket.RETURN.MinFare.Description }}
+                        {{ ticket.RETURN.MinFare.description }}
                       </v-chip>
                     </div>
                     <p class="tw-text-sm tw-text-gray-700 tw-m-0">
                       <strong class="tw-mr-2">{{
-                        ticket.RETURN.EndTime
+                        ticket.RETURN.end_time
                       }}</strong
                       ><strong class="tw-mr-2">{{
                         ticket.RETURN.formatEndPoint.city
                       }}</strong
                       ><span class="tw-text-xs">{{
-                        ticket.RETURN.EndPoint
+                        ticket.RETURN.end_point
                       }}</span>
                     </p>
                   </div>
@@ -328,8 +328,8 @@
                   <strong class="price-title">
                     <PriceValidation
                       :price="
-                        ticketSelected.DEPARTURE.fare.Totalfare +
-                          ticketSelected.RETURN.fare.Totalfare
+                        ticketSelected.DEPARTURE.fare.total +
+                          ticketSelected.RETURN.fare.total
                       "
                   /></strong>
                 </div>

@@ -6,12 +6,12 @@
           <template v-slot:default>
             <div class="mobile-search-info">
               <div class="location-item">
-                <strong>HAN (Ha Noi)</strong>
+                <strong>{{ searchCondition.from.city }}</strong>
                 <span>Tues, 20 Augt 2020</span>
               </div>
               <v-icon>mdi-swap-horizontal</v-icon>
               <div class="location-item">
-                <strong>HAN (Ha Noi)</strong>
+                <strong>{{ searchCondition.to.city }}</strong>
                 <span>Tues, 20 Augt 2020</span>
               </div>
             </div>
@@ -34,6 +34,35 @@ export default {
   name: 'StickyMobileSearch',
   components: {
     MainSearchBox: () => import('@/components/search/MainSearchBox')
+  },
+  props: {
+    currentSearch: {
+      type: [Array, Object],
+      default() {
+        return {}
+      }
+    }
+  },
+  data() {
+    return {
+      searchCondition: this.$store.getters['search/getSearchCondition'] || {
+        from: {},
+        to: {},
+        departure: this.$moment()
+          .add(1, 'day')
+          .format('DD-MM-YYYY'),
+        arrived: this.$moment()
+          .add(4, 'day')
+          .format('DD-MM-YYYY'),
+        passenger: {
+          ADULT: 0,
+          CHILD: 0,
+          INFANT: 0
+        },
+        cabinClass: ['ECONOMY'],
+        isRoundTrip: false
+      }
+    }
   }
 }
 </script>

@@ -205,6 +205,15 @@ export default {
     SelectTimeDesktop: () => import('@/components/search/SelectTimeDesktop'),
     SelectLocation: () => import('@/components/search/SelectLocation')
   },
+
+  props: {
+    currentSearch: {
+      type: [Array, Object],
+      default() {
+        return {}
+      }
+    }
+  },
   data() {
     return {
       drawer: {
