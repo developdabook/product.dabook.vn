@@ -2,7 +2,12 @@
   <v-card flat class="sticky-component">
     <div class="tw-container tw-mx-auto sticky-search-box">
       <div class="tw-flex tw-flex-row tw-justify-start tw-mb-2">
-        <v-menu :close-on-content-click="false" :nudge-width="200" offset-y>
+        <v-menu
+          :close-on-content-click="false"
+          color="white"
+          :nudge-width="200"
+          offset-y
+        >
           <template v-slot:activator="{ on }">
             <v-btn
               small
@@ -16,7 +21,12 @@
           </template>
           <SelectRoundTrip v-model="searchCondition.isRoundTrip" />
         </v-menu>
-        <v-menu :close-on-content-click="false" :nudge-width="200" offset-y>
+        <v-menu
+          :close-on-content-click="false"
+          color="white"
+          :nudge-width="200"
+          offset-y
+        >
           <template v-slot:activator="{ on }">
             <v-btn
               small
@@ -29,7 +39,10 @@
               }}<v-icon small>mdi-chevron-down</v-icon></v-btn
             >
           </template>
-          <SelectPassenger v-model="searchCondition.passenger" />
+          <SelectPassenger
+            v-model="searchCondition.passenger"
+            class="tw-bg-white"
+          />
         </v-menu>
         <v-menu :close-on-content-click="false" :nudge-width="200" offset-y>
           <template v-slot:activator="{ on }">
@@ -43,12 +56,20 @@
               >{{ cabinClassSum }}<v-icon small>mdi-chevron-down</v-icon></v-btn
             >
           </template>
-          <SelectCabinClass v-model="searchCondition.cabinClass" />
+          <SelectCabinClass
+            v-model="searchCondition.cabinClass"
+            class="tw-bg-white"
+          />
         </v-menu>
       </div>
       <div class="desktop-search-box">
         <div class="search-box tw-relative">
-          <v-menu :close-on-content-click="false" :nudge-width="200" offset-y>
+          <v-menu
+            v-model="drawer.from"
+            :close-on-content-click="false"
+            :nudge-width="200"
+            offset-y
+          >
             <template v-slot:activator="{ on }">
               <v-text-field
                 :value="fromSum"
@@ -67,6 +88,7 @@
               <SelectLocation
                 v-model="searchCondition.from"
                 :exception-local="searchCondition.to"
+                @close="drawer.from = false"
               />
             </v-card>
           </v-menu>
@@ -81,7 +103,12 @@
           >
             <v-icon>mdi-swap-horizontal</v-icon>
           </v-btn>
-          <v-menu :close-on-content-click="false" :nudge-width="200" offset-y>
+          <v-menu
+            v-model="drawer.to"
+            :close-on-content-click="false"
+            :nudge-width="200"
+            offset-y
+          >
             <template v-slot:activator="{ on }">
               <v-text-field
                 :value="toSum"
@@ -99,12 +126,18 @@
               <SelectLocation
                 v-model="searchCondition.to"
                 :exception-local="searchCondition.from"
+                @close="drawer.to = false"
               />
             </v-card>
           </v-menu>
         </div>
         <div class="search-box">
-          <v-menu :close-on-content-click="false" :nudge-width="200" offset-y>
+          <v-menu
+            v-model="drawer.departure"
+            :close-on-content-click="false"
+            :nudge-width="200"
+            offset-y
+          >
             <template v-slot:activator="{ on }">
               <v-text-field
                 :value="departureSum"
@@ -121,9 +154,16 @@
             <SelectTimeDesktop
               v-model="searchCondition.departure"
               :min-date="new Date()"
+              @change="validateArrivedTime"
+              @close="drawer.departure = false"
             />
           </v-menu>
-          <v-menu :close-on-content-click="false" :nudge-width="200" offset-y>
+          <v-menu
+            v-model="drawer.arrived"
+            :close-on-content-click="false"
+            :nudge-width="200"
+            offset-y
+          >
             <template v-slot:activator="{ on }">
               <v-text-field
                 :value="arrivedSum"
@@ -142,15 +182,20 @@
               :min-date="
                 new Date($moment(searchCondition.departure, 'DD-MM-YYYY'))
               "
+              @close="drawer.arrived = false"
             />
           </v-menu>
         </div>
-        <v-btn rounded depressed class="change-search-btn">Change</v-btn>
+        <v-btn rounded depressed class="change-search-btn" @click="searchFlight"
+          >Change</v-btn
+        >
       </div>
     </div>
   </v-card>
 </template>
 <script>
+import _ from 'lodash'
+import utils from '@/utils/utils'
 export default {
   name: 'StickyDesktopSearch',
   components: {
@@ -162,6 +207,16 @@ export default {
   },
   data() {
     return {
+      drawer: {
+        from: false,
+        to: false,
+        departure: false,
+        arrived: false,
+        passenger: false,
+        cabinClass: false,
+        isDraw: false,
+        isMaxHeight: false
+      },
       searchCondition: this.$store.getters['search/getSearchCondition'] || {
         from: {},
         to: {},
@@ -228,7 +283,85 @@ export default {
     }
   },
   methods: {
-    swapLocation() {}
+    searchFlight() {
+      this.validateDefault()
+      const section = utils.uuid()
+      this.$store.dispatch('search/updateSearchCondition', this.searchCondition)
+      this.$store.dispatch('search/updateSearchSection', section)
+      this.$router.push({
+        path: 'search',
+        query: {
+          section,
+          itinerary: '1',
+          origin: this.searchCondition.from.airportCode,
+          destination: this.searchCondition.to.airportCode,
+          date: this.searchCondition.departure,
+          date1: this.searchCondition.isRoundTrip
+            ? this.searchCondition.arrived
+            : '',
+          adults: this.searchCondition.passenger.ADULT,
+          children: this.searchCondition.passenger.CHILD,
+          infants: this.searchCondition.passenger.INFANT
+        }
+      })
+    },
+    validateDefault() {
+      if (
+        this.searchCondition.from.airportCode === '' ||
+        this.searchCondition.from.airportCode === null ||
+        typeof this.searchCondition.from.airportCode === 'undefined'
+      ) {
+        this.searchCondition.from =
+          this.searchCondition.to.airportCode === 'SGN'
+            ? {
+                airportCode: 'HAN',
+                airportName: 'Noi Bai International Airport',
+                city: 'HaNoi'
+              }
+            : {
+                airportCode: 'SGN',
+                airportName: 'Tan Son Nhat International Airport',
+                city: 'HoChiMinh'
+              }
+      }
+      if (
+        this.searchCondition.to.airportCode === '' ||
+        this.searchCondition.to.airportCode === null ||
+        typeof this.searchCondition.to.airportCode === 'undefined'
+      ) {
+        this.searchCondition.to =
+          this.searchCondition.from.airportCode === 'SGN'
+            ? {
+                airportCode: 'HAN',
+                airportName: 'Noi Bai International Airport',
+                city: 'HaNoi'
+              }
+            : {
+                airportCode: 'SGN',
+                airportName: 'Tan Son Nhat International Airport',
+                city: 'HoChiMinh'
+              }
+      }
+    },
+    validateArrivedTime() {
+      if (
+        this.$moment(this.searchCondition.departure, 'DD-MM-YYYY').isAfter(
+          this.$moment(this.searchCondition.arrived, 'DD-MM-YYYY')
+        )
+      ) {
+        this.searchCondition.arrived = this.$moment(
+          this.searchCondition.departure,
+          'DD-MM-YYYY'
+        )
+          .add(4, 'day')
+          .format('DD-MM-YYYY')
+      }
+    },
+    swapLocation() {
+      const temp = _.clone(this.searchCondition.from)
+      this.searchCondition.from = _.clone(this.searchCondition.to)
+      this.searchCondition.to = _.clone(temp)
+    }
   }
 }
 </script>

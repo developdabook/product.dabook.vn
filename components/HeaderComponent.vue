@@ -56,18 +56,11 @@
 
       <v-spacer></v-spacer>
       <v-btn
-        icon
-        color="primary"
-        class="tw-hidden md:tw-inline-block header-btn"
-      >
-        <v-icon color="headercolor">mdi-map-marker-multiple-outline</v-icon>
-      </v-btn>
-      <v-btn
         text
         depressed
         rounded
         color="primary"
-        class="header-btn"
+        class="header-btn tw-hidden md:tw-flex"
         nuxt
         to="/auth/mybooking"
         ><span class="headercolor--text">Mybooking</span>

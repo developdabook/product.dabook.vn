@@ -68,6 +68,9 @@ export default {
     SortAction: () => import('@/components/filter/SortAction'),
     ContactBanner: () => import('@/components/search/ContactBanner')
   },
+  key(route) {
+    return route.fullPath
+  },
   data() {
     return {
       flightList: [],
