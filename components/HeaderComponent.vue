@@ -63,19 +63,15 @@
         <v-icon color="headercolor">mdi-map-marker-multiple-outline</v-icon>
       </v-btn>
       <v-btn
-        icon
+        text
+        depressed
+        rounded
         color="primary"
-        class="tw-hidden md:tw-inline-block header-btn"
-      >
-        <i class="icofont-air-ticket icofont-2x headercolor--text"></i>
-      </v-btn>
-
-      <v-btn
-        icon
-        color="primary"
-        class="tw-hidden md:tw-inline-block header-btn"
-      >
-        <v-icon color="headercolor">mdi-heart-outline</v-icon>
+        class="header-btn"
+        nuxt
+        to="/auth/mybooking"
+        ><span class="headercolor--text">Mybooking</span>
+        <i class="icofont-air-ticket icofont-2x"></i>
       </v-btn>
 
       <v-btn icon color="primary" class=" header-btn">

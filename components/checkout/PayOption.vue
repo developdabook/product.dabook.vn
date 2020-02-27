@@ -15,6 +15,10 @@
             Sử dụng một trong những phương thức dưới đây để hoàn thành thanh
             toán và nhận vé của bạn
           </v-alert>
+          <v-alert text dense type="info" class="tw-text-xs">
+            Tiến trình thanh toán có thể mất vài phút, Chúng tôi đang cải thiện
+            chúng. Mong bạn đừng tắt trình duyệt khi thanh toán
+          </v-alert>
           <v-alert text dense type="warning" class="tw-text-xs">
             <ul class="tw-p-0 tw-m-0 tw-list-disc">
               <li>
@@ -75,14 +79,20 @@
             </v-expansion-panels>
           </v-radio-group>
         </div>
-        <v-alert text dense type="info" class="tw-text-xs">
-          Tiến trình thanh toán có thể mất vài phút, Chúng tôi đang cải thiện
-          chúng. Mong bạn đừng tắt trình duyệt khi thanh toán
-        </v-alert>
       </v-card-text>
     </v-card>
     <div class="select-payment-box">
-      <v-btn color="primary" class="addmore-btn" large @click="issueTicket">
+      <v-btn
+        v-if="paySelected.type === 'UNDIRECT_PAY'"
+        color="primary"
+        class="pay-btn"
+        large
+        @click="makeReservation"
+      >
+        <i class="icofont-air-ticket tw-mr-2 icofont-2x"></i> Make
+        Reservation</v-btn
+      >
+      <v-btn v-else color="primary" class="pay-btn" large @click="issueTicket">
         <v-icon small class="tw-mx-2">mdi-check-decagram</v-icon>
         Pay and got ticket</v-btn
       >
@@ -110,7 +120,8 @@ export default {
           name: 'Thanh toán tại văn phòng',
           fee: 0,
           unit: 'FREE',
-          component: 'OfficePay'
+          component: 'OfficePay',
+          type: 'UNDIRECT_PAY'
         },
         {
           code: 'BANK_TRANSFER',
@@ -118,7 +129,8 @@ export default {
           name: 'Chuyển khoản',
           fee: 0,
           unit: 'FREE',
-          component: 'BankTransferPay'
+          component: 'BankTransferPay',
+          type: 'UNDIRECT_PAY'
         },
         {
           code: 'DELIVERY',
@@ -126,7 +138,8 @@ export default {
           name: 'Giao vé,thanh toán tại nhà',
           fee: 20000,
           unit: 'VND',
-          component: 'DeliveryPay'
+          component: 'DeliveryPay',
+          type: 'UNDIRECT_PAY'
         },
         {
           code: 'PAYPAL',
@@ -134,7 +147,8 @@ export default {
           name: 'Paypal',
           fee: 3.14,
           unit: 'USD',
-          component: 'PayPalPay'
+          component: 'PayPalPay',
+          type: 'DIRECT_PAY'
         },
         {
           code: 'ONEPAY',
@@ -142,7 +156,8 @@ export default {
           name: 'Onepay',
           fee: 50000,
           unit: 'VND',
-          component: 'OnePayPay'
+          component: 'OnePayPay',
+          type: 'DIRECT_PAY'
         }
       ],
       paySelected: {}
@@ -150,6 +165,9 @@ export default {
   },
   methods: {
     issueTicket() {
+      this.issueDialog = true
+    },
+    makeReservation() {
       this.issueDialog = true
     }
   }
@@ -163,7 +181,7 @@ export default {
   @apply tw-pt-4;
 }
 .pay-item {
-  @apply tw-border tw-border-gray-300 tw-my-2;
+  @apply tw-border-2 tw-border-gray-300 tw-my-2;
 }
 .pay-item:hover {
   @apply tw-border-2 tw-border-gray-600;
@@ -185,5 +203,11 @@ export default {
 }
 .pay-item-body {
   @apply tw-text-sm;
+}
+.pay-btn {
+  @apply tw-rounded-none tw-font-normal tw-normal-case tw-shadow;
+}
+.pay-btn:hover {
+  @apply tw-shadow-lg;
 }
 </style>
