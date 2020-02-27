@@ -14,13 +14,25 @@
               :class="{ 'tw-pb-2 tw-border-b': drawer.panelActive === 0 }"
             >
               <div class="location-item">
-                <strong>{{ searchCondition.from.city }}</strong>
-                <span>Tues, 20 Augt 2020</span>
+                <strong>{{ searchCondition.departure }}</strong>
+                <span>{{
+                  `${searchCondition.from.airportCode} - ${searchCondition.from.city}`
+                }}</span>
               </div>
-              <v-icon>mdi-swap-horizontal</v-icon>
+              <v-icon>{{
+                searchCondition.isRoundTrip
+                  ? 'mdi-swap-horizontal'
+                  : 'mdi-transfer-right'
+              }}</v-icon>
               <div class="location-item">
-                <strong>{{ searchCondition.to.city }}</strong>
-                <span>Tues, 20 Augt 2020</span>
+                <strong>{{
+                  searchCondition.isRoundTrip
+                    ? searchCondition.arrived
+                    : searchCondition.departure
+                }}</strong>
+                <span>{{
+                  `${searchCondition.to.airportCode} - ${searchCondition.to.city}`
+                }}</span>
               </div>
             </div>
           </template>
