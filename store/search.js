@@ -19,7 +19,9 @@ export const state = () => ({
     isRoundTrip: false
   },
   section: '',
-  filterCondition: {},
+  filterCondition: {
+    isFilter: false
+  },
   sortCondition: {}
 })
 export const mutations = {
@@ -81,6 +83,9 @@ export const mutations = {
   EMPTY_FILTER(state, payload) {
     // state.filterCondition = _.omit(state.filterCondition, payload)
     delete state.filterCondition[payload]
+  },
+  CHANGE_FILTER_STATE(state, payload) {
+    state.filterCondition.isFilter = payload
   }
 }
 export const actions = {
@@ -101,6 +106,9 @@ export const actions = {
   },
   emptyFilter({ commit, state }, payload) {
     commit('EMPTY_FILTER', payload)
+  },
+  changeFilterState({ commit, state }, payload) {
+    commit('CHANGE_FILTER_STATE', payload)
   }
 }
 

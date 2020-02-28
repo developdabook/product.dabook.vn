@@ -5,20 +5,38 @@
       -
       {{ $moment(time[1], 'HH').format('HH:mm') }}
     </span>
-    <v-range-slider v-model="time" min="0" name="time" max="24" hide-details>
+    <v-range-slider
+      v-model="time"
+      min="0"
+      name="time"
+      max="24"
+      hide-details
+      @change="changeTime"
+    >
     </v-range-slider>
   </div>
 </template>
 <script>
 export default {
   name: 'FilterTime',
+  props: {
+    timeTarget: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       time: [0, 12]
     }
   },
   methods: {
-    changePrice() {
+    changeTime() {
+      this.$store.dispatch('search/updateFilter', {
+        target: this.timeTarget,
+        value: this.time,
+        isEmpty: this.time[1] === 0
+      })
       this.$emit('input', this.time)
     }
   }

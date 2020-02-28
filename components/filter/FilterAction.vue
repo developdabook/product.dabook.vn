@@ -71,7 +71,7 @@
           </template></v-expansion-panel-header
         >
         <v-expansion-panel-content class="tw-p-1">
-          <FilterTime />
+          <FilterTime time-target="departureStart" />
         </v-expansion-panel-content>
       </v-expansion-panel>
       <v-expansion-panel>
@@ -84,7 +84,7 @@
           </template></v-expansion-panel-header
         >
         <v-expansion-panel-content class="tw-p-1">
-          <FilterTime />
+          <FilterTime time-target="departureEnd" />
         </v-expansion-panel-content>
       </v-expansion-panel>
       <v-expansion-panel v-if="isRoundTrip">
@@ -97,7 +97,7 @@
           </template></v-expansion-panel-header
         >
         <v-expansion-panel-content class="tw-p-1">
-          <FilterTime />
+          <FilterTime time-target="arrivedStart" />
         </v-expansion-panel-content>
       </v-expansion-panel>
       <v-expansion-panel v-if="isRoundTrip">
@@ -110,10 +110,23 @@
           </template></v-expansion-panel-header
         >
         <v-expansion-panel-content class="tw-p-1">
-          <FilterTime />
+          <FilterTime time-target="arrivedEnd" />
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
+    <div v-if="Object.keys(filterCondition).length > 0" class="filter-actions">
+      <v-btn color="primary" class="normal-btn" small text depressed
+        >ClearAll</v-btn
+      >
+      <v-btn
+        color="primary"
+        class="normal-btn"
+        small
+        depressed
+        @click="startFilter"
+        >Filter</v-btn
+      >
+    </div>
   </div>
 </template>
 <script>
@@ -149,6 +162,9 @@ export default {
   methods: {
     removeFilter(payload) {
       this.$store.dispatch('search/emptyFilter', payload)
+    },
+    startFilter() {
+      this.$store.dispatch('search/changeFilterState', true)
     }
   }
 }
@@ -163,5 +179,10 @@ export default {
 }
 .filted-list {
   @apply tw-flex tw-flex-row tw-justify-start tw-items-center tw-flex-wrap;
+}
+.filter-actions {
+  bottom: 0;
+  z-index: 10;
+  @apply tw-sticky tw-bg-white tw-py-2 tw-flex tw-justify-between;
 }
 </style>
