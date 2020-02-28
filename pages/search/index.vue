@@ -22,7 +22,10 @@
       </div>
       <div class="center-search">
         <div class="sort-box">
-          <SortAction class="tw-mb-8 tw-w-full" />
+          <SortAction class="tw-mb-2 tw-w-full" />
+        </div>
+        <div class="control-box">
+          <DisplayControl class="tw-mb-8 tw-w-full" />
         </div>
         <div class="result-box">
           <div class="pair-ticket">
@@ -74,6 +77,7 @@ export default {
     PairTicket: () => import('@/components/select/PairTicket'),
     FilterComponent: () => import('@/components/filter/FilterComponent'),
     SortAction: () => import('@/components/filter/SortAction'),
+    DisplayControl: () => import('@/components/filter/DisplayControl'),
     ContactBanner: () => import('@/components/search/ContactBanner')
   },
   key(route) {
