@@ -45,7 +45,7 @@
           </template></v-expansion-panel-header
         >
         <v-expansion-panel-content class="tw-p-1">
-          <FilterAirline :airlines-props="filters.airlines" />
+          <FilterAirline ref="airlines" :airlines-props="filters.airlines" />
         </v-expansion-panel-content>
       </v-expansion-panel>
       <v-expansion-panel>
@@ -115,7 +115,13 @@
       </v-expansion-panel>
     </v-expansion-panels>
     <div v-if="Object.keys(filterCondition).length > 0" class="filter-actions">
-      <v-btn color="primary" class="normal-btn" small text depressed
+      <v-btn
+        color="primary"
+        class="normal-btn"
+        small
+        text
+        depressed
+        @click="removeAllFilter"
         >ClearAll</v-btn
       >
       <v-btn
@@ -165,6 +171,9 @@ export default {
     },
     startFilter() {
       this.$store.dispatch('search/changeFilterState', true)
+    },
+    removeAllFilter() {
+      this.$store.dispatch('search/emptyAllFilter')
     }
   }
 }

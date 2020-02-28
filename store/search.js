@@ -19,10 +19,9 @@ export const state = () => ({
     isRoundTrip: false
   },
   section: '',
-  filterCondition: {
-    isFilter: false
-  },
-  sortCondition: {}
+  filterCondition: {},
+  sortCondition: {},
+  isFilter: false
 })
 export const mutations = {
   UPDATE_SEARCH_CONDITION(state, payload) {
@@ -75,17 +74,24 @@ export const mutations = {
     }
   },
   UPDATE_FILTER(state, payload) {
-    state.filterCondition[payload.target] = _.clone(payload.value)
     if (payload.isEmpty) {
-      state.filterCondition = _.omit(state.filterCondition, payload.target)
+      delete state.filterCondition[payload.target]
+      state.filterCondition = Object.assign({}, state.filterCondition)
+    } else {
+      const obj = {}
+      obj[payload.target] = payload.value
+      state.filterCondition = Object.assign({}, state.filterCondition, obj)
     }
   },
   EMPTY_FILTER(state, payload) {
-    // state.filterCondition = _.omit(state.filterCondition, payload)
     delete state.filterCondition[payload]
+    state.filterCondition = Object.assign({}, state.filterCondition)
+  },
+  EMPTY_ALL_FILTER(state, payload) {
+    state.filterCondition = {}
   },
   CHANGE_FILTER_STATE(state, payload) {
-    state.filterCondition.isFilter = payload
+    state.isFilter = payload
   }
 }
 export const actions = {
@@ -106,6 +112,9 @@ export const actions = {
   },
   emptyFilter({ commit, state }, payload) {
     commit('EMPTY_FILTER', payload)
+  },
+  emptyAllFilter({ commit, state }) {
+    commit('EMPTY_ALL_FILTER')
   },
   changeFilterState({ commit, state }, payload) {
     commit('CHANGE_FILTER_STATE', payload)
@@ -178,6 +187,6 @@ export const getters = {
     return result
   },
   getFilterCondition(state) {
-    return state.filterCondition
+    return _.clone(state.filterCondition)
   }
 }
