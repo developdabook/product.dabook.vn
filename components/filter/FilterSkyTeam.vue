@@ -53,6 +53,11 @@ export default {
   },
   methods: {
     selectSkyTeam() {
+      this.$store.dispatch('search/updateFilter', {
+        target: 'skyteams',
+        value: this.skyteamSelected,
+        isEmpty: this.skyteamSelected.length === 0
+      })
       this.$emit('input', this.skyteamSelected)
     }
   }

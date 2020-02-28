@@ -19,21 +19,7 @@ export const state = () => ({
     isRoundTrip: false
   },
   section: '',
-  filterCondition: {
-    airlines: [],
-    prices: {
-      min: 0,
-      max: 0
-    },
-    departureTime: {
-      from: 0,
-      to: 0
-    },
-    arrivedTime: {
-      from: 0,
-      to: 0
-    }
-  },
+  filterCondition: {},
   sortCondition: {}
 })
 export const mutations = {
@@ -85,6 +71,16 @@ export const mutations = {
       cabinClass: ['ECONOMY'],
       isRoundTrip: false
     }
+  },
+  UPDATE_FILTER(state, payload) {
+    state.filterCondition[payload.target] = _.clone(payload.value)
+    if (payload.isEmpty) {
+      state.filterCondition = _.omit(state.filterCondition, payload.target)
+    }
+  },
+  EMPTY_FILTER(state, payload) {
+    // state.filterCondition = _.omit(state.filterCondition, payload)
+    delete state.filterCondition[payload]
   }
 }
 export const actions = {
@@ -99,6 +95,12 @@ export const actions = {
   },
   updateAllPassengers({ commit, state }, payload) {
     commit('UPDATE_ALL_PASSENGERS', payload)
+  },
+  updateFilter({ commit, state }, payload) {
+    commit('UPDATE_FILTER', payload)
+  },
+  emptyFilter({ commit, state }, payload) {
+    commit('EMPTY_FILTER', payload)
   }
 }
 
@@ -166,5 +168,8 @@ export const getters = {
       })
     }
     return result
+  },
+  getFilterCondition(state) {
+    return state.filterCondition
   }
 }

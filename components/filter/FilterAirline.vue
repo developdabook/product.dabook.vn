@@ -46,6 +46,11 @@ export default {
   },
   methods: {
     selectAirline() {
+      this.$store.dispatch('search/updateFilter', {
+        target: 'airlines',
+        value: this.airlineSelected,
+        isEmpty: this.airlineSelected.length === 0
+      })
       this.$emit('input', this.airlineSelected)
     }
   }

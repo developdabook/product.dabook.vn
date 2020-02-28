@@ -44,6 +44,10 @@ export default {
   },
   methods: {
     changePrice() {
+      this.$store.dispatch('search/updateFilter', {
+        target: 'prices',
+        value: this.price
+      })
       this.$emit('input', this.price)
     }
   }
