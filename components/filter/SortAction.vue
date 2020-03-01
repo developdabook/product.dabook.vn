@@ -15,7 +15,11 @@
           <v-card>
             <v-list dense>
               <v-subheader>Sortby</v-subheader>
-              <v-list-item-group v-model="selectSort" color="primary">
+              <v-list-item-group
+                v-model="sortSelected"
+                color="primary"
+                @change="selectSort"
+              >
                 <v-list-item
                   v-for="(item, i) in sorts"
                   :key="i"
@@ -38,24 +42,29 @@ export default {
   name: 'SortAction',
   data() {
     return {
-      selectSort: '',
+      sortSelected: [],
       sorts: [
-        {
-          name: 'Giá cao nhất',
-          value: 'HIGHTEST_PRICE',
-          icon: 'mdi-sort-bool-ascending'
-        },
         {
           name: 'Giá thấp nhất',
           value: 'LOWEST_PRICE',
           icon: 'mdi-sort-bool-descending'
         },
         {
-          name: 'Thời gian ngắn',
+          name: 'Thời gian bay ngắn nhất',
           value: 'LOWEST_TIME',
           icon: 'mdi-sort-numeric-ascending'
+        },
+        {
+          name: 'Checkin sớm nhất',
+          value: 'CHECKIN_TIME',
+          icon: 'mdi-sort-bool-ascending'
         }
       ]
+    }
+  },
+  methods: {
+    selectSort() {
+      this.$store.dispatch('search/updateSort', this.sortSelected)
     }
   }
 }

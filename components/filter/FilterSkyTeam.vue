@@ -59,6 +59,11 @@ export default {
         isEmpty: this.skyteamSelected.length === 0
       })
       this.$emit('input', this.skyteamSelected)
+    },
+    clearSelected() {
+      try {
+        this.skyteamSelected = []
+      } catch (error) {}
     }
   }
 }

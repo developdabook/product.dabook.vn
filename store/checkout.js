@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { clone } from 'lodash'
 export const state = () => ({
   ticketSelected: {
     DEPARTURE: {},
@@ -7,7 +7,7 @@ export const state = () => ({
 })
 export const mutations = {
   UPDATE_TICKET_SELECTED(state, payload) {
-    state.ticketSelected = _.clone(payload)
+    state.ticketSelected = clone(payload)
   },
   REMOVE_TICKET_PART(state, payload) {
     delete state.ticketSelected[payload]
@@ -24,6 +24,6 @@ export const actions = {
 
 export const getters = {
   geticketSelected(state) {
-    return _.clone(state.ticketSelected)
+    return clone(state.ticketSelected)
   }
 }

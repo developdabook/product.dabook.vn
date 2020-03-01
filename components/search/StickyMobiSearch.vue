@@ -248,7 +248,7 @@
   </div>
 </template>
 <script>
-import _ from 'lodash'
+import { clone } from 'lodash'
 import utils from '@/utils/utils'
 export default {
   name: 'StickyMobileSearch',
@@ -432,9 +432,9 @@ export default {
       }
     },
     swapLocation() {
-      const temp = _.clone(this.searchCondition.from)
-      this.searchCondition.from = _.clone(this.searchCondition.to)
-      this.searchCondition.to = _.clone(temp)
+      const temp = clone(this.searchCondition.from)
+      this.searchCondition.from = clone(this.searchCondition.to)
+      this.searchCondition.to = clone(temp)
     }
   }
 }

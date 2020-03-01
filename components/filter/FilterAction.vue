@@ -32,7 +32,7 @@
           </template></v-expansion-panel-header
         >
         <v-expansion-panel-content class="tw-p-1">
-          <FilterSkyteam />
+          <FilterSkyteam ref="skyteams" />
         </v-expansion-panel-content>
       </v-expansion-panel>
       <v-expansion-panel>
@@ -174,6 +174,8 @@ export default {
     },
     removeAllFilter() {
       this.$store.dispatch('search/emptyAllFilter')
+      this.$refs.airlines.clearSelected()
+      this.$refs.skyteams.clearSelected()
     }
   }
 }

@@ -268,7 +268,7 @@
   </div>
 </template>
 <script>
-import _ from 'lodash'
+import { clone } from 'lodash'
 import GeneralApi from '@/services/GeneralApi'
 export default {
   name: 'PairTicketDetail',
@@ -302,8 +302,8 @@ export default {
   },
   watch: {
     ticket(newVal) {
-      this.fareOptionSelected.DEPARTURE = _.clone(newVal.DEPARTURE.MinFare)
-      this.fareOptionSelected.RETURN = _.clone(newVal.RETURN.MinFare)
+      this.fareOptionSelected.DEPARTURE = clone(newVal.DEPARTURE.MinFare)
+      this.fareOptionSelected.RETURN = clone(newVal.RETURN.MinFare)
     }
   },
   methods: {

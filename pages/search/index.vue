@@ -63,7 +63,7 @@
   </div>
 </template>
 <script>
-import _ from 'lodash'
+import { clone } from 'lodash'
 import SearchApi from '@/services/SearchApi'
 import skyGroup from '@/localdb/skygroup'
 import airlines from '@/localdb/airlines'
@@ -100,6 +100,15 @@ export default {
     isRoundTrip() {
       return this.$store.getters['search/isRoundTrip']
     },
+    isFilter() {
+      return this.$store.getters['search/isFilter']
+    },
+    sortCondition() {
+      return this.$store.getters['search/getSortCondition']
+    },
+    filterCondition() {
+      return this.$store.getters['search/getFilterCondition']
+    },
     flightReFormat() {
       try {
         let newFlightList = []
@@ -123,30 +132,162 @@ export default {
         return []
       }
     },
-    flightGrouping() {
-      const newFlighList = {
-        DEPARTURE: [],
-        RETURN: [],
-        PAIR: {}
+    flightFilter() {
+      try {
+        if (this.isFilter) {
+          let filterResult = this.flightReFormat
+          if (typeof this.filterCondition.airlines !== 'undefined') {
+            filterResult = filterResult.filter((el) => {
+              return this.filterCondition.airlines.includes(el.airline)
+            })
+          }
+          if (typeof this.filterCondition.skyteams !== 'undefined') {
+            filterResult = filterResult.filter((el) => {
+              return this.filterCondition.skyteams.includes(el.SkyGroup)
+            })
+          }
+          if (typeof this.filterCondition.prices !== 'undefined') {
+            filterResult = filterResult.filter((el) => {
+              return (
+                parseInt(el.MinFare.total_fare) >=
+                  parseInt(this.filterCondition.prices[0]) &&
+                parseInt(el.MinFare.total_fare) <=
+                  parseInt(this.filterCondition.prices[1])
+              )
+            })
+          }
+          if (typeof this.filterCondition.departureStart !== 'undefined') {
+            filterResult = filterResult.filter((el) => {
+              return (
+                el.type === 'DEPARTURE' &&
+                this.$moment(el.start_time, 'HH:mm').isAfter(
+                  this.$moment(this.filterCondition.departureStart[0], 'hh')
+                ) &&
+                this.$moment(el.start_time, 'HH:mm').isBefore(
+                  this.$moment(this.filterCondition.departureStart[1], 'hh')
+                )
+              )
+            })
+          }
+          if (typeof this.filterCondition.departureEnd !== 'undefined') {
+            filterResult = filterResult.filter((el) => {
+              return (
+                el.type === 'DEPARTURE' &&
+                this.$moment(el.end_time, 'HH:mm').isAfter(
+                  this.$moment(this.filterCondition.departureEnd[0], 'hh')
+                ) &&
+                this.$moment(el.end_time, 'HH:mm').isBefore(
+                  this.$moment(this.filterCondition.departureEnd[1], 'hh')
+                )
+              )
+            })
+          }
+          if (typeof this.filterCondition.arrivedStart !== 'undefined') {
+            filterResult = filterResult.filter((el) => {
+              return (
+                el.type === 'RETURN' &&
+                this.$moment(el.start_time, 'HH:mm').isAfter(
+                  this.$moment(this.filterCondition.arrivedStart[0], 'hh')
+                ) &&
+                this.$moment(el.start_time, 'HH:mm').isBefore(
+                  this.$moment(this.filterCondition.arrivedStart[1], 'hh')
+                )
+              )
+            })
+          }
+          if (typeof this.filterCondition.arrivedEnd !== 'undefined') {
+            filterResult = filterResult.filter((el) => {
+              return (
+                el.type === 'RETURN' &&
+                this.$moment(el.end_time, 'HH:mm').isAfter(
+                  this.$moment(this.filterCondition.arrivedEnd[0], 'hh')
+                ) &&
+                this.$moment(el.end_time, 'HH:mm').isBefore(
+                  this.$moment(this.filterCondition.arrivedEnd[1], 'hh')
+                )
+              )
+            })
+          }
+          return filterResult
+        } else {
+          return this.flightReFormat
+        }
+      } catch (error) {
+        return this.flightReFormat
       }
-      if (!this.isRoundTrip) {
-        this.flightReFormat.forEach((a) => {
-          newFlighList[a.type] = newFlighList[a.type] || []
-          newFlighList[a.type].push(a)
-        })
-      } else {
-        this.flightReFormat.forEach((a) => {
-          if (a.pair_index === null || typeof a.pair_index === 'undefined') {
+    },
+    flightSort() {
+      try {
+        if (this.sortCondition === '') {
+          return this.flightFilter
+        } else {
+          const sortResult = this.flightFilter
+          if (this.sortCondition === 'LOWEST_PRICE') {
+            sortResult.sort((a, b) => {
+              return (
+                parseInt(a.MinFare.total_fare) - parseInt(b.MinFare.total_fare)
+              )
+            })
+          } else if (this.sortCondition === 'LOWEST_TIME') {
+            sortResult.sort((a, b) => {
+              return this.$moment(a.TotalTime, 'HH:mm').isBefore(
+                this.$moment(b.TotalTime, 'HH:mm')
+                  ? -1
+                  : this.$moment(a.TotalTime, 'HH:mm').isSame(
+                      this.$moment(b.TotalTime, 'HH:mm') ? 0 : 1
+                    )
+              )
+            })
+          } else if (this.sortCondition === 'CHECKIN_TIME') {
+            sortResult.sort((a, b) => {
+              return this.$moment(a.start_time, 'HH:mm').isBefore(
+                this.$moment(b.start_time, 'HH:mm')
+                  ? -1
+                  : this.$moment(a.start_time, 'HH:mm').isSame(
+                      this.$moment(b.start_time, 'HH:mm') ? 0 : 1
+                    )
+              )
+            })
+          }
+
+          return sortResult
+        }
+      } catch (error) {
+        return this.flightFilter
+      }
+    },
+    flightGrouping() {
+      try {
+        const newFlighList = {
+          DEPARTURE: [],
+          RETURN: [],
+          PAIR: {}
+        }
+        if (!this.isRoundTrip) {
+          this.flightSort.forEach((a) => {
             newFlighList[a.type] = newFlighList[a.type] || []
             newFlighList[a.type].push(a)
-          } else {
-            newFlighList.PAIR[`PAIR_${a.pair_index}`] =
-              newFlighList.PAIR[`PAIR_${a.pair_index}`] || {}
-            newFlighList.PAIR[`PAIR_${a.pair_index}`][`${a.type}`] = a
-          }
-        })
+          })
+        } else {
+          this.flightSort.forEach((a) => {
+            if (a.pair_index === null || typeof a.pair_index === 'undefined') {
+              newFlighList[a.type] = newFlighList[a.type] || []
+              newFlighList[a.type].push(a)
+            } else {
+              newFlighList.PAIR[`PAIR_${a.pair_index}`] =
+                newFlighList.PAIR[`PAIR_${a.pair_index}`] || {}
+              newFlighList.PAIR[`PAIR_${a.pair_index}`][`${a.type}`] = a
+            }
+          })
+        }
+        return newFlighList
+      } catch (error) {
+        return {
+          DEPARTURE: [],
+          RETURN: [],
+          PAIR: {}
+        }
       }
-      return newFlighList
     },
     prepareFilter() {
       try {
@@ -178,9 +319,6 @@ export default {
       } catch (error) {
         return []
       }
-    },
-    flightFilter() {
-      return null
     }
   },
   mounted() {
@@ -340,11 +478,11 @@ export default {
             )
           )
         )
-        ticket.TotalFlyTime = _.clone(TotalFlyTime.format('HH:mm'))
+        ticket.TotalFlyTime = clone(TotalFlyTime.format('HH:mm'))
         const tempFormatTotalTime = ticket.TotalFlyTime.toString().split(':')
         ticket.formatTotalTime =
           tempFormatTotalTime[0] + 'h ' + tempFormatTotalTime[1] + 'm '
-        ticket.TotalTime = _.clone(TotalTime.format('HH:mm'))
+        ticket.TotalTime = clone(TotalTime.format('HH:mm'))
         ticket.formatStartDate = this.$moment(
           ticket.segments[0].start_date,
           'DD-MM-YYYY'

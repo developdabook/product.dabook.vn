@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { clone } from 'lodash'
 import moment from 'moment'
 export const state = () => ({
   searchCondition: {
@@ -20,12 +20,12 @@ export const state = () => ({
   },
   section: '',
   filterCondition: {},
-  sortCondition: {},
+  sortCondition: '',
   isFilter: false
 })
 export const mutations = {
   UPDATE_SEARCH_CONDITION(state, payload) {
-    state.searchCondition = _.clone(payload)
+    state.searchCondition = clone(payload)
     state.searchCondition.departure = moment(
       state.searchCondition.departure,
       'DD-MM-YYYY'
@@ -92,6 +92,9 @@ export const mutations = {
   },
   CHANGE_FILTER_STATE(state, payload) {
     state.isFilter = payload
+  },
+  UPDATE_SORT(state, payload) {
+    state.sortCondition = payload
   }
 }
 export const actions = {
@@ -115,21 +118,28 @@ export const actions = {
   },
   emptyAllFilter({ commit, state }) {
     commit('EMPTY_ALL_FILTER')
+    commit('CHANGE_FILTER_STATE', false)
   },
   changeFilterState({ commit, state }, payload) {
     commit('CHANGE_FILTER_STATE', payload)
+  },
+  updateSort({ commit, state }, payload) {
+    commit('UPDATE_SORT', payload)
   }
 }
 
 export const getters = {
   getSearchCondition(state) {
-    return _.clone(state.searchCondition)
+    return clone(state.searchCondition)
   },
   getPassengers(state) {
-    return _.clone(state.searchCondition.passenger)
+    return clone(state.searchCondition.passenger)
   },
   isRoundTrip(state) {
     return state.searchCondition.isRoundTrip
+  },
+  isFilter(state) {
+    return state.isFilter
   },
   getSection(state) {
     return state.section
@@ -187,6 +197,9 @@ export const getters = {
     return result
   },
   getFilterCondition(state) {
-    return _.clone(state.filterCondition)
+    return clone(state.filterCondition)
+  },
+  getSortCondition(state) {
+    return clone(state.sortCondition)
   }
 }
