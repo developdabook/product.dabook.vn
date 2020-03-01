@@ -25,5 +25,10 @@ export const actions = {
 export const getters = {
   geticketSelected(state) {
     return clone(state.ticketSelected)
+  },
+  isAcceptAddPassenger(state) {
+    if (state.ticketSelected.DEPARTURE.ticket.service === 'AMADEUS') {
+      return true
+    } else return false
   }
 }

@@ -28,6 +28,22 @@
           <DisplayControl class="tw-mb-8 tw-w-full" />
         </div>
         <div class="result-box">
+          <div
+            v-if="loading.search && flightList.length === 0"
+            class="skeleton-ticket"
+          >
+            <v-skeleton-loader
+              v-for="i in 5"
+              ref="skeleton"
+              :key="i + 'skeleton'"
+              :tile="false"
+              height="250"
+              transition="scale-transition"
+              type="card-avatar"
+              class="tw-mb-4"
+            >
+            </v-skeleton-loader>
+          </div>
           <div class="pair-ticket">
             <PairTicket
               v-for="(ticket, i) in flightGrouping.PAIR"

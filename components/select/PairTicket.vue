@@ -414,7 +414,7 @@ export default {
     this.loading = true
     this.timeOut = setTimeout(() => {
       this.loading = false
-    }, 600)
+    }, 100)
   },
   beforeDestroy() {
     clearTimeout(this.timeOut)

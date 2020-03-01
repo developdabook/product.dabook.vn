@@ -20,6 +20,7 @@
           v-model="pass.type"
           :items="passengers_sl"
           :rules="validation.passengerTypeRules"
+          :disabled="!isAcceptAddPassenger"
           item-text="text"
           item-value="value"
           dense
@@ -168,6 +169,7 @@
     </v-card>
     <div class="add-more-box">
       <v-btn
+        v-if="isAcceptAddPassenger"
         :disabled="checkout.passengers.length >= 5"
         color="primary"
         class="addmore-btn"
@@ -530,6 +532,11 @@ export default {
       invoiceUsed: false
     }
   },
+  computed: {
+    isAcceptAddPassenger() {
+      return this.$store.getters['checkout/isAcceptAddPassenger']
+    }
+  },
   methods: {
     expandPanel() {
       if (this.expandOpended === 0) {
@@ -593,7 +600,12 @@ export default {
       return sum
     },
     makeReservation() {
-      this.reservationDialog = true
+      this.$refs.birthday.forEach((element) => {
+        element.checkValidate()
+      })
+      if (this.$refs.checkoutForm.validate() && this.validation.birthdayValid) {
+        this.reservationDialog = true
+      }
     }
   }
 }
