@@ -461,8 +461,10 @@ import passengers from '@/localdb/passenger'
 export default {
   name: 'CheckoutInformation',
   components: {
-    DateInput: () => import('@/components/checkout/DateInput'),
-    ReservationBox: () => import('@/components/checkout/ReservationBox')
+    DateInput: () =>
+      import(/* webpackPrefetch: true */ '@/components/checkout/DateInput'),
+    ReservationBox: () =>
+      import(/* webpackPrefetch: true */ '@/components/checkout/ReservationBox')
   },
   data() {
     return {

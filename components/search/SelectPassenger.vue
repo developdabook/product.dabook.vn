@@ -103,14 +103,14 @@
         </div>
       </v-card-text>
     </v-card>
-    <div class="detail-action">
+    <div v-if="footer" class="detail-action">
       <v-btn
         depressed
         small
         text
         color="primary"
         class="detail-action-btn"
-        @click="close"
+        @click="closeModal"
         >Close</v-btn
       >
     </div>
@@ -119,6 +119,12 @@
 <script>
 export default {
   name: 'SelectPassenger',
+  props: {
+    footer: {
+      type: Boolean,
+      default: true
+    }
+  },
   data() {
     return {
       passenger: {
@@ -146,7 +152,7 @@ export default {
       }
       this.$emit('input', this.passenger)
     },
-    close() {
+    closeModal() {
       this.$emit('close')
     }
   }

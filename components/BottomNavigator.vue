@@ -17,7 +17,6 @@
       <span>{{ nav.name }}</span>
 
       <i :class="nav.icon"></i>
-      <!-- <v-icon>{{ nav.icon }}</v-icon> -->
     </v-btn>
   </v-bottom-navigation>
 </template>

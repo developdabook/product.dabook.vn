@@ -2,14 +2,18 @@
   <div class="header-component">
     <v-navigation-drawer
       v-model="draw.leftDraw"
+      disable-resize-watcher
+      disable-route-watcher
       floating
-      absolute
+      fixed
       app
       class="left-nav"
     >
       <template v-slot:prepend>
         <v-card flat class="tw-border-b tw-pb-4">
-          <v-card-text> </v-card-text>
+          <v-card-text>
+            <img class="logo_header" src="/images/logo_trans.png" alt="" />
+          </v-card-text>
         </v-card>
       </template>
       <v-list nav dense shaped>
@@ -58,7 +62,7 @@
         <i class="icofont-beach icofont-2x"></i
       ></v-btn>
       <v-toolbar-title>
-        <v-img aspect-ratio="1/1" src="/images/logo_trans.png"> </v-img>
+        <v-img aspect-ratio="1/1" src="/images/logo.png"> </v-img>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
@@ -116,10 +120,11 @@
     </v-app-bar>
     <v-navigation-drawer
       v-model="draw.rightDraw"
-      floating
-      absolute
-      app
+      disable-resize-watcher
+      disable-route-watcher
       right
+      temporary
+      fixed
       width="350px"
       class="right-nav"
     >
@@ -155,10 +160,14 @@ import { menu } from '@/localdb/menu'
 export default {
   name: 'HeaderComponent',
   components: {
-    Signin: () => import('@/components/auth/Signin'),
-    MenuAuth: () => import('@/components/auth/MenuAuth'),
-    ContactBanner: () => import('@/components/search/ContactBanner'),
-    CalendarPrice: () => import('@/components/search/CalendarPrice')
+    Signin: () =>
+      import(/* webpackPrefetch: true */ '@/components/auth/Signin'),
+    MenuAuth: () =>
+      import(/* webpackPrefetch: true */ '@/components/auth/MenuAuth'),
+    ContactBanner: () =>
+      import(/* webpackPrefetch: true */ '@/components/search/ContactBanner'),
+    CalendarPrice: () =>
+      import(/* webpackPrefetch: true */ '@/components/search/CalendarPrice')
   },
   data() {
     return {
@@ -188,6 +197,10 @@ export default {
 } */
 .header-btn {
   @apply tw-font-normal tw-normal-case !important;
+}
+.logo_header {
+  height: 40px;
+  width: auto;
 }
 .news-tips {
   @apply tw-text-xs;

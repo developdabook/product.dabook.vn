@@ -201,7 +201,8 @@
 export default {
   name: 'SumTicketInfo',
   components: {
-    FlightSegment: () => import('@/components/select/FlightSegment')
+    FlightSegment: () =>
+      import(/* webpackPrefetch: true */ '@/components/select/FlightSegment')
   },
   props: {
     ticket: {

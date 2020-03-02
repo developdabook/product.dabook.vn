@@ -1,4 +1,6 @@
 const colors = require('vuetify/es5/util/colors').default
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+//   .BundleAnalyzerPlugin
 
 module.exports = {
   mode: 'universal',
@@ -192,5 +194,6 @@ module.exports = {
         }
       })
     }
+    // plugins: [new BundleAnalyzerPlugin({ analyzerPort: 1010 })]
   }
 }

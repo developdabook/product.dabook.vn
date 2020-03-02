@@ -87,14 +87,26 @@ export default {
   name: 'SearchPage',
   layout: 'unauthen',
   components: {
-    StickyDeskSearch: () => import('@/components/search/StickyDeskSearch'),
-    StickyMobiSearch: () => import('@/components/search/StickyMobiSearch'),
-    Ticket: () => import('@/components/select/Ticket'),
-    PairTicket: () => import('@/components/select/PairTicket'),
-    FilterComponent: () => import('@/components/filter/FilterComponent'),
-    SortAction: () => import('@/components/filter/SortAction'),
-    DisplayControl: () => import('@/components/filter/DisplayControl'),
-    ContactBanner: () => import('@/components/search/ContactBanner')
+    StickyDeskSearch: () =>
+      import(
+        /* webpackPrefetch: true */ '@/components/search/StickyDeskSearch'
+      ),
+    StickyMobiSearch: () =>
+      import(
+        /* webpackPrefetch: true */ '@/components/search/StickyMobiSearch'
+      ),
+    Ticket: () =>
+      import(/* webpackPrefetch: true */ '@/components/select/Ticket'),
+    PairTicket: () =>
+      import(/* webpackPrefetch: true */ '@/components/select/PairTicket'),
+    FilterComponent: () =>
+      import(/* webpackPrefetch: true */ '@/components/filter/FilterComponent'),
+    SortAction: () =>
+      import(/* webpackPrefetch: true */ '@/components/filter/SortAction'),
+    DisplayControl: () =>
+      import(/* webpackPrefetch: true */ '@/components/filter/DisplayControl'),
+    ContactBanner: () =>
+      import(/* webpackPrefetch: true */ '@/components/search/ContactBanner')
   },
   key(route) {
     return route.fullPath

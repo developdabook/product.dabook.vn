@@ -34,7 +34,7 @@
         </div>
       </v-card-text>
     </v-card>
-    <div class="detail-action">
+    <div v-if="footer" class="detail-action">
       <v-btn
         depressed
         small
@@ -51,6 +51,12 @@
 import { cabinClass } from '@/localdb/cabinClass'
 export default {
   name: 'SelectCabinClass',
+  props: {
+    footer: {
+      type: Boolean,
+      default: true
+    }
+  },
   data() {
     return {
       cabins: cabinClass,

@@ -79,7 +79,8 @@
 export default {
   name: 'CheckoutSummary',
   components: {
-    SumTicketInfo: () => import('@/components/checkout/SumTicketInfo')
+    SumTicketInfo: () =>
+      import(/* webpackPrefetch: true */ '@/components/checkout/SumTicketInfo')
   },
   computed: {
     passengers() {

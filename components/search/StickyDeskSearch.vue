@@ -41,6 +41,7 @@
           </template>
           <SelectPassenger
             v-model="searchCondition.passenger"
+            :footer="false"
             class="tw-bg-white"
           />
         </v-menu>
@@ -58,6 +59,7 @@
           </template>
           <SelectCabinClass
             v-model="searchCondition.cabinClass"
+            :footer="false"
             class="tw-bg-white"
           />
         </v-menu>
@@ -199,11 +201,20 @@ import utils from '@/utils/utils'
 export default {
   name: 'StickyDesktopSearch',
   components: {
-    SelectPassenger: () => import('@/components/search/SelectPassenger'),
-    SelectCabinClass: () => import('@/components/search/SelectCabinClass'),
-    SelectRoundTrip: () => import('@/components/search/SelectRoundTrip'),
-    SelectTimeDesktop: () => import('@/components/search/SelectTimeDesktop'),
-    SelectLocation: () => import('@/components/search/SelectLocation')
+    SelectPassenger: () =>
+      import(/* webpackPrefetch: true */ '@/components/search/SelectPassenger'),
+    SelectCabinClass: () =>
+      import(
+        /* webpackPrefetch: true */ '@/components/search/SelectCabinClass'
+      ),
+    SelectRoundTrip: () =>
+      import(/* webpackPrefetch: true */ '@/components/search/SelectRoundTrip'),
+    SelectTimeDesktop: () =>
+      import(
+        /* webpackPrefetch: true */ '@/components/search/SelectTimeDesktop'
+      ),
+    SelectLocation: () =>
+      import(/* webpackPrefetch: true */ '@/components/search/SelectLocation')
   },
 
   props: {

@@ -15,8 +15,10 @@ export default {
   name: 'FlightPage',
   layout: 'unauthen',
   components: {
-    Background: () => import('@/components/Background'),
-    MainSearchBox: () => import('@/components/search/MainSearchBox')
+    Background: () =>
+      import(/* webpackPrefetch: true */ '@/components/Background'),
+    MainSearchBox: () =>
+      import(/* webpackPrefetch: true */ '@/components/search/MainSearchBox')
   }
 }
 </script>

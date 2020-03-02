@@ -108,7 +108,8 @@
 export default {
   name: 'PayOption',
   components: {
-    IssueTicket: () => import('@/components/checkout/IssueTicket')
+    IssueTicket: () =>
+      import(/* webpackPrefetch: true */ '@/components/checkout/IssueTicket')
   },
   data() {
     return {

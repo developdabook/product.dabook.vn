@@ -16,8 +16,13 @@ export default {
   layout: 'unauthen',
   components: {
     CheckoutInformation: () =>
-      import('@/components/checkout/CheckoutInformation'),
-    CheckoutSummary: () => import('@/components/checkout/CheckoutSummary')
+      import(
+        /* webpackPrefetch: true */ '@/components/checkout/CheckoutInformation'
+      ),
+    CheckoutSummary: () =>
+      import(
+        /* webpackPrefetch: true */ '@/components/checkout/CheckoutSummary'
+      )
   }
 }
 </script>

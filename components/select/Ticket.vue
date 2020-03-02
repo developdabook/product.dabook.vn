@@ -246,7 +246,8 @@ export default {
   name: 'Ticket',
   components: {
     PriceValidation: () => import('@/components/generals/PriceValidation'),
-    TicketDetail: () => import('@/components/select/TicketDetail')
+    TicketDetail: () =>
+      import(/* webpackPrefetch: true */ '@/components/select/TicketDetail')
   },
   props: {
     ticket: {

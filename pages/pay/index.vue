@@ -15,8 +15,12 @@ export default {
   name: 'PayPage',
   layout: 'unauthen',
   components: {
-    PayOption: () => import('@/components/checkout/PayOption'),
-    CheckoutSummary: () => import('@/components/checkout/CheckoutSummary')
+    PayOption: () =>
+      import(/* webpackPrefetch: true */ '@/components/checkout/PayOption'),
+    CheckoutSummary: () =>
+      import(
+        /* webpackPrefetch: true */ '@/components/checkout/CheckoutSummary'
+      )
   }
 }
 </script>

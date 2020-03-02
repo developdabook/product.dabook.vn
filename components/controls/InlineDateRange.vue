@@ -2,8 +2,8 @@
   <div class="inline-daterange">
     <client-only>
       <vc-date-picker
-        :mode="mode"
         v-model="selectedDate"
+        :mode="mode"
         :is-inline="true"
         :is-expanded="true"
         :columns="1"

@@ -139,10 +139,14 @@
 export default {
   name: 'FilterAction',
   components: {
-    FilterPrice: () => import('@/components/filter/FilterPrice'),
-    FilterTime: () => import('@/components/filter/FilterTime'),
-    FilterSkyteam: () => import('@/components/filter/FilterSkyteam'),
-    FilterAirline: () => import('@/components/filter/FilterAirline')
+    FilterPrice: () =>
+      import(/* webpackPrefetch: true */ '@/components/filter/FilterPrice'),
+    FilterTime: () =>
+      import(/* webpackPrefetch: true */ '@/components/filter/FilterTime'),
+    FilterSkyteam: () =>
+      import(/* webpackPrefetch: true */ '@/components/filter/FilterSkyteam'),
+    FilterAirline: () =>
+      import(/* webpackPrefetch: true */ '@/components/filter/FilterAirline')
   },
   props: {
     filters: {

@@ -197,10 +197,14 @@ import utils from '@/utils/utils'
 export default {
   name: 'MainSearchBox',
   components: {
-    SelectLocation: () => import('@/components/search/SelectLocation'),
-    SelectTime: () => import('@/components/search/SelectTime'),
-    SelectPassenger: () => import('@/components/search/SelectPassenger'),
-    SelectCabinClass: () => import('@/components/search/SelectCabinClass')
+    SelectLocation: () =>
+      import(/* webpackPrefetch: true */ '@/components/search/SelectLocation'),
+    SelectTime: () =>
+      import(/* webpackPrefetch: true */ '@/components/search/SelectTime'),
+    SelectPassenger: () =>
+      import(/* webpackPrefetch: true */ '@/components/search/SelectPassenger'),
+    SelectCabinClass: () =>
+      import(/* webpackPrefetch: true */ '@/components/search/SelectCabinClass')
   },
   data() {
     return {

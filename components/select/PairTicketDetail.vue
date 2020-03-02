@@ -273,9 +273,14 @@ import GeneralApi from '@/services/GeneralApi'
 export default {
   name: 'PairTicketDetail',
   components: {
-    FlightSegment: () => import('@/components/select/FlightSegment'),
-    ContactBanner: () => import('@/components/search/ContactBanner'),
-    PriceValidation: () => import('@/components/generals/PriceValidation')
+    FlightSegment: () =>
+      import(/* webpackPrefetch: true */ '@/components/select/FlightSegment'),
+    ContactBanner: () =>
+      import(/* webpackPrefetch: true */ '@/components/search/ContactBanner'),
+    PriceValidation: () =>
+      import(
+        /* webpackPrefetch: true */ '@/components/generals/PriceValidation'
+      )
   },
   props: {
     ticket: {

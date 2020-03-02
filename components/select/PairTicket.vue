@@ -375,7 +375,8 @@ export default {
   name: 'PairTicket',
   components: {
     PriceValidation: () => import('@/components/generals/PriceValidation'),
-    PairTicketDetail: () => import('@/components/select/PairTicketDetail')
+    PairTicketDetail: () =>
+      import(/* webpackPrefetch: true */ '@/components/select/PairTicketDetail')
   },
   props: {
     ticket: {
