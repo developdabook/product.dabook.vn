@@ -92,7 +92,7 @@
                         text-color="#4A5568"
                         class="chip-info"
                       >
-                        {{ ticket.MinFare.description }}
+                        {{ ticket.formatMinFare.description }}
                       </v-chip>
                     </div>
                     <p class="tw-text-sm tw-text-gray-700 tw-m-0">
@@ -266,7 +266,7 @@ export default {
       loading: false,
       ticketSelected: {
         ticket: this.ticket,
-        fare: this.ticket.MinFare,
+        fare: this.ticket.formatMinFare,
         fee: []
       },
       timeOut: null
