@@ -98,7 +98,7 @@
                         text-color="#4A5568"
                         class="chip-info"
                       >
-                        {{ ticket.DEPARTURE.MinFare.description }}
+                        {{ ticket.DEPARTURE.formatMinFare.description }}
                       </v-chip>
                     </div>
                     <p class="tw-text-sm tw-text-gray-700 tw-m-0">
@@ -213,7 +213,7 @@
                         text-color="#4A5568"
                         class="chip-info"
                       >
-                        {{ ticket.RETURN.MinFare.description }}
+                        {{ ticket.RETURN.formatMinFare.description }}
                       </v-chip>
                     </div>
                     <p class="tw-text-sm tw-text-gray-700 tw-m-0">
@@ -398,12 +398,12 @@ export default {
       ticketSelected: {
         DEPARTURE: {
           ticket: this.ticket.DEPARTURE,
-          fare: this.ticket.DEPARTURE.MinFare,
+          fare: this.ticket.DEPARTURE.formatMinFare,
           fee: []
         },
         RETURN: {
           ticket: this.ticket.RETURN,
-          fare: this.ticket.RETURN.MinFare,
+          fare: this.ticket.RETURN.formatMinFare,
           fee: []
         }
       },

@@ -165,12 +165,12 @@ export default {
   data() {
     return {
       tab: null,
-      fareOptionSelected: this.ticket.MinFare
+      fareOptionSelected: this.ticket.formatMinFare
     }
   },
   // watch: {
   //   ticket(newVal) {
-  //     this.fareOptionSelected = _.clone(newVal.MinFare)
+  //     this.fareOptionSelected = _.clone(newVal.formatMinFare)
   //   }
   // },
   methods: {

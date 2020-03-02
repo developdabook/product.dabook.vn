@@ -287,8 +287,8 @@ export default {
     return {
       tab: null,
       fareOptionSelected: {
-        DEPARTURE: this.ticket.DEPARTURE.MinFare,
-        RETURN: this.ticket.RETURN.MinFare
+        DEPARTURE: this.ticket.DEPARTURE.formatMinFare,
+        RETURN: this.ticket.RETURN.formatMinFare
       }
     }
   },
@@ -302,8 +302,8 @@ export default {
   },
   watch: {
     ticket(newVal) {
-      this.fareOptionSelected.DEPARTURE = clone(newVal.DEPARTURE.MinFare)
-      this.fareOptionSelected.RETURN = clone(newVal.RETURN.MinFare)
+      this.fareOptionSelected.DEPARTURE = clone(newVal.DEPARTURE.formatMinFare)
+      this.fareOptionSelected.RETURN = clone(newVal.RETURN.formatMinFare)
     }
   },
   methods: {
