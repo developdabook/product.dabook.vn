@@ -275,7 +275,7 @@ export default {
   watch: {
     ticket(newVal, oldVal) {
       this.ticketSelected.ticket = newVal
-      this.ticketSelected.fare = newVal.MinFare
+      this.ticketSelected.fare = newVal.formatMinFare
     }
   },
   mounted() {

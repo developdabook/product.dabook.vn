@@ -410,6 +410,14 @@ export default {
       timeOut: null
     }
   },
+  watch: {
+    ticket(newVal, oldVal) {
+      this.ticketSelected.DEPARTURE.ticket = newVal.DEPARTURE
+      this.ticketSelected.DEPARTURE.fare = newVal.DEPARTURE.formatMinFare
+      this.ticketSelected.RETURN.ticket = newVal.RETURN
+      this.ticketSelected.RETURN.fare = newVal.RETURN.formatMinFare
+    }
+  },
   mounted() {
     this.loading = true
     this.timeOut = setTimeout(() => {

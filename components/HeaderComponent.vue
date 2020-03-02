@@ -15,7 +15,7 @@
       <v-list nav dense shaped>
         <v-list-item-group active-class="blue lighten-5 primary--text">
           <div v-for="(menu, i) in menus" :key="i + 'menu'">
-            <v-list-item>
+            <v-list-item nuxt :to="menu.to">
               <v-list-item-icon>
                 <i :class="menu.icon"></i>
               </v-list-item-icon>
@@ -27,22 +27,6 @@
       </v-list>
       <template v-slot:append>
         <ContactBanner />
-        <v-card flat class="tw-border-b tw-pb-4" bottom fixed hidden>
-          <v-card-text>
-            <v-alert dismissible dense text type="error" class="news-tips">
-              Thông báo hủy chuyến bay
-            </v-alert>
-            <v-alert dismissible dense text type="info" class="news-tips">
-              Thông báo hủy chuyến bay
-            </v-alert>
-            <v-alert dismissible dense text type="info" class="news-tips">
-              Thông báo hủy chuyến bay
-            </v-alert>
-            <v-alert dismissible dense text type="info" class="news-tips">
-              Thông báo hủy chuyến bay
-            </v-alert>
-          </v-card-text>
-        </v-card>
       </template>
     </v-navigation-drawer>
     <v-app-bar absolute app flat scroll-target="#body-target" color="white">
