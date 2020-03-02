@@ -1,26 +1,49 @@
 <template>
   <div class="header-component">
-    <v-navigation-drawer v-model="draw.leftDraw" floating absolute app>
-      <v-list nav dense>
-        <v-list-item-group
-          v-model="menus"
-          active-class="deep-purple--text text--accent-4"
-        >
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-account</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Account</v-list-item-title>
-          </v-list-item>
+    <v-navigation-drawer
+      v-model="draw.leftDraw"
+      floating
+      absolute
+      app
+      class="left-nav"
+    >
+      <template v-slot:prepend>
+        <v-card flat class="tw-border-b tw-pb-4">
+          <v-card-text> </v-card-text>
+        </v-card>
+      </template>
+      <v-list nav dense shaped>
+        <v-list-item-group active-class="blue lighten-5 primary--text">
+          <div v-for="(menu, i) in menus" :key="i + 'menu'">
+            <v-list-item>
+              <v-list-item-icon>
+                <i :class="menu.icon"></i>
+              </v-list-item-icon>
+              <v-list-item-title>{{ menu.name }}</v-list-item-title>
+            </v-list-item>
+            <v-divider v-if="menu.isDivider" class="my-2"></v-divider>
+          </div>
         </v-list-item-group>
       </v-list>
+      <template v-slot:append>
+        <ContactBanner />
+        <v-card flat class="tw-border-b tw-pb-4" bottom fixed hidden>
+          <v-card-text>
+            <v-alert dismissible dense text type="error" class="news-tips">
+              Thông báo hủy chuyến bay
+            </v-alert>
+            <v-alert dismissible dense text type="info" class="news-tips">
+              Thông báo hủy chuyến bay
+            </v-alert>
+            <v-alert dismissible dense text type="info" class="news-tips">
+              Thông báo hủy chuyến bay
+            </v-alert>
+            <v-alert dismissible dense text type="info" class="news-tips">
+              Thông báo hủy chuyến bay
+            </v-alert>
+          </v-card-text>
+        </v-card>
+      </template>
     </v-navigation-drawer>
     <v-app-bar absolute app flat scroll-target="#body-target" color="white">
       <v-app-bar-nav-icon
@@ -67,7 +90,12 @@
         <i class="icofont-air-ticket icofont-2x"></i>
       </v-btn>
 
-      <v-btn icon color="primary" class=" header-btn">
+      <v-btn
+        icon
+        color="primary"
+        class=" header-btn"
+        @click="draw.rightDraw = !draw.rightDraw"
+      >
         <v-icon color="headercolor">mdi-dots-vertical</v-icon>
       </v-btn>
       <v-menu
@@ -79,7 +107,7 @@
         <template v-slot:activator="{ on }">
           <v-btn text fab icon color="primary" class=" header-btn" v-on="on">
             <v-icon v-if="!loginStatus" color="headercolor">
-              mdi-shield-check-outline
+              mdi-account
             </v-icon>
 
             <v-avatar v-else size="30">
@@ -102,21 +130,59 @@
         </v-card>
       </v-menu>
     </v-app-bar>
+    <v-navigation-drawer
+      v-model="draw.rightDraw"
+      floating
+      absolute
+      app
+      right
+      width="350px"
+      class="right-nav"
+    >
+      <CalendarPrice class="tw-shadow-none tw-mb-4" />
+      <template v-slot:append>
+        <div class="calendar-action">
+          <v-btn
+            small
+            text
+            depressed
+            color="primary"
+            class="normal-btn"
+            @click="draw.rightDraw = !draw.rightDraw"
+          >
+            Close
+          </v-btn>
+          <v-btn
+            small
+            depressed
+            color="primary"
+            class="normal-btn"
+            @click="draw.rightDraw = !draw.rightDraw"
+          >
+            Search
+          </v-btn>
+        </div>
+      </template>
+    </v-navigation-drawer>
   </div>
 </template>
 <script>
+import { menu } from '@/localdb/menu'
 export default {
   name: 'HeaderComponent',
   components: {
     Signin: () => import('@/components/auth/Signin'),
-    MenuAuth: () => import('@/components/auth/MenuAuth')
+    MenuAuth: () => import('@/components/auth/MenuAuth'),
+    ContactBanner: () => import('@/components/search/ContactBanner'),
+    CalendarPrice: () => import('@/components/search/CalendarPrice')
   },
   data() {
     return {
       draw: {
-        leftDraw: false
+        leftDraw: false,
+        rightDraw: false
       },
-      menus: [],
+      menus: menu,
       loginMenu: false
     }
   },
@@ -133,7 +199,16 @@ export default {
 }
 </script>
 <style lang="postcss">
+/* .left-nav {
+  @apply tw-flex tw-flex-col tw-justify-between tw-items-stretch;
+} */
 .header-btn {
   @apply tw-font-normal tw-normal-case !important;
+}
+.news-tips {
+  @apply tw-text-xs;
+}
+.calendar-action {
+  @apply tw-p-2 tw-px-4 tw-flex tw-flex-row tw-justify-end tw-items-center;
 }
 </style>

@@ -272,6 +272,12 @@ export default {
       timeOut: null
     }
   },
+  watch: {
+    ticket(newVal, oldVal) {
+      this.ticketSelected.ticket = newVal
+      this.ticketSelected.fare = newVal.MinFare
+    }
+  },
   mounted() {
     this.loading = true
     this.timeOut = setTimeout(() => {
