@@ -26,7 +26,7 @@
         </v-list-item-group>
       </v-list>
       <template v-slot:append>
-        <ContactBanner />
+        <ContactBanner class="contact-banner" />
       </template>
     </v-navigation-drawer>
     <v-app-bar absolute app flat scroll-target="#body-target" color="white">
@@ -91,7 +91,7 @@
         <template v-slot:activator="{ on }">
           <v-btn text fab icon color="primary" class=" header-btn" v-on="on">
             <v-icon v-if="!loginStatus" color="headercolor">
-              mdi-account
+              mdi-account-outline
             </v-icon>
 
             <v-avatar v-else size="30">
@@ -193,6 +193,9 @@ export default {
   @apply tw-text-xs;
 }
 .calendar-action {
-  @apply tw-p-2 tw-px-4 tw-flex tw-flex-row tw-justify-end tw-items-center;
+  @apply tw-p-2 tw-px-4 tw-flex tw-flex-row tw-justify-end tw-items-center tw-fixed tw-bottom-0 tw-bg-white tw-z-10 tw-w-full;
+}
+.contact-banner {
+  @apply tw-fixed tw-bottom-0;
 }
 </style>
