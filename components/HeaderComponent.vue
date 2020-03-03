@@ -18,19 +18,33 @@
       </template>
       <v-list nav dense shaped>
         <v-list-item-group active-class="blue lighten-5 primary--text">
-          <div v-for="(menu, i) in menus" :key="i + 'menu'">
-            <v-list-item nuxt :to="menu.to">
-              <v-list-item-icon>
+          <div v-for="(group, i) in menus" :key="i + 'menu'">
+            <strong v-if="group.name !== ''" class="group-header">{{
+              group.name
+            }}</strong>
+            <v-list-item
+              v-for="(menu, j) in group.menu"
+              :key="j + 'submenu'"
+              nuxt
+              :to="menu.to"
+            >
+              <v-list-item-icon class="mr-1">
                 <i :class="menu.icon"></i>
               </v-list-item-icon>
               <v-list-item-title>{{ menu.name }}</v-list-item-title>
             </v-list-item>
-            <v-divider v-if="menu.isDivider" class="my-2"></v-divider>
+            <v-divider class="my-3 mb-6"></v-divider>
           </div>
         </v-list-item-group>
       </v-list>
       <template v-slot:append>
-        <ContactBanner class="contact-banner" />
+        <div class="leftdraw-action">
+          <v-badge bordered color="success" icon="mdi-check" overlap>
+            <v-btn rounded class="leftdraw-call" depressed href="tel:19001542"
+              >19001542 <i class="icofont-live-support tw-text-xl tw-ml-1"></i
+            ></v-btn>
+          </v-badge>
+        </div>
       </template>
     </v-navigation-drawer>
     <v-app-bar absolute app flat scroll-target="#body-target" color="white">
@@ -164,8 +178,6 @@ export default {
       import(/* webpackPrefetch: true */ '@/components/auth/Signin'),
     MenuAuth: () =>
       import(/* webpackPrefetch: true */ '@/components/auth/MenuAuth'),
-    ContactBanner: () =>
-      import(/* webpackPrefetch: true */ '@/components/search/ContactBanner'),
     CalendarPrice: () =>
       import(/* webpackPrefetch: true */ '@/components/search/CalendarPrice')
   },
@@ -195,6 +207,9 @@ export default {
 /* .left-nav {
   @apply tw-flex tw-flex-col tw-justify-between tw-items-stretch;
 } */
+.group-header {
+  @apply tw-pl-3 tw-pb-6 tw-font-bold tw-text-xs !important;
+}
 .header-btn {
   @apply tw-font-normal tw-normal-case !important;
 }
@@ -210,5 +225,11 @@ export default {
 }
 .contact-banner {
   @apply tw-fixed tw-bottom-0;
+}
+.leftdraw-action {
+  @apply tw-flex tw-flex-col tw-justify-start tw-items-start tw-p-4 tw-fixed tw-bottom-0;
+}
+.leftdraw-call {
+  @apply tw-bg-blue-100 tw-text-blue-600 tw-normal-case tw-font-normal !important;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <v-card class="contact-banner-componnent">
+  <v-card class="contact-banner-componnent" flat>
     <v-card-text class="tw-pb-0">
       <img src="/illustrator/contact.png" />
     </v-card-text>

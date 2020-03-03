@@ -73,7 +73,9 @@
         </div>
       </div>
       <div class="right-pro">
-        <ContactBanner />
+        <v-card>
+          <v-card-text><ContactBanner /> </v-card-text>
+        </v-card>
       </div>
     </section>
   </div>
