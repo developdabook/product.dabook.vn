@@ -9,7 +9,8 @@
             text
             class="tw-normal-case"
             @click="changeTotalMode"
-            ><v-icon small>mdi-airballoon-outline</v-icon>Show total price
+            ><v-icon small>mdi-airballoon-outline</v-icon
+            >{{ totalMode ? 'Show price only' : 'Show total price' }}
           </v-btn>
         </v-card-text>
       </v-card>
@@ -34,6 +35,11 @@ export default {
       control: {
         totalPrice: true
       }
+    }
+  },
+  computed: {
+    totalMode() {
+      return this.$store.getters['search/getTotalMode']
     }
   },
   methods: {

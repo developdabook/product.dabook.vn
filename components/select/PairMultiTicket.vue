@@ -4,7 +4,7 @@
       threshold: 0.5
     }"
     min-height="250"
-    transition="slide-x-transition"
+    transition="scale-transition"
     origin="center center"
   >
     <v-skeleton-loader
@@ -20,7 +20,9 @@
           <v-card-text class="ticket-box">
             <div class="ticket-info">
               <div class="round-item">
-                <div class="round-date">{{ ticket.formatStartDate }}</div>
+                <div class="round-date">
+                  {{ ticket.DEPARTURE.formatStartDate }}
+                </div>
                 <div class="round-airline">
                   <div class="newtk-timeline">
                     <v-icon class="tw-text-xs tw-text-gray-600"
@@ -37,11 +39,15 @@
                   </div>
                   <div class="detail-airline">
                     <p class="tw-text-sm tw-text-gray-700 tw-m-0 tw-mb-4">
-                      <strong class="tw-mr-2">{{ ticket.start_time }}</strong
-                      ><strong class="tw-mr-2">{{
-                        ticket.formatStartPoint.city
+                      <strong class="tw-mr-2">{{
+                        ticket.DEPARTURE.start_time
                       }}</strong
-                      ><span class="tw-text-xs">{{ ticket.start_point }}</span>
+                      ><strong class="tw-mr-2">{{
+                        ticket.DEPARTURE.formatStartPoint.city
+                      }}</strong
+                      ><span class="tw-text-xs">{{
+                        ticket.DEPARTURE.start_point
+                      }}</span>
                     </p>
                     <div class=" tw-mb-4">
                       <v-chip
@@ -51,7 +57,7 @@
                         label
                         class="chip-info"
                       >
-                        {{ ticket.formatTotalTime }}
+                        {{ ticket.DEPARTURE.formatTotalTime }}
                       </v-chip>
 
                       <v-tooltip top color="primary" z-index="999999">
@@ -66,13 +72,13 @@
                           >
                             <img
                               :src="
-                                `https://booking.kayak.com/rimg/provider-logos/airlines/v/${ticket.airline}.png?crop=false&width=92&height=92`
+                                `https://booking.kayak.com/rimg/provider-logos/airlines/v/${ticket.DEPARTURE.airline}.png?crop=false&width=92&height=92`
                               "
                             />
                           </v-avatar>
                         </template>
                         <span
-                          >{{ ticket.formatIATA.name }}
+                          >{{ ticket.DEPARTURE.formatIATA.name }}
                           <v-icon color="#FFF" small
                             >mdi-information-outline</v-icon
                           >
@@ -84,7 +90,7 @@
                         text-color="#4A5568"
                         class="chip-info"
                       >
-                        {{ ticket.formatDirect }}
+                        {{ ticket.DEPARTURE.formatDirect }}
                       </v-chip>
                       <v-chip
                         small
@@ -92,15 +98,134 @@
                         text-color="#4A5568"
                         class="chip-info"
                       >
-                        {{ ticket.formatMinFare.description }}
+                        {{ ticket.DEPARTURE.formatMinFare.description }}
                       </v-chip>
                     </div>
                     <p class="tw-text-sm tw-text-gray-700 tw-m-0">
-                      <strong class="tw-mr-2">{{ ticket.end_time }}</strong
-                      ><strong class="tw-mr-2">{{
-                        ticket.formatEndPoint.city
+                      <strong class="tw-mr-2">{{
+                        ticket.DEPARTURE.end_time
                       }}</strong
-                      ><span class="tw-text-xs">{{ ticket.end_point }}</span>
+                      ><strong class="tw-mr-2">{{
+                        ticket.DEPARTURE.formatEndPoint.city
+                      }}</strong
+                      ><span class="tw-text-xs">{{
+                        ticket.DEPARTURE.end_point
+                      }}</span>
+                    </p>
+                  </div>
+                  <div class="filter-action">
+                    <v-tooltip top color="primary">
+                      <template v-slot:activator="{ on }">
+                        <v-checkbox
+                          color="primary"
+                          hide-details
+                          class="tw-m-0"
+                          v-on="on"
+                        ></v-checkbox>
+                      </template>
+                      <span
+                        >Lọc theo chuyến bay này
+                        <v-icon color="#FFF" small
+                          >mdi-information-outline</v-icon
+                        >
+                      </span>
+                    </v-tooltip>
+                  </div>
+                </div>
+              </div>
+              <v-divider class="ma-4">8h 3min</v-divider>
+              <div class="round-item">
+                <div class="round-date">
+                  {{ ticket.RETURN.formatStartDate }}
+                </div>
+                <div class="round-airline">
+                  <div class="newtk-timeline">
+                    <v-icon class="tw-text-xs tw-text-gray-600"
+                      >mdi-dots-vertical-circle</v-icon
+                    >
+                    <span class="tw-flex-grow newtk-timeline-center">
+                      <v-icon class="tw-text-sm rotate-180 tw-text-gray-600"
+                        >mdi-airplane</v-icon
+                      >
+                    </span>
+                    <v-icon class="tw-text-xs tw-text-gray-600"
+                      >mdi-dots-vertical-circle</v-icon
+                    >
+                  </div>
+                  <div class="detail-airline">
+                    <p class="tw-text-sm tw-text-gray-700 tw-m-0 tw-mb-4">
+                      <strong class="tw-mr-2">{{
+                        ticket.RETURN.start_time
+                      }}</strong
+                      ><strong class="tw-mr-2">{{
+                        ticket.RETURN.formatStartPoint.city
+                      }}</strong
+                      ><span class="tw-text-xs">{{
+                        ticket.RETURN.start_point
+                      }}</span>
+                    </p>
+                    <div class=" tw-mb-4">
+                      <v-chip
+                        text-color="primary"
+                        color="blue-grey lighten-5"
+                        small
+                        label
+                        class="chip-info"
+                      >
+                        {{ ticket.RETURN.formatTotalTime }}
+                      </v-chip>
+
+                      <v-tooltip top color="primary" z-index="999999">
+                        <template v-slot:activator="{ on }">
+                          <v-avatar
+                            height="24"
+                            width="24"
+                            tile
+                            color="blue-grey lighten-5"
+                            class="tw-rounded"
+                            v-on="on"
+                          >
+                            <img
+                              :src="
+                                `https://booking.kayak.com/rimg/provider-logos/airlines/v/${ticket.RETURN.airline}.png?crop=false&width=92&height=92`
+                              "
+                            />
+                          </v-avatar>
+                        </template>
+                        <span
+                          >{{ ticket.RETURN.formatIATA.name }}
+                          <v-icon color="#FFF" small
+                            >mdi-information-outline</v-icon
+                          >
+                        </span>
+                      </v-tooltip>
+                      <v-chip
+                        small
+                        color="blue-grey lighten-5"
+                        text-color="#4A5568"
+                        class="chip-info"
+                      >
+                        {{ ticket.RETURN.formatDirect }}
+                      </v-chip>
+                      <v-chip
+                        small
+                        color="blue-grey lighten-5"
+                        text-color="#4A5568"
+                        class="chip-info"
+                      >
+                        {{ ticket.RETURN.formatMinFare.description }}
+                      </v-chip>
+                    </div>
+                    <p class="tw-text-sm tw-text-gray-700 tw-m-0">
+                      <strong class="tw-mr-2">{{
+                        ticket.RETURN.end_time
+                      }}</strong
+                      ><strong class="tw-mr-2">{{
+                        ticket.RETURN.formatEndPoint.city
+                      }}</strong
+                      ><span class="tw-text-xs">{{
+                        ticket.RETURN.end_point
+                      }}</span>
                     </p>
                   </div>
                   <div class="filter-action">
@@ -135,7 +260,7 @@
                         color="primary"
                         v-on="on"
                         @click="drawer.isDraw = true"
-                        >{{ ticket.moreOption }}
+                        >{{ ticket.DEPARTURE.moreOption }}
                         <v-icon small>mdi-chevron-down</v-icon>
                       </v-btn>
                     </template>
@@ -221,7 +346,8 @@
                       :price="
                         totalMode
                           ? totalPrice.total
-                          : ticketSelected.fare.total_fare
+                          : ticketSelected.DEPARTURE.fare.total_fare +
+                            ticketSelected.RETURN.fare.total_fare
                       "
                   /></strong>
                 </div>
@@ -233,7 +359,7 @@
                   rounded
                   class="select-btn"
                   @click="acceptSelectTicket"
-                  >{{ actionBtnTitle }}</v-btn
+                  >Select pair ticket</v-btn
                 >
               </div>
             </div>
@@ -251,7 +377,7 @@
             width="450px"
             height="100vh"
           >
-            <TicketDetail
+            <PairTicketDetail
               :ticket="ticket"
               @change="selectTicket($event)"
               @close="drawer.isDraw = false"
@@ -264,11 +390,11 @@
 </template>
 <script>
 export default {
-  name: 'Ticket',
+  name: 'PairMultiTicket',
   components: {
     PriceValidation: () => import('@/components/generals/PriceValidation'),
-    TicketDetail: () =>
-      import(/* webpackPrefetch: true */ '@/components/select/TicketDetail')
+    PairTicketDetail: () =>
+      import(/* webpackPrefetch: true */ '@/components/select/PairTicketDetail')
   },
   props: {
     ticket: {
@@ -285,28 +411,47 @@ export default {
       drawer: {
         isDraw: false
       },
+
       loading: false,
+      isActive: false,
       ticketSelected: {
-        ticket: this.ticket,
-        fare: this.ticket.formatMinFare,
-        fee: this.ticket.formatMinFee
+        DEPARTURE: {
+          ticket: this.ticket.DEPARTURE,
+          fare: this.ticket.DEPARTURE.formatMinFare,
+          fee: []
+        },
+        RETURN: {
+          ticket: this.ticket.RETURN,
+          fare: this.ticket.RETURN.formatMinFare,
+          fee: []
+        }
       },
       timeOut: null
     }
   },
+
   computed: {
     totalPrice() {
       try {
         return {
           total:
-            this.ticketSelected.fare.total_fare +
-            (typeof this.ticketSelected.fee === 'undefined'
+            this.ticketSelected.DEPARTURE.fare.total_fare +
+            (typeof this.ticketSelected.DEPARTURE.fee === 'undefined'
               ? 0
-              : this.ticketSelected.fee[0].total),
+              : this.ticketSelected.DEPARTURE.fee[0].total) +
+            this.ticketSelected.RETURN.fare.total_fare +
+            (typeof this.ticketSelected.RETURN.fee === 'undefined'
+              ? 0
+              : this.ticketSelected.RETURN.fee[0].total),
           isValid: true
         }
       } catch (error) {
-        return { total: this.ticketSelected.fare.total_fare, isValid: false }
+        return {
+          total:
+            this.ticketSelected.DEPARTURE.fare.total_fare +
+            this.ticketSelected.RETURN.fare.total_fare,
+          isValid: false
+        }
       }
     },
     totalMode() {
@@ -315,9 +460,12 @@ export default {
   },
   watch: {
     ticket(newVal, oldVal) {
-      this.ticketSelected.ticket = newVal
-      this.ticketSelected.fare = newVal.formatMinFare
-      this.ticketSelected.fee = newVal.formatMinFee
+      this.ticketSelected.DEPARTURE.ticket = newVal.DEPARTURE
+      this.ticketSelected.DEPARTURE.fare = newVal.DEPARTURE.formatMinFare
+      this.ticketSelected.DEPARTURE.fee = newVal.DEPARTURE.formatMinFee
+      this.ticketSelected.RETURN.ticket = newVal.RETURN
+      this.ticketSelected.RETURN.fare = newVal.RETURN.formatMinFare
+      this.ticketSelected.RETURN.fee = newVal.RETURN.formatMinFee
     }
   },
   mounted() {
@@ -331,13 +479,12 @@ export default {
   },
   methods: {
     selectTicket(payload) {
-      this.ticketSelected.fare = payload
+      this.ticketSelected.DEPARTURE.fare = payload.DEPARTURE
+      this.ticketSelected.RETURN.fare = payload.RETURN
       this.acceptSelectTicket()
     },
     acceptSelectTicket() {
-      const ticket = {}
-      ticket[this.ticketSelected.ticket.type] = this.ticketSelected
-      this.$store.dispatch('checkout/updateTicketSelected', ticket)
+      this.$store.dispatch('checkout/updateTicketSelected', this.ticketSelected)
       this.$router.push({
         path: 'checkout',
         query: {
@@ -349,16 +496,6 @@ export default {
 }
 </script>
 <style lang="postcss">
-.fade-enter-active,
-.fade-leave-active {
-  transition-property: opacity;
-  transition-timing-function: ease-in-out;
-  transition-duration: 500ms;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
 .ticket-component {
   @apply tw-p-1 tw-bg-white tw-border tw-border-teal-500;
 }

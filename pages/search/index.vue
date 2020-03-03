@@ -291,7 +291,8 @@ export default {
         const newFlighList = {
           DEPARTURE: [],
           RETURN: [],
-          PAIR: {}
+          PAIR: {},
+          PAIR_MULTI: []
         }
         if (!this.isRoundTrip) {
           this.flightSort.forEach((a) => {
@@ -307,6 +308,16 @@ export default {
               newFlighList.PAIR[`PAIR_${a.pair_index}`] =
                 newFlighList.PAIR[`PAIR_${a.pair_index}`] || {}
               newFlighList.PAIR[`PAIR_${a.pair_index}`][`${a.type}`] = a
+              newFlighList.PAIR_MULTI[`PAIR_MULTI_${a.pair_index}`] =
+                newFlighList.PAIR_MULTI[`PAIR_MULTI_${a.pair_index}`] || []
+              newFlighList.PAIR_MULTI[`PAIR_MULTI_${a.pair_index}`].push(a)
+            }
+          })
+          Object.keys(newFlighList.PAIR).forEach((el) => {
+            const item = newFlighList.PAIR[el]
+            if (Object.keys(item) <= 1) {
+              newFlighList[Object.keys(item)[0]].push(item)
+              delete newFlighList.PAIR[el]
             }
           })
         }
@@ -460,10 +471,11 @@ export default {
             currency: 'VND'
           }).format(smallestOption.total_fare)
           ticket.formatMinFare = smallestOption
-          ticket.formatMinFee = ticket.fees.filter((el) => {
-            return el.fare_option === ticket.formatMinFare.description
-          })
-          if (ticket.formatMinFee.length === 0) {
+          try {
+            ticket.formatMinFee = ticket.fees.filter((el) => {
+              return el.fare_option === ticket.formatMinFare.description
+            })
+          } catch (error) {
             ticket.formatMinFee = [
               {
                 breakdown: [],

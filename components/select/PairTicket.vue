@@ -272,8 +272,24 @@
                       ></span
                     >
                   </v-tooltip>
-                  <v-chip small color="red lighten-5" text-color="red darken-4">
-                    Lưu ý giá trên chưa bao gồm phụ phí
+                  <v-chip
+                    v-if="!totalMode || (totalMode && !totalPrice.isValid)"
+                    small
+                    color="red lighten-5"
+                    text-color="red darken-4"
+                  >
+                    Giá chưa bao gồm phụ phí
+                    <v-icon small class="ml-2"
+                      >mdi-information-outline</v-icon
+                    ></v-chip
+                  >
+                  <v-chip
+                    v-else
+                    small
+                    color="green lighten-5"
+                    text-color="green accent-4"
+                  >
+                    Giá đã bao gồm phụ phí
                     <v-icon small class="ml-2"
                       >mdi-information-outline</v-icon
                     ></v-chip
@@ -328,8 +344,10 @@
                   <strong class="price-title">
                     <PriceValidation
                       :price="
-                        ticketSelected.DEPARTURE.fare.total_fare +
-                          ticketSelected.RETURN.fare.total_fare
+                        totalMode
+                          ? totalPrice.total
+                          : ticketSelected.DEPARTURE.fare.total_fare +
+                            ticketSelected.RETURN.fare.total_fare
                       "
                   /></strong>
                 </div>
@@ -411,12 +429,43 @@ export default {
       timeOut: null
     }
   },
+
+  computed: {
+    totalPrice() {
+      try {
+        return {
+          total:
+            this.ticketSelected.DEPARTURE.fare.total_fare +
+            (typeof this.ticketSelected.DEPARTURE.fee === 'undefined'
+              ? 0
+              : this.ticketSelected.DEPARTURE.fee[0].total) +
+            this.ticketSelected.RETURN.fare.total_fare +
+            (typeof this.ticketSelected.RETURN.fee === 'undefined'
+              ? 0
+              : this.ticketSelected.RETURN.fee[0].total),
+          isValid: true
+        }
+      } catch (error) {
+        return {
+          total:
+            this.ticketSelected.DEPARTURE.fare.total_fare +
+            this.ticketSelected.RETURN.fare.total_fare,
+          isValid: false
+        }
+      }
+    },
+    totalMode() {
+      return this.$store.getters['search/getTotalMode']
+    }
+  },
   watch: {
     ticket(newVal, oldVal) {
       this.ticketSelected.DEPARTURE.ticket = newVal.DEPARTURE
       this.ticketSelected.DEPARTURE.fare = newVal.DEPARTURE.formatMinFare
+      this.ticketSelected.DEPARTURE.fee = newVal.DEPARTURE.formatMinFee
       this.ticketSelected.RETURN.ticket = newVal.RETURN
       this.ticketSelected.RETURN.fare = newVal.RETURN.formatMinFare
+      this.ticketSelected.RETURN.fee = newVal.RETURN.formatMinFee
     }
   },
   mounted() {
