@@ -3,7 +3,12 @@
     <div class="tw-w-1/2 tw-pr-1">
       <v-card flat class="tw-rounded-none">
         <v-card-text class="tw-flex tw-justify-start">
-          <v-btn color="primarytext" small text class="tw-normal-case"
+          <v-btn
+            color="primarytext"
+            small
+            text
+            class="tw-normal-case"
+            @click="changeTotalMode"
             ><v-icon small>mdi-airballoon-outline</v-icon>Show total price
           </v-btn>
         </v-card-text>
@@ -29,6 +34,12 @@ export default {
       control: {
         totalPrice: true
       }
+    }
+  },
+  methods: {
+    changeTotalMode() {
+      this.control.totalPrice = !this.control.totalPrice
+      this.$store.dispatch('search/updateTotalMode', this.control.totalPrice)
     }
   }
 }

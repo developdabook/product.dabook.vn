@@ -21,7 +21,8 @@ export const state = () => ({
   section: '',
   filterCondition: {},
   sortCondition: '',
-  isFilter: false
+  isFilter: false,
+  isTotalMode: false
 })
 export const mutations = {
   UPDATE_SEARCH_CONDITION(state, payload) {
@@ -41,6 +42,9 @@ export const mutations = {
   },
   UPDATE_SECTION(state, payload) {
     state.section = payload
+  },
+  UPDATE_TOTAL_MODE(state, payload) {
+    state.isTotalMode = payload
   },
   UPDATE_PASSENGER(state, payload) {
     state.searchCondition.passenger[payload.target] =
@@ -125,6 +129,9 @@ export const actions = {
   },
   updateSort({ commit, state }, payload) {
     commit('UPDATE_SORT', payload)
+  },
+  updateTotalMode({ commit, state }, payload) {
+    commit('UPDATE_TOTAL_MODE', payload)
   }
 }
 
@@ -201,5 +208,8 @@ export const getters = {
   },
   getSortCondition(state) {
     return clone(state.sortCondition)
+  },
+  getTotalMode(state) {
+    return state.isTotalMode
   }
 }

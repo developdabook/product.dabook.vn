@@ -151,30 +151,41 @@
               >
             </v-subheader>
             <v-divider></v-divider>
-            <v-radio-group v-model="fareOptionSelected.DEPARTURE">
-              <div
-                v-for="(fare, i) in ticket.DEPARTURE.fare_options"
-                :key="i + 'flightDetail'"
-                class="fare-option-body"
-              >
-                <v-radio :value="fare" hide-details class="tw-m-0"
-                  ><template v-slot:label>
-                    <div class="tw-flex tw-flex-row tw-justify-start">
-                      <strong class="class-info">
-                        {{ fare.description }} class</strong
-                      ><strong class="teal--text tw-text-sm">{{
-                        new Intl.NumberFormat('vi-VN', {
-                          style: 'currency',
-                          currency: 'VND'
-                        }).format(fare.total_fare)
-                      }}</strong>
-                    </div>
-                  </template></v-radio
+            <v-radio-group v-model="fareOptionSelected.DEPARTURE" column>
+              <v-expansion-panels flat>
+                <v-expansion-panel
+                  v-for="(fare, i) in ticket.DEPARTURE.fare_options"
+                  :key="i"
+                  :class="{ active: fareOptionSelected.DEPARTURE === fare }"
+                  class="price-item"
                 >
-                <span class="seat-info"
-                  >{{ fare.seats_available }} seats available</span
-                >
-              </div>
+                  <v-expansion-panel-header hide-actions>
+                    <template v-slot:default>
+                      <v-radio :value="fare" hide-details color="info">
+                        <template v-slot:label>
+                          <div class="price-item-header">
+                            <div class="tw-flex tw-flex-row tw-justify-start">
+                              <strong class="class-info">
+                                {{ fare.description }} class</strong
+                              ><strong class="teal--text tw-text-sm">{{
+                                new Intl.NumberFormat('vi-VN', {
+                                  style: 'currency',
+                                  currency: 'VND'
+                                }).format(fare.total_fare)
+                              }}</strong>
+                            </div>
+                            <span class="seat-info"
+                              >{{ fare.seats_available }} seats available</span
+                            >
+                          </div>
+                        </template>
+                      </v-radio>
+                    </template>
+                  </v-expansion-panel-header>
+                  <v-expansion-panel-content class="price-item-body">
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+              </v-expansion-panels>
             </v-radio-group>
             <v-subheader>
               Chieu ve
@@ -185,30 +196,41 @@
               >
             </v-subheader>
             <v-divider></v-divider>
-            <v-radio-group v-model="fareOptionSelected.RETURN">
-              <div
-                v-for="(fare, i) in ticket.RETURN.fare_options"
-                :key="i + 'flightDetail'"
-                class="fare-option-body"
-              >
-                <v-radio :value="fare" hide-details class="tw-m-0"
-                  ><template v-slot:label>
-                    <div class="tw-flex tw-flex-row tw-justify-start">
-                      <strong class="class-info">
-                        {{ fare.description }} class</strong
-                      ><strong class="teal--text tw-text-sm">{{
-                        new Intl.NumberFormat('vi-VN', {
-                          style: 'currency',
-                          currency: 'VND'
-                        }).format(fare.total_fare)
-                      }}</strong>
-                    </div>
-                  </template></v-radio
+            <v-radio-group v-model="fareOptionSelected.RETURN" column>
+              <v-expansion-panels flat>
+                <v-expansion-panel
+                  v-for="(fare, i) in ticket.RETURN.fare_options"
+                  :key="i"
+                  :class="{ active: fareOptionSelected.RETURN === fare }"
+                  class="price-item"
                 >
-                <span class="seat-info"
-                  >{{ fare.seats_available }} seats available</span
-                >
-              </div>
+                  <v-expansion-panel-header hide-actions>
+                    <template v-slot:default>
+                      <v-radio :value="fare" hide-details color="info">
+                        <template v-slot:label>
+                          <div class="price-item-header">
+                            <div class="tw-flex tw-flex-row tw-justify-start">
+                              <strong class="class-info">
+                                {{ fare.description }} class</strong
+                              ><strong class="teal--text tw-text-sm">{{
+                                new Intl.NumberFormat('vi-VN', {
+                                  style: 'currency',
+                                  currency: 'VND'
+                                }).format(fare.total_fare)
+                              }}</strong>
+                            </div>
+                            <span class="seat-info"
+                              >{{ fare.seats_available }} seats available</span
+                            >
+                          </div>
+                        </template>
+                      </v-radio>
+                    </template>
+                  </v-expansion-panel-header>
+                  <v-expansion-panel-content class="price-item-body">
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+              </v-expansion-panels>
             </v-radio-group>
           </v-card-text>
         </v-card>
@@ -388,6 +410,39 @@ export default {
 }
 .price-select {
   @apply tw-text-sm tw-font-bold tw-flex-grow tw-text-right tw-m-0 tw-p-0;
+}
+.price-select {
+  @apply tw-text-sm tw-font-bold tw-flex-grow tw-text-right tw-m-0 tw-p-0;
+}
+.price-item {
+  @apply tw-border-2 tw-border-gray-300 tw-my-2;
+}
+.price-item:hover {
+  @apply tw-border-2 tw-border-gray-600;
+}
+.price-item.active {
+  @apply tw-border-2 tw-border-teal-600 !important;
+}
+.price-item-header {
+  @apply tw-flex tw-flex-row tw-justify-between tw-items-center tw-text-gray-800 tw-w-full tw-text-sm;
+}
+.price-item-name {
+  @apply tw-text-xs;
+}
+.price-item-icon {
+  @apply tw-text-gray-800 tw-mr-2 !important;
+}
+.price-item-fee {
+  @apply tw-text-gray-800;
+}
+.price-item-body {
+  @apply tw-text-sm;
+}
+.price-btn {
+  @apply tw-rounded-none tw-font-normal tw-normal-case tw-shadow;
+}
+.price-btn:hover {
+  @apply tw-shadow-lg;
 }
 @keyframes flyaniretrun {
   from {

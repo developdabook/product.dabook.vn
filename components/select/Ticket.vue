@@ -147,8 +147,24 @@
                       ></span
                     >
                   </v-tooltip>
-                  <v-chip small color="red lighten-5" text-color="red darken-4">
+                  <v-chip
+                    v-if="!totalMode || (totalMode && !totalPrice.isValid)"
+                    small
+                    color="red lighten-5"
+                    text-color="red darken-4"
+                  >
                     Lưu ý giá trên chưa bao gồm phụ phí
+                    <v-icon small class="ml-2"
+                      >mdi-information-outline</v-icon
+                    ></v-chip
+                  >
+                  <v-chip
+                    v-else
+                    small
+                    color="green lighten-5"
+                    text-color="green accent-4"
+                  >
+                    Giá đã bao gồm phụ phí
                     <v-icon small class="ml-2"
                       >mdi-information-outline</v-icon
                     ></v-chip
@@ -201,7 +217,12 @@
                 </div>
                 <div class="total-price">
                   <strong class="price-title">
-                    <PriceValidation :price="ticketSelected.fare.total_fare"
+                    <PriceValidation
+                      :price="
+                        totalMode
+                          ? totalPrice.total
+                          : ticketSelected.fare.total_fare
+                      "
                   /></strong>
                 </div>
               </div>
@@ -268,15 +289,36 @@ export default {
       ticketSelected: {
         ticket: this.ticket,
         fare: this.ticket.formatMinFare,
-        fee: []
+        fee: this.ticket.formatMinFee
       },
       timeOut: null
+    }
+  },
+  computed: {
+    totalPrice() {
+      try {
+        return {
+          total:
+            this.ticketSelected.fare.total_fare +
+              typeof this.ticketSelected.fee ===
+            'undefined'
+              ? 0
+              : this.ticketSelected.fee[0].total,
+          isValid: true
+        }
+      } catch (error) {
+        return { total: this.ticketSelected.fare.total_fare, isValid: false }
+      }
+    },
+    totalMode() {
+      return this.$store.getters['search/getTotalMode']
     }
   },
   watch: {
     ticket(newVal, oldVal) {
       this.ticketSelected.ticket = newVal
       this.ticketSelected.fare = newVal.formatMinFare
+      this.ticketSelected.fee = newVal.formatMinFee
     }
   },
   mounted() {

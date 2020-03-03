@@ -34,9 +34,8 @@
           >
             <v-skeleton-loader
               v-for="i in 5"
-              ref="skeleton"
               :key="i + 'skeleton'"
-              :tile="false"
+              tile
               height="250"
               transition="scale-transition"
               type="card-avatar"
@@ -73,7 +72,7 @@
         </div>
       </div>
       <div class="right-pro">
-        <v-card>
+        <v-card class="tw-rounded-none">
           <v-card-text><ContactBanner /> </v-card-text>
         </v-card>
       </div>
@@ -442,13 +441,15 @@ export default {
             Description: 'NONE',
             total_fare: 0
           }
-          ticket.formatMinFee = {
-            breakdown: [],
-            fare_option: 'NONE',
-            label: 'ALL',
-            total: 0,
-            type: 'ALL'
-          }
+          ticket.formatMinFee = [
+            {
+              breakdown: [],
+              fare_option: 'NONE',
+              label: 'ALL',
+              total: 0,
+              type: 'ALL'
+            }
+          ]
         } else {
           const smallestOption = ticket.fare_options.reduce((acc, loc) =>
             acc.total_fare < loc.total_fare ? acc : loc
@@ -462,6 +463,17 @@ export default {
           ticket.formatMinFee = ticket.fees.filter((el) => {
             return el.fare_option === ticket.formatMinFare.description
           })
+          if (ticket.formatMinFee.length === 0) {
+            ticket.formatMinFee = [
+              {
+                breakdown: [],
+                fare_option: 'NONE',
+                label: 'ALL',
+                total: 0,
+                type: 'ALL'
+              }
+            ]
+          }
           ticket.formatTotalFarePrice =
             ticket.formatMinFare.total_fare +
             ticket.formatMinFee.filter((el) => {
