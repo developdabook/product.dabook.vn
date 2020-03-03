@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       control: {
-        totalPrice: true
+        totalPrice: this.totalMode
       }
     }
   },

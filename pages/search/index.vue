@@ -43,7 +43,7 @@
             >
             </v-skeleton-loader>
           </div>
-          <div class="pair-ticket">
+          <div v-if="selectState === 'MISS_ALL'" class="pair-ticket">
             <PairTicket
               v-for="(ticket, i) in flightGrouping.PAIR"
               :key="i + 'retunr-ticket'"
@@ -51,7 +51,12 @@
               class="tw-mb-4"
             />
           </div>
-          <div class="departure-ticket">
+          <div
+            v-if="
+              selectState === 'MISS_DEPARTURE' || selectState === 'MISS_ALL'
+            "
+            class="departure-ticket"
+          >
             <Ticket
               v-for="(ticket, i) in flightGrouping.DEPARTURE"
               :key="i + 'departure_ticket'"
@@ -60,7 +65,7 @@
               class="tw-mb-4"
             />
           </div>
-          <div class="return-ticket">
+          <div v-if="selectState === 'MISS_RETURN'" class="return-ticket">
             <Ticket
               v-for="(ticket, i) in flightGrouping.RETURN"
               :key="i + 'retunr-ticket'"
@@ -123,6 +128,9 @@ export default {
     }
   },
   computed: {
+    selectState() {
+      return this.$store.getters['checkout/selectState']
+    },
     searchCondition() {
       return this.$store.getters['search/getSearchCondition']
     },
