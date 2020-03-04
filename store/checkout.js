@@ -77,5 +77,64 @@ export const getters = {
     } else {
       return 'MISS_ALL'
     }
+  },
+  priceSummaryByPass(state, getters, rootState) {
+    let sum = {}
+    if (rootState.search.searchCondition.isRoundTrip) {
+      sum = {
+        DEPARTURE: {},
+        RETURN: {}
+      }
+      Object.keys(rootState.search.searchCondition.passenger).forEach(
+        (element) => {
+          if (rootState.search.searchCondition.passenger[element] > 0) {
+            sum.DEPARTURE[element] = {
+              price: state.ticketSelected.DEPARTURE.fare.total_fare,
+              fee: state.ticketSelected.DEPARTURE.fee.filter((el) => {
+                return (
+                  (el.type === element || el.type === 'ALL') &&
+                  (el.fare_option.toUpperCase() ===
+                    state.ticketSelected.RETURN.fare.description.toUpperCase() ||
+                    el.fare_option === 'NONE')
+                )
+              })
+            }
+            sum.RETURN[element] = {
+              price: state.ticketSelected.RETURN.fare.total_fare,
+              fee: state.ticketSelected.RETURN.fee.filter((el) => {
+                return (
+                  (el.type === element || el.type === 'ALL') &&
+                  (el.fare_option.toUpperCase() ===
+                    state.ticketSelected.RETURN.fare.description.toUpperCase() ||
+                    el.fare_option === 'NONE')
+                )
+              })
+            }
+          }
+        }
+      )
+    } else {
+      sum = {
+        DEPARTURE: {}
+      }
+      Object.keys(rootState.search.searchCondition.passenger).forEach(
+        (element) => {
+          if (rootState.search.searchCondition.passenger[element] > 0) {
+            sum.DEPARTURE[element] = {
+              price: state.ticketSelected.DEPARTURE.fare.total_fare,
+              fee: state.ticketSelected.DEPARTURE.fee.filter((el) => {
+                return (
+                  (el.type === element || el.type === 'ALL') &&
+                  (el.fare_option.toUpperCase() ===
+                    state.ticketSelected.DEPARTURE.fare.description.toUpperCase() ||
+                    el.fare_option === 'NONE')
+                )
+              })
+            }
+          }
+        }
+      )
+    }
+    return sum
   }
 }

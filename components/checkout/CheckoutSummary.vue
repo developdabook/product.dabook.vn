@@ -99,6 +99,9 @@ export default {
     },
     feeAdult() {
       return 0
+    },
+    totalSum() {
+      return this.$store.getters['checkout/priceSummaryByPass']
     }
   }
 }
