@@ -296,7 +296,7 @@ export default {
     },
     flightGrouping() {
       try {
-        const newFlighList = {
+        const newFlightList = {
           DEPARTURE: [],
           RETURN: [],
           PAIR: {},
@@ -304,32 +304,39 @@ export default {
         }
         if (!this.isRoundTrip) {
           this.flightSort.forEach((a) => {
-            newFlighList[a.type] = newFlighList[a.type] || []
-            newFlighList[a.type].push(a)
+            newFlightList[a.type] = newFlightList[a.type] || []
+            newFlightList[a.type].push(a)
           })
         } else {
           this.flightSort.forEach((a) => {
-            if (a.pair_index === null || typeof a.pair_index === 'undefined') {
-              newFlighList[a.type] = newFlighList[a.type] || []
-              newFlighList[a.type].push(a)
-            } else {
-              newFlighList.PAIR[`PAIR_${a.pair_index}`] =
-                newFlighList.PAIR[`PAIR_${a.pair_index}`] || {}
-              newFlighList.PAIR[`PAIR_${a.pair_index}`][`${a.type}`] = a
-              newFlighList.PAIR_MULTI[`PAIR_MULTI_${a.pair_index}`] =
-                newFlighList.PAIR_MULTI[`PAIR_MULTI_${a.pair_index}`] || []
-              newFlighList.PAIR_MULTI[`PAIR_MULTI_${a.pair_index}`].push(a)
-            }
+            try {
+              if (
+                a.pair_index === null ||
+                typeof a.pair_index === 'undefined'
+              ) {
+                newFlightList[a.type] = newFlightList[a.type] || []
+                newFlightList[a.type].push(a)
+              } else {
+                newFlightList.PAIR[`PAIR_${a.pair_index}`] =
+                  newFlightList.PAIR[`PAIR_${a.pair_index}`] || {}
+                newFlightList.PAIR[`PAIR_${a.pair_index}`][`${a.type}`] = a
+                newFlightList.PAIR_MULTI[`PAIR_MULTI_${a.pair_index}`] =
+                  newFlightList.PAIR_MULTI[`PAIR_MULTI_${a.pair_index}`] || []
+                newFlightList.PAIR_MULTI[`PAIR_MULTI_${a.pair_index}`].push(a)
+              }
+            } catch (error) {}
           })
-          Object.keys(newFlighList.PAIR).forEach((el) => {
-            const item = newFlighList.PAIR[el]
-            if (Object.keys(item) <= 1) {
-              newFlighList[Object.keys(item)[0]].push(item)
-              delete newFlighList.PAIR[el]
+          Object.keys(newFlightList.PAIR).forEach((el) => {
+            const item = newFlightList.PAIR[`${el}`]
+            if (Object.keys(item).length === 1) {
+              newFlightList[Object.keys(item)[0]].push(
+                item[Object.keys(item)[0]]
+              )
+              delete newFlightList.PAIR[`${el}`]
             }
           })
         }
-        return newFlighList
+        return newFlightList
       } catch (error) {
         return {
           DEPARTURE: [],
