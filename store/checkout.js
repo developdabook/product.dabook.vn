@@ -50,8 +50,6 @@ export const getters = {
     } else return false
   },
   selectState(state, getters, rootState) {
-    console.log(rootState.search.searchCondition.isRoundTrip)
-    console.log(state.ticketSelected)
     if (
       (rootState.search.searchCondition.isRoundTrip &&
         state.ticketSelected.DEPARTURE !== null &&
