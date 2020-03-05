@@ -99,6 +99,38 @@ export const mutations = {
   },
   UPDATE_SORT(state, payload) {
     state.sortCondition = payload
+  },
+  RESET_SEARCH(state) {
+    state.searchCondition = {
+      from: {},
+      to: {},
+      departure: moment()
+        .add(1, 'day')
+        .format('DD-MM-YYYY'),
+      arrived: moment()
+        .add(4, 'day')
+        .format('DD-MM-YYYY'),
+      passenger: {
+        ADULT: 0,
+        CHILD: 0,
+        INFANT: 0
+      },
+      cabinClass: ['ECONOMY'],
+      isRoundTrip: false
+    }
+  },
+  RESET_SECTION(state) {
+    state.section = ''
+  },
+  RESET_FILTER_CONDITION(state) {
+    state.filterCondition = {}
+    state.isFilter = false
+  },
+  RESET_SORT_CONDITION(state) {
+    state.sortCondition = ''
+  },
+  RESET_TOTAL_MODE(state) {
+    state.isTotalMode = false
   }
 }
 export const actions = {
@@ -132,6 +164,13 @@ export const actions = {
   },
   updateTotalMode({ commit, state }, payload) {
     commit('UPDATE_TOTAL_MODE', payload)
+  },
+  resetDate({ commit }) {
+    commit('RESET_SEARCH')
+    commit('RESET_SECTION')
+    commit('RESET_FILTER_CONDITION')
+    commit('RESET_SORT_CONDITION')
+    commit('RESET_TOTAL_MODE')
   }
 }
 

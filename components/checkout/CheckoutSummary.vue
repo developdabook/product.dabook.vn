@@ -24,35 +24,55 @@
     </v-card-title>
     <v-card-text>
       <div
-        v-for="(pass, i) in Object.keys(passengers).filter(
-          (item) => passengers[item] > 0
-        )"
-        :key="i + 'checkoutpass'"
-        class="cash-box"
+        v-for="(way, i) in Object.keys(summaryPriceDetail)"
+        :key="i + 'wway'"
       >
-        <div class="cash-box-title">
-          <strong>{{ `${passengers[pass]} x ${pass}` }}</strong>
-          <strong>25,000,000</strong>
-        </div>
-        <div class="cash-box-detail">
-          <div class="box-item-detail">
-            <span>Vé</span>
-            <span>20,000,000</span>
+        <div
+          v-for="(pass, j) in Object.keys(summaryPriceDetail[way])"
+          :key="j + 'pass'"
+          class="cash-box"
+        >
+          <div class="cash-box-title">
+            <strong
+              >{{ `${summaryPriceDetail[way][pass].pass} x ${pass}` }}
+              <v-chip
+                x-small
+                color="blue lighten-5"
+                text-color="blue lighten-1"
+                >{{ way }}</v-chip
+              >
+            </strong>
+            <strong>
+              <PriceValidation
+                :price="
+                  summaryPriceDetail[way][pass].price +
+                    summaryPriceDetail[way][pass].fee[0].total
+                "
+            /></strong>
           </div>
-          <div class="box-item-detail">
-            <span>Phí san bay</span>
-            <span>1,000,000</span>
-          </div>
-          <div class="box-item-detail">
-            <span>Phu phi</span>
-            <span>300,000</span>
+          <div class="cash-box-detail">
+            <div class="box-item-detail">
+              <span>Vé</span>
+              <span
+                ><PriceValidation :price="summaryPriceDetail[way][pass].price"
+              /></span>
+            </div>
+            <div
+              v-for="(fee, k) in summaryPriceDetail[way][pass].fee[0]
+                .breakdowns"
+              :key="k + 'fee'"
+              class="box-item-detail"
+            >
+              <span>{{ fee.label }}</span>
+              <span><PriceValidation :price="fee.per_pax_amount"/></span>
+            </div>
           </div>
         </div>
       </div>
       <div class="cash-box">
         <div class="cash-box-title tw-text-base tw-text-gray-900">
           <strong>Total</strong>
-          <strong>14,000,000</strong>
+          <strong><PriceValidation :price="summaryPriceTotal"/></strong>
         </div>
         <v-alert text dense type="info" class="tw-text-xs">
           Quý khách lưu ý. Giá trên chưa bao gồm phụ phí phát sinh khi quý khách
@@ -80,7 +100,11 @@ export default {
   name: 'CheckoutSummary',
   components: {
     SumTicketInfo: () =>
-      import(/* webpackPrefetch: true */ '@/components/checkout/SumTicketInfo')
+      import(/* webpackPrefetch: true */ '@/components/checkout/SumTicketInfo'),
+    PriceValidation: () =>
+      import(
+        /* webpackPrefetch: true */ '@/components/generals/PriceValidation'
+      )
   },
   computed: {
     passengers() {
@@ -100,8 +124,11 @@ export default {
     feeAdult() {
       return 0
     },
-    totalSum() {
-      return this.$store.getters['checkout/priceSummaryByPass']
+    summaryPriceDetail() {
+      return this.$store.getters['checkout/priceSummaryByPass'].detail
+    },
+    summaryPriceTotal() {
+      return this.$store.getters['checkout/priceSummaryByPass'].total
     }
   }
 }

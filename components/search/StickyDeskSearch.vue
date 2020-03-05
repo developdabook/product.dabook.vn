@@ -304,7 +304,8 @@ export default {
   },
   methods: {
     searchFlight() {
-      this.$store.dispatch('checkout/resetTicketSelected')
+      this.$store.dispatch('checkout/resetData')
+      this.$store.dispatch('search/resetDate')
       this.validateDefault()
       const section = utils.uuid()
       this.$store.dispatch('search/updateSearchCondition', this.searchCondition)

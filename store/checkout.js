@@ -1,8 +1,12 @@
 import { clone } from 'lodash'
 export const state = () => ({
   ticketSelected: {
-    DEPARTURE: {},
-    RETURN: {}
+    DEPARTURE: {
+      ticket: {}
+    },
+    RETURN: {
+      ticket: {}
+    }
   }
 })
 export const mutations = {
@@ -35,7 +39,7 @@ export const actions = {
       commit('REMOVE_TICKET_PART', 'RETURN')
     }
   },
-  resetTicketSelected({ commit, state }) {
+  resetData({ commit, state }) {
     commit('RESET_TICKET_SELECT')
   }
 }
@@ -79,62 +83,42 @@ export const getters = {
     }
   },
   priceSummaryByPass(state, getters, rootState) {
-    let sum = {}
-    if (rootState.search.searchCondition.isRoundTrip) {
-      sum = {
-        DEPARTURE: {},
-        RETURN: {}
-      }
+    const sum = {}
+    Object.keys(state.ticketSelected).forEach((way) => {
+      sum[way] = {}
       Object.keys(rootState.search.searchCondition.passenger).forEach(
         (element) => {
           if (rootState.search.searchCondition.passenger[element] > 0) {
-            sum.DEPARTURE[element] = {
-              price: state.ticketSelected.DEPARTURE.fare.total_fare,
-              fee: state.ticketSelected.DEPARTURE.fee.filter((el) => {
+            sum[way][element] = {
+              price: state.ticketSelected[way].fare.total_fare,
+              fee: state.ticketSelected[way].fee.filter((el) => {
                 return (
-                  (el.type === element || el.type === 'ALL') &&
+                  (el.type === element ||
+                    el.type === 'ALL' ||
+                    el.type === 'ADULT') &&
                   (el.fare_option.toUpperCase() ===
-                    state.ticketSelected.RETURN.fare.description.toUpperCase() ||
+                    state.ticketSelected[way].fare.description.toUpperCase() ||
                     el.fare_option === 'NONE')
                 )
-              })
-            }
-            sum.RETURN[element] = {
-              price: state.ticketSelected.RETURN.fare.total_fare,
-              fee: state.ticketSelected.RETURN.fee.filter((el) => {
-                return (
-                  (el.type === element || el.type === 'ALL') &&
-                  (el.fare_option.toUpperCase() ===
-                    state.ticketSelected.RETURN.fare.description.toUpperCase() ||
-                    el.fare_option === 'NONE')
-                )
-              })
+              }),
+              pass: rootState.search.searchCondition.passenger[element]
             }
           }
         }
       )
-    } else {
-      sum = {
-        DEPARTURE: {}
-      }
-      Object.keys(rootState.search.searchCondition.passenger).forEach(
-        (element) => {
-          if (rootState.search.searchCondition.passenger[element] > 0) {
-            sum.DEPARTURE[element] = {
-              price: state.ticketSelected.DEPARTURE.fare.total_fare,
-              fee: state.ticketSelected.DEPARTURE.fee.filter((el) => {
-                return (
-                  (el.type === element || el.type === 'ALL') &&
-                  (el.fare_option.toUpperCase() ===
-                    state.ticketSelected.DEPARTURE.fare.description.toUpperCase() ||
-                    el.fare_option === 'NONE')
-                )
-              })
-            }
-          }
-        }
-      )
-    }
-    return sum
+    })
+    let total = 0
+    try {
+      Object.keys(sum).forEach((el) => {
+        Object.keys(sum[el]).forEach((pr) => {
+          total =
+            total +
+            (parseFloat(sum[el][pr].price) +
+              parseFloat(sum[el][pr].fee[0].total)) *
+              parseFloat(sum[el][pr].pass)
+        })
+      })
+    } catch (error) {}
+    return { detail: sum, total }
   }
 }
