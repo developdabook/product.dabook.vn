@@ -158,3 +158,8 @@ export default {
   }
 }
 </script>
+<style lang="postcss">
+.detail-action {
+  @apply tw-fixed tw-bottom-0;
+}
+</style>
