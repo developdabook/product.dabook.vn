@@ -142,66 +142,12 @@
       <v-tab-item>
         <v-card flat class="tw-my-4">
           <v-card-text>
-            <v-subheader>
-              Chieu di
-              <span class="fly-animate-depart"
-                ><v-icon class="rotate-90 tw-ml-1 tw-text-sm"
-                  >mdi-airplane</v-icon
-                ></span
-              >
-            </v-subheader>
-            <v-divider></v-divider>
-            <v-radio-group v-model="fareOptionSelected.DEPARTURE" column>
+            <v-radio-group v-model="fareOptionSelected" column>
               <v-expansion-panels flat>
                 <v-expansion-panel
                   v-for="(fare, i) in ticket.DEPARTURE.fare_options"
                   :key="i"
-                  :class="{ active: fareOptionSelected.DEPARTURE === fare }"
-                  class="price-item"
-                >
-                  <v-expansion-panel-header hide-actions>
-                    <template v-slot:default>
-                      <v-radio :value="fare" hide-details color="info">
-                        <template v-slot:label>
-                          <div class="price-item-header">
-                            <div class="tw-flex tw-flex-row tw-justify-start">
-                              <strong class="class-info">
-                                {{ fare.description }} class</strong
-                              ><strong class="teal--text tw-text-sm">{{
-                                new Intl.NumberFormat('vi-VN', {
-                                  style: 'currency',
-                                  currency: 'VND'
-                                }).format(fare.total_fare)
-                              }}</strong>
-                            </div>
-                            <span class="seat-info"
-                              >{{ fare.seats_available }} seats available</span
-                            >
-                          </div>
-                        </template>
-                      </v-radio>
-                    </template>
-                  </v-expansion-panel-header>
-                  <v-expansion-panel-content class="price-item-body">
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
-              </v-expansion-panels>
-            </v-radio-group>
-            <v-subheader>
-              Chieu ve
-              <span class="fly-animate-return"
-                ><v-icon class="rotate-270 tw-ml-1 tw-text-sm"
-                  >mdi-airplane</v-icon
-                ></span
-              >
-            </v-subheader>
-            <v-divider></v-divider>
-            <v-radio-group v-model="fareOptionSelected.RETURN" column>
-              <v-expansion-panels flat>
-                <v-expansion-panel
-                  v-for="(fare, i) in ticket.RETURN.fare_options"
-                  :key="i"
-                  :class="{ active: fareOptionSelected.RETURN === fare }"
+                  :class="{ active: fareOptionSelected === fare }"
                   class="price-item"
                 >
                   <v-expansion-panel-header hide-actions>
@@ -313,24 +259,17 @@ export default {
   data() {
     return {
       tab: null,
-      fareOptionSelected: {
-        DEPARTURE: this.ticket.DEPARTURE.formatMinFare,
-        RETURN: this.ticket.RETURN.formatMinFare
-      }
+      fareOptionSelected: this.ticket.DEPARTURE.formatMinFare
     }
   },
   computed: {
     totalFare() {
-      return (
-        this.fareOptionSelected.DEPARTURE.total_fare +
-        this.fareOptionSelected.RETURN.total_fare
-      )
+      return this.fareOptionSelected.total_fare
     }
   },
   watch: {
     ticket(newVal) {
-      this.fareOptionSelected.DEPARTURE = clone(newVal.DEPARTURE.formatMinFare)
-      this.fareOptionSelected.RETURN = clone(newVal.RETURN.formatMinFare)
+      this.fareOptionSelected = clone(newVal.DEPARTURE.formatMinFare)
     }
   },
   methods: {

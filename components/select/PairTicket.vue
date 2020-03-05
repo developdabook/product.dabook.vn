@@ -346,8 +346,7 @@
                       :price="
                         totalMode
                           ? totalPrice.total
-                          : ticketSelected.DEPARTURE.fare.total_fare +
-                            ticketSelected.RETURN.fare.total_fare
+                          : ticketSelected.PAIR.fare.total_fare
                       "
                   /></strong>
                 </div>
@@ -415,16 +414,21 @@ export default {
       loading: false,
       isActive: false,
       ticketSelected: {
-        DEPARTURE: {
-          ticket: this.ticket.DEPARTURE,
+        PAIR: {
+          ticket: [this.ticket.DEPARTURE, this.ticket.RETURN],
           fare: this.ticket.DEPARTURE.formatMinFare,
           fee: []
-        },
-        RETURN: {
-          ticket: this.ticket.RETURN,
-          fare: this.ticket.RETURN.formatMinFare,
-          fee: []
         }
+        // DEPARTURE: {
+        //   ticket: this.ticket.DEPARTURE,
+        //   fare: this.ticket.DEPARTURE.formatMinFare,
+        //   fee: []
+        // },
+        // RETURN: {
+        //   ticket: this.ticket.RETURN,
+        //   fare: this.ticket.RETURN.formatMinFare,
+        //   fee: []
+        // }
       },
       timeOut: null
     }
@@ -438,18 +442,12 @@ export default {
             this.ticketSelected.DEPARTURE.fare.total_fare +
             (typeof this.ticketSelected.DEPARTURE.fee === 'undefined'
               ? 0
-              : this.ticketSelected.DEPARTURE.fee[0].total) +
-            this.ticketSelected.RETURN.fare.total_fare +
-            (typeof this.ticketSelected.RETURN.fee === 'undefined'
-              ? 0
-              : this.ticketSelected.RETURN.fee[0].total),
+              : this.ticketSelected.DEPARTURE.fee[0].total),
           isValid: true
         }
       } catch (error) {
         return {
-          total:
-            this.ticketSelected.DEPARTURE.fare.total_fare +
-            this.ticketSelected.RETURN.fare.total_fare,
+          total: this.ticketSelected.DEPARTURE.fare.total_fare,
           isValid: false
         }
       }
@@ -463,12 +461,9 @@ export default {
   },
   watch: {
     ticket(newVal, oldVal) {
-      this.ticketSelected.DEPARTURE.ticket = newVal.DEPARTURE
-      this.ticketSelected.DEPARTURE.fare = newVal.DEPARTURE.formatMinFare
-      this.ticketSelected.DEPARTURE.fee = newVal.DEPARTURE.formatMinFee
-      this.ticketSelected.RETURN.ticket = newVal.RETURN
-      this.ticketSelected.RETURN.fare = newVal.RETURN.formatMinFare
-      this.ticketSelected.RETURN.fee = newVal.RETURN.formatMinFee
+      this.ticketSelected.PAIR.ticket = [newVal.DEPARTURE, newVal.RETURN]
+      this.ticketSelected.PAIR.fare = newVal.DEPARTURE.formatMinFare
+      this.ticketSelected.PAIR.fee = newVal.DEPARTURE.formatMinFee
     }
   },
   mounted() {
@@ -482,12 +477,14 @@ export default {
   },
   methods: {
     selectTicket(payload) {
-      this.ticketSelected.DEPARTURE.fare = payload.DEPARTURE
-      this.ticketSelected.RETURN.fare = payload.RETURN
+      this.ticketSelected.PAIR.fare = payload
       this.acceptSelectTicket()
     },
     acceptSelectTicket() {
-      this.$store.dispatch('checkout/updateTicketSelected', this.ticketSelected)
+      this.$store.dispatch('checkout/updateTicketSelected', {
+        ticket: this.ticketSelected,
+        type: 'PAIR'
+      })
       if (this.selectState === 'DONE') {
         this.$router.push({
           path: 'checkout',

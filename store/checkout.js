@@ -1,13 +1,7 @@
 import { clone } from 'lodash'
 export const state = () => ({
-  ticketSelected: {
-    DEPARTURE: {
-      ticket: {}
-    },
-    RETURN: {
-      ticket: {}
-    }
-  }
+  ticketSelected: {},
+  currentState: 'MISS_ALL'
 })
 export const mutations = {
   UPDATE_TICKET_SELECTED(state, payload) {
@@ -16,31 +10,60 @@ export const mutations = {
   UPDATE_PAIR_TICKET_SELECTED(state, payload) {
     state.ticketSelected = clone(payload)
   },
+  UPDATE_CURRENT_STATE(state, payload) {
+    state.currentState = payload
+  },
   REMOVE_TICKET_PART(state, payload) {
     delete state.ticketSelected[payload]
   },
   RESET_TICKET_SELECT(state, payload) {
-    state.ticketSelected = {
-      DEPARTURE: {},
-      RETURN: {}
-    }
+    state.ticketSelected = {}
+  },
+  RESET_CURRENT_STATE(state) {
+    state.currentState = 'MISS_ALL'
   }
 }
 export const actions = {
   updateTicketSelected({ commit, state, rootState }, payload) {
-    commit('UPDATE_TICKET_SELECTED', payload)
+    commit('UPDATE_TICKET_SELECTED', payload.ticket)
     if (!rootState.search.searchCondition.isRoundTrip) {
       commit('REMOVE_TICKET_PART', 'RETURN')
     }
-  },
-  updatePairTicketSelected({ commit, state, rootState }, payload) {
-    commit('UPDATE_PAIR_TICKET_SELECTED', payload)
-    if (!rootState.search.searchCondition.isRoundTrip) {
+    if (payload.type === 'PAIR') {
       commit('REMOVE_TICKET_PART', 'RETURN')
+      commit('REMOVE_TICKET_PART', 'DEPARTURE')
+    }
+    if (
+      (!rootState.search.searchCondition.isRoundTrip &&
+        'DEPARTURE' in state.ticketSelected) ||
+      ('DEPARTURE' in state.ticketSelected &&
+        'RETURN' in state.ticketSelected) ||
+      'PAIR' in state.ticketSelected
+    ) {
+      commit('UPDATE_CURRENT_STATE', 'DONE')
+    } else if (
+      (rootState.search.searchCondition.isRoundTrip &&
+        !('RETURN' in state.ticketSelected)) ||
+      (rootState.search.searchCondition.isRoundTrip &&
+        'RETURN' in state.ticketSelected &&
+        !('ticket' in state.ticketSelected.RETURN))
+    ) {
+      commit('UPDATE_CURRENT_STATE', 'MISS_RETURN')
+    } else if (
+      rootState.search.searchCondition.isRoundTrip &&
+      'RETURN' in state.ticketSelected &&
+      (!('DEPARTURE' in state.ticketSelected) ||
+        ('DEPARTURE' in state.ticketSelected &&
+          !('ticket' in state.ticketSelected.DEPARTURE)))
+    ) {
+      commit('UPDATE_CURRENT_STATE', 'MISS_DEPARTURE')
+    } else {
+      commit('UPDATE_CURRENT_STATE', 'MISS_ALL')
     }
   },
   resetData({ commit, state }) {
     commit('RESET_TICKET_SELECT')
+    commit('RESET_CURRENT_STATE')
   }
 }
 
@@ -49,38 +72,19 @@ export const getters = {
     return clone(state.ticketSelected)
   },
   isAcceptAddPassenger(state) {
-    if (state.ticketSelected.DEPARTURE.ticket.service === 'AMADEUS') {
+    if (
+      (state.ticketSelected.DEPARTURE !== null &&
+        typeof state.ticketSelected.DEPARTURE !== 'undefined' &&
+        state.ticketSelected.DEPARTURE.ticket[0].service === 'AMADEUS') ||
+      (state.ticketSelected.PAIR !== null &&
+        typeof state.ticketSelected.PAIR !== 'undefined' &&
+        state.ticketSelected.PAIR.ticket[0].service === 'AMADEUS')
+    ) {
       return true
     } else return false
   },
-  selectState(state, getters, rootState) {
-    if (
-      (rootState.search.searchCondition.isRoundTrip &&
-        state.ticketSelected.DEPARTURE !== null &&
-        typeof state.ticketSelected.DEPARTURE !== 'undefined' &&
-        Object.keys(state.ticketSelected.DEPARTURE).length > 0 &&
-        state.ticketSelected.RETURN !== null &&
-        typeof state.ticketSelected.RETURN !== 'undefined' &&
-        Object.keys(state.ticketSelected.RETURN).length > 0) ||
-      (!rootState.search.searchCondition.isRoundTrip &&
-        Object.keys(state.ticketSelected.DEPARTURE).length > 0)
-    ) {
-      return 'DONE'
-    } else if (
-      state.ticketSelected.DEPARTURE !== null &&
-      typeof state.ticketSelected.DEPARTURE !== 'undefined' &&
-      Object.keys(state.ticketSelected.DEPARTURE).length > 0
-    ) {
-      return 'MISS_RETURN'
-    } else if (
-      state.ticketSelected.RETURN !== null &&
-      typeof state.ticketSelected.RETURN !== 'undefined' &&
-      Object.keys(state.ticketSelected.RETURN).length > 0
-    ) {
-      return 'MISS_DEPARTURE'
-    } else {
-      return 'MISS_ALL'
-    }
+  selectState(state) {
+    return state.currentState
   },
   priceSummaryByPass(state, getters, rootState) {
     const sum = {}

@@ -287,7 +287,7 @@ export default {
       },
       loading: false,
       ticketSelected: {
-        ticket: this.ticket,
+        ticket: [this.ticket],
         fare: this.ticket.formatMinFare,
         fee: this.ticket.formatMinFee
       },
@@ -318,7 +318,7 @@ export default {
   },
   watch: {
     ticket(newVal, oldVal) {
-      this.ticketSelected.ticket = newVal
+      this.ticketSelected.ticket = [newVal]
       this.ticketSelected.fare = newVal.formatMinFare
       this.ticketSelected.fee = newVal.formatMinFee
     }
@@ -339,8 +339,11 @@ export default {
     },
     acceptSelectTicket() {
       const ticket = {}
-      ticket[this.ticketSelected.ticket.type] = this.ticketSelected
-      this.$store.dispatch('checkout/updateTicketSelected', ticket)
+      ticket[this.ticketSelected.ticket[0].type] = this.ticketSelected
+      this.$store.dispatch('checkout/updateTicketSelected', {
+        ticket,
+        type: this.ticketSelected.ticket[0].type
+      })
       if (this.selectState === 'DONE') {
         this.$router.push({
           path: 'checkout',

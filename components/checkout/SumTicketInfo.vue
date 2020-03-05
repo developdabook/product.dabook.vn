@@ -5,10 +5,8 @@
         <v-expansion-panel>
           <v-expansion-panel-header disable-icon-rotate class="tw-p-0">
             <v-card-subtitle class="titem-title-box">
-              <strong class="titem-title">{{ ticket.ticket.type }}</strong>
-              <span class="titem-time">{{
-                ticket.ticket.formatStartDate
-              }}</span>
+              <strong class="titem-title">{{ ticket.type }}</strong>
+              <span class="titem-time">{{ ticket.formatStartDate }}</span>
               <v-chip
                 v-if="expand !== 0"
                 label
@@ -17,7 +15,7 @@
                 text-color="blue darken-2"
                 class="tw-border tw-border-dashed"
                 >{{
-                  `${ticket.ticket.segments[0].airline}-${ticket.ticket.segments[0].flight_number}`
+                  `${ticket.segments[0].airline}-${ticket.segments[0].flight_number}`
                 }}</v-chip
               >
             </v-card-subtitle>
@@ -47,32 +45,30 @@
               <div class="titem-content">
                 <div class="titem-content-time">
                   <strong class="titem-title-time">{{
-                    `${ticket.ticket.start_time}  ${ticket.ticket.formatStartDate}`
+                    `${ticket.start_time}  ${ticket.formatStartDate}`
                   }}</strong>
                   <v-chip
                     x-small
                     color="blue lighten-5"
                     text-color="blue darken-2"
                     label
-                    >{{ ticket.fare.description }}</v-chip
+                    >{{ fare.description }}</v-chip
                   >
                 </div>
                 <div class="titem-ticket-info">
                   <div>
                     <div>
                       <span class="titem-info-time">{{
-                        ticket.ticket.start_time
+                        ticket.start_time
                       }}</span
                       ><span class="titem-info-loca">{{
-                        `${ticket.ticket.formatStartPoint.airportCode} -${ticket.ticket.formatStartPoint.city} `
+                        `${ticket.formatStartPoint.airportCode} -${ticket.formatStartPoint.city} `
                       }}</span>
                     </div>
                     <div>
-                      <span class="titem-info-time">{{
-                        ticket.ticket.end_time
-                      }}</span
+                      <span class="titem-info-time">{{ ticket.end_time }}</span
                       ><span class="titem-info-loca">{{
-                        `${ticket.ticket.formatEndPoint.airportCode} -${ticket.ticket.formatEndPoint.city} `
+                        `${ticket.formatEndPoint.airportCode} -${ticket.formatEndPoint.city} `
                       }}</span>
                     </div>
                   </div>
@@ -82,7 +78,7 @@
                     text-color="blue darken-2"
                     class="tw-font-bold tw-bg-gray-100"
                     >{{
-                      `${ticket.ticket.segments[0].airline}-${ticket.ticket.segments[0].flight_number}`
+                      `${ticket.segments[0].airline}-${ticket.segments[0].flight_number}`
                     }}</v-chip
                   >
                   <v-tooltip top color="primary" z-index="999999">
@@ -90,13 +86,13 @@
                       <v-avatar height="24" width="24" tile v-on="on">
                         <img
                           :src="
-                            `https://booking.kayak.com/rimg/provider-logos/airlines/v/${ticket.ticket.airline}.png?crop=false&width=92&height=92`
+                            `https://booking.kayak.com/rimg/provider-logos/airlines/v/${ticket.airline}.png?crop=false&width=92&height=92`
                           "
                         />
                       </v-avatar>
                     </template>
                     <span
-                      >{{ ticket.ticket.formatIATA.name }}
+                      >{{ ticket.formatIATA.name }}
                       <v-icon color="#FFF" small
                         >mdi-information-outline</v-icon
                       >
@@ -138,7 +134,7 @@
                   <strong>
                     Chuyến bay khởi hành lúc
                     {{
-                      `${ticket.ticket.start_time} , ${ticket.ticket.formatStartDate}`
+                      `${ticket.start_time} , ${ticket.formatStartDate}`
                     }}</strong
                   >
                   Vui lòng di chuyển tới sân bay và làm thủ tục 3 tiếng trước
@@ -146,7 +142,7 @@
                 </v-alert>
               </v-timeline-item>
               <v-timeline-item
-                v-for="(seg, i) in ticket.ticket.segments"
+                v-for="(seg, i) in ticket.segments"
                 :key="i + 'Segment'"
                 small
                 color="blue-grey lighten-5"
@@ -163,7 +159,7 @@
                       </v-avatar>
                     </template>
                     <span
-                      >{{ ticket.ticket.formatIATA.name }}
+                      >{{ ticket.formatIATA.name }}
                       <v-icon color="#FFF" small
                         >mdi-information-outline</v-icon
                       ></span
@@ -173,7 +169,7 @@
                 <v-card class="my-4 py-4 tw-shadow" color="#FFF">
                   <FlightSegment
                     :segment="seg"
-                    :total-time="ticket.ticket.formatTotalTime"
+                    :total-time="ticket.formatTotalTime"
                   />
                 </v-card>
               </v-timeline-item>
@@ -184,8 +180,7 @@
                   text
                   class="tw-text-xs tw-border-dashed"
                   ><strong
-                    >Hành trình kết thúc lúc
-                    {{ ticket.ticket.end_time }}</strong
+                    >Hành trình kết thúc lúc {{ ticket.end_time }}</strong
                   >
                   Cảm ơn quý khách đã sử dụng dịch vụ của Đại Minh
                 </v-alert>
@@ -209,8 +204,15 @@ export default {
       type: [Array, Object],
       default() {
         return {
-          fare: {},
           ticket: {}
+        }
+      }
+    },
+    fare: {
+      type: [Array, Object],
+      default() {
+        return {
+          fare: {}
         }
       }
     }

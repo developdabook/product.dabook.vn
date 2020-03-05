@@ -8,12 +8,15 @@
     </v-card-title>
     <v-card-text>
       <client-only>
-        <SumTicketInfo
-          v-for="(ticket, j) in ticketSelected"
-          :key="j + 'ticketcheckout'"
-          :ticket="ticket"
-          class="tw-mb-2"
-        />
+        <div v-for="(way, i) in Object.keys(ticketSelected)" :key="i + 'way'">
+          <SumTicketInfo
+            v-for="(ticket, j) in ticketSelected[way].ticket"
+            :key="j + 'ticketcheckout'"
+            :ticket="ticket"
+            :fare="ticketSelected[way].fare"
+            class="tw-mb-2"
+          />
+        </div>
       </client-only>
     </v-card-text>
     <v-card-title class="summary-title">
