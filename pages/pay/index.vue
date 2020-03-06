@@ -16,7 +16,7 @@ export default {
   layout: 'unauthen',
   components: {
     PayOption: () =>
-      import(/* webpackPrefetch: true */ '@/components/checkout/PayOption'),
+      import(/* webpackPrefetch: true */ '@/components/payment/PayOption'),
     CheckoutSummary: () =>
       import(
         /* webpackPrefetch: true */ '@/components/checkout/CheckoutSummary'

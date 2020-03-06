@@ -91,8 +91,18 @@ export default {
         'mdi-email-multiple-outline'
       ],
       status: ['mdi-check-circle-outline'],
-      reserLoading: false
+      reserLoading: false,
+      timer: null
     }
+  },
+  created() {
+    this.reserLoading = true
+    this.timmer = setTimeout(function() {
+      this.reserLoading = false
+    }, 6000)
+  },
+  destroyed() {
+    clearTimeout(this.timer)
   },
   mounted() {},
   methods: {

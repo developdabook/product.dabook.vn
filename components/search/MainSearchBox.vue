@@ -151,6 +151,7 @@
         bottom
         width="350px"
         height="100vh"
+        class="select-drawer"
       >
         <SelectLocation
           v-if="drawer.from"
@@ -180,11 +181,13 @@
         <SelectPassenger
           v-if="drawer.passenger"
           v-model="searchCondition.passenger"
+          class="tw-p-4"
           @close="drawer.isDraw = false"
         />
         <SelectCabinClass
           v-if="drawer.cabinClass"
           v-model="searchCondition.cabinClass"
+          class="tw-p-4"
           @close="drawer.isDraw = false"
         />
       </v-navigation-drawer>
@@ -433,6 +436,9 @@ export default {
 }
 .main-search .v-navigation-drawer {
   @apply tw-rounded-t-lg tw-overflow-hidden;
+}
+.select-drawer {
+  max-width: 100vw !important;
 }
 @screen md {
   .main-search .v-navigation-drawer {
