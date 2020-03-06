@@ -64,17 +64,28 @@
       <v-tab-item>
         <v-card flat class="tw-my-4">
           <v-card-text>
-            <v-radio-group v-model="fareOptionSelected" column>
+            <v-radio-group
+              v-model="fareOptionSelected"
+              column
+              :value-comparator="fareCompare"
+            >
               <v-expansion-panels flat>
                 <v-expansion-panel
                   v-for="(fare, i) in ticket.fare_options"
-                  :key="i"
-                  :class="{ active: fareOptionSelected === fare }"
+                  :key="i + 'fare_options'"
+                  :class="{
+                    active: fareOptionSelected.description === fare.description
+                  }"
                   class="price-item"
                 >
                   <v-expansion-panel-header hide-actions>
                     <template v-slot:default>
-                      <v-radio :value="fare" hide-details color="info">
+                      <v-radio
+                        :value="fare"
+                        return-object
+                        hide-details
+                        color="info"
+                      >
                         <template v-slot:label>
                           <div class="price-item-header">
                             <div class="tw-flex tw-flex-row tw-justify-start">
@@ -158,7 +169,7 @@
   </div>
 </template>
 <script>
-// import _ from 'lodash'
+import { clone } from 'lodash'
 import GeneralApi from '@/services/GeneralApi'
 export default {
   name: 'TicketDetail',
@@ -184,11 +195,11 @@ export default {
       fareOptionSelected: this.ticket.formatMinFare
     }
   },
-  // watch: {
-  //   ticket(newVal) {
-  //     this.fareOptionSelected = _.clone(newVal.formatMinFare)
-  //   }
-  // },
+  watch: {
+    ticket(newVal) {
+      this.fareOptionSelected = clone(newVal.formatMinFare)
+    }
+  },
   methods: {
     getAirPort(priceload) {
       GeneralApi.GetAirPort(priceload).then((result) => {
@@ -205,6 +216,10 @@ export default {
     },
     close() {
       this.$emit('close')
+    },
+    fareCompare(a, b) {
+      console.log('compare')
+      return a.description === b.description
     }
   }
 }

@@ -142,7 +142,11 @@
       <v-tab-item>
         <v-card flat class="tw-my-4">
           <v-card-text>
-            <v-radio-group v-model="fareOptionSelected" column>
+            <v-radio-group
+              v-model="fareOptionSelected"
+              column
+              :value-comparator="fareCompare"
+            >
               <v-expansion-panels flat>
                 <v-expansion-panel
                   v-for="(fare, i) in ticket.DEPARTURE.fare_options"
@@ -288,6 +292,9 @@ export default {
     },
     close() {
       this.$emit('close')
+    },
+    fareCompare(a, b) {
+      return a.description === b.description
     }
   }
 }

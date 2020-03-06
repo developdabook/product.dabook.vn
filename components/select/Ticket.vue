@@ -289,7 +289,7 @@ export default {
       ticketSelected: {
         ticket: [this.ticket],
         fare: this.ticket.formatMinFare,
-        fee: this.ticket.formatMinFee
+        fee: this.ticket.fees
       },
       timeOut: null
     }
@@ -320,7 +320,7 @@ export default {
     ticket(newVal, oldVal) {
       this.ticketSelected.ticket = [newVal]
       this.ticketSelected.fare = newVal.formatMinFare
-      this.ticketSelected.fee = newVal.formatMinFee
+      this.ticketSelected.fee = newVal.fees
     }
   },
   mounted() {

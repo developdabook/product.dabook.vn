@@ -417,7 +417,7 @@ export default {
         PAIR: {
           ticket: [this.ticket.DEPARTURE, this.ticket.RETURN],
           fare: this.ticket.DEPARTURE.formatMinFare,
-          fee: []
+          fee: this.ticket.DEPARTURE.fees
         }
         // DEPARTURE: {
         //   ticket: this.ticket.DEPARTURE,
@@ -463,7 +463,7 @@ export default {
     ticket(newVal, oldVal) {
       this.ticketSelected.PAIR.ticket = [newVal.DEPARTURE, newVal.RETURN]
       this.ticketSelected.PAIR.fare = newVal.DEPARTURE.formatMinFare
-      this.ticketSelected.PAIR.fee = newVal.DEPARTURE.formatMinFee
+      this.ticketSelected.PAIR.fee = newVal.DEPARTURE.fees
     }
   },
   mounted() {
