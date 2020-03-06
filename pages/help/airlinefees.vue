@@ -2,11 +2,9 @@
   <div class="airlinefees-page">
     <div class="tw-container tw-mx-auto tw-py-16">
       <v-card flat>
-        <v-card-title class="tw-text-gray-800"
-          >Phí của hãng hàng không
-        </v-card-title>
-        <v-card-text class="tw-text-600">
-          <p class="tw-mb-8">
+        <v-card-title>Phí của hãng hàng không </v-card-title>
+        <v-card-text>
+          <p class="tw-mb-8 black--text">
             Giá trên Dabook luôn bao gồm khoản ước tính của toàn bộ thuế và phí
             bắt buộc, nhưng một số hãng hàng không / đại lý sẽ áp dụng phụ phí
             cho hành lý, bảo hiểm, sử dụng thẻ tín dụng hoặc các dịch vụ khác.
@@ -17,9 +15,10 @@
             v-model="search"
             label="Tìm kiếm hãng hàng không"
             placeholder="VietnamAirline"
+            color="primary"
             outlined
+            rounded
             dense
-            prepend-inner-icon=""
             clearable
             class="input-sm"
           >
@@ -40,9 +39,12 @@
               :key="i + 'airlinefee'"
               class="tw-px-2 tw-w-1/2 md:tw-w-1/4 lg:tw-w-1/6"
             >
-              <a :href="link.link" target="_blank" class="tw-underline">{{
-                link.airline
-              }}</a></span
+              <a
+                :href="link.link"
+                target="_blank"
+                class="tw-underline primary--text"
+                >{{ link.airline }}</a
+              ></span
             >
           </div>
         </v-card-text>

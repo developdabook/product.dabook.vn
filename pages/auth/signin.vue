@@ -1,7 +1,7 @@
 <template>
   <div class="signin-page tw-container">
     <v-card flat class="signin-box">
-      <Signin />
+      <Signin @loggined="logined" />
     </v-card>
   </div>
 </template>
@@ -11,6 +11,11 @@ export default {
   layout: 'unauthen',
   components: {
     Signin: () => import('@/components/auth/Signin')
+  },
+  methods: {
+    logined() {
+      this.$router.go(-1)
+    }
   }
 }
 </script>

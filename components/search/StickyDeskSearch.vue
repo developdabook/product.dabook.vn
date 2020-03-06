@@ -168,6 +168,7 @@
           >
             <template v-slot:activator="{ on }">
               <v-text-field
+                v-show="searchCondition.isRoundTrip"
                 :value="arrivedSum"
                 label="Arrived"
                 placeholder="22 August 2020"
