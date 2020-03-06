@@ -218,7 +218,6 @@ export default {
       this.$emit('close')
     },
     fareCompare(a, b) {
-      console.log('compare')
       return a.description === b.description
     }
   }

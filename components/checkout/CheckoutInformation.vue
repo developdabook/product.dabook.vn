@@ -53,9 +53,9 @@
           <div class="input-box">
             <div class=" half-left">
               <v-text-field
-                v-model="pass.given_name"
-                :rules="validation.givenNameRules"
-                label="GivenName"
+                v-model="pass.sur_name"
+                :rules="validation.surNameRules"
+                label="SurName"
                 placeholder="ex. Tran"
                 outlined
                 color="primary"
@@ -65,9 +65,9 @@
             </div>
             <div class=" half-right">
               <v-text-field
-                v-model="pass.sur_name"
-                :rules="validation.surNameRules"
-                label="SurName"
+                v-model="pass.given_name"
+                :rules="validation.givenNameRules"
+                label="GivenName"
                 placeholder="ex. Hoang Anh"
                 outlined
                 color="primary"
@@ -167,9 +167,8 @@
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-card>
-    <div class="add-more-box">
+    <div v-if="isAcceptAddPassenger" class="add-more-box">
       <v-btn
-        v-if="isAcceptAddPassenger"
         :disabled="checkout.passengers.length >= 5"
         color="primary"
         class="addmore-btn"
@@ -208,9 +207,9 @@
                 class="tw-w-1/3 input-sm tw-mr-1"
               ></v-select>
               <v-text-field
-                v-model="checkout.contact.given_name"
-                :rules="validation.givenNameRules"
-                label="GivenName"
+                v-model="checkout.contact.sur_name"
+                :rules="validation.surNameRules"
+                label="SurName"
                 placeholder="ex. Tran"
                 outlined
                 color="primary"
@@ -220,9 +219,9 @@
             </div>
             <div class="half-right">
               <v-text-field
-                v-model="checkout.contact.sur_name"
-                :rules="validation.surNameRules"
-                label="SurName"
+                v-model="checkout.contact.given_name"
+                :rules="validation.givenNameRules"
+                label="GivenName"
                 placeholder="ex. Hoang Anh"
                 outlined
                 color="primary"
@@ -299,7 +298,7 @@
                 v-model="checkout.contact.street"
                 :rules="validation.addressRules"
                 label="Stress"
-                placeholder="Lot 113, Me Tri"
+                placeholder="Lot 113, Me Tri, Nam Tu Liem"
                 outlined
                 color="primary"
                 dense
@@ -311,7 +310,7 @@
                 v-model="checkout.contact.city"
                 :rules="validation.requiredRules"
                 label="City"
-                placeholder="Lot 113, Me Tri"
+                placeholder="Ha Noi"
                 outlined
                 color="primary"
                 dense
@@ -416,7 +415,7 @@
                   <div class="input-box">
                     <v-text-field
                       v-model="checkout.invoice.address"
-                      :rules="validation.addressRules"
+                      :rules="validation.taxAddressRules"
                       label="Địa chỉ"
                       placeholder="Lot 113, Me Tri, Nam Tu Liem, Ha Noi"
                       outlined
@@ -476,7 +475,7 @@ export default {
       checkout: {
         passengers: this.$store.getters['search/generatePassengers'],
         contact: {
-          name_prefix: '',
+          name_prefix: 'Miss',
           given_name: '',
           sur_name: '',
           phone_number: '',
@@ -500,15 +499,21 @@ export default {
         passengerTypeRules: [(v) => !!v || 'Passenger Type is required'],
         companyRules: [
           (v) =>
-            !this.invoiceUsed ||
-            !!v & this.invoiceUsed ||
+            this.invoiceUsed === false ||
+            (!!v && this.invoiceUsed === true) ||
             'Company name is required'
         ],
         taxRules: [
           (v) =>
-            !this.invoiceUsed ||
-            !!v & this.invoiceUsed ||
+            this.invoiceUsed === false ||
+            (!!v && this.invoiceUsed === true) ||
             'Tax code is required'
+        ],
+        taxAddressRules: [
+          (v) =>
+            this.invoiceUsed === false ||
+            (!!v && this.invoiceUsed === true) ||
+            'Address is required'
         ],
         addressRules: [(v) => !!v || 'Address is required'],
         dateRules: [
@@ -550,7 +555,7 @@ export default {
     addMorePassenger() {
       this.checkout.passengers.push({
         type: 'ADULT',
-        name_prefix: '',
+        name_prefix: 'Miss',
         given_name: '',
         sur_name: '',
         birthday: '',
@@ -573,19 +578,6 @@ export default {
         1
       )
     },
-    checkoutPayment() {
-      this.$refs.birthday.forEach((element) => {
-        element.checkValidate()
-      })
-      if (this.$refs.checkoutForm.validate() && this.validation.birthdayValid) {
-        this.$router.push({
-          path: 'pay',
-          query: {
-            section: this.$store.getters['search/getSection']
-          }
-        })
-      }
-    },
     changePassengerType() {
       const payload = this.sumaryPassengers()
       this.$store.dispatch('search/updateAllPassengers', payload)
@@ -601,12 +593,29 @@ export default {
       })
       return sum
     },
+    summaryIssueInfo() {
+      return this.checkout
+    },
     makeReservation() {
       this.$refs.birthday.forEach((element) => {
         element.checkValidate()
       })
       if (this.$refs.checkoutForm.validate() && this.validation.birthdayValid) {
+        this.$store.dispatch('checkout/updateCheckoutSelect', this.checkout)
         this.reservationDialog = true
+      }
+    },
+    checkoutPayment() {
+      this.$refs.birthday.forEach((element) => {
+        element.checkValidate()
+      })
+      if (this.$refs.checkoutForm.validate() && this.validation.birthdayValid) {
+        this.$router.push({
+          path: 'pay',
+          query: {
+            section: this.$store.getters['search/getSection']
+          }
+        })
       }
     }
   }

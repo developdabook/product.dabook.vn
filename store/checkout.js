@@ -1,7 +1,8 @@
 import { clone } from 'lodash'
 export const state = () => ({
   ticketSelected: {},
-  currentState: 'MISS_ALL'
+  currentState: 'MISS_ALL',
+  checkoutInfo: {}
 })
 export const mutations = {
   UPDATE_TICKET_SELECTED(state, payload) {
@@ -21,6 +22,9 @@ export const mutations = {
   },
   RESET_CURRENT_STATE(state) {
     state.currentState = 'MISS_ALL'
+  },
+  UPDATE_CHECKOUT_INFO(state, payload) {
+    state.checkoutInfo = clone(payload)
   }
 }
 export const actions = {
@@ -64,6 +68,9 @@ export const actions = {
   resetData({ commit, state }) {
     commit('RESET_TICKET_SELECT')
     commit('RESET_CURRENT_STATE')
+  },
+  updateCheckoutSelect({ commit }, payload) {
+    commit('UPDATE_CHECKOUT_INFO', payload)
   }
 }
 
