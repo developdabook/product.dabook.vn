@@ -146,12 +146,13 @@
         :class="{ 'draw-70': drawer.isMaxHeight }"
         temporary
         app
-        fixed
         right
         bottom
         width="350px"
         height="100vh"
         class="select-drawer"
+        disable-resize-watcher
+        disable-route-watcher
       >
         <SelectLocation
           v-if="drawer.from"
