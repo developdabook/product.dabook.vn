@@ -86,16 +86,18 @@
                 chips
                 dense
                 color="primary"
-                label="National"
+                label="Residency"
                 placeholder="VietNam"
                 item-text="name"
                 item-value="code"
                 class="tw-w-2/3 tw-mr-1 input-sm"
               >
                 <template v-slot:selection="data">
-                  <v-chip label color="primary" small>
-                    {{ data.item.name }}
-                  </v-chip>
+                  <div class="tw-w-11/12 tw-overflow-hidden">
+                    <v-chip label color="primary" class="tw-px-1" small>
+                      {{ data.item.name }}
+                    </v-chip>
+                  </div>
                 </template>
                 <template v-slot:item="data">
                   <template v-if="typeof data.item !== 'object'">
@@ -105,12 +107,12 @@
                   </template>
                   <template v-else>
                     <v-list-item-content>
-                      <v-list-item-title
-                        v-html="data.item.name"
-                      ></v-list-item-title>
-                      <v-list-item-subtitle
-                        v-html="data.item.group"
-                      ></v-list-item-subtitle>
+                      <v-list-item-title>{{
+                        data.item.name
+                      }}</v-list-item-title>
+                      <v-list-item-subtitle>{{
+                        data.item.group
+                      }}</v-list-item-subtitle>
                     </v-list-item-content>
                   </template>
                 </template>
@@ -120,6 +122,8 @@
                 :items="gender"
                 :rules="validation.namePrefixRules"
                 label="Gender"
+                item-text="name"
+                item-value="value"
                 placeholder="Mr"
                 outlined
                 dense
@@ -177,6 +181,7 @@
         more passengers</v-btn
       >
     </div>
+    <LoginCTA class="info-block tw-p-0" />
     <v-card outlined class="info-block contact-ingo">
       <v-card-title class="info-title">
         <strong class="pass-number"
@@ -185,6 +190,17 @@
           >
           Contact
         </strong>
+        <div class="tw-flex tw-flex-col tw-items-end">
+          <v-switch
+            v-model="passContactRel"
+            hide-details
+            @change="migradePassInfo"
+          >
+          </v-switch>
+          <span class="tw-text-xs tw-font-normal"
+            >Sử dụng thông tin hành khách</span
+          >
+        </div>
       </v-card-title>
       <v-card-text>
         <div class="info-notice">
@@ -201,6 +217,8 @@
                 :items="gender"
                 :rules="validation.namePrefixRules"
                 label="Gender"
+                item-text="name"
+                item-value="value"
                 placeholder="Mr"
                 outlined
                 dense
@@ -258,9 +276,11 @@
                 class="tw-w-1/2 tw-mr-1 input-sm"
               >
                 <template v-slot:selection="data">
-                  <v-chip label color="primary" small>
-                    {{ data.item.name }}
-                  </v-chip>
+                  <div class="tw-w-11/12 tw-overflow-hidden">
+                    <v-chip label color="primary" class="tw-px-1" small>
+                      {{ data.item.name }}
+                    </v-chip>
+                  </div>
                 </template>
                 <template v-slot:item="data">
                   <template v-if="typeof data.item !== 'object'">
@@ -270,12 +290,12 @@
                   </template>
                   <template v-else>
                     <v-list-item-content>
-                      <v-list-item-title
-                        v-html="data.item.name"
-                      ></v-list-item-title>
-                      <v-list-item-subtitle
-                        v-html="data.item.group"
-                      ></v-list-item-subtitle>
+                      <v-list-item-title>{{
+                        data.item.name
+                      }}</v-list-item-title>
+                      <v-list-item-subtitle>{{
+                        data.item.group
+                      }}</v-list-item-subtitle>
                     </v-list-item-content>
                   </template>
                 </template>
@@ -331,9 +351,11 @@
                 class="tw-w-1/2 input-sm"
               >
                 <template v-slot:selection="data">
-                  <v-chip label color="primary" small>
-                    {{ data.item.name }}
-                  </v-chip>
+                  <div class="tw-w-11/12 tw-overflow-hidden">
+                    <v-chip label color="primary" class="tw-px-1" small>
+                      {{ data.item.name }}
+                    </v-chip>
+                  </div>
                 </template>
                 <template v-slot:item="data">
                   <template v-if="typeof data.item !== 'object'">
@@ -343,12 +365,12 @@
                   </template>
                   <template v-else>
                     <v-list-item-content>
-                      <v-list-item-title
-                        v-html="data.item.name"
-                      ></v-list-item-title>
-                      <v-list-item-subtitle
-                        v-html="data.item.group"
-                      ></v-list-item-subtitle>
+                      <v-list-item-title>{{
+                        data.item.name
+                      }}</v-list-item-title>
+                      <v-list-item-subtitle>{{
+                        data.item.group
+                      }}</v-list-item-subtitle>
                     </v-list-item-content>
                   </template>
                 </template>
@@ -463,7 +485,11 @@ export default {
     DateInput: () =>
       import(/* webpackPrefetch: true */ '@/components/checkout/DateInput'),
     ReservationBox: () =>
-      import(/* webpackPrefetch: true */ '@/components/checkout/ReservationBox')
+      import(
+        /* webpackPrefetch: true */ '@/components/checkout/ReservationBox'
+      ),
+    LoginCTA: () =>
+      import(/* webpackPrefetch: true */ '@/components/generals/LoginCTA')
   },
   data() {
     return {
@@ -475,14 +501,14 @@ export default {
       checkout: {
         passengers: this.$store.getters['search/generatePassengers'],
         contact: {
-          name_prefix: 'Miss',
+          name_prefix: 'MR',
           given_name: '',
           sur_name: '',
           phone_number: '',
           email: '',
           street: '',
           city: '',
-          residency: ''
+          residency: 'VNM'
         },
         invoice: {
           tax: '',
@@ -494,7 +520,7 @@ export default {
         requiredRules: [(v) => !!v || 'Field is required'],
         givenNameRules: [(v) => !!v || 'Given name is required'],
         surNameRules: [(v) => !!v || 'Sur name is required'],
-        residencyRules: [(v) => !!v || 'Residency is required'],
+        residencyRules: [(v) => !!v || 'residency is required'],
         namePrefixRules: [(v) => !!v || 'Gender is required'],
         passengerTypeRules: [(v) => !!v || 'Passenger Type is required'],
         companyRules: [
@@ -521,7 +547,7 @@ export default {
         ],
         emailRules: [
           (v) => !!v || 'E-mail is required',
-          (v) => /.+@.+/.test(v) || 'E-mail must be valid'
+          (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid'
         ],
         acceptTermRules: [
           (v) => v === true || 'Please accept our term and condition'
@@ -536,7 +562,8 @@ export default {
         birthdayValid: false,
         valid: false
       },
-      invoiceUsed: false
+      invoiceUsed: false,
+      passContactRel: false
     }
   },
   computed: {
@@ -559,7 +586,7 @@ export default {
         given_name: '',
         sur_name: '',
         birthday: '',
-        residence: '',
+        residency: 'VNM',
         passport: '',
         expired_date: ''
       })
@@ -577,6 +604,11 @@ export default {
         this.checkout.passengers.indexOf(payload),
         1
       )
+    },
+    removeInvoice() {
+      if (!this.invoiceUsed) {
+        this.$store.dispatch('checkout/removeInvoice')
+      }
     },
     changePassengerType() {
       const payload = this.sumaryPassengers()
@@ -602,6 +634,7 @@ export default {
       })
       if (this.$refs.checkoutForm.validate() && this.validation.birthdayValid) {
         this.$store.dispatch('checkout/updateCheckoutSelect', this.checkout)
+        this.removeInvoice()
         this.reservationDialog = true
       }
     },
@@ -610,6 +643,7 @@ export default {
         element.checkValidate()
       })
       if (this.$refs.checkoutForm.validate() && this.validation.birthdayValid) {
+        this.removeInvoice()
         this.$router.push({
           path: 'pay',
           query: {
@@ -617,13 +651,28 @@ export default {
           }
         })
       }
+    },
+    migradePassInfo() {
+      if (this.passContactRel) {
+        this.checkout.contact.name_prefix = this.checkout.passengers[0].name_prefix
+        this.checkout.contact.given_name = this.checkout.passengers[0].given_name
+        this.checkout.contact.sur_name = this.checkout.passengers[0].sur_name
+        this.checkout.contact.national = this.checkout.passengers[0].residency
+        this.checkout.contact.residency = this.checkout.passengers[0].residency
+      } else {
+        this.checkout.contact.name_prefix = 'MR'
+        this.checkout.contact.given_name = ''
+        this.checkout.contact.sur_name = ''
+        this.checkout.contact.national = 'VNM'
+        this.checkout.contact.residency = 'VNM'
+      }
     }
   }
 }
 </script>
 <style lang="postcss">
 .info-block {
-  @apply tw-p-0 tw-mb-4 tw-rounded-none;
+  @apply tw-p-0 tw-mb-4 tw-rounded-none !important;
 }
 .half-left {
   @apply tw-w-full tw-m-0 tw-pb-4;

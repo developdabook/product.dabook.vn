@@ -2,7 +2,8 @@ import { clone } from 'lodash'
 export const state = () => ({
   ticketSelected: {},
   currentState: 'MISS_ALL',
-  checkoutInfo: {}
+  checkoutInfo: {},
+  session_id: ''
 })
 export const mutations = {
   UPDATE_TICKET_SELECTED(state, payload) {
@@ -17,14 +18,27 @@ export const mutations = {
   REMOVE_TICKET_PART(state, payload) {
     delete state.ticketSelected[payload]
   },
-  RESET_TICKET_SELECT(state, payload) {
+  RESET_TICKET_SELECT(state) {
     state.ticketSelected = {}
+  },
+  RESET_CHECKOUT_INFO(state) {
+    state.checkoutInfo = {}
+  },
+  RESET_SECTION(state) {
+    state.session_id = ''
   },
   RESET_CURRENT_STATE(state) {
     state.currentState = 'MISS_ALL'
   },
   UPDATE_CHECKOUT_INFO(state, payload) {
     state.checkoutInfo = clone(payload)
+  },
+  REMOVE_INVOICE(state, payload) {
+    delete state.checkoutInfo.invoice
+    state.checkoutInfo = Object.assign({}, clone(state.checkoutInfo))
+  },
+  UPDATE_CHECKOUT_SECTION(state, payload) {
+    state.session_id = payload
   }
 }
 export const actions = {
@@ -68,9 +82,24 @@ export const actions = {
   resetData({ commit, state }) {
     commit('RESET_TICKET_SELECT')
     commit('RESET_CURRENT_STATE')
+    commit('RESET_CHECKOUT_INFO')
+    commit('RESET_SECTION')
   },
   updateCheckoutSelect({ commit }, payload) {
     commit('UPDATE_CHECKOUT_INFO', payload)
+  },
+  removeInvoice({ commit }, payload) {
+    commit('REMOVE_INVOICE', payload)
+  },
+  updateCheckoutSectionId({ commit }, payload) {
+    const sectionId = `itinerary:1|origin:${
+      payload.from.airportCode
+    }|destination:${payload.to.airportCode}|date:${payload.departure}|date1:${
+      payload.isRoundTrip ? payload.arrived : ''
+    }|adults:${payload.passenger.ADULT}|children:${
+      payload.passenger.CHILD
+    }|infants:${payload.passenger.INFANT}`
+    commit('UPDATE_CHECKOUT_SECTION', sectionId)
   }
 }
 
@@ -131,5 +160,31 @@ export const getters = {
       })
     } catch (error) {}
     return { detail: sum, total }
+  },
+  getCheckoutInfo(state, getters, rootState) {
+    const ticket = {
+      session_id: state.session_id,
+      flight_ids: [],
+      fare_option_ids: []
+    }
+    if ('DEPARTURE' in state.ticketSelected) {
+      ticket.flight_ids.push(state.ticketSelected.DEPARTURE.ticket[0].id)
+      ticket.fare_option_ids.push(state.ticketSelected.DEPARTURE.fare._id)
+    }
+    if ('RETURN' in state.ticketSelected) {
+      ticket.flight_ids.push(state.ticketSelected.RETURN.ticket[0].id)
+      ticket.fare_option_ids.push(state.ticketSelected.RETURN.fare._id)
+    }
+    if ('PAIR' in state.ticketSelected) {
+      ticket.flight_ids.push(
+        state.ticketSelected.PAIR.ticket.find((el) => (el.type = 'DEPARTURE'))
+          .id
+      )
+      ticket.flight_ids.push(
+        state.ticketSelected.PAIR.ticket.find((el) => (el.type = 'RETURN')).id
+      )
+      ticket.fare_option_ids.push(state.ticketSelected.PAIR.fare._id)
+    }
+    return clone(Object.assign({}, clone(state.checkoutInfo), clone(ticket)))
   }
 }

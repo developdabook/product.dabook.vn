@@ -195,7 +195,7 @@ export default {
         lastNameRules: [(v) => !!v || 'Name is required'],
         emailRules: [
           (v) => !!v || 'E-mail is required',
-          (v) => /.+@.+/.test(v) || 'E-mail must be valid'
+          (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid'
         ],
         acceptTermRules: [
           (v) => v === true || 'Please accept our term and condition'

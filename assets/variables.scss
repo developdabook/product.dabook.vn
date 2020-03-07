@@ -4,10 +4,17 @@
 // $font-size-root: 20px;
 
 // $body-font-family : 'Open Sans', sans-serif;
-.theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state) > .v-input__control > .v-input__slot fieldset{
-    border-color:#cbd5e0 !important
+.theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state)
+  > .v-input__control
+  > .v-input__slot
+  fieldset {
+  border-color: #cbd5e0 !important;
 }
-.v-textarea .v-input__slot{
-    padding-left: 0.5rem !important;
-    padding-bottom: 0.5rem !important;
+.v-text-field--outlined.v-input--is-focused fieldset,
+.v-text-field--outlined.v-input--has-state fieldset {
+  border-width: 1px !important;
+}
+.v-textarea .v-input__slot {
+  padding-left: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
 }

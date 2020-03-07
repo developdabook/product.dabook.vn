@@ -368,6 +368,10 @@ export default {
       const section = utils.uuid()
       this.$store.dispatch('search/updateSearchCondition', this.searchCondition)
       this.$store.dispatch('search/updateSearchSection', section)
+      this.$store.dispatch(
+        'checkout/updateCheckoutSectionId',
+        this.searchCondition
+      )
       this.$router.push({
         path: 'search',
         query: {

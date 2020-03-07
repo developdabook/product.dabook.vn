@@ -72,7 +72,7 @@
             class="normal-btn keep-row action-btn"
             @click="copyTicket"
             ><v-icon class="tw-text-xl tw-mr-2">mdi-content-copy</v-icon
-            >{{ airTicket }}</v-btn
+            >{{ reservationCode }}</v-btn
           >
           <v-btn
             color="primary"
@@ -96,10 +96,11 @@
         >19001542 <i class="icofont-live-support tw-text-xl tw-ml-1"></i
       ></v-btn>
     </v-card-actions>
-    <input id="hiddencpx1ss" :value="airTicket" type="text" />
+    <input id="hiddencpx1ss" :value="reservationCode" type="text" />
   </v-card>
 </template>
 <script>
+import CheckoutApi from '@/services/CheckoutApi'
 export default {
   name: 'ReservationBox',
   data() {
@@ -113,32 +114,39 @@ export default {
       reserLoading: false,
       isReservated: false,
       timer: null,
-      airTicket: 'ZX02902920'
+      reservationCode: 'ZX02902920'
     }
   },
-  created() {},
+  computed: {
+    checkoutInfo() {
+      return this.$store.getters['checkout/getCheckoutInfo']
+    }
+  },
   destroyed() {
     clearTimeout(this.timer)
   },
-  mounted() {},
   methods: {
     close() {
       this.$emit('close')
       this.reserLoading = false
     },
     async confirmReservation() {
-      this.reserLoading = true
-      const that = this
-      this.timmer = await setTimeout(function() {
-        that.reserLoading = false
-        that.isReservated = true
-      }, 6000)
+      try {
+        this.reserLoading = true
+        const result = await CheckoutApi.Reservation(this.checkoutInfo)
+        console.log(result)
+        this.reservationCode = result.reservation_code
+        this.reserLoading = false
+        this.isReservated = true
+      } catch (error) {
+        console.log(error)
+      }
     },
     copyTicket() {
       clearTimeout(this.timer)
-      this.airTicket = 'VNA-20384029'
+      this.reservationCode = 'VNA-20384029'
       const copyText = document.getElementById('hiddencpx1ss')
-      copyText.value = this.airTicket
+      copyText.value = this.reservationCode
       copyText.select()
       copyText.setSelectionRange(0, 99999)
       document.execCommand('copy')
