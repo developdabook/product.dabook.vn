@@ -6,13 +6,14 @@ export const state = () => ({
     token: '',
     _id: ''
   },
+  profile: {},
   loginStatus: false
 })
 export const mutations = {
   UPDATE_TOKEN(state, payload) {
-    state.currentUser.token = payload
-    axios.defaults.headers.common.Authorization = `Bearer ${payload}`
-    this.$axios.defaults.headers.common.Authorization = `Bearer ${payload}`
+    state.currentUser.token = payload.token
+    axios.defaults.headers.common.Authorization = `Bearer ${payload.token}`
+    this.$axios.defaults.headers.common.Authorization = `Bearer ${payload.token}`
   },
   UPDATE_EMAIL(state, payload) {
     state.currentUser.email = payload
@@ -34,6 +35,9 @@ export const mutations = {
       email: '',
       token: ''
     }
+  },
+  UPDATE_PROFILE(state, payload) {
+    state.profile = payload
   }
 }
 export const actions = {
@@ -63,6 +67,11 @@ export const actions = {
           return false
         } else {
           commit('UPDATE_TOKEN', result.data)
+          const userInfo = await this.$axios.get(
+            `/dabook/public/api/user`,
+            credentials
+          )
+          commit('UPDATE_PROFILE', userInfo.data)
           commit('UPDATE_EMAIL', credentials.email)
           commit('UPDATE_LOGIN_STATUS', true)
           dispatch(
@@ -270,5 +279,8 @@ export const getters = {
   },
   getToken(state) {
     return state.currentUser.token
+  },
+  getUserProfile(state) {
+    return state.profile
   }
 }

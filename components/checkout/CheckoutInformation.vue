@@ -181,7 +181,7 @@
         more passengers</v-btn
       >
     </div>
-    <LoginCTA class="info-block tw-p-0" />
+    <LoginCTA class="info-block tw-p-0" @logined="updateContactBySignin" />
     <v-card outlined class="info-block contact-ingo">
       <v-card-title class="info-title">
         <strong class="pass-number"
@@ -569,6 +569,9 @@ export default {
   computed: {
     isAcceptAddPassenger() {
       return this.$store.getters['checkout/isAcceptAddPassenger']
+    },
+    userProfile() {
+      return this.$store.getters['auth/getUserProfile']
     }
   },
   methods: {
@@ -665,6 +668,12 @@ export default {
         this.checkout.contact.sur_name = ''
         this.checkout.contact.national = 'VNM'
         this.checkout.contact.residency = 'VNM'
+      }
+    },
+    updateContactBySignin() {
+      if (!this.passContactRel) {
+        this.checkout.contact.given_name = this.userProfile.last_name
+        this.checkout.contact.sur_name = this.userProfile.first_name
       }
     }
   }

@@ -134,17 +134,13 @@ export default {
       try {
         this.reserLoading = true
         const result = await CheckoutApi.Reservation(this.checkoutInfo)
-        console.log(result)
         this.reservationCode = result.reservation_code
         this.reserLoading = false
         this.isReservated = true
-      } catch (error) {
-        console.log(error)
-      }
+      } catch (error) {}
     },
     copyTicket() {
       clearTimeout(this.timer)
-      this.reservationCode = 'VNA-20384029'
       const copyText = document.getElementById('hiddencpx1ss')
       copyText.value = this.reservationCode
       copyText.select()

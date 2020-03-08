@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-show="!isLogin">
     <v-card flat class="tw-rounded-none tw-border" color="primary" dark>
       <v-card-actions class="login-cta-body">
         <div>
@@ -18,13 +18,13 @@
           color="blue darken-1"
           dark
           class="normal-btn tw-mr-2 tw-px-2"
-          @click="login = !login"
+          @click="loginModal = !loginModal"
           >Login now</v-btn
         >
       </v-card-actions>
     </v-card>
-    <v-dialog v-model="login" width="350">
-      <Signin />
+    <v-dialog v-model="loginModal" width="350">
+      <Signin @loggined="logined" />
     </v-dialog>
   </div>
 </template>
@@ -36,7 +36,18 @@ export default {
   },
   data() {
     return {
-      login: false
+      loginModal: false
+    }
+  },
+  computed: {
+    isLogin() {
+      return this.$store.getters['auth/isLogin']
+    }
+  },
+  methods: {
+    logined() {
+      this.$emit('logined')
+      this.loginModal = false
     }
   }
 }

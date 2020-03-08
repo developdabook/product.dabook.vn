@@ -450,7 +450,7 @@ export default {
         setTimeout(() => {
           clearInterval(this.intervalTick)
           this.loadingStep = 'FINISH_4'
-        }, 60000)
+        }, 30000)
       } catch (error) {
         this.loading.search = false
       }
