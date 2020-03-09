@@ -28,7 +28,7 @@
             <v-icon small>mdi-chevron-down</v-icon>
           </template>
           <template v-slot:default>
-            Skyteam
+            {{ $t('filter_skyteam') }}
           </template></v-expansion-panel-header
         >
         <v-expansion-panel-content class="tw-p-1">
@@ -41,7 +41,7 @@
             <v-icon small>mdi-chevron-down</v-icon>
           </template>
           <template v-slot:default>
-            Airline
+            {{ $t('filter_airline') }}
           </template></v-expansion-panel-header
         >
         <v-expansion-panel-content class="tw-p-1">
@@ -54,7 +54,7 @@
             <v-icon small>mdi-chevron-down</v-icon>
           </template>
           <template v-slot:default>
-            Price
+            {{ $t('filter_price') }}
           </template>
         </v-expansion-panel-header>
         <v-expansion-panel-content class="tw-p-1">
@@ -67,7 +67,7 @@
             <v-icon small>mdi-chevron-down</v-icon>
           </template>
           <template v-slot:default>
-            Cất cánh chiều đi
+            {{ $t('filter_from_start') }}
           </template></v-expansion-panel-header
         >
         <v-expansion-panel-content class="tw-p-1">
@@ -80,7 +80,7 @@
             <v-icon small>mdi-chevron-down</v-icon>
           </template>
           <template v-slot:default>
-            Hạ cánh chiều đi
+            {{ $t('filter_from_end') }}
           </template></v-expansion-panel-header
         >
         <v-expansion-panel-content class="tw-p-1">
@@ -93,7 +93,7 @@
             <v-icon small>mdi-chevron-down</v-icon>
           </template>
           <template v-slot:default>
-            Cất cánh chiều về
+            {{ $t('filter_to_start') }}
           </template></v-expansion-panel-header
         >
         <v-expansion-panel-content class="tw-p-1">
@@ -106,7 +106,7 @@
             <v-icon small>mdi-chevron-down</v-icon>
           </template>
           <template v-slot:default>
-            Hạ cánh chiều về
+            {{ $t('filter_to_end') }}
           </template></v-expansion-panel-header
         >
         <v-expansion-panel-content class="tw-p-1">

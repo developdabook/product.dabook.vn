@@ -1,7 +1,7 @@
 <template>
   <v-card flat class="tw-rounded-none"
     ><v-card-subtitle class="tw-text-gray-400 tw-font-bold">
-      Please select time
+      {{ $t('search_popup_time_title') }}
     </v-card-subtitle>
     <v-card-text>
       <v-lazy>

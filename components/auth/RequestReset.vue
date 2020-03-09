@@ -1,13 +1,15 @@
 <template>
   <v-card flat class="signin-component">
-    <v-card-title class="tw-text-blue-600"> Request Reset </v-card-title>
+    <v-card-title class="tw-text-blue-600">
+      {{ $t('reset_title') }}</v-card-title
+    >
     <v-card-subtitle>
-      Confirm your email. We will send to you instruction
+      {{ $t('reset_subtitle') }}
     </v-card-subtitle>
     <v-card-text class="tw-py-4 tw-pb-0">
       <v-text-field
         autofocus
-        label="Email"
+        :label="$t('signup_email')"
         placeholder="your@email.com"
         outlined
         dense
@@ -15,13 +17,13 @@
       ></v-text-field>
     </v-card-text>
     <v-card-actions class="signin-action">
-      <v-btn depressed rounded color="primary" class="signin-btn"
-        >RequestReset</v-btn
-      >
+      <v-btn depressed rounded color="primary" class="signin-btn">{{
+        $t('btn_reset')
+      }}</v-btn>
     </v-card-actions>
     <v-card-actions>
       <v-btn text color="primary" class="tw-normal-case" nuxt to="/auth/signin">
-        Back to login
+        {{ $t('reset_backlogin') }}
       </v-btn>
     </v-card-actions>
   </v-card>

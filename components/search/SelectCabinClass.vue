@@ -2,7 +2,7 @@
   <div>
     <v-card flat class="tw-rounded-none"
       ><v-card-subtitle class="tw-text-gray-400 tw-font-bold">
-        Please select cabin class
+        {{ $t('search_popup_cabin_title') }}
       </v-card-subtitle>
       <v-card-text class="px-4">
         <div
@@ -19,14 +19,14 @@
             <template v-slot:label>
               <div class="tw-flex tw-flex-col tw-justify-start">
                 <strong class="tw-text-gray-800 tw-text-sm tw-m-0 tw-p-0">
-                  {{ cabin.text }}</strong
+                  {{ $t(cabin.text) }}</strong
                 >
               </div>
             </template>
           </v-checkbox>
 
           <span class="tw-text-gray-600 tw-text-xs tw-m-0 tw-p-0"
-            >{{ cabin.description
+            >{{ $t(cabin.description)
             }}<v-icon color="primary" class="tw-ml-2" small>{{
               cabin.icon
             }}</v-icon></span

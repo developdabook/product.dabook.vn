@@ -3,8 +3,7 @@
     <v-card-text>
       <div class="sort-box">
         <v-btn color="primarytext" small text class="tw-normal-case"
-          >Tạo thông báo cho kết quả này
-          <v-icon small>mdi-bell-outline</v-icon></v-btn
+          >{{ $t('sort_alert') }} <v-icon small>mdi-bell-outline</v-icon></v-btn
         >
         <v-menu>
           <template v-slot:activator="{ on }">
@@ -14,7 +13,7 @@
           </template>
           <v-card>
             <v-list dense>
-              <v-subheader>Sortby</v-subheader>
+              <v-subheader>{{ $t('sort_by') }}</v-subheader>
               <v-list-item-group
                 v-model="sortSelected"
                 color="primary"
@@ -26,7 +25,9 @@
                   :value="item.value"
                 >
                   <v-list-item-content>
-                    <v-list-item-title v-text="item.name"></v-list-item-title>
+                    <v-list-item-title
+                      v-text="$t(item.name)"
+                    ></v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
@@ -45,17 +46,17 @@ export default {
       sortSelected: [],
       sorts: [
         {
-          name: 'Giá thấp nhất',
+          name: 'sort_price',
           value: 'LOWEST_PRICE',
           icon: 'mdi-sort-bool-descending'
         },
         {
-          name: 'Thời gian bay ngắn nhất',
+          name: 'sort_time',
           value: 'LOWEST_TIME',
           icon: 'mdi-sort-numeric-ascending'
         },
         {
-          name: 'Checkin sớm nhất',
+          name: 'sort_checkin',
           value: 'CHECKIN_TIME',
           icon: 'mdi-sort-bool-ascending'
         }

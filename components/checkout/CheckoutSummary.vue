@@ -2,8 +2,8 @@
   <v-card outlined class="checkout-summary">
     <v-card-title class="summary-title">
       <strong class="pass-number tw-py-2"
-        ><v-icon class="summary-title-icon">mdi-earth-arrow-right</v-icon> Trip
-        summary
+        ><v-icon class="summary-title-icon">mdi-earth-arrow-right</v-icon>
+        {{ $t('checkout_sum_tripsummary') }}
       </strong>
     </v-card-title>
     <v-card-text>
@@ -21,8 +21,8 @@
     </v-card-text>
     <v-card-title class="summary-title">
       <strong class="pass-number"
-        ><v-icon class="summary-title-icon">mdi-cash-usd-outline</v-icon> Cash
-        summary
+        ><v-icon class="summary-title-icon">mdi-cash-usd-outline</v-icon
+        >{{ $t('checkout_sum_cash') }}
       </strong>
     </v-card-title>
     <v-card-text>
@@ -74,7 +74,7 @@
       </div>
       <div class="cash-box">
         <div class="cash-box-title tw-text-base tw-text-gray-900">
-          <strong>Total</strong>
+          <strong>{{ $t('checkout_sum_total') }}</strong>
           <strong><PriceValidation :price="summaryPriceTotal"/></strong>
         </div>
         <v-alert text dense type="info" class="tw-text-xs">

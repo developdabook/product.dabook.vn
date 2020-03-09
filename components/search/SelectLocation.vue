@@ -1,7 +1,7 @@
 <template>
   <v-card flat class="tw-rounded-none"
     ><v-card-subtitle class="tw-text-gray-400 tw-font-bold">
-      Please select location
+      {{ $t('search_popup_local_title') }}
     </v-card-subtitle>
     <v-progress-linear
       :active="loading.search"
@@ -19,7 +19,7 @@
         clearable
         hide-details
         prepend-inner-icon="mdi-google-maps"
-        placeholder="Find your target..."
+        :placeholder="$t('search_popup_local_placeholder')"
         class="tw-text-sm"
         @keydown="findLocation"
       ></v-text-field>

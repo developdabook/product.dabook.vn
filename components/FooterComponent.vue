@@ -3,17 +3,28 @@
     <div class="tw-w-full tw-flex tw-justify-between">
       <v-spacer></v-spacer>
       <div>&copy; DaiMinh {{ new Date().getFullYear() }}</div>
-      <v-btn x-small color="primary" rounded outlined class="lang-btn"
-        >Vietnamese
+      <v-btn
+        x-small
+        color="primary"
+        rounded
+        outlined
+        class="lang-btn"
+        @click="changeLanguage"
+        >{{ getCurrentLang.name }}
         <v-avatar size="15">
-          <img src="/images/lang/vietnam.png" alt="John" /> </v-avatar
+          <img
+            :src="`/images/lang/${getCurrentLang.image}`"
+            alt="Language"
+          /> </v-avatar
       ></v-btn>
     </div>
   </v-footer>
 </template>
 <script>
+import langMixin from '@/mixins/lang'
 export default {
-  name: 'FooterComponent'
+  name: 'FooterComponent',
+  mixins: [langMixin]
 }
 </script>
 <style lang="postcss">

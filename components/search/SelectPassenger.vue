@@ -2,7 +2,7 @@
   <div>
     <v-card flat class="tw-rounded-none"
       ><v-card-subtitle class="tw-text-gray-400 tw-font-bold">
-        Please select passenger
+        {{ $t('search_popup_pass_title') }}
       </v-card-subtitle>
       <v-card-text class="px-4">
         <div class="passenger-select-box">
@@ -19,10 +19,10 @@
           >
           <div class="passenger-info">
             <strong class="m-0 p-0 tw-text-sm tw-text-blue-600"
-              >{{ passenger.ADULT }} Adult</strong
+              >{{ passenger.ADULT }} {{ $t('search_adult_label') }}</strong
             >
             <span class="tw-text-xs tw-text-gray-600">
-              (Tren 12 tuoi)
+              ({{ $t('search_adult_detail') }})
             </span>
           </div>
           <v-btn
@@ -51,10 +51,10 @@
           >
           <div class="passenger-info">
             <strong class="m-0 p-0 tw-text-sm tw-text-blue-600"
-              >{{ passenger.CHILD }} Children</strong
+              >{{ passenger.CHILD }} {{ $t('search_child_label') }}</strong
             >
             <span class="tw-text-xs tw-text-gray-600">
-              (Tu 2 den 12 tuoi)
+              ({{ $t('search_child_detail') }})
             </span>
           </div>
           <v-btn
@@ -83,10 +83,10 @@
           >
           <div class="passenger-info">
             <strong class="m-0 p-0 tw-text-sm tw-text-blue-600"
-              >{{ passenger.INFANT }} Infant</strong
+              >{{ passenger.INFANT }} {{ $t('search_infant_label') }}</strong
             >
             <span class="tw-text-xs tw-text-gray-600">
-              (Duoi 2 tuoi)
+              ({{ $t('search_infant_detail') }})
             </span>
           </div>
           <v-btn
@@ -111,7 +111,7 @@
         color="primary"
         class="detail-action-btn"
         @click="closeModal"
-        >Close</v-btn
+        >{{ $t('btn_close') }}</v-btn
       >
     </div>
   </div>

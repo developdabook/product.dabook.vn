@@ -45,8 +45,7 @@
       <v-card-text>
         <div class="info-notice">
           <v-alert text dense type="info" class="tw-text-xs">
-            Sử dụng họ/ tên chính xác như trên chứng minh thư, hộ chiếu của bạn
-            để tránh gặp phải vấn đề khi lên máy bay
+            {{ $t('checkout_fill_note_01') }}
           </v-alert>
         </div>
         <div class="field-box">
@@ -55,7 +54,7 @@
               <v-text-field
                 v-model="pass.sur_name"
                 :rules="validation.surNameRules"
-                label="SurName"
+                :label="$t('checkout_contact_surname')"
                 placeholder="ex. Tran"
                 outlined
                 color="primary"
@@ -67,7 +66,7 @@
               <v-text-field
                 v-model="pass.given_name"
                 :rules="validation.givenNameRules"
-                label="GivenName"
+                :label="$t('checkout_contact_givenname')"
                 placeholder="ex. Hoang Anh"
                 outlined
                 color="primary"
@@ -86,7 +85,7 @@
                 chips
                 dense
                 color="primary"
-                label="Residency"
+                :label="$t('checkout_contact_national')"
                 placeholder="VietNam"
                 item-text="name"
                 item-value="code"
@@ -121,7 +120,7 @@
                 v-model="pass.name_prefix"
                 :items="gender"
                 :rules="validation.namePrefixRules"
-                label="Gender"
+                :label="$t('checkout_contact_gender')"
                 item-text="name"
                 item-value="value"
                 placeholder="Mr"
@@ -136,6 +135,7 @@
                 v-model="pass.birthday"
                 :validate="true"
                 :rules="validation.dateRules"
+                label="checkout_fill_label_birthday"
                 @validate="validation.birthdayValid = $event"
               />
             </div>
@@ -188,7 +188,7 @@
           ><v-icon class="info-title-icon"
             >mdi-account-tie-voice-outline</v-icon
           >
-          Contact
+          {{ $t('checkout_contact') }}
         </strong>
         <div class="tw-flex tw-flex-col tw-items-end">
           <v-switch
@@ -205,8 +205,7 @@
       <v-card-text>
         <div class="info-notice">
           <v-alert text dense type="info" class="tw-text-xs">
-            Vui lòng điền chỉnh xác thông tin liên lạc, chúng tôi sẽ liên hệ và
-            gửi vé tới bạn qua thông tin này
+            {{ $t('checkout_contact_note') }}
           </v-alert>
         </div>
         <div class="field-box">
@@ -216,7 +215,7 @@
                 v-model="checkout.contact.name_prefix"
                 :items="gender"
                 :rules="validation.namePrefixRules"
-                label="Gender"
+                :label="$t('checkout_contact_gender')"
                 item-text="name"
                 item-value="value"
                 placeholder="Mr"
@@ -227,7 +226,7 @@
               <v-text-field
                 v-model="checkout.contact.sur_name"
                 :rules="validation.surNameRules"
-                label="SurName"
+                :label="$t('checkout_contact_surname')"
                 placeholder="ex. Tran"
                 outlined
                 color="primary"
@@ -239,7 +238,7 @@
               <v-text-field
                 v-model="checkout.contact.given_name"
                 :rules="validation.givenNameRules"
-                label="GivenName"
+                :label="$t('checkout_contact_givenname')"
                 placeholder="ex. Hoang Anh"
                 outlined
                 color="primary"
@@ -253,7 +252,7 @@
               <v-text-field
                 v-model="checkout.contact.email"
                 :rules="validation.emailRules"
-                label="Email"
+                :label="$t('checkout_contact_email')"
                 placeholder="ex. your@gmail.com"
                 outlined
                 color="primary"
@@ -269,7 +268,7 @@
                 chips
                 dense
                 color="primary"
-                label="National"
+                :label="$t('checkout_contact_national')"
                 placeholder="VietNam"
                 item-text="name"
                 item-value="code"
@@ -303,7 +302,7 @@
               <v-text-field
                 v-model="checkout.contact.phone_number"
                 :rules="validation.phoneRules"
-                label="Phone"
+                :label="$t('checkout_contact_phone')"
                 placeholder="+84 933-393-223"
                 outlined
                 color="primary"
@@ -317,7 +316,7 @@
               <v-text-field
                 v-model="checkout.contact.street"
                 :rules="validation.addressRules"
-                label="Stress"
+                :label="$t('checkout_contact_street')"
                 placeholder="Lot 113, Me Tri, Nam Tu Liem"
                 outlined
                 color="primary"
@@ -329,7 +328,7 @@
               <v-text-field
                 v-model="checkout.contact.city"
                 :rules="validation.requiredRules"
-                label="City"
+                :label="$t('checkout_contact_city')"
                 placeholder="Ha Noi"
                 outlined
                 color="primary"
@@ -344,7 +343,7 @@
                 chips
                 dense
                 color="primary"
-                label="Resident"
+                :label="$t('checkout_contact_resident')"
                 placeholder="VietNam"
                 item-text="name"
                 item-value="code"
@@ -404,8 +403,7 @@
             <v-expansion-panel-content>
               <template class="tw-px-0">
                 <v-alert text dense type="warning" class="tw-text-xs">
-                  Hóa đơn được xuất theo thông tin được ghi dưới đây. Quý khách
-                  vui lòng kiểm tra kĩ thông tin trước khi gửi đi
+                  {{ $t('checkout_invoice_note_01') }}
                 </v-alert>
                 <div class="field-box">
                   <div class="input-box">
@@ -413,7 +411,7 @@
                       <v-text-field
                         v-model="checkout.invoice.company"
                         :rules="validation.companyRules"
-                        label="Tên công ty"
+                        :label="$t('checkout_invoice_label_company')"
                         placeholder="Công ty TNHH Thuong Mai HD"
                         outlined
                         color="primary"
@@ -425,7 +423,7 @@
                       <v-text-field
                         v-model="checkout.invoice.tax"
                         :rules="validation.taxRules"
-                        label="Mã số thuế"
+                        :label="$t('checkout_invoice_label_tax')"
                         placeholder="05300022350"
                         outlined
                         color="primary"
@@ -438,7 +436,7 @@
                     <v-text-field
                       v-model="checkout.invoice.address"
                       :rules="validation.taxAddressRules"
-                      label="Địa chỉ"
+                      :label="$t('checkout_invoice_label_tax')"
                       placeholder="Lot 113, Me Tri, Nam Tu Liem, Ha Noi"
                       outlined
                       color="primary"
@@ -672,8 +670,8 @@ export default {
     },
     updateContactBySignin() {
       if (!this.passContactRel) {
-        this.checkout.contact.given_name = this.userProfile.last_name
-        this.checkout.contact.sur_name = this.userProfile.first_name
+        this.checkout.contact.given_name = this.userProfile.given_name
+        this.checkout.contact.sur_name = this.userProfile.sur_name
       }
     }
   }

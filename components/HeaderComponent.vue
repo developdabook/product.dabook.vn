@@ -16,7 +16,7 @@
           </v-card-text>
         </v-card>
       </template>
-      <v-list nav dense shaped>
+      <v-list nav dense shaped class="tw-mb-16">
         <v-list-item-group active-class="blue lighten-5 primary--text">
           <div v-for="(group, i) in menus" :key="i + 'menu'">
             <strong v-if="group.name !== ''" class="group-header">{{
@@ -44,6 +44,19 @@
               >19001542 <i class="icofont-live-support tw-text-xl tw-ml-1"></i
             ></v-btn>
           </v-badge>
+          <v-btn
+            fab
+            x-small
+            depressed
+            text
+            color="primary"
+            @click="changeLanguage"
+            ><v-avatar size="20">
+              <img
+                :src="`/images/lang/${getCurrentLang.image}`"
+                alt="Language"
+              /> </v-avatar
+          ></v-btn>
         </div>
       </template>
     </v-navigation-drawer>
@@ -61,7 +74,7 @@
         class="header-btn"
         nuxt
         to="/flight"
-        ><span class="headercolor--text">Flight</span>
+        ><span class="headercolor--text">{{ $t('header_flight') }}</span>
         <i class="icofont-ui-flight icofont-2x"></i
       ></v-btn>
       <v-btn
@@ -72,7 +85,7 @@
         class="header-btn"
         nuxt
         to="/travel"
-        ><span class="headercolor--text">Travel</span>
+        ><span class="headercolor--text">{{ $t('header_travel') }}</span>
         <i class="icofont-beach icofont-2x"></i
       ></v-btn>
       <v-toolbar-title>
@@ -88,7 +101,7 @@
         class="header-btn tw-hidden md:tw-flex"
         nuxt
         to="/auth/my-booking"
-        ><span class="headercolor--text">Mybooking</span>
+        ><span class="headercolor--text">{{ $t('header_mybooking') }}</span>
         <i class="icofont-air-ticket icofont-2x"></i>
       </v-btn>
 
@@ -100,6 +113,20 @@
       >
         <v-icon color="headercolor">mdi-dots-vertical</v-icon>
       </v-btn>
+      <v-btn
+        fab
+        x-small
+        depressed
+        text
+        color="primary"
+        class="tw-hidden md:tw-flex"
+        @click="changeLanguage"
+        ><v-avatar size="20">
+          <img
+            :src="`/images/lang/${getCurrentLang.image}`"
+            alt="Language"
+          /> </v-avatar
+      ></v-btn>
       <v-menu
         v-model="loginMenu"
         :close-on-content-click="false"
@@ -171,6 +198,7 @@
 </template>
 <script>
 import { menu } from '@/localdb/menu'
+import langMixin from '@/mixins/lang'
 export default {
   name: 'HeaderComponent',
   components: {
@@ -181,6 +209,7 @@ export default {
     CalendarPrice: () =>
       import(/* webpackPrefetch: true */ '@/components/search/CalendarPrice')
   },
+  mixins: [langMixin],
   data() {
     return {
       draw: {
@@ -227,7 +256,7 @@ export default {
   @apply tw-fixed tw-bottom-0;
 }
 .leftdraw-action {
-  @apply tw-flex tw-flex-col tw-justify-start tw-items-start tw-p-4 tw-fixed tw-bottom-0;
+  @apply tw-flex tw-flex-row tw-justify-between tw-items-center tw-w-full tw-bg-white tw-p-4 tw-fixed tw-bottom-0;
 }
 .leftdraw-call {
   @apply tw-bg-blue-100 tw-text-blue-600 tw-normal-case tw-font-normal !important;

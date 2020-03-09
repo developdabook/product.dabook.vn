@@ -9,7 +9,7 @@
     <v-text-field
       v-model="date.day"
       :rules="validation.dayRules"
-      label="Date"
+      :label="$t(label)"
       placeholder="DD"
       outlined
       color="primary"
@@ -52,6 +52,10 @@ export default {
     validate: {
       type: Boolean,
       default: false
+    },
+    label: {
+      type: String,
+      default: ''
     }
   },
   data() {

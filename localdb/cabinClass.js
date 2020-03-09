@@ -1,20 +1,20 @@
 const cabinClass = [
   {
-    text: 'Economy Class',
+    text: 'search_economy_label',
     value: 'ECONOMY',
-    description: 'Hạng phổ thông',
+    description: 'search_economy_detail',
     icon: 'mdi-seat-legroom-reduced'
   },
   {
-    text: 'Business Class',
+    text: 'search_business_label',
     value: 'BUSINESS',
-    description: 'Hạng thương gia',
+    description: 'search_business_detail',
     icon: 'mdi-seat-legroom-normal'
   },
   {
-    text: 'First Class',
+    text: 'search_firstclass_label',
     value: 'FIRSTCLASS',
-    description: 'Hạng cao cấp',
+    description: 'search_firstclass_detail',
     icon: 'mdi-seat-legroom-extra'
   }
 ]

@@ -1,19 +1,21 @@
 <template>
   <v-form ref="signup" v-model="validation.valid" lazy-validation>
     <v-card flat class="signup-component">
-      <v-card-title class="tw-text-blue-600"> Signup account </v-card-title>
+      <v-card-title class="tw-text-blue-600">
+        {{ $t('signup_title') }}
+      </v-card-title>
       <v-card-subtitle>
-        Received promotion and tips weekly
+        {{ $t('signup_subtitle') }}
       </v-card-subtitle>
       <v-card-text class="tw-py-4 tw-pb-0">
         <div
           class="tw-flex tw-flex-row tw-justify-between tw-items-start tw-my-2"
         >
           <v-text-field
-            v-model="auth.first_name"
-            :rules="validation.firstNameRules"
+            v-model="auth.sur_name"
+            :rules="validation.surNameRules"
             autofocus
-            label="FirstName"
+            :label="$t('signup_surname')"
             placeholder="Hoang"
             outlined
             name="firstName"
@@ -22,9 +24,9 @@
             class="input-sm tw-w-1/2 tw-mr-1"
           ></v-text-field
           ><v-text-field
-            v-model="auth.last_name"
-            :rules="validation.lastNameRules"
-            label="LastName"
+            v-model="auth.given_name"
+            :rules="validation.givenNameRules"
+            :label="$t('signup_givenname')"
             placeholder="Minh Anh"
             outlined
             name="lastName"
@@ -36,7 +38,7 @@
         <v-text-field
           v-model="auth.email"
           :rules="validation.emailRules"
-          label="Email"
+          :label="$t('signup_email')"
           placeholder="Email"
           outlined
           name="email"
@@ -48,7 +50,7 @@
         <v-text-field
           v-model="auth.password"
           :rules="validation.passwordRules"
-          label="Password"
+          :label="$t('signup_password')"
           placeholder="Your password"
           outlined
           type="password"
@@ -59,7 +61,7 @@
         <v-text-field
           v-model="auth.password_confirmation"
           :rules="validation.confirmPasswordRules"
-          label="ConfirmPassword"
+          :label="$t('signup_confirm')"
           placeholder="Confirm password"
           outlined
           type="password"
@@ -91,11 +93,11 @@
           color="primary"
           class="signup-btn"
           @click="signup"
-          >Signup</v-btn
+          >{{ $t('btn_signup') }}</v-btn
         >
-        <v-subheader class="tw-text-center tw-justify-center"
-          >Or signup with</v-subheader
-        >
+        <v-subheader class="tw-text-center tw-justify-center">{{
+          $t('signup_or')
+        }}</v-subheader>
         <div class="tw-flex tw-flex-row tw-justify-between tw-items-center">
           <v-btn
             depressed
@@ -162,7 +164,7 @@
           nuxt
           to="/auth/signin"
         >
-          Have account ? Login !
+          {{ $t('signup_haveaccount') }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -175,8 +177,8 @@ export default {
     return {
       acceptTerm: true,
       auth: {
-        first_name: '',
-        last_name: '',
+        sur_name: '',
+        given_name: '',
         email: '',
         role: 'user',
         password: '',
@@ -191,8 +193,8 @@ export default {
           (v) => !!v || 'Confirm password is required',
           (v) => v === this.auth.password || 'Confirm password is wrong'
         ],
-        firstNameRules: [(v) => !!v || 'Name is required'],
-        lastNameRules: [(v) => !!v || 'Name is required'],
+        surNameRules: [(v) => !!v || 'Name is required'],
+        givenNameRules: [(v) => !!v || 'Name is required'],
         emailRules: [
           (v) => !!v || 'E-mail is required',
           (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid'

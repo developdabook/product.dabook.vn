@@ -6,14 +6,14 @@
           <div class="tw-relative">
             <v-text-field
               :value="fromSum"
-              label="From"
+              :label="$t('search_from')"
               color="primary"
               prepend-inner-icon="mdi-airplane-takeoff"
               class="dotted-border my-4"
               hide-details
               name="searchFrom"
               readonly
-              placeholder="Please select departure airport"
+              :placeholder="$t('search_from_placeholder')"
               @click="
                 selectCondition('from')
                 drawer.isMaxHeight = true
@@ -34,13 +34,13 @@
           </div>
           <v-text-field
             :value="toSum"
-            label="To"
+            :label="$t('search_to')"
             prepend-inner-icon="mdi-airplane-landing"
             hide-details
             class="my-4"
             readonly
             name="searchTo"
-            placeholder="Please select arrived/return airport"
+            :placeholder="$t('search_to_placeholder')"
             @click="
               selectCondition('to')
               drawer.isMaxHeight = true
@@ -49,7 +49,7 @@
           <div class="tw-relative">
             <v-text-field
               :value="departureSum"
-              label="Departure"
+              :label="$t('search_departure')"
               prepend-inner-icon="mdi-calendar-import"
               hide-details
               class="my-4"
@@ -65,7 +65,7 @@
               <label
                 for="roundtrip"
                 class="tw-flex tw-flex-col tw-justify-end tw-items-end"
-                >Is Roundtrip?
+                >{{ $t('search_isroundtrip') }}
                 <v-switch
                   v-model="searchCondition.isRoundTrip"
                   hide-details
@@ -77,7 +77,7 @@
             <v-text-field
               v-show="searchCondition.isRoundTrip"
               :value="arrivedSum"
-              label="Arrived"
+              :label="$t('search_arrived')"
               prepend-inner-icon="mdi-calendar-export"
               hide-details
               readonly
@@ -92,7 +92,7 @@
           </v-expand-transition>
           <v-text-field
             :value="passegnerSum"
-            label="Passenger"
+            :label="$t('search_passenger')"
             prepend-inner-icon="mdi-account-multiple-check-outline"
             hide-details
             class="my-4"
@@ -105,7 +105,7 @@
           ></v-text-field>
           <v-text-field
             :value="cabinClassSum"
-            label="CabinClass"
+            :label="$t('search_cabin_class')"
             prepend-inner-icon="mdi-seat-passenger"
             hide-details
             readonly
@@ -125,17 +125,17 @@
             large
             class="tw-w-full"
             @click="searchFlight"
-            >Search</v-btn
+            >{{ $t('search_search_btn') }}</v-btn
           >
         </v-card-actions>
         <v-card-text class="tw-text-center tw-text-xs tw-pt-0">
           <span class="tw-text-gray-400 tw-m-1"
-            ><v-icon color="#E2E8F0" small>mdi-check-decagram</v-icon> Alway
-            best price</span
+            ><v-icon color="#E2E8F0" small>mdi-check-decagram</v-icon>
+            {{ $t('search_quote_1') }}</span
           >
           <span class="tw-text-gray-400 tw-m-1"
             ><v-icon color="#E2E8F0" small>mdi-shield-check-outline</v-icon>
-            Trust by DaiMinh</span
+            {{ $t('search_quote_2') }}</span
           >
         </v-card-text>
       </v-card>

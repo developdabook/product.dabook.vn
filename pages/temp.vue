@@ -1,5 +1,7 @@
 <template>
-  <PayOption />
+  <div>
+    <PayOption />
+  </div>
 </template>
 <script>
 export default {

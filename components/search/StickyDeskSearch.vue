@@ -75,7 +75,7 @@
             <template v-slot:activator="{ on }">
               <v-text-field
                 :value="fromSum"
-                label="From"
+                :label="$t('search_from')"
                 placeholder="HAN- Ha Noi"
                 outlined
                 dense
@@ -114,7 +114,7 @@
             <template v-slot:activator="{ on }">
               <v-text-field
                 :value="toSum"
-                label="To"
+                :label="$t('search_to')"
                 placeholder="HAN- Ha Noi"
                 outlined
                 dense
@@ -143,7 +143,7 @@
             <template v-slot:activator="{ on }">
               <v-text-field
                 :value="departureSum"
-                label="Departure"
+                :label="$t('search_departure')"
                 placeholder="20 August 2020"
                 outlined
                 dense
@@ -170,7 +170,7 @@
               <v-text-field
                 v-show="searchCondition.isRoundTrip"
                 :value="arrivedSum"
-                label="Arrived"
+                :label="$t('search_arrived')"
                 placeholder="22 August 2020"
                 outlined
                 dense

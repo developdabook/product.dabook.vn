@@ -14,7 +14,7 @@
             ><template v-slot:label>
               <div class="tw-flex tw-flex-col tw-justify-start">
                 <strong class="tw-text-gray-800 tw-text-sm tw-m-0 tw-p-0">
-                  {{ trip.text }}</strong
+                  {{ $t(trip.text) }}</strong
                 >
               </div>
             </template></v-radio

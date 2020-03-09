@@ -14,7 +14,7 @@
       class="tw-font-normal"
       nuxt
     >
-      <span>{{ nav.name }}</span>
+      <span>{{ $t(nav.name) }}</span>
 
       <i :class="nav.icon"></i>
     </v-btn>

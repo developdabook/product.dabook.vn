@@ -1,15 +1,17 @@
 <template>
   <v-form ref="signin" v-model="validation.valid" lazy-validation>
     <v-card flat class="signin-component">
-      <v-card-title class="tw-text-blue-600"> Signin </v-card-title>
+      <v-card-title class="tw-text-blue-600">
+        {{ $t('signin_title') }}
+      </v-card-title>
       <v-card-subtitle>
-        Hundreds of promotions every day
+        {{ $t('signin_subtitle') }}
       </v-card-subtitle>
       <v-card-text class="tw-py-4 tw-pb-0">
         <v-text-field
           v-model="auth.email"
           autofocus
-          label="Email"
+          :label="$t('signup_email')"
           placeholder="your@email.com"
           outlined
           type="text"
@@ -19,7 +21,7 @@
         ></v-text-field>
         <v-text-field
           v-model="auth.password"
-          label="Password"
+          :label="$t('signup_password')"
           placeholder="Your password"
           outlined
           type="password"
@@ -35,7 +37,7 @@
           to="/auth/reset"
           @click="$emit('close', true)"
         >
-          Forgot password ?
+          {{ $t('signin_forgot_pass') }}
         </v-btn>
       </v-card-text>
       <v-card-actions class="signin-action">
@@ -46,11 +48,11 @@
           color="primary"
           class="signin-btn"
           @click="signin"
-          >Signin</v-btn
+          >{{ $t('btn_signin') }}</v-btn
         >
-        <v-subheader class="tw-text-center tw-justify-center"
-          >Or sigin with</v-subheader
-        >
+        <v-subheader class="tw-text-center tw-justify-center">{{
+          $t('signin_or')
+        }}</v-subheader>
         <div class="tw-flex tw-flex-row tw-justify-between tw-items-center">
           <v-btn
             depressed
@@ -118,7 +120,7 @@
           to="/auth/signup"
           @click="$emit('close', true)"
         >
-          Create your account
+          {{ $t('signin_create_account') }}
         </v-btn>
       </v-card-actions>
     </v-card>
