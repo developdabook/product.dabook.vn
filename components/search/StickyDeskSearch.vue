@@ -190,7 +190,7 @@
           </v-menu>
         </div>
         <v-btn rounded depressed class="change-search-btn" @click="searchFlight"
-          >Change</v-btn
+          >Re-search</v-btn
         >
       </div>
     </div>
