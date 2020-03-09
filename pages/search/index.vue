@@ -61,7 +61,7 @@
               v-for="(ticket, i) in flightGrouping.DEPARTURE"
               :key="i + 'departure_ticket'"
               :ticket="ticket"
-              action-btn-title="Select departure ticket"
+              action-btn-title="Select departure"
               class="tw-mb-4"
             />
           </div>
@@ -70,7 +70,7 @@
               v-for="(ticket, i) in flightGrouping.RETURN"
               :key="i + 'retunr-ticket'"
               :ticket="ticket"
-              action-btn-title="Select return ticket"
+              action-btn-title="Select return"
               class="tw-mb-4"
             />
           </div>
@@ -620,20 +620,27 @@ export default {
 }
 @screen md {
   .center-search {
-    @apply tw-w-3/5;
+    @apply tw-w-4/5;
   }
-  .left-filter,
-  .right-pro {
+  .left-filter {
     @apply tw-sticky tw-flex tw-bg-transparent tw-w-1/5 tw-text-sm;
-  }
-  .right-pro {
-    @apply tw-bg-white;
   }
   .stick-desk {
     @apply tw-block;
   }
   .stick-mob {
     @apply tw-hidden;
+  }
+}
+@screen lg {
+  .center-search {
+    @apply tw-w-3/5;
+  }
+  .right-pro {
+    @apply tw-sticky tw-flex tw-bg-transparent tw-w-1/5 tw-text-sm;
+  }
+  .right-pro {
+    @apply tw-bg-white;
   }
 }
 </style>

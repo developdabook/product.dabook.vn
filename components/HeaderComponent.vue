@@ -87,7 +87,7 @@
         color="primary"
         class="header-btn tw-hidden md:tw-flex"
         nuxt
-        to="/auth/mybooking"
+        to="/auth/my-booking"
         ><span class="headercolor--text">Mybooking</span>
         <i class="icofont-air-ticket icofont-2x"></i>
       </v-btn>
