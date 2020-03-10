@@ -31,13 +31,13 @@
         :key="i + 'wway'"
       >
         <div
-          v-for="(pass, j) in Object.keys(summaryPriceDetail[way])"
+          v-for="(pass, j) in Object.keys(summaryPriceDetail[way].passenger)"
           :key="j + 'pass'"
           class="cash-box"
         >
           <div class="cash-box-title">
             <strong
-              >{{ `${summaryPriceDetail[way][pass].pass} x ${pass}` }}
+              >{{ `${summaryPriceDetail[way].passenger[pass].qty} x ${pass}` }}
               <v-chip
                 x-small
                 color="blue lighten-5"
@@ -48,8 +48,10 @@
             <strong>
               <PriceValidation
                 :price="
-                  summaryPriceDetail[way][pass].price +
-                    summaryPriceDetail[way][pass].fee[0].total
+                  summaryPriceDetail[way].passenger[pass].price +
+                    (summaryPriceDetail[way].passenger[pass].fee.length > 0
+                      ? summaryPriceDetail[way].passenger[pass].fee[0].total
+                      : 0)
                 "
             /></strong>
           </div>
@@ -57,17 +59,49 @@
             <div class="box-item-detail">
               <span>Vé</span>
               <span
-                ><PriceValidation :price="summaryPriceDetail[way][pass].price"
+                ><PriceValidation
+                  :price="summaryPriceDetail[way].passenger[pass].price"
               /></span>
             </div>
             <div
-              v-for="(fee, k) in summaryPriceDetail[way][pass].fee[0]
-                .breakdowns"
+              v-for="(fee, k) in summaryPriceDetail[way].passenger[pass].fee
+                .length > 0
+                ? summaryPriceDetail[way].passenger[pass].fee[0].breakdowns
+                : []"
               :key="k + 'fee'"
               class="box-item-detail"
             >
               <span>{{ fee.label }}</span>
               <span><PriceValidation :price="fee.per_pax_amount"/></span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          v-for="(fee, f) in summaryPriceDetail[way].fee"
+          :key="f + 'generalFee'"
+          class="cash-box"
+        >
+          <div class="cash-box-title">
+            <strong
+              >FEE {{ fee.type }}
+              <v-chip
+                x-small
+                color="blue lighten-5"
+                text-color="blue lighten-1"
+                >{{ way }}</v-chip
+              >
+            </strong>
+            <strong> <PriceValidation :price="fee.total"/></strong>
+          </div>
+          <div class="cash-box-detail">
+            <div
+              v-for="(breakpoint, k) in fee.breakdowns"
+              :key="k + 'fee'"
+              class="box-item-detail"
+            >
+              <span>{{ breakpoint.label }}</span>
+              <span><PriceValidation :price="breakpoint.per_pax_amount"/></span>
             </div>
           </div>
         </div>
@@ -119,10 +153,10 @@ export default {
       return 0
     },
     summaryPriceDetail() {
-      return this.$store.getters['checkout/priceSummaryByPass'].detail
+      return this.$store.getters['checkout/priceSummaryWithPass'].detail
     },
     summaryPriceTotal() {
-      return this.$store.getters['checkout/priceSummaryByPass'].total
+      return this.$store.getters['checkout/priceSummaryWithPass'].total
     }
   }
 }

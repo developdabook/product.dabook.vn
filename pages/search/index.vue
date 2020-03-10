@@ -477,9 +477,13 @@ export default {
             }
           ]
         } else {
-          const smallestOption = ticket.fare_options.reduce((acc, loc) =>
-            acc.total_fare < loc.total_fare ? acc : loc
-          )
+          const smallestOption = ticket.fare_options
+            .filter(function(x) {
+              return x.total_fare > 0
+            })
+            .sort(function(a, b) {
+              return a.total_fare > b.total_fare
+            })[0]
           ticket.total_fare = smallestOption.total_fare
           ticket.formatTotalFare = new Intl.NumberFormat('vi-VN', {
             style: 'currency',
