@@ -16,7 +16,8 @@
               color="primarytext"
               class="tw-normal-case"
               v-on="on"
-              >{{ roundtripSum }} <v-icon small>mdi-chevron-down</v-icon></v-btn
+              >{{ $t(roundtripSum) }}
+              <v-icon small>mdi-chevron-down</v-icon></v-btn
             >
           </template>
           <SelectRoundTrip v-model="searchCondition.isRoundTrip" />
@@ -54,7 +55,8 @@
               color="primarytext"
               class="tw-normal-case"
               v-on="on"
-              >{{ cabinClassSum }}<v-icon small>mdi-chevron-down</v-icon></v-btn
+              >{{ $t('label_economy') + cabinClassSum
+              }}<v-icon small>mdi-chevron-down</v-icon></v-btn
             >
           </template>
           <SelectCabinClass
@@ -189,8 +191,12 @@
             />
           </v-menu>
         </div>
-        <v-btn rounded depressed class="change-search-btn" @click="searchFlight"
-          >Re-search</v-btn
+        <v-btn
+          rounded
+          depressed
+          class="change-search-btn"
+          @click="searchFlight"
+          >{{ $t('btn_research') }}</v-btn
         >
       </div>
     </div>
@@ -270,9 +276,9 @@ export default {
     },
     cabinClassSum() {
       if (this.searchCondition.cabinClass.length === 1) {
-        return 'Economy'
+        return ''
       } else if (this.searchCondition.cabinClass.length > 1) {
-        return 'Economy +'
+        return '+'
       }
       return 'Cabin'
     },
@@ -298,9 +304,9 @@ export default {
     },
     roundtripSum() {
       if (this.searchCondition.isRoundTrip) {
-        return 'Roundtrip'
+        return 'label_return'
       }
-      return 'Oneway'
+      return 'label_oneway'
     }
   },
   methods: {

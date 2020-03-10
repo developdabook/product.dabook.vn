@@ -124,7 +124,7 @@
                         ></v-checkbox>
                       </template>
                       <span
-                        >Lọc theo chuyến bay này
+                        >{{ $t('ticket_filter_by_ticket') }}
                         <v-icon color="#FFF" small
                           >mdi-information-outline</v-icon
                         >
@@ -239,7 +239,7 @@
                         ></v-checkbox>
                       </template>
                       <span
-                        >Lọc theo chuyến bay này
+                        >{{ $t('ticket_filter_by_ticket') }}
                         <v-icon color="#FFF" small
                           >mdi-information-outline</v-icon
                         >
@@ -265,8 +265,7 @@
                       </v-btn>
                     </template>
                     <span
-                      >Click để hiển thị chi tiết thông tin chuyến bay và option
-                      giá
+                      >{{ $t('ticket_show_more_tooltip') }}
                       <v-icon color="#FFF" small
                         >mdi-information-outline</v-icon
                       ></span
@@ -278,7 +277,7 @@
                     color="red lighten-5"
                     text-color="red darken-4"
                   >
-                    Giá chưa bao gồm phụ phí
+                    {{ $t('ticket_price_withnofee') }}
                     <v-icon small class="ml-2"
                       >mdi-information-outline</v-icon
                     ></v-chip
@@ -289,7 +288,7 @@
                     color="green lighten-5"
                     text-color="green accent-4"
                   >
-                    Giá đã bao gồm phụ phí
+                    {{ $t('ticket_price_withfee') }}
                     <v-icon small class="ml-2"
                       >mdi-information-outline</v-icon
                     ></v-chip
@@ -307,7 +306,7 @@
                       </v-btn>
                     </template>
                     <span
-                      >Lưu chuyến bay ưa thích của bạn
+                      >{{ $t('ticket_favorite') }}
                       <v-icon color="#FFF" small
                         >mdi-information-outline</v-icon
                       >
@@ -320,7 +319,7 @@
                       </v-btn>
                     </template>
                     <span
-                      >Chia sẻ chuyến bay với người thân của bạn
+                      >{{ $t('ticket_share') }}
                       <v-icon color="#FFF" small
                         >mdi-information-outline</v-icon
                       >
@@ -333,7 +332,7 @@
                       </v-btn>
                     </template>
                     <span
-                      >Click để xem chi tiết
+                      >{{ $t('ticket_click_viewmore') }}
                       <v-icon color="#FFF" small
                         >mdi-information-outline</v-icon
                       >
@@ -358,7 +357,7 @@
                   rounded
                   class="select-btn"
                   @click="acceptSelectTicket"
-                  >Select pair ticket</v-btn
+                  >{{ $t('btn_select_pair') }}</v-btn
                 >
               </div>
             </div>
@@ -439,10 +438,10 @@ export default {
       try {
         return {
           total:
-            this.ticketSelected.DEPARTURE.fare.total_fare +
-            (typeof this.ticketSelected.DEPARTURE.fee === 'undefined'
-              ? 0
-              : this.ticketSelected.DEPARTURE.fee[0].total),
+            this.ticketSelected.PAIR.fare.total_fare +
+            ('fee' in this.ticketSelected.PAIR
+              ? this.ticketSelected.PAIR.fee[0].total
+              : 0),
           isValid: true
         }
       } catch (error) {

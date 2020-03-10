@@ -10,7 +10,7 @@
             class="tw-normal-case"
             @click="changeTotalMode"
             ><v-icon small>mdi-airballoon-outline</v-icon
-            >{{ totalMode ? 'Show price only' : 'Show total price' }}
+            >{{ totalMode ? $t('btn_total_price') : $t('btn_price_only') }}
           </v-btn>
         </v-card-text>
       </v-card>
@@ -19,7 +19,7 @@
       <v-card flat class="tw-rounded-none">
         <v-card-text class="tw-flex tw-justify-end">
           <v-btn color="primarytext" small text class="tw-normal-case"
-            >Show table
+            >{{ $t('btn_show_table') }}
             <v-icon small>mdi-file-table-box-multiple-outline</v-icon></v-btn
           >
         </v-card-text>

@@ -1,12 +1,13 @@
 <template>
   <div class="flight-detail">
     <v-tabs v-model="tab" show-arrows>
-      <v-tab class="tab-title">Flight</v-tab>
-      <v-tab class="tab-title">Price</v-tab>
-      <v-tab class="tab-title">Điều kiện</v-tab>
+      <v-tab class="tab-title">{{ $t('ticket_tab_01') }}</v-tab>
+      <v-tab class="tab-title">{{ $t('ticket_tab_02') }}</v-tab>
+      <v-tab class="tab-title">{{ $t('ticket_tab_03') }}</v-tab>
       <v-tab-item>
         <v-subheader>
-          Chieu di<span class="fly-animate-depart"
+          {{ $t('ticket_label_depa')
+          }}<span class="fly-animate-depart"
             ><v-icon class="rotate-90 tw-ml-1 tw-text-sm"
               >mdi-airplane</v-icon
             ></span
@@ -72,7 +73,8 @@
           </v-timeline-item>
         </v-timeline>
         <v-subheader>
-          Chieu ve<span class="fly-animate-return"
+          {{ $t('ticket_label_ret')
+          }}<span class="fly-animate-return"
             ><v-icon class="rotate-270 tw-ml-1 tw-text-sm"
               >mdi-airplane</v-icon
             ></span
@@ -189,23 +191,18 @@
         <v-card flat class="tw-my-4">
           <v-card-text class="tw-pt-4">
             <div class="tab-condition">
-              Giá hiển thị luôn bao gồm khoản ước tính của toàn bộ thuế và cước
-              phí bắt buộc, nhưng nhớ kiểm tra TẤT CẢ chi tiết vé, giá cuối cùng
-              và các điều khoản và điều kiện trên trang web đặt vé trước khi bạn
-              đặt vé.
+              {{ $t('ticket_condition') }}
               <ul>
                 <li>
                   Kiểm tra phụ phí Một số hãng hàng không / đại lý tính thêm phí
                   hành lý, bảo hiểm hoặc sử dụng thẻ tín dụng và bao gồm phí
                   dịch vụ.
-                  <nuxt-link to="/help/airlinefees" target="_blank"
+                  <a to="/help/airlinefees" target="_blank"
                     >Xem phí của hãng hàng không
-                  </nuxt-link>
+                  </a>
                 </li>
                 <li>
-                  Kiểm tra các điều khoản & điều kiện cho các hành khách trong
-                  độ tuổi từ 12-16 Các giới hạn có thể áp dụng với hành khách
-                  nhỏ tuổi đi một mình.
+                  {{ $t('ticket_condition_li_02') }}
                 </li>
               </ul>
             </div>
@@ -225,7 +222,7 @@
         color="primary"
         class="detail-action-btn"
         @click="selectFareOption"
-        >Select option</v-btn
+        >{{ $t('btn_select_option') }}</v-btn
       >
       <v-btn
         depressed
@@ -234,7 +231,7 @@
         color="primary"
         class="detail-action-btn"
         @click="close"
-        >Close</v-btn
+        >{{ $t('btn_close') }}</v-btn
       >
     </div>
   </div>

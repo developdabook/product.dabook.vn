@@ -20,7 +20,7 @@
         <v-list-item-group active-class="blue lighten-5 primary--text">
           <div v-for="(group, i) in menus" :key="i + 'menu'">
             <strong v-if="group.name !== ''" class="group-header">{{
-              group.name
+              $t(group.name)
             }}</strong>
             <v-list-item
               v-for="(menu, j) in group.menu"
@@ -31,7 +31,7 @@
               <v-list-item-icon class="mr-1">
                 <i :class="menu.icon"></i>
               </v-list-item-icon>
-              <v-list-item-title>{{ menu.name }}</v-list-item-title>
+              <v-list-item-title>{{ $t(menu.name) }}</v-list-item-title>
             </v-list-item>
             <v-divider class="my-3 mb-6"></v-divider>
           </div>

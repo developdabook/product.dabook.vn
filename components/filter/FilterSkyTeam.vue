@@ -21,7 +21,7 @@
       </v-checkbox>
 
       <span class="tw-text-gray-600 tw-text-xs tw-m-0 tw-p-0">{{
-        team.description
+        $t(team.description)
       }}</span>
     </div>
   </div>
@@ -35,17 +35,17 @@ export default {
         {
           value: 'SKY_TEAM',
           name: 'SkyTeam',
-          description: 'Lien minh hang khong'
+          description: 'filter_skyteam_des'
         },
         {
           value: 'STAR_ALLIANCE',
           name: 'StarAlliance',
-          description: 'Lien minh hang khong'
+          description: 'filter_staralliance_des'
         },
         {
           value: 'ONE_WORLD',
           name: 'OneWorld',
-          description: 'Lien minh hang khong'
+          description: 'filter_oneworld_des'
         }
       ],
       skyteamSelected: []
