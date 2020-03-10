@@ -1,36 +1,25 @@
 <template>
   <div class="office-payment">
     <p class="tw-m-0">
-      Quý khách vui lòng mang theo giấy tờ tùy thân đến văn phòng Đại Minh để
-      nhận vé <br />
+      {{ $t('pay_office_note_01') }}
     </p>
     <ul class="normal-list">
+      <li v-html="$t('pay_office_note_01_li_01')"></li>
+      <li v-html="$t('pay_office_note_01_li_02')"></li>
       <li>
-        Địa chỉ
-        <strong>Lô TT3 Khu đô thị Mĩ Đình, Mễ Trì, Nam Từ Liêm, Hà Nội</strong>
-      </li>
-      <li>
-        Số điện thoại
-        <strong>19001542</strong>
-      </li>
-      <li>
-        Mã giao dịch
+        {{ $t('pay_office_note_01_li_03') }}
         <v-chip color="blue lighten-5" small text-color="blue darken-1"
           >EXVN202901</v-chip
         >
       </li>
     </ul>
     <v-alert text dense type="info" class="tw-text-xs tw-mt-4">
-      Quý khách lưu ý, khi đi mang theo giấy tờ tùy thân, email hoặc số điện
-      thoại khi mua vé để đối chiếu
+      {{ $t('pay_office_note_02') }}
       <ul class="normal-list">
         <li>
-          Phòng vé Đại Minh làm việc từ 8 ~ 17h từ thứ 2 đến thứ 6, 8 ~12h các
-          ngày thứ 7 trong tuần
+          {{ $t('pay_office_note_02_li_01') }}
         </li>
-        <li>
-          Ngoài thời gian trên, để xuất vé vui lòng liên hệ 19001542
-        </li>
+        <li v-html="$t('pay_office_note_02_li_02')"></li>
       </ul>
     </v-alert>
   </div>

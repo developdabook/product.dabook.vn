@@ -29,19 +29,20 @@
           </span>
           <strong class="status-text">{{
             reserLoading
-              ? 'Reservating...'
+              ? $t('reser_popup_reservating')
               : isReservated
-              ? 'Reservation Success'
-              : 'Wait for action'
+              ? $t('reser_popup_reservated')
+              : $t('reser_popup_waitforaction')
           }}</strong>
         </div>
         <div v-if="!isReservated" class="action-reser">
-          <v-alert text dense type="warning" class="tw-text-xs">
-            Việc giữ chỗ sẽ mất vài phút. Quý khách vui lòng không đóng trình
-            duyệt trong quá trình hệ thống xử lý <br />
-            Vui lòng nhấn
-            <strong class="primary--text">"Xác nhận và giữ chỗ"</strong> để tiếp
-            tục.
+          <v-alert
+            text
+            dense
+            type="warning"
+            class="tw-text-xs"
+            v-html="$t('reser_popup_notice')"
+          >
           </v-alert>
           <v-btn
             color="primary"
@@ -49,23 +50,25 @@
             :loading="reserLoading"
             :disabled="reserLoading"
             @click="confirmReservation"
-            ><i class="icofont-ticket icofont-2x tw-mr-2"></i>Xác nhận và giữ
-            chỗ</v-btn
+            ><i class="icofont-ticket icofont-2x tw-mr-2"></i
+            >{{ $t('btn_confirm_reser') }}</v-btn
           >
           <v-btn
             color="primary"
             class="normal-btn keep-row action-btn"
             text
             @click="close"
-            >Back to homepage</v-btn
+            >{{ $t('btn_back_to_home') }}</v-btn
           >
         </div>
         <div v-else class="action-reser">
-          <v-alert text dense type="success" class="tw-text-xs">
-            Cảm ơn bạn đã sử dụng dịch vụ của Đại Minh.<br />
-            Chúng tôi đã nhận được thông tin giữ chỗ của bạn, Chúng tôi sẽ xác
-            nhận và gọi lại cho bạn theo số điện thoại bạn cung cấp Vui lòng giữ
-            máy và nhận cuộc gọi sau 30'.
+          <v-alert
+            text
+            dense
+            type="success"
+            class="tw-text-xs"
+            v-html="$t('reser_popup_thankyou')"
+          >
           </v-alert>
           <v-btn
             color="primary"
@@ -79,7 +82,7 @@
             class="normal-btn keep-row action-btn"
             text
             @click="close"
-            >Back to homepage</v-btn
+            >{{ $t('btn_back_to_home') }}</v-btn
           >
         </div>
       </div>

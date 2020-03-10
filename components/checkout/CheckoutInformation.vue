@@ -13,7 +13,8 @@
     >
       <v-card-title class="info-title">
         <strong class="pass-number"
-          ><v-icon class="info-title-icon">mdi-account-circle</v-icon> Passenger
+          ><v-icon class="info-title-icon">mdi-account-circle</v-icon>
+          {{ $t('checkout_passenger_label') }}
           {{ j + 1 }}
         </strong>
         <v-select
@@ -36,9 +37,14 @@
               >{{
                 pass.type === ''
                   ? 'Select passenger'
-                  : `${item.text} (${item.detail})`
+                  : `${$t(item.text)} (${$t(item.detail)})`
               }}</v-btn
             >
+          </template>
+          <template v-slot:item="{ item }">
+            <span class="tw-text-xs">{{
+              `${$t(item.text)} (${$t(item.detail)})`
+            }}</span>
           </template>
         </v-select>
       </v-card-title>
@@ -153,7 +159,10 @@
               ></v-text-field>
             </div>
             <div class="half-right tw-flex tw-flex-row">
-              <DateInput v-model="pass.expired_date" />
+              <DateInput
+                v-model="pass.expired_date"
+                label="checkout_expired_label"
+              />
             </div>
           </div>
         </div>
@@ -177,8 +186,8 @@
         color="primary"
         class="addmore-btn"
         @click="addMorePassenger"
-        ><v-icon small class="tw-mr-2">mdi-account-plus-outline</v-icon> Add
-        more passengers</v-btn
+        ><v-icon small class="tw-mr-2">mdi-account-plus-outline</v-icon>
+        {{ $t('btn_add_more_passenger') }}</v-btn
       >
     </div>
     <LoginCTA class="info-block tw-p-0" @logined="updateContactBySignin" />
@@ -197,9 +206,9 @@
             @change="migradePassInfo"
           >
           </v-switch>
-          <span class="tw-text-xs tw-font-normal"
-            >Sử dụng thông tin hành khách</span
-          >
+          <span class="tw-text-xs tw-font-normal">{{
+            $t('checkout_using_pas_info')
+          }}</span>
         </div>
       </v-card-title>
       <v-card-text>
@@ -396,7 +405,9 @@
               <template v-slot:actions>
                 <div class="tw-flex tw-flex-col tw-items-end">
                   <v-switch v-model="invoiceUsed" hide-details> </v-switch>
-                  <span class="tw-text-xs">Bạn có muốn xuất hóa đơn đỏ</span>
+                  <span class="tw-text-xs">{{
+                    $t('checkout_request_invoice')
+                  }}</span>
                 </div>
               </template>
             </v-expansion-panel-header>
@@ -459,11 +470,12 @@
         large
         @click="makeReservation"
       >
-        <i class="icofont-air-ticket tw-mr-2 icofont-2x"></i> Make
-        Reservation</v-btn
+        <i class="icofont-air-ticket tw-mr-2 icofont-2x"></i
+        >{{ $t('btn_make_reservation') }}</v-btn
       >
       <v-btn color="primary" class="addmore-btn" large @click="checkoutPayment">
-        <i class="icofont-pay tw-mr-2 icofont-2x"></i> Select payment</v-btn
+        <i class="icofont-pay tw-mr-2 icofont-2x"></i>
+        {{ $t('btn_select_payment') }}</v-btn
       >
     </div>
     <section class="section-dialog">

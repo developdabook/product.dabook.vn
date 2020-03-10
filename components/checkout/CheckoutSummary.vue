@@ -77,22 +77,13 @@
           <strong>{{ $t('checkout_sum_total') }}</strong>
           <strong><PriceValidation :price="summaryPriceTotal"/></strong>
         </div>
-        <v-alert text dense type="info" class="tw-text-xs">
-          Quý khách lưu ý. Giá trên chưa bao gồm phụ phí phát sinh khi quý khách
-          lựa chọn phương thức thanh toán
-          <strong>( phí thu bởi nhà cung cấp)</strong> Vui lòng điền thông tin
-          và chọn Select Payment để biết thêm thông tin ,hoặc gọi
-          <v-btn
-            depressed
-            rounded
-            small
-            href="tel:19001542"
-            color="info"
-            text
-            class="tw-px-1"
-            >1900-1542 <i class="icofont-live-support"></i
-          ></v-btn>
-          để biết thêm thông tin chi tiết
+        <v-alert
+          text
+          dense
+          type="info"
+          class="tw-text-xs"
+          v-html="$t('checkout_sum_note')"
+        >
         </v-alert>
       </div>
     </v-card-text>

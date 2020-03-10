@@ -1,21 +1,17 @@
 <template>
   <div class="paypal-payment">
     <v-alert text dense type="info" class="tw-text-xs tw-mt-4">
-      Nhấn Pay để tiếp tục
-      <br />Lưu ý
+      {{ $t('pay_online_note_01') }}
+      <br />{{ $t('pay_online_note_ul') }}
       <ul class="normal-list">
         <li>
-          Hệ thống sẽ chuyển yêu cầu thanh toán của bạn tới nhà cung cấp thanh
-          toán
+          {{ $t('pay_online_note_li_01') }}
         </li>
         <li>
-          Sau thanh toán, quá trình xuất vé sẽ diễn ra tự động. Quá trình có thể
-          mất vài phút, quý khác vui lòng đợi và không tắt trình duyệt
+          {{ $t('pay_online_note_li_02') }}
         </li>
         <li>
-          Sau khi thanh toán thành công, Hệ thống sẽ gửi vé qua email mà bạn đã
-          đăng kí. Quý khách cũng có thể xem lại thông tin đặt chỗ qua tài khoản
-          thành viên Dabook
+          {{ $t('pay_online_note_li_03') }}
         </li>
       </ul>
     </v-alert>

@@ -1,8 +1,7 @@
 <template>
   <div class="banktrasfer-payment">
-    <p class="tw-m-0">
-      Đại Minh hỗ trợ nhận chuyển khoản từ các ngân hàng dưới đây.<br />
-      Vui lòng điền mã sau vào nội dung chuyển khoản
+    <div class="tw-m-0">
+      <span class="tw-m-0" v-html="$t('pay_bank_note_01')"></span>
       <v-chip
         color="blue lighten-5"
         text-color="blue darken-1"
@@ -10,9 +9,9 @@
         class="tw-font-bold"
         >VN-224-CK</v-chip
       >
-    </p>
+    </div>
     <v-alert text dense type="warning" class="tw-text-xs tw-mt-4">
-      Lưu ý: Kiểm tra kĩ thông tin trong mục người nhận
+      {{ $t('pay_bank_note_02') }}
     </v-alert>
     <div>
       <v-item-group v-model="bankSelected" mandatory class="bank-list">
@@ -39,8 +38,7 @@
       </v-item-group>
     </div>
     <v-alert text dense type="info" class="tw-text-xs tw-mt-4">
-      Sau khi hoàn tất chuyển khoản, vui lòng liên hệ với Đại Minh để yêu cầu
-      xuất vé và nhận vé
+      {{ $t('pay_bank_note_03') }}
     </v-alert>
   </div>
 </template>

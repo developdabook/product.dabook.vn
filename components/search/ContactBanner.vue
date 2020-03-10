@@ -5,9 +5,9 @@
     </v-card-text>
     <v-card-actions class="action-contact">
       <v-btn depressed rounded small href="tel:19001542" class="call-us-btn"
-        >Call us 19001542 <i class="icofont-live-support"></i
+        >{{ $t('banner_contact_callus') }} <i class="icofont-live-support"></i
       ></v-btn>
-      <span class="call-subtext">24/7 Everytime, Everywhere</span>
+      <span class="call-subtext">{{ $t('banner_contact_detail') }}</span>
     </v-card-actions>
   </v-card>
 </template>

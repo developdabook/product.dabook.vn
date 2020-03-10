@@ -6,30 +6,24 @@
           ><v-icon class="info-title-icon"
             >mdi-account-tie-voice-outline</v-icon
           >
-          Payment
+          {{ $t('pay_payment') }}
         </strong>
       </v-card-title>
       <v-card-text>
         <div class="info-notice">
           <v-alert text dense type="info" class="tw-text-xs">
-            Sử dụng một trong những phương thức dưới đây để hoàn thành thanh
-            toán và nhận vé của bạn
+            {{ $t('pay_note_01') }}
           </v-alert>
           <v-alert text dense type="info" class="tw-text-xs">
-            Tiến trình thanh toán có thể mất vài phút, Chúng tôi đang cải thiện
-            chúng. Mong bạn đừng tắt trình duyệt khi thanh toán
+            {{ $t('pay_note_02') }}
           </v-alert>
           <v-alert text dense type="warning" class="tw-text-xs">
             <ul class="tw-p-0 tw-m-0 tw-list-disc">
               <li>
-                Quý khách lưu ý, mỗi phương thức thanh toán có thể phát sinh phụ
-                thu đến từ nhà cung cấp dịch vụ thanh toán. Vui lòng chọn các
-                chức năng thanh toán phù hợp
+                {{ $t('pay_note_03') }}
               </li>
               <li>
-                Các hình thức thanh toán online sẽ diễn ra trên hệ thống của nhà
-                cung cấp dịch vụ mà dabook liên kết. Mọi phát sinh lỗi khi giao
-                dịch vui lòng liên hệ nhà cung cấp để xử lý
+                {{ $t('pay_note_04') }}
               </li>
             </ul>
           </v-alert>
@@ -53,7 +47,9 @@
                               :class="item.icon"
                               class="pay-item-icon icofont-2x"
                             ></i>
-                            <span class="pay-item-name">{{ item.name }}</span>
+                            <span class="pay-item-name">{{
+                              $t(item.name)
+                            }}</span>
                           </div>
                           <strong
                             :class="{ 'success--text': item.unit === 'FREE' }"
@@ -118,7 +114,7 @@ export default {
         {
           code: 'OFFICE',
           icon: 'icofont-building-alt',
-          name: 'Thanh toán tại văn phòng',
+          name: 'pay_office_title',
           fee: 0,
           unit: 'FREE',
           component: 'OfficePay',
@@ -127,7 +123,7 @@ export default {
         {
           code: 'BANK_TRANSFER',
           icon: 'icofont-bank-transfer',
-          name: 'Chuyển khoản',
+          name: 'pay_bank_title',
           fee: 0,
           unit: 'FREE',
           component: 'BankTransferPay',
@@ -136,7 +132,7 @@ export default {
         {
           code: 'DELIVERY',
           icon: 'icofont-fast-delivery',
-          name: 'Giao vé,thanh toán tại nhà',
+          name: 'pay_delivery_title',
           fee: 20000,
           unit: 'VND',
           component: 'DeliveryPay',
@@ -145,7 +141,7 @@ export default {
         {
           code: 'PAYPAL',
           icon: 'icofont-paypal-alt',
-          name: 'Paypal',
+          name: 'pay_paypal_title',
           fee: 3.14,
           unit: 'USD',
           component: 'PayPalPay',
@@ -154,7 +150,7 @@ export default {
         {
           code: 'ONEPAY',
           icon: 'icofont-pay',
-          name: 'Onepay',
+          name: 'pay_onepay_title',
           fee: 50000,
           unit: 'VND',
           component: 'OnePayPay',

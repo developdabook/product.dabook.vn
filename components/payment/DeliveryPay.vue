@@ -1,12 +1,10 @@
 <template>
   <v-form v-model="validation.valid" class="delivery-payment" lazy-validation>
-    <p class="tw-m-0 tw-mb-8">
-      Vui lòng điền địa chỉ giao hàng, Chúng tôi sẽ giao vé cho bạn<br />
-    </p>
+    <p class="tw-m-0 tw-mb-8">{{ $t('pay_delivery_note_01') }}<br /></p>
     <v-text-field
       v-model="delivery.name"
       :rules="validation.nameRules"
-      label="Người nhận"
+      :label="$t('pay_delivery_label_received')"
       placeholder="ex. Tran"
       outlined
       color="primary"
@@ -16,7 +14,7 @@
     <v-text-field
       v-model="delivery.phone"
       :rules="validation.phoneRules"
-      label="Số điện thoại"
+      :label="$t('checkout_contact_phone')"
       placeholder="+84 936376420"
       outlined
       color="primary"
@@ -26,7 +24,7 @@
     <v-text-field
       v-model="delivery.address"
       :rules="validation.addressRules"
-      label="Địa chỉ"
+      :label="$t('label_address')"
       placeholder="Lot 113, Me Tri, Nam Tu Liem, Ha Noi"
       outlined
       color="primary"
@@ -35,20 +33,16 @@
     ></v-text-field>
     <v-textarea outlined label="Yêu cầu khác" placeholder="..."> </v-textarea>
     <v-alert text dense type="info" class="tw-text-xs tw-mt-4">
-      Đại Minh giới hạn giao hàng trong nội thành Hà Nội. Trường hợp quý khách ở
-      ngoại thành và các tỉnh khác, vui lòng chọn phương thức thanh toán khác.
-      <br />Lưu ý
+      {{ $t('pay_delivery_note_02') }}
+      <br />{{ $t('pay_delivery_note_ul') }}
       <ul class="normal-list">
         <li>
-          Vui lòng điền chính xác thông tin giao hàng
+          {{ $t('pay_delivery_note_li_01') }}
         </li>
         <li>
-          Thời gian giao hàng từ 8 đến 17h hằng ngày ( trừ thứ 7 và chủ nhật)
+          {{ $t('pay_delivery_note_li_02') }}
         </li>
-        <li>
-          Thông tin chi tiết, vui lòng tham khảo
-          <a href="/help/payment">Hướng dẫn thanh toán</a>
-        </li>
+        <li v-html="$t('pay_delivery_note_li_03')"></li>
       </ul>
     </v-alert>
   </v-form>
