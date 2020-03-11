@@ -58,13 +58,13 @@ export default {
         address: ''
       },
       validation: {
-        addressRules: [(v) => !!v || 'Address is required'],
-        nameRules: [(v) => !!v || 'Name is required'],
+        addressRules: [(v) => !!v || this.$t('field_valid_address')],
+        nameRules: [(v) => !!v || this.$t('field_valid_name')],
         phoneRules: [
-          (v) => !!v || 'Phone number required',
+          (v) => !!v || this.$t('field_valid_phone_required'),
           (value) => {
             const pattern = /^[\\+]?[(]?[0-9]{3}[)]?[-\s\\.]?[0-9]{3}[-\s\\.]?[0-9]{1,6}$/im
-            return pattern.test(value) || 'Invalid phone number.'
+            return pattern.test(value) || this.$t('field_valid_phone_valid')
           }
         ],
         valid: false

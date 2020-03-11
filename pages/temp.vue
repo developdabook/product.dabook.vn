@@ -1,14 +1,9 @@
 <template>
-  <div>
-    <PayOption />
-  </div>
+  <div></div>
 </template>
 <script>
 export default {
   name: 'Temp',
-  layout: 'unauthen',
-  components: {
-    PayOption: () => import('@/components/payment/PayOption')
-  }
+  layout: 'unauthen'
 }
 </script>

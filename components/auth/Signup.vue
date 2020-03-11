@@ -186,27 +186,29 @@ export default {
       },
       validation: {
         passwordRules: [
-          (v) => !!v || 'Password is required',
-          (v) => v.length >= 8 || 'Password least 8 characters'
+          (v) => !!v || this.$t('field_valid_password_required'),
+          (v) => v.length >= 8 || this.$t('field_valid_password_less8')
         ],
         confirmPasswordRules: [
-          (v) => !!v || 'Confirm password is required',
-          (v) => v === this.auth.password || 'Confirm password is wrong'
+          (v) => !!v || this.$t('field_valid_passwordconfirm_required'),
+          (v) =>
+            v === this.auth.password ||
+            this.$t('field_valid_passwordconfirm_wrong')
         ],
-        surNameRules: [(v) => !!v || 'Name is required'],
-        givenNameRules: [(v) => !!v || 'Name is required'],
+        surNameRules: [(v) => !!v || this.$t('field_valid_surname')],
+        givenNameRules: [(v) => !!v || this.$t('field_valid_givenname')],
         emailRules: [
-          (v) => !!v || 'E-mail is required',
-          (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+          (v) => !!v || this.$t('field_valid_email_required'),
+          (v) => /.+@.+\..+/.test(v) || this.$t('field_valid_email_valid')
         ],
         acceptTermRules: [
-          (v) => v === true || 'Please accept our term and condition'
+          (v) => v === true || this.$t('field_valid_acceptterm')
         ],
         phoneRules: [
-          (v) => !!v || 'Phone number required',
+          (v) => !!v || this.$t('field_valid_phone_required'),
           (value) => {
             const pattern = /^[\\+]?[(]?[0-9]{3}[)]?[-\s\\.]?[0-9]{3}[-\s\\.]?[0-9]{1,6}$/im
-            return pattern.test(value) || 'Invalid phone number.'
+            return pattern.test(value) || this.$t('field_valid_phone_valid')
           }
         ],
         valid: false

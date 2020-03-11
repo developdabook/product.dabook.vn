@@ -62,17 +62,21 @@ export default {
     return {
       validation: {
         dayRules: [
-          (v) => !!v || !this.validate || 'Day is required',
+          (v) => !!v || !this.validate || this.$t('field_valid_day_required'),
           (v) =>
             /^(([0]?[1-9])|([1-2][0-9])|(3[01]))$/.test(v) ||
             !this.validate ||
-            'Day must be valid'
+            this.$t('field_valid_day_valid')
         ],
-        monthRules: [(v) => !!v || !this.validate || 'Month is required'],
+        monthRules: [
+          (v) => !!v || !this.validate || this.$t('field_valid_month')
+        ],
         yearRules: [
-          (v) => !!v || !this.validate || 'Year is required',
+          (v) => !!v || !this.validate || this.$t('field_valid_year_required'),
           (v) =>
-            /^(19|20)\d{2}$/.test(v) || !this.validate || 'Year must be valid'
+            /^(19|20)\d{2}$/.test(v) ||
+            !this.validate ||
+            this.$t('field_valid_year_valid')
         ],
         valid: false
       },

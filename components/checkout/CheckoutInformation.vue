@@ -527,46 +527,49 @@ export default {
         }
       },
       validation: {
-        requiredRules: [(v) => !!v || 'Field is required'],
-        givenNameRules: [(v) => !!v || 'Given name is required'],
-        surNameRules: [(v) => !!v || 'Sur name is required'],
-        residencyRules: [(v) => !!v || 'residency is required'],
-        namePrefixRules: [(v) => !!v || 'Gender is required'],
-        passengerTypeRules: [(v) => !!v || 'Passenger Type is required'],
+        requiredRules: [(v) => !!v || this.$t('field_valid_required')],
+        givenNameRules: [(v) => !!v || this.$t('field_valid_givenname')],
+        surNameRules: [(v) => !!v || this.$t('field_valid_surname')],
+        residencyRules: [(v) => !!v || this.$t('field_valid_residency')],
+        namePrefixRules: [(v) => !!v || this.$t('field_valid_nameprefix')],
+        passengerTypeRules: [
+          (v) => !!v || this.$t('field_valid_passengertype')
+        ],
         companyRules: [
           (v) =>
             this.invoiceUsed === false ||
             (!!v && this.invoiceUsed === true) ||
-            'Company name is required'
+            this.$t('field_valid_company')
         ],
         taxRules: [
           (v) =>
             this.invoiceUsed === false ||
             (!!v && this.invoiceUsed === true) ||
-            'Tax code is required'
+            this.$t('field_valid_tax')
         ],
         taxAddressRules: [
           (v) =>
             this.invoiceUsed === false ||
             (!!v && this.invoiceUsed === true) ||
-            'Address is required'
+            this.$t('field_valid_taxaddress')
         ],
-        addressRules: [(v) => !!v || 'Address is required'],
+        addressRules: [(v) => !!v || this.$t('field_valid_address')],
         dateRules: [
-          (v) => v || this.validation.birthdayValid || 'Birthday is required'
+          (v) =>
+            v || this.validation.birthdayValid || this.$t('field_valid_date')
         ],
         emailRules: [
-          (v) => !!v || 'E-mail is required',
-          (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+          (v) => !!v || this.$t('field_valid_email_required'),
+          (v) => /.+@.+\..+/.test(v) || this.$t('field_valid_email_valid')
         ],
         acceptTermRules: [
-          (v) => v === true || 'Please accept our term and condition'
+          (v) => v === true || this.$t('field_valid_acceptterm')
         ],
         phoneRules: [
-          (v) => !!v || 'Phone number required',
+          (v) => !!v || this.$t('field_valid_phone_required'),
           (value) => {
             const pattern = /^[\\+]?[(]?[0-9]{3}[)]?[-\s\\.]?[0-9]{3}[-\s\\.]?[0-9]{1,6}$/im
-            return pattern.test(value) || 'Invalid phone number.'
+            return pattern.test(value) || this.$t('field_valid_phone_valid')
           }
         ],
         birthdayValid: false,

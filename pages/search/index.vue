@@ -449,6 +449,7 @@ export default {
         }, 3000)
         setTimeout(() => {
           clearInterval(this.intervalTick)
+          SearchApi.DeleteSectionId(this.searchCondition)
           this.loadingStep = 'FINISH_4'
         }, 30000)
       } catch (error) {
