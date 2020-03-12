@@ -1,6 +1,8 @@
 <template>
   <div class="tw-bg-transparent">
-    <div class="round-date">{{ segment.start_date }}</div>
+    <div class="round-date">
+      {{ $d($moment(segment.start_date, 'DD-MM-YYYY'), 'longday') }}
+    </div>
     <div class="round-airline">
       <div class="newtk-timeline">
         <v-icon class="tw-text-xs tw-text-gray-600"
@@ -52,7 +54,7 @@
               </v-chip>
             </template>
             <span
-              >Thời gian bay {{ totalTime }}
+              >{{ $t('label_total_flight') }} {{ totalTime }}
               <v-icon color="#FFF" small>mdi-information-outline</v-icon></span
             >
           </v-tooltip>
@@ -70,7 +72,7 @@
               </v-chip>
             </template>
             <span
-              >Số hiệu chuyến bay
+              >{{ $t('label_airline_code') }}
               {{ segment.airline + '-' + segment.flight_number }}
               <v-icon color="#FFF" small>mdi-information-outline</v-icon></span
             >

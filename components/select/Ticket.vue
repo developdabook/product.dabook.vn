@@ -288,7 +288,11 @@ export default {
       ticketSelected: {
         ticket: [this.ticket],
         fare: this.ticket.formatMinFare,
-        fee: this.ticket.fees
+        fee: this.ticket.fees.filter(
+          (el) =>
+            el.fare_option.toUpperCase() ===
+            this.ticket.formatMinFare.description.toUpperCase()
+        )
       },
       timeOut: null
     }
@@ -319,7 +323,11 @@ export default {
     ticket(newVal, oldVal) {
       this.ticketSelected.ticket = [newVal]
       this.ticketSelected.fare = newVal.formatMinFare
-      this.ticketSelected.fee = newVal.fees
+      this.ticketSelected.fee = newVal.fees.filter(
+        (el) =>
+          el.fare_option.toUpperCase() ===
+          newVal.formatMinFare.description.toUpperCase()
+      )
     }
   },
   mounted() {
@@ -334,6 +342,11 @@ export default {
   methods: {
     selectTicket(payload) {
       this.ticketSelected.fare = payload
+      this.ticketSelected.fee = this.ticket.fees.filter(
+        (el) =>
+          el.fare_option.toUpperCase() ===
+          this.ticketSelected.fare.description.toUpperCase()
+      )
       this.acceptSelectTicket()
     },
     acceptSelectTicket() {

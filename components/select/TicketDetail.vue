@@ -13,12 +13,14 @@
               text
               class="tw-text-xs tw-border-dashed"
             >
-              <strong>
-                Chuyến bay khởi hành lúc
-                {{ `${ticket.start_time} , ${ticket.formatStartDate}` }}</strong
-              >
-              Vui lòng di chuyển tới sân bay và làm thủ tục trước khi bay ít
-              nhất 45 phút
+              <div
+                v-html="
+                  $t('label_startflight_noti', [
+                    ticket.start_time,
+                    ticket.formatStartDate
+                  ])
+                "
+              ></div>
             </v-alert>
           </v-timeline-item>
           <v-timeline-item

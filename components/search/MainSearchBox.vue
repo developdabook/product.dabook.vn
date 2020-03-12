@@ -253,16 +253,11 @@ export default {
       )
     },
     passegnerSum() {
-      return (
-        this.searchCondition.passenger.ADULT +
-        ' ADULT' +
-        ' | ' +
-        this.searchCondition.passenger.CHILD +
-        ' CHILD' +
-        ' | ' +
-        this.searchCondition.passenger.INFANT +
-        ' INFANT'
-      )
+      return this.$t('comp_passenger_sum', [
+        this.searchCondition.passenger.ADULT,
+        this.searchCondition.passenger.CHILD,
+        this.searchCondition.passenger.INFANT
+      ])
     },
     cabinClassSum() {
       return this.searchCondition.cabinClass.reduce((lastSum, newVal) => {
@@ -270,10 +265,16 @@ export default {
       }, '')
     },
     departureSum() {
-      return this.searchCondition.departure
+      return this.$d(
+        this.$moment(this.searchCondition.departure, 'DD-MM-YYYY'),
+        'short'
+      )
     },
     arrivedSum() {
-      return this.searchCondition.arrived
+      return this.$d(
+        this.$moment(this.searchCondition.arrived, 'DD-MM-YYYY'),
+        'short'
+      )
     },
     fromSum() {
       return typeof this.searchCondition.from.airportCode === 'undefined'

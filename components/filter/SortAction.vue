@@ -7,8 +7,8 @@
         >
         <v-menu>
           <template v-slot:activator="{ on }">
-            <v-btn color="primarytext" text small v-on="on">
-              <v-icon small>mdi-sort-ascending</v-icon>
+            <v-btn color="primarytext" class="normal-btn" text small v-on="on">
+              {{ $t('label_sortby') }}<v-icon small>mdi-sort-ascending</v-icon>
             </v-btn>
           </template>
           <v-card>

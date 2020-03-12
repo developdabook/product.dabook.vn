@@ -314,16 +314,11 @@ export default {
       )
     },
     passegnerSum() {
-      return (
-        this.searchCondition.passenger.ADULT +
-        ' ADULT' +
-        ' | ' +
-        this.searchCondition.passenger.CHILD +
-        ' CHILD' +
-        ' | ' +
-        this.searchCondition.passenger.INFANT +
-        ' INFANT'
-      )
+      return this.$t('comp_passenger_sum', [
+        this.searchCondition.passenger.ADULT,
+        this.searchCondition.passenger.CHILD,
+        this.searchCondition.passenger.INFANT
+      ])
     },
     cabinClassSum() {
       return this.searchCondition.cabinClass.reduce((lastSum, newVal) => {

@@ -25,7 +25,7 @@ const langMixin = {
         this.$store.commit('SET_LANG', 'ko')
         this.$i18n.locale = this.$store.state.locale
       } else if (this.$store.state.locale === 'ko') {
-        this.$store.commit('SET_LANG', 'vn')
+        this.$store.commit('SET_LANG', 'vi')
         this.$i18n.locale = this.$store.state.locale
       } else {
         this.$store.commit('SET_LANG', 'en')

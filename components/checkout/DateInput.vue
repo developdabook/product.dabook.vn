@@ -30,7 +30,14 @@
       dense
       class="tw-w-1/3 input-sm tw-rounded-none border-x-none"
       @change="changeDate"
-    ></v-select>
+    >
+      <template v-slot:item="{ item }">
+        <span class="tw-text-xs tw-font-bold">{{ $t(item.text) }}</span>
+      </template>
+      <template v-slot:selection="{ item }">
+        <span class="tw-text-xs tw-font-bold">{{ $t(item.text) }}</span>
+      </template>
+    </v-select>
     <v-text-field
       v-model="date.year"
       :rules="validation.yearRules"
@@ -86,18 +93,18 @@ export default {
         year: ''
       },
       months: [
-        { value: '01', text: 'January' },
-        { value: '02', text: 'February' },
-        { value: '03', text: 'March' },
-        { value: '04', text: 'April' },
-        { value: '05', text: 'May' },
-        { value: '06', text: 'June' },
-        { value: '07', text: 'July' },
-        { value: '08', text: 'August' },
-        { value: '09', text: 'September' },
-        { value: '10', text: 'October' },
-        { value: '11', text: 'November' },
-        { value: '12', text: 'December' }
+        { value: '01', text: 'mon_jan' },
+        { value: '02', text: 'mon_feb' },
+        { value: '03', text: 'mon_mar' },
+        { value: '04', text: 'mon_apr' },
+        { value: '05', text: 'mon_may' },
+        { value: '06', text: 'mon_jun' },
+        { value: '07', text: 'mon_jul' },
+        { value: '08', text: 'mon_aug' },
+        { value: '09', text: 'mon_sep' },
+        { value: '10', text: 'mon_oct' },
+        { value: '11', text: 'mon_nov' },
+        { value: '12', text: 'mon_dec' }
       ]
     }
   },

@@ -170,7 +170,7 @@
           >
             <template v-slot:activator="{ on }">
               <v-text-field
-                v-show="searchCondition.isRoundTrip"
+                v-if="searchCondition.isRoundTrip"
                 :value="arrivedSum"
                 :label="$t('search_arrived')"
                 placeholder="22 August 2020"
@@ -270,9 +270,9 @@ export default {
         +this.searchCondition.passenger.CHILD +
         +this.searchCondition.passenger.INFANT
       if (total === 0) {
-        return 'Passenger'
+        return `${this.$t('label_passenger')}`
       }
-      return total + ' Person'
+      return total + `${this.$t('label_person')}`
     },
     cabinClassSum() {
       if (this.searchCondition.cabinClass.length === 1) {
@@ -280,13 +280,19 @@ export default {
       } else if (this.searchCondition.cabinClass.length > 1) {
         return '+'
       }
-      return 'Cabin'
+      return `${this.$t('label_cabin')}`
     },
     departureSum() {
-      return this.searchCondition.departure
+      return this.$d(
+        this.$moment(this.searchCondition.departure, 'DD-MM-YYYY'),
+        'short'
+      )
     },
     arrivedSum() {
-      return this.searchCondition.arrived
+      return this.$d(
+        this.$moment(this.searchCondition.arrived, 'DD-MM-YYYY'),
+        'short'
+      )
     },
     fromSum() {
       return typeof this.searchCondition.from.airportCode === 'undefined'

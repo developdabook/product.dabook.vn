@@ -156,13 +156,15 @@ export default {
           ...this.getLocationAndType(element),
           formatDirect:
             element.stop_num === 1 || element.stop_num === 0
-              ? 'Direct'
-              : `${element.stop_num} Stop`,
+              ? `${this.$t('label_direct')}`
+              : `${element.stop_num} ${this.$t('label_stop')}`,
           moreOption:
             typeof element.fare_options === 'undefined' ||
             element.fare_options.length === 1
-              ? 'Show detail'
-              : `More options (${element.fare_options.length})`
+              ? `${this.$t('label_showdetail')}`
+              : `${this.$t('label_moreoption')} (${
+                  element.fare_options.length
+                })`
         }))
         return newFlightList
       } catch (error) {
@@ -573,10 +575,10 @@ export default {
         ticket.formatTotalTime =
           tempFormatTotalTime[0] + 'h ' + tempFormatTotalTime[1] + 'm '
         ticket.TotalTime = clone(TotalTime.format('HH:mm'))
-        ticket.formatStartDate = this.$moment(
-          ticket.segments[0].start_date,
-          'DD-MM-YYYY'
-        ).format('ddd, Do MMM YYYY')
+        ticket.formatStartDate = this.$d(
+          this.$moment(ticket.segments[0].start_date, 'DD-MM-YYYY'),
+          'longday'
+        )
         return ticket
       } catch (error) {}
     },

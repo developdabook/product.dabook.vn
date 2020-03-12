@@ -60,6 +60,7 @@
               <v-text-field
                 v-model="pass.sur_name"
                 :rules="validation.surNameRules"
+                :hint="hint.sur_name"
                 :label="$t('checkout_contact_surname')"
                 placeholder="ex. Tran"
                 outlined
@@ -71,6 +72,7 @@
             <div class=" half-right">
               <v-text-field
                 v-model="pass.given_name"
+                :hint="hint.given_name"
                 :rules="validation.givenNameRules"
                 :label="$t('checkout_contact_givenname')"
                 placeholder="ex. Hoang Anh"
@@ -129,7 +131,7 @@
                 :label="$t('checkout_contact_gender')"
                 item-text="name"
                 item-value="value"
-                placeholder="Mr"
+                placeholder="Male"
                 outlined
                 dense
                 class="tw-w-1/3 input-sm"
@@ -150,7 +152,7 @@
             <div class="half-left ">
               <v-text-field
                 v-model="pass.passport"
-                label="Passport"
+                :label="$t('checkout_fill_passport')"
                 placeholder="C2500525"
                 outlined
                 color="primary"
@@ -222,7 +224,7 @@
             <div class="half-left tw-flex tw-flex-row">
               <v-select
                 v-model="checkout.contact.name_prefix"
-                :items="gender"
+                :items="nameprefix"
                 :rules="validation.namePrefixRules"
                 :label="$t('checkout_contact_gender')"
                 item-text="name"
@@ -234,6 +236,7 @@
               ></v-select>
               <v-text-field
                 v-model="checkout.contact.sur_name"
+                :hint="hint.sur_name"
                 :rules="validation.surNameRules"
                 :label="$t('checkout_contact_surname')"
                 placeholder="ex. Tran"
@@ -246,6 +249,7 @@
             <div class="half-right">
               <v-text-field
                 v-model="checkout.contact.given_name"
+                :hint="hint.given_name"
                 :rules="validation.givenNameRules"
                 :label="$t('checkout_contact_givenname')"
                 placeholder="ex. Hoang Anh"
@@ -312,6 +316,7 @@
                 v-model="checkout.contact.phone_number"
                 :rules="validation.phoneRules"
                 :label="$t('checkout_contact_phone')"
+                :hint="hint.phone"
                 placeholder="+84 933-393-223"
                 outlined
                 color="primary"
@@ -326,6 +331,7 @@
                 v-model="checkout.contact.street"
                 :rules="validation.addressRules"
                 :label="$t('checkout_contact_street')"
+                :hint="hint.street"
                 placeholder="Lot 113, Me Tri, Nam Tu Liem"
                 outlined
                 color="primary"
@@ -336,6 +342,7 @@
             <div class="half-right tw-flex tw-flex-row">
               <v-text-field
                 v-model="checkout.contact.city"
+                :hint="hint.city"
                 :rules="validation.requiredRules"
                 :label="$t('checkout_contact_city')"
                 placeholder="Ha Noi"
@@ -352,7 +359,7 @@
                 chips
                 dense
                 color="primary"
-                :label="$t('checkout_contact_resident')"
+                :label="$t('checkout_contact_country')"
                 placeholder="VietNam"
                 item-text="name"
                 item-value="code"
@@ -488,6 +495,7 @@
 <script>
 import country from '@/localdb/country'
 import gender from '@/localdb/gender'
+import nameprefix from '@/localdb/nameprefix'
 import passengers from '@/localdb/passenger'
 export default {
   name: 'CheckoutInformation',
@@ -508,6 +516,7 @@ export default {
       passengers_sl: passengers,
       country,
       gender,
+      nameprefix,
       checkout: {
         passengers: this.$store.getters['search/generatePassengers'],
         contact: {
@@ -574,6 +583,14 @@ export default {
         ],
         birthdayValid: false,
         valid: false
+      },
+      hint: {
+        phone: this.$t('hint_phone'),
+        email: this.$t('hint_email'),
+        sur_name: this.$t('hint_sur_name'),
+        given_name: this.$t('hint_given_name'),
+        street: this.$t('hint_street'),
+        city: this.$t('hint_city')
       },
       invoiceUsed: false,
       passContactRel: false
