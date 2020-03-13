@@ -103,6 +103,7 @@
   </v-card>
 </template>
 <script>
+import SearchApi from '@/services/SearchApi'
 import CheckoutApi from '@/services/CheckoutApi'
 export default {
   name: 'ReservationBox',
@@ -137,6 +138,9 @@ export default {
     async confirmReservation() {
       try {
         this.reserLoading = true
+        await SearchApi.GetSectionId(
+          this.$store.getters['search/getSearchCondition']
+        )
         const result = await CheckoutApi.Reservation(this.checkoutInfo)
         this.reservationCode = result.reservation_code
         this.reserLoading = false

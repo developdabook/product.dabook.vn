@@ -199,7 +199,7 @@ export const getters = {
     ) {
       result.push({
         type: 'ADULT',
-        name_prefix: '',
+        gender: '',
         given_name: '',
         sur_name: '',
         birthday: '',
@@ -215,7 +215,7 @@ export const getters = {
     ) {
       result.push({
         type: 'CHILD',
-        name_prefix: '',
+        gender: '',
         given_name: '',
         sur_name: '',
         birthday: '',
@@ -231,7 +231,7 @@ export const getters = {
     ) {
       result.push({
         type: 'INFANT',
-        name_prefix: '',
+        gender: '',
         given_name: '',
         sur_name: '',
         birthday: '',

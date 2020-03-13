@@ -125,7 +125,7 @@
                 </template>
               </v-autocomplete>
               <v-select
-                v-model="pass.name_prefix"
+                v-model="pass.gender"
                 :items="gender"
                 :rules="validation.namePrefixRules"
                 :label="$t('checkout_contact_gender')"
@@ -615,7 +615,7 @@ export default {
     addMorePassenger() {
       this.checkout.passengers.push({
         type: 'ADULT',
-        name_prefix: 'Miss',
+        gender: 'MALE',
         given_name: '',
         sur_name: '',
         birthday: '',
