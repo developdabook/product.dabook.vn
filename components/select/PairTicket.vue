@@ -98,7 +98,7 @@
                         text-color="#4A5568"
                         class="chip-info"
                       >
-                        {{ ticket.DEPARTURE.formatMinFare.description }}
+                        {{ ticket.DEPARTURE.formatMinFare.class }}
                       </v-chip>
                     </div>
                     <p class="tw-text-sm tw-text-gray-700 tw-m-0">
@@ -213,7 +213,7 @@
                         text-color="#4A5568"
                         class="chip-info"
                       >
-                        {{ ticket.RETURN.formatMinFare.description }}
+                        {{ ticket.RETURN.formatMinFare.class }}
                       </v-chip>
                     </div>
                     <p class="tw-text-sm tw-text-gray-700 tw-m-0">
@@ -345,7 +345,7 @@
                       :price="
                         totalMode
                           ? totalPrice.total
-                          : ticketSelected.PAIR.fare.total_fare
+                          : ticketSelected.PAIR.fare.fare
                       "
                   /></strong>
                 </div>
@@ -438,7 +438,7 @@ export default {
       try {
         return {
           total:
-            this.ticketSelected.PAIR.fare.total_fare +
+            this.ticketSelected.PAIR.fare.fare +
             ('fee' in this.ticketSelected.PAIR
               ? this.ticketSelected.PAIR.fee[0].total
               : 0),
@@ -446,7 +446,7 @@ export default {
         }
       } catch (error) {
         return {
-          total: this.ticketSelected.DEPARTURE.fare.total_fare,
+          total: this.ticketSelected.DEPARTURE.fare.fare,
           isValid: false
         }
       }

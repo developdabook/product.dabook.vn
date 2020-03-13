@@ -163,12 +163,12 @@
                           <div class="price-item-header">
                             <div class="tw-flex tw-flex-row tw-justify-start">
                               <strong class="class-info">
-                                {{ fare.description }} class</strong
+                                {{ fare.class }} class</strong
                               ><strong class="teal--text tw-text-sm">{{
                                 new Intl.NumberFormat('vi-VN', {
                                   style: 'currency',
                                   currency: 'VND'
-                                }).format(fare.total_fare)
+                                }).format(fare.fare)
                               }}</strong>
                             </div>
                             <span class="seat-info"
@@ -265,7 +265,7 @@ export default {
   },
   computed: {
     totalFare() {
-      return this.fareOptionSelected.total_fare
+      return this.fareOptionSelected.fare
     }
   },
   watch: {
@@ -291,7 +291,7 @@ export default {
       this.$emit('close')
     },
     fareCompare(a, b) {
-      return a.description === b.description
+      return a.class === b.class
     }
   }
 }

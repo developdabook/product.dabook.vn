@@ -4,15 +4,22 @@
       v-for="(noti, $index) in currentNotification"
       :key="$index + 'noti'"
       :value="snackBarStatus"
-      :color="classByType(noti.type)"
-      top
+      bottom
+      left
       @input="updateStatus($event)"
     >
       <div class="tw-flex tw-flex-col tw-justify-start tw-items-start">
-        <span class="tw-mr-2 tw-font-bold">{{ noti.title }}</span>
-        <span>{{ noti.message }}</span>
+        <!-- <span class="tw-mr-2 tw-font-bold">{{ noti.title }}</span> -->
+        <span class="tw-text-sm">{{ noti.message }}</span>
       </div>
-      <v-btn dark text fab @click="removeNoti(noti)">
+      <v-btn
+        dark
+        text
+        fab
+        small
+        color="blue lighten-4"
+        @click="removeNoti(noti)"
+      >
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-snackbar>

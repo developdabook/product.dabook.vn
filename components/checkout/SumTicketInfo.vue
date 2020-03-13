@@ -52,7 +52,7 @@
                     color="blue lighten-5"
                     text-color="blue darken-2"
                     label
-                    >{{ fare.description }}</v-chip
+                    >{{ fare.class }}</v-chip
                   >
                 </div>
                 <div class="titem-ticket-info">

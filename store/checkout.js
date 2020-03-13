@@ -129,16 +129,16 @@ export const getters = {
       Object.keys(rootState.search.searchCondition.passenger).forEach(
         (element) => {
           if (rootState.search.searchCondition.passenger[element] > 0) {
+            const feePass = state.ticketSelected[way].fee.filter((el) => {
+              return (
+                (el.type === element || el.type === 'ALL') &&
+                el.fare_option.toUpperCase() ===
+                  state.ticketSelected[way].fare.class.toUpperCase()
+              )
+            })
             sum[way][element] = {
-              price: state.ticketSelected[way].fare.total_fare,
-              fee: state.ticketSelected[way].fee.filter((el) => {
-                return (
-                  (el.type === element || el.type === 'ALL') &&
-                  (el.fare_option.toUpperCase() ===
-                    state.ticketSelected[way].fare.description.toUpperCase() ||
-                    el.fare_option === 'NONE')
-                )
-              }),
+              total: feePass[0].total,
+              fee: feePass[0],
               pass: rootState.search.searchCondition.passenger[element]
             }
           }
@@ -149,11 +149,7 @@ export const getters = {
     try {
       Object.keys(sum).forEach((el) => {
         Object.keys(sum[el]).forEach((pr) => {
-          total =
-            total +
-            (parseFloat(sum[el][pr].price) +
-              parseFloat(sum[el][pr].fee[0].total)) *
-              parseFloat(sum[el][pr].pass)
+          total = total + parseFloat(sum[el][pr].total)
         })
       })
     } catch (error) {}
@@ -169,17 +165,17 @@ export const getters = {
       Object.keys(rootState.search.searchCondition.passenger).forEach(
         (element) => {
           if (rootState.search.searchCondition.passenger[element] > 0) {
+            const feePass = state.ticketSelected[way].fee.filter((el) => {
+              return (
+                (el.type === element || el.type === 'ALL') &&
+                el.fare_option.toUpperCase() ===
+                  state.ticketSelected[way].fare.class.toUpperCase()
+              )
+            })
             sum[way].passenger[element] = {
-              price: state.ticketSelected[way].fare.total_fare,
-              qty: rootState.search.searchCondition.passenger[element],
-              fee: state.ticketSelected[way].fee.filter((el) => {
-                return (
-                  el.type in rootState.search.searchCondition.passenger &&
-                  (el.fare_option.toUpperCase() ===
-                    state.ticketSelected[way].fare.description.toUpperCase() ||
-                    el.fare_option === 'NONE')
-                )
-              })
+              total: feePass[0].total,
+              fee: feePass[0],
+              qty: rootState.search.searchCondition.passenger[element]
             }
           }
         }
@@ -188,7 +184,7 @@ export const getters = {
         return (
           el.type === 'ALL' &&
           (el.fare_option.toUpperCase() ===
-            state.ticketSelected[way].fare.description.toUpperCase() ||
+            state.ticketSelected[way].fare.class.toUpperCase() ||
             el.fare_option === 'NONE')
         )
       })
@@ -197,15 +193,7 @@ export const getters = {
     try {
       Object.keys(sum).forEach((way) => {
         Object.keys(sum[way].passenger).forEach((pass) => {
-          total =
-            total +
-            (parseFloat(sum[way].passenger[pass].price) +
-              parseFloat(
-                sum[way].passenger[pass].fee.length > 0
-                  ? sum[way].passenger[pass].fee[0].total
-                  : 0
-              )) *
-              parseFloat(sum[way].passenger[pass].qty)
+          total = total + parseFloat(sum[way].passenger[pass].total)
         })
         total = total + parseFloat(sum[way].fee[0].total)
       })

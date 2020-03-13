@@ -47,27 +47,22 @@
             </strong>
             <strong>
               <PriceValidation
-                :price="
-                  summaryPriceDetail[way].passenger[pass].price +
-                    (summaryPriceDetail[way].passenger[pass].fee.length > 0
-                      ? summaryPriceDetail[way].passenger[pass].fee[0].total
-                      : 0)
-                "
+                :price="summaryPriceDetail[way].passenger[pass].total"
             /></strong>
           </div>
           <div class="cash-box-detail">
             <div class="box-item-detail">
-              <span>Vé</span>
+              <span>{{ $t('label_ticket') }}</span>
               <span
                 ><PriceValidation
-                  :price="summaryPriceDetail[way].passenger[pass].price"
+                  :price="
+                    summaryPriceDetail[way].passenger[pass].fee.total_fare
+                  "
               /></span>
             </div>
             <div
               v-for="(fee, k) in summaryPriceDetail[way].passenger[pass].fee
-                .length > 0
-                ? summaryPriceDetail[way].passenger[pass].fee[0].breakdowns
-                : []"
+                .breakdowns"
               :key="k + 'fee'"
               class="box-item-detail"
             >

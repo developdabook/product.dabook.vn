@@ -188,9 +188,9 @@ export default {
           if (typeof this.filterCondition.prices !== 'undefined') {
             filterResult = filterResult.filter((el) => {
               return (
-                parseInt(el.formatMinFare.total_fare) >=
+                parseInt(el.formatMinFare.fare) >=
                   parseInt(this.filterCondition.prices[0]) &&
-                parseInt(el.formatMinFare.total_fare) <=
+                parseInt(el.formatMinFare.fare) <=
                   parseInt(this.filterCondition.prices[1])
               )
             })
@@ -264,8 +264,7 @@ export default {
           if (this.sortCondition === 'LOWEST_PRICE') {
             sortResult.sort((a, b) => {
               return (
-                parseInt(a.formatMinFare.total_fare) -
-                parseInt(b.formatMinFare.total_fare)
+                parseInt(a.formatMinFare.fare) - parseInt(b.formatMinFare.fare)
               )
             })
           } else if (this.sortCondition === 'LOWEST_TIME') {
@@ -362,13 +361,13 @@ export default {
         filters.prices = this.flightReFormat.reduce(
           (lastVal, currentVal) => {
             lastVal.min =
-              lastVal.min <= currentVal.formatMinFare.total_fare
+              lastVal.min <= currentVal.formatMinFare.fare
                 ? lastVal.min
-                : currentVal.formatMinFare.total_fare
+                : currentVal.formatMinFare.fare
             lastVal.max =
-              lastVal.max >= currentVal.formatMinFare.total_fare
+              lastVal.max >= currentVal.formatMinFare.fare
                 ? lastVal.max
-                : currentVal.formatMinFare.total_fare
+                : currentVal.formatMinFare.fare
             return lastVal
           },
           { min: 0, max: 0 }
@@ -482,20 +481,20 @@ export default {
         } else {
           const smallestOption = ticket.fare_options
             .filter(function(x) {
-              return x.total_fare > 0
+              return x.fare > 0
             })
             .sort(function(a, b) {
-              return a.total_fare > b.total_fare
+              return a.fare > b.fare
             })[0]
-          ticket.total_fare = smallestOption.total_fare
+          ticket.total_fare = smallestOption.fare
           ticket.formatTotalFare = new Intl.NumberFormat('vi-VN', {
             style: 'currency',
             currency: 'VND'
-          }).format(smallestOption.total_fare)
+          }).format(smallestOption.fare)
           ticket.formatMinFare = smallestOption
           try {
             ticket.formatMinFee = ticket.fees.filter((el) => {
-              return el.fare_option === ticket.formatMinFare.description
+              return el.fare_option === ticket.formatMinFare.class
             })
           } catch (error) {
             ticket.formatMinFee = [
@@ -509,7 +508,7 @@ export default {
             ]
           }
           ticket.formatTotalFarePrice =
-            ticket.formatMinFare.total_fare +
+            ticket.formatMinFare.fare +
             ticket.formatMinFee.filter((el) => {
               return el.type === 'ALL' || el.type === 'ADT'
             })[0].total

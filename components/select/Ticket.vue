@@ -92,7 +92,7 @@
                         text-color="#4A5568"
                         class="chip-info"
                       >
-                        {{ ticket.formatMinFare.description }}
+                        {{ ticket.formatMinFare.class }}
                       </v-chip>
                     </div>
                     <p class="tw-text-sm tw-text-gray-700 tw-m-0">
@@ -218,9 +218,7 @@
                   <strong class="price-title">
                     <PriceValidation
                       :price="
-                        totalMode
-                          ? totalPrice.total
-                          : ticketSelected.fare.total_fare
+                        totalMode ? totalPrice.total : ticketSelected.fare.fare
                       "
                   /></strong>
                 </div>
@@ -291,7 +289,7 @@ export default {
         fee: this.ticket.fees.filter(
           (el) =>
             el.fare_option.toUpperCase() ===
-            this.ticket.formatMinFare.description.toUpperCase()
+            this.ticket.formatMinFare.class.toUpperCase()
         )
       },
       timeOut: null
@@ -302,14 +300,14 @@ export default {
       try {
         return {
           total:
-            this.ticketSelected.fare.total_fare +
+            this.ticketSelected.fare.fare +
             (typeof this.ticketSelected.fee === 'undefined'
               ? 0
               : this.ticketSelected.fee[0].total),
           isValid: true
         }
       } catch (error) {
-        return { total: this.ticketSelected.fare.total_fare, isValid: false }
+        return { total: this.ticketSelected.fare.fare, isValid: false }
       }
     },
     totalMode() {
@@ -326,7 +324,7 @@ export default {
       this.ticketSelected.fee = newVal.fees.filter(
         (el) =>
           el.fare_option.toUpperCase() ===
-          newVal.formatMinFare.description.toUpperCase()
+          newVal.formatMinFare.class.toUpperCase()
       )
     }
   },
@@ -345,7 +343,7 @@ export default {
       this.ticketSelected.fee = this.ticket.fees.filter(
         (el) =>
           el.fare_option.toUpperCase() ===
-          this.ticketSelected.fare.description.toUpperCase()
+          this.ticketSelected.fare.class.toUpperCase()
       )
       this.acceptSelectTicket()
     },

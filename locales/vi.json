@@ -274,5 +274,6 @@
   "hint_sur_name": "(ex: Tran)",
   "hint_given_name": "(ex: Hai Phong)",
   "hint_street": "(ex:20/7 Tran Duy Hung, Trung Hoa)",
-  "hint_city": "(ex:Ha Noi)"
+  "hint_city": "(ex:Ha Noi)",
+  "label_ticket":"Vé"
 }

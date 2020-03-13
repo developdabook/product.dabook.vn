@@ -98,7 +98,7 @@
                         text-color="#4A5568"
                         class="chip-info"
                       >
-                        {{ ticket.DEPARTURE.formatMinFare.description }}
+                        {{ ticket.DEPARTURE.formatMinFare.class }}
                       </v-chip>
                     </div>
                     <p class="tw-text-sm tw-text-gray-700 tw-m-0">
@@ -213,7 +213,7 @@
                         text-color="#4A5568"
                         class="chip-info"
                       >
-                        {{ ticket.RETURN.formatMinFare.description }}
+                        {{ ticket.RETURN.formatMinFare.class }}
                       </v-chip>
                     </div>
                     <p class="tw-text-sm tw-text-gray-700 tw-m-0">
@@ -346,8 +346,8 @@
                       :price="
                         totalMode
                           ? totalPrice.total
-                          : ticketSelected.DEPARTURE.fare.total_fare +
-                            ticketSelected.RETURN.fare.total_fare
+                          : ticketSelected.DEPARTURE.fare.fare +
+                            ticketSelected.RETURN.fare.fare
                       "
                   /></strong>
                 </div>
@@ -435,11 +435,11 @@ export default {
       try {
         return {
           total:
-            this.ticketSelected.DEPARTURE.fare.total_fare +
+            this.ticketSelected.DEPARTURE.fare.fare +
             (typeof this.ticketSelected.DEPARTURE.fee === 'undefined'
               ? 0
               : this.ticketSelected.DEPARTURE.fee[0].total) +
-            this.ticketSelected.RETURN.fare.total_fare +
+            this.ticketSelected.RETURN.fare.fare +
             (typeof this.ticketSelected.RETURN.fee === 'undefined'
               ? 0
               : this.ticketSelected.RETURN.fee[0].total),
@@ -448,8 +448,8 @@ export default {
       } catch (error) {
         return {
           total:
-            this.ticketSelected.DEPARTURE.fare.total_fare +
-            this.ticketSelected.RETURN.fare.total_fare,
+            this.ticketSelected.DEPARTURE.fare.fare +
+            this.ticketSelected.RETURN.fare.fare,
           isValid: false
         }
       }

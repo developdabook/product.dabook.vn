@@ -687,7 +687,6 @@ export default {
     },
     migradePassInfo() {
       if (this.passContactRel) {
-        this.checkout.contact.name_prefix = this.checkout.passengers[0].name_prefix
         this.checkout.contact.given_name = this.checkout.passengers[0].given_name
         this.checkout.contact.sur_name = this.checkout.passengers[0].sur_name
         this.checkout.contact.national = this.checkout.passengers[0].residency
