@@ -1,11 +1,12 @@
-import axios from 'axios'
+import { httpClient } from '@/share/httpClient'
+
 const http = require('https')
 
 const general = {
   async GetLocation(searchData) {
     try {
-      const response = await axios.get(
-        `https://cors-anywhere.herokuapp.com/https://www.skyscanner.com.vn/g/autosuggest-flights/VN/vi-VN/${searchData}?isDestination=false&enable_general_search_v2=true`
+      const response = await httpClient.get(
+        `https://www.skyscanner.com.vn/g/autosuggest-flights/VN/vi-VN/${searchData}?isDestination=false&enable_general_search_v2=true`
       )
       return response.data
     } catch {

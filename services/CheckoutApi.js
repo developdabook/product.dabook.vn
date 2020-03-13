@@ -1,11 +1,16 @@
-import axios from 'axios'
+import { httpClient } from '@/share/httpClient'
 const checkout = {
   async Reservation(payload) {
     try {
-      const response = await axios.post(
-        `${process.env.CRAWL_FLIGHT_API}/dabook/public/api/tickets`,
+      const response = await httpClient.post(
+        `/dabook/public/api/tickets`,
         payload,
-        { crossdomain: true }
+        {
+          crossdomain: true,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
       )
       return response.data
     } catch (error) {

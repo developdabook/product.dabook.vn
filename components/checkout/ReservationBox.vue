@@ -138,13 +138,21 @@ export default {
     async confirmReservation() {
       try {
         this.reserLoading = true
-        await SearchApi.GetSectionId(
-          this.$store.getters['search/getSearchCondition']
-        )
-        const result = await CheckoutApi.Reservation(this.checkoutInfo)
-        this.reservationCode = result.reservation_code
-        this.reserLoading = false
-        this.isReservated = true
+        let result = null
+        result = await CheckoutApi.Reservation(this.checkoutInfo)
+        if ('errors' in result) {
+          await SearchApi.GetSectionId(
+            this.$store.getters['search/getSearchCondition']
+          )
+          result = await CheckoutApi.Reservation(this.checkoutInfo)
+          this.reservationCode = result.reservation_code
+          this.reserLoading = false
+          this.isReservated = true
+        } else {
+          this.reservationCode = result.reservation_code
+          this.reserLoading = false
+          this.isReservated = true
+        }
       } catch (error) {}
     },
     copyTicket() {

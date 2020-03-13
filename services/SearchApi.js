@@ -1,10 +1,10 @@
-import axios from 'axios'
 import moment from 'moment'
+import { httpClient } from '@/share/httpClient'
 const search = {
   async SearchFlights(searchData) {
     try {
-      const response = await axios.get(
-        `${process.env.CRAWL_FLIGHT_API}/dabook/public/api/flights/search?itinerary=1&origin=${searchData.from.airportCode}&destination=${searchData.to.airportCode}&date=${searchData.departure}&date1=${searchData.arrived}&adults=${searchData.passenger.ADULT}&children=${searchData.passenger.CHILD}&infants=${searchData.passenger.INFANT}`
+      const response = await httpClient.get(
+        `/dabook/public/api/flights/search?itinerary=1&origin=${searchData.from.airportCode}&destination=${searchData.to.airportCode}&date=${searchData.departure}&date1=${searchData.arrived}&adults=${searchData.passenger.ADULT}&children=${searchData.passenger.CHILD}&infants=${searchData.passenger.INFANT}`
       )
       return response.data
     } catch (error) {
@@ -13,9 +13,15 @@ const search = {
   },
   async GetSectionId(searchData) {
     try {
-      const response = await axios.post(
-        `${process.env.CRAWL_FLIGHT_API}/dabook/public/api/flights/search?itinerary=1&origin=${searchData.from.airportCode}&destination=${searchData.to.airportCode}&date=${searchData.departure}&date1=${searchData.arrived}&adults=${searchData.passenger.ADULT}&children=${searchData.passenger.CHILD}&infants=${searchData.passenger.INFANT}`,
-        { crossdomain: true }
+      const response = await httpClient.post(
+        `/dabook/public/api/flights/search?itinerary=1&origin=${searchData.from.airportCode}&destination=${searchData.to.airportCode}&date=${searchData.departure}&date1=${searchData.arrived}&adults=${searchData.passenger.ADULT}&children=${searchData.passenger.CHILD}&infants=${searchData.passenger.INFANT}`,
+        {},
+        {
+          crossdomain: true,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        }
       )
       return response.data
     } catch (error) {
@@ -24,8 +30,8 @@ const search = {
   },
   async DeleteSectionId(searchData) {
     try {
-      const response = await axios.delete(
-        `${process.env.CRAWL_FLIGHT_API}/dabook/public/api/flights/search?itinerary=1&origin=${searchData.from.airportCode}&destination=${searchData.to.airportCode}&date=${searchData.departure}&date1=${searchData.arrived}&adults=${searchData.passenger.ADULT}&children=${searchData.passenger.CHILD}&infants=${searchData.passenger.INFANT}`
+      const response = await httpClient.delete(
+        `/dabook/public/api/flights/search?itinerary=1&origin=${searchData.from.airportCode}&destination=${searchData.to.airportCode}&date=${searchData.departure}&date1=${searchData.arrived}&adults=${searchData.passenger.ADULT}&children=${searchData.passenger.CHILD}&infants=${searchData.passenger.INFANT}`
       )
       return response.data
     } catch (error) {
@@ -34,10 +40,8 @@ const search = {
   },
   async SearchFlightsOneWay(searchData) {
     try {
-      const response = await axios.get(
-        `${
-          process.env.CRAWL_FLIGHT_API
-        }/dabook/public/api/flights/search?itinerary=1&origin=${
+      const response = await httpClient.get(
+        `/dabook/public/api/flights/search?itinerary=1&origin=${
           searchData.from.airportCode
         }&destination=${searchData.to.airportCode}&date=${moment(
           searchData.departure,
@@ -55,10 +59,8 @@ const search = {
   },
   async GetSectionIdOneway(searchData) {
     try {
-      const response = await axios.post(
-        `${
-          process.env.CRAWL_FLIGHT_API
-        }/dabook/public/api/flights/search?itinerary=1&origin=${
+      const response = await httpClient.post(
+        `/dabook/public/api/flights/search?itinerary=1&origin=${
           searchData.from.airportCode
         }&destination=${searchData.to.airportCode}&date=${moment(
           searchData.departure,
@@ -76,10 +78,8 @@ const search = {
   },
   async DeleteSectionIdOneway(searchData) {
     try {
-      const response = await axios.delete(
-        `${
-          process.env.CRAWL_FLIGHT_API
-        }/dabook/public/api/flights/search?itinerary=1&origin=${
+      const response = await httpClient.delete(
+        `/dabook/public/api/flights/search?itinerary=1&origin=${
           searchData.from.airportCode
         }&destination=${searchData.to.airportCode}&date=${moment(
           searchData.departure,

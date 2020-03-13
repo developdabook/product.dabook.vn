@@ -137,7 +137,7 @@ module.exports = {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'https://cors-anywhere.herokuapp.com/http://45.32.99.26:8081'
+    baseURL: 'http://45.32.99.26:8081'
   },
   /*
    ** vuetify module configuration

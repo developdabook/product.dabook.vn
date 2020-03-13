@@ -146,10 +146,20 @@ export default {
     filterCondition() {
       return this.$store.getters['search/getFilterCondition']
     },
+    flighRemoveEmpty() {
+      return this.flightList.filter((el) => {
+        return (
+          'fare_options' in el &&
+          el.fare_options.length > 0 &&
+          'fees' in el &&
+          el.fees.length > 0
+        )
+      })
+    },
     flightReFormat() {
       try {
         let newFlightList = []
-        newFlightList = this.flightList.map((element) => ({
+        newFlightList = this.flighRemoveEmpty.map((element) => ({
           ...this.getSmalestPriceFare(element),
           ...this.getTotalTime(element),
           ...this.getSkyCode(element),
@@ -389,7 +399,6 @@ export default {
       try {
         let counting = 0
         this.loading.search = true
-        this.flightList = []
         SearchApi.GetSectionId(this.searchCondition).then(() => {
           this.loadingStep = 'PREPARE_1'
           SearchApi.SearchFlights(this.searchCondition)
