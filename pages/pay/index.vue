@@ -1,5 +1,8 @@
 <template>
   <div class="pay-page">
+    <div class="tw-container  tw-mx-auto ">
+      <Goback />
+    </div>
     <div class="tw-container tw-mx-auto pay-wrap">
       <section class="section-pay">
         <PayOption />
@@ -20,7 +23,9 @@ export default {
     CheckoutSummary: () =>
       import(
         /* webpackPrefetch: true */ '@/components/checkout/CheckoutSummary'
-      )
+      ),
+    Goback: () =>
+      import(/* webpackPrefetch: true */ '@/components/checkout/Goback')
   }
 }
 </script>
