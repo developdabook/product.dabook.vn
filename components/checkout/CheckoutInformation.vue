@@ -577,7 +577,7 @@ export default {
         phoneRules: [
           (v) => !!v || this.$t('field_valid_phone_required'),
           (value) => {
-            const pattern = /^[\\+]?[(]?[0-9]{3}[)]?[-\s\\.]?[0-9]{3}[-\s\\.]?[0-9]{1,6}$/im
+            const pattern = /^[\\+]?[(]?[0-9]{3}[)]?[-\s\\. ]?[0-9]{3}[-\s\\. ]?[0-9]{1,6}$/im
             return pattern.test(value) || this.$t('field_valid_phone_valid')
           }
         ],

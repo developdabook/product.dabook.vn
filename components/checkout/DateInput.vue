@@ -13,6 +13,7 @@
       placeholder="DD"
       outlined
       color="primary"
+      type="number"
       dense
       class="tw-w-1/3 input-sm  tw-rounded-r-none"
       @change="changeDate"
@@ -44,6 +45,7 @@
       label="Year"
       placeholder="YYYY"
       outlined
+      type="number"
       single-line
       color="primary"
       dense
