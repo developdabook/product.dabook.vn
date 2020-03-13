@@ -4,7 +4,8 @@ const checkout = {
     try {
       const response = await axios.post(
         `${process.env.CRAWL_FLIGHT_API}/dabook/public/api/tickets`,
-        payload
+        payload,
+        { crossdomain: true }
       )
       return response.data
     } catch (error) {

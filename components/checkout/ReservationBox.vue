@@ -82,7 +82,7 @@
             class="normal-btn keep-row action-btn"
             text
             @click="close"
-            >{{ $t('btn_back_to_home') }}</v-btn
+            >{{ $t('btn_back_to_mybooking') }}</v-btn
           >
         </div>
       </div>
@@ -132,6 +132,7 @@ export default {
     close() {
       this.$emit('close')
       this.reserLoading = false
+      this.$router.push({ path: 'auth/my-booking' })
     },
     async confirmReservation() {
       try {

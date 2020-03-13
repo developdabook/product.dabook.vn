@@ -14,7 +14,8 @@ const search = {
   async GetSectionId(searchData) {
     try {
       const response = await axios.post(
-        `${process.env.CRAWL_FLIGHT_API}/dabook/public/api/flights/search?itinerary=1&origin=${searchData.from.airportCode}&destination=${searchData.to.airportCode}&date=${searchData.departure}&date1=${searchData.arrived}&adults=${searchData.passenger.ADULT}&children=${searchData.passenger.CHILD}&infants=${searchData.passenger.INFANT}`
+        `${process.env.CRAWL_FLIGHT_API}/dabook/public/api/flights/search?itinerary=1&origin=${searchData.from.airportCode}&destination=${searchData.to.airportCode}&date=${searchData.departure}&date1=${searchData.arrived}&adults=${searchData.passenger.ADULT}&children=${searchData.passenger.CHILD}&infants=${searchData.passenger.INFANT}`,
+        { crossdomain: true }
       )
       return response.data
     } catch (error) {
