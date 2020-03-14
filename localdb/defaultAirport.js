@@ -1,7 +1,7 @@
 const defautlAirport = {
-  'Việt Nam': [
+  label_local_vietnam: [
     {
-      area: 'Mien Bac',
+      area: 'label_local_mienbac',
       airportList: [
         {
           airportCode: 'HAN',
@@ -31,7 +31,7 @@ const defautlAirport = {
       ]
     },
     {
-      area: 'Mien Trung',
+      area: 'label_local_mientrung',
       airportList: [
         {
           airportCode: 'DAD',
@@ -56,7 +56,7 @@ const defautlAirport = {
       ]
     },
     {
-      area: 'Mien Nam',
+      area: 'label_local_miennam',
       airportList: [
         {
           airportCode: 'SGN',
@@ -126,9 +126,9 @@ const defautlAirport = {
       ]
     }
   ],
-  'Hàn Quốc': [
+  label_local_korea: [
     {
-      area: 'Near Seoul',
+      area: 'label_local_nearseoul',
       airportList: [
         {
           airportCode: 'ICN',
@@ -168,7 +168,7 @@ const defautlAirport = {
       ]
     },
     {
-      area: 'Near Busan',
+      area: 'label_local_nearbusan',
       airportList: [
         {
           airportCode: 'PUS',
@@ -213,9 +213,9 @@ const defautlAirport = {
       ]
     }
   ],
-  'Quốc Tế': [
+  label_local_intenational: [
     {
-      area: 'Dong Bac A',
+      area: 'label_local_dongbaca',
       airportList: [
         {
           airportCode: 'ICN',
@@ -265,7 +265,7 @@ const defautlAirport = {
       ]
     },
     {
-      area: 'Dong Nam A',
+      area: 'label_local_dongnama',
       airportList: [
         {
           airportCode: 'DPS',
@@ -320,7 +320,7 @@ const defautlAirport = {
       ]
     },
     {
-      area: 'Chau Au',
+      area: 'label_local_chauau',
       airportList: [
         {
           airportCode: 'ROM',
@@ -355,7 +355,7 @@ const defautlAirport = {
       ]
     },
     {
-      area: 'Chau My',
+      area: 'label_local_chaumy',
       airportList: [
         {
           airportCode: 'LAX',
@@ -390,7 +390,7 @@ const defautlAirport = {
       ]
     },
     {
-      area: 'Khac',
+      area: 'label_local_other',
       airportList: [
         {
           airportCode: 'MEL',

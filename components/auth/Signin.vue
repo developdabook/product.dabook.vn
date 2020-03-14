@@ -12,7 +12,7 @@
           v-model="auth.email"
           autofocus
           :label="$t('signup_email')"
-          placeholder="your@email.com"
+          :placeholder="place.email"
           outlined
           type="text"
           name="email"
@@ -22,7 +22,7 @@
         <v-text-field
           v-model="auth.password"
           :label="$t('signup_password')"
-          placeholder="Your password"
+          :placeholder="place.password"
           outlined
           type="password"
           name="password"
@@ -134,6 +134,10 @@ export default {
       auth: {
         email: '',
         password: ''
+      },
+      place: {
+        email: this.$t('field_place_email'),
+        password: this.$t('field_place_password')
       },
       validation: {
         passwordRules: [

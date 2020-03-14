@@ -1,13 +1,14 @@
 <template>
   <v-card flat class="tw-rounded-none"
     ><v-card-subtitle class="tw-text-gray-400 tw-font-bold">
-      Please select time
+      {{ $t('search_popup_time_title') }}
     </v-card-subtitle>
     <v-card-text>
       <v-lazy>
         <client-only>
           <vc-date-picker
             v-model="selectedDate"
+            :locale="curentLang"
             :is-inline="true"
             :is-expanded="true"
             :min-date="minDate"
@@ -25,8 +26,10 @@
   </v-card>
 </template>
 <script>
+import lang from '@/mixins/lang'
 export default {
   name: 'SelectTime',
+  mixins: [lang],
   props: {
     minDate: {
       type: [Object, Array, Date],

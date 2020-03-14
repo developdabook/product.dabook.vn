@@ -16,7 +16,7 @@
             :rules="validation.surNameRules"
             autofocus
             :label="$t('signup_surname')"
-            placeholder="Hoang"
+            :placeholder="place.surName"
             outlined
             name="firstName"
             hint="(Ex : Hoang)"
@@ -27,7 +27,7 @@
             v-model="auth.given_name"
             :rules="validation.givenNameRules"
             :label="$t('signup_givenname')"
-            placeholder="Minh Anh"
+            :placeholder="place.givenName"
             outlined
             name="lastName"
             hint="(Ex : Minh Anh)"
@@ -39,7 +39,7 @@
           v-model="auth.email"
           :rules="validation.emailRules"
           :label="$t('signup_email')"
-          placeholder="Email"
+          :placeholder="place.email"
           outlined
           name="email"
           hint="(Ex : minhanh@gmail.com)"
@@ -51,7 +51,7 @@
           v-model="auth.password"
           :rules="validation.passwordRules"
           :label="$t('signup_password')"
-          placeholder="Your password"
+          :placeholder="place.password"
           outlined
           type="password"
           name="new_password"
@@ -62,7 +62,7 @@
           v-model="auth.password_confirmation"
           :rules="validation.confirmPasswordRules"
           :label="$t('signup_confirm')"
-          placeholder="Confirm password"
+          :placeholder="place.confirmPassword"
           outlined
           type="password"
           name="password_confirmation"
@@ -183,6 +183,13 @@ export default {
         role: 'user',
         password: '',
         password_confirmation: ''
+      },
+      place: {
+        surName: this.$t('field_place_surname'),
+        givenName: this.$t('field_place_givenname'),
+        email: this.$t('field_place_email'),
+        password: this.$t('field_place_password'),
+        confirmPassword: this.$t('field_place_confirmpass')
       },
       validation: {
         passwordRules: [

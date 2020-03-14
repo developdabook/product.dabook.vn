@@ -5,7 +5,7 @@
       v-model="delivery.name"
       :rules="validation.nameRules"
       :label="$t('pay_delivery_label_received')"
-      placeholder="ex. Tran"
+      :placeholder="place.name"
       outlined
       color="primary"
       dense
@@ -15,7 +15,7 @@
       v-model="delivery.phone"
       :rules="validation.phoneRules"
       :label="$t('checkout_contact_phone')"
-      placeholder="+84 936376420"
+      :placeholder="place.phone"
       outlined
       color="primary"
       dense
@@ -25,13 +25,14 @@
       v-model="delivery.address"
       :rules="validation.addressRules"
       :label="$t('label_address')"
-      placeholder="Lot 113, Me Tri, Nam Tu Liem, Ha Noi"
+      :placeholder="place.address"
       outlined
       color="primary"
       dense
       class="input-sm"
     ></v-text-field>
-    <v-textarea outlined label="Yêu cầu khác" placeholder="..."> </v-textarea>
+    <v-textarea outlined :label="$t('label_other_required')" placeholder="...">
+    </v-textarea>
     <v-alert text dense type="info" class="tw-text-xs tw-mt-4">
       {{ $t('pay_delivery_note_02') }}
       <br />{{ $t('pay_delivery_note_ul') }}
@@ -68,6 +69,11 @@ export default {
           }
         ],
         valid: false
+      },
+      place: {
+        name: this.$t('field_place_fullname'),
+        phone: this.$t('field_place_phone'),
+        address: this.$t('field_place_address')
       }
     }
   }

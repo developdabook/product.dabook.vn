@@ -454,7 +454,7 @@
                     <v-text-field
                       v-model="checkout.invoice.address"
                       :rules="validation.taxAddressRules"
-                      :label="$t('checkout_invoice_label_tax')"
+                      :label="$t('label_address')"
                       placeholder="Lot 113, Me Tri, Nam Tu Liem, Ha Noi"
                       outlined
                       color="primary"

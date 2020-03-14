@@ -10,3 +10,8 @@ export const mutations = {
     }
   }
 }
+export const getters = {
+  curentLang(state) {
+    return state.locale
+  }
+}

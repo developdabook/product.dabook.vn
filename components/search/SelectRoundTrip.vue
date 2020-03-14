@@ -1,7 +1,7 @@
 <template>
   <v-card flat class="tw-rounded-none"
     ><v-card-subtitle class="tw-text-gray-400 tw-font-bold">
-      Please select trip type
+      {{ $t('search_select_trip') }}
     </v-card-subtitle>
     <v-card-text class="px-4">
       <v-radio-group v-model="roundTrip" @change="changeRoundTrip">
@@ -20,7 +20,7 @@
             </template></v-radio
           >
           <span class="tw-text-gray-600 tw-text-xs tw-m-0 tw-p-0"
-            >{{ trip.description
+            >{{ $t(trip.description)
             }}<v-icon color="primary" small class="tw-ml-2">{{
               trip.icon
             }}</v-icon></span

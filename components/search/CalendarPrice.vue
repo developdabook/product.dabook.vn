@@ -5,6 +5,7 @@
         <client-only>
           <vc-date-picker
             v-model="selectedDate"
+            :locale="curentLang"
             :is-inline="true"
             :is-expanded="true"
             :min-date="minDate"
@@ -22,8 +23,10 @@
   </v-card>
 </template>
 <script>
+import lang from '@/mixins/lang'
 export default {
   name: 'CalendarPrice',
+  mixins: [lang],
   props: {
     minDate: {
       type: [Object, Array, Date],

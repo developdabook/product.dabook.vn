@@ -2,14 +2,10 @@
   <div class="airlinefees-page">
     <div class="tw-container tw-mx-auto tw-py-16">
       <v-card flat>
-        <v-card-title>Phí của hãng hàng không </v-card-title>
+        <v-card-title>{{ $t('label_fee_title') }}</v-card-title>
         <v-card-text>
           <p class="tw-mb-8 black--text">
-            Giá trên Dabook luôn bao gồm khoản ước tính của toàn bộ thuế và phí
-            bắt buộc, nhưng một số hãng hàng không / đại lý sẽ áp dụng phụ phí
-            cho hành lý, bảo hiểm, sử dụng thẻ tín dụng hoặc các dịch vụ khác.
-            Bạn có thể tìm thông tin chi tiết về phí của mỗi hãng hàng không bên
-            dưới:
+            {{ $t('label_fee_detail') }}
           </p>
           <v-text-field
             v-model="search"

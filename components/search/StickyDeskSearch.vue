@@ -7,6 +7,7 @@
           color="white"
           :nudge-width="200"
           offset-y
+          class="tw-bg-white"
         >
           <template v-slot:activator="{ on }">
             <v-btn
@@ -88,7 +89,7 @@
               >
               </v-text-field>
             </template>
-            <v-card class="tw-h-128 tw-bg-white tw-max-30">
+            <v-card class="tw-h-128 tw-bg-white tw-max-30 tw-m-0">
               <SelectLocation
                 v-model="searchCondition.from"
                 :exception-local="searchCondition.to"
@@ -126,7 +127,7 @@
                 v-on="on"
               ></v-text-field>
             </template>
-            <v-card class="tw-h-128 tw-bg-white tw-max-30">
+            <v-card class="tw-h-128 tw-bg-white tw-max-30 tw-m-0">
               <SelectLocation
                 v-model="searchCondition.to"
                 :exception-local="searchCondition.from"
@@ -426,6 +427,6 @@ export default {
 }
 .tw-max-30 {
   max-width: 30rem;
-  width: 30rem;
+  width: 100%;
 }
 </style>

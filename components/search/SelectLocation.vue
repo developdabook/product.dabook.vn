@@ -112,7 +112,7 @@
           v-for="(area, i) in Object.keys(defautlAirport)"
           :key="i + 'defaultAirport'"
           class="tw-normal-case"
-          >{{ area }}</v-tab
+          >{{ $t(area) }}</v-tab
         >
         <v-tab-item
           v-for="(area, i) in Object.values(defautlAirport)"
@@ -120,7 +120,7 @@
         >
           <v-card v-for="(local, j) in area" :key="j + 'local'" flat>
             <v-card-subtitle>
-              {{ local.area }}
+              {{ $t(local.area) }}
             </v-card-subtitle>
             <v-card-text class="px-0">
               <v-lazy>

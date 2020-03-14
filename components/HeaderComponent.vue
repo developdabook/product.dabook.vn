@@ -180,7 +180,7 @@
             class="normal-btn"
             @click="draw.rightDraw = !draw.rightDraw"
           >
-            Close
+            {{ $t('btn_close') }}
           </v-btn>
           <v-btn
             small
@@ -189,7 +189,7 @@
             class="normal-btn"
             @click="draw.rightDraw = !draw.rightDraw"
           >
-            Search
+            {{ $t('btn_search') }}
           </v-btn>
         </div>
       </template>

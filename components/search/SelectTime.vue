@@ -8,6 +8,7 @@
         <client-only>
           <vc-date-picker
             v-model="selectedDate"
+            :locale="curentLang"
             :is-inline="true"
             :is-expanded="true"
             :min-date="minDate"
@@ -25,8 +26,10 @@
   </v-card>
 </template>
 <script>
+import lang from '@/mixins/lang'
 export default {
   name: 'SelectTime',
+  mixins: [lang],
   props: {
     minDate: {
       type: [Object, Array, Date],
@@ -46,7 +49,7 @@ export default {
             backgroundColor: 'red'
           },
           popover: {
-            label: 'Nhanh chân lên Còn rất ít chuyến bay khuyến mãi'
+            label: this.$t('search_popup_time_tooltip')
           },
           dates: new Date()
         }

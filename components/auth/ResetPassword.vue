@@ -1,30 +1,32 @@
 <template>
   <v-card flat class="reset-password-component">
-    <v-card-title class="tw-text-blue-600"> Reset Password </v-card-title>
+    <v-card-title class="tw-text-blue-600">
+      {{ $t('label_reset_title') }}
+    </v-card-title>
     <v-card-subtitle>
-      Please input new password
+      {{ $t('label_reset_detail') }}
     </v-card-subtitle>
     <v-card-text class="tw-py-4 tw-pb-0">
       <v-text-field
         autofocus
-        label="Password"
-        placeholder="Your password"
+        :label="$t('signup_password')"
+        :placeholder="place.password"
         outlined
         type="password"
         dense
         class="input-sm"
       ></v-text-field>
       <v-text-field
-        label="Confirm password"
-        placeholder="Confirm your password"
+        :label="$t('signup_confirm')"
+        :placeholder="place.confirmPassword"
         outlined
         type="password"
         dense
         class="input-sm"
       ></v-text-field>
       <v-text-field
-        label="Confirm Code"
-        placeholder="Input code we send in email"
+        :label="$t('label_confirmcode')"
+        :placeholder="place.confirmCode"
         outlined
         type="number"
         dense
@@ -32,20 +34,29 @@
       ></v-text-field>
     </v-card-text>
     <v-card-actions class="reset-password-action">
-      <v-btn depressed rounded color="primary" class="reset-password-btn"
-        >Reset Password</v-btn
-      >
+      <v-btn depressed rounded color="primary" class="reset-password-btn">{{
+        $t('btn_resetpass')
+      }}</v-btn>
     </v-card-actions>
     <v-card-actions>
       <v-btn text color="primary" class="tw-normal-case" nuxt to="/auth/signin">
-        Back to login
+        {{ $t('btn_backlogin') }}
       </v-btn>
     </v-card-actions>
   </v-card>
 </template>
 <script>
 export default {
-  name: 'ResetPassword'
+  name: 'ResetPassword',
+  data() {
+    return {
+      place: {
+        confirmCode: this.$t('field_place_confirmcode'),
+        password: this.$t('field_place_password'),
+        confirmPassword: this.$t('field_place_confirmpass')
+      }
+    }
+  }
 }
 </script>
 <style lang="postcss">

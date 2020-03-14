@@ -56,9 +56,13 @@
             </v-card>
           </v-timeline-item>
           <v-timeline-item small icon="mdi-bag-checked">
-            <v-alert color="info" dense text class="tw-text-xs tw-border-dashed"
-              ><strong>Hành trình kết thúc lúc {{ ticket.end_time }}</strong>
-              Cảm ơn quý khách đã sử dụng dịch vụ của Đại Minh
+            <v-alert
+              color="info"
+              dense
+              text
+              class="tw-text-xs tw-border-dashed"
+            >
+              <div v-html="$t('label_endflight_noti', [ticket.end_time])"></div>
             </v-alert>
           </v-timeline-item>
         </v-timeline>
@@ -101,7 +105,8 @@
                               }}</strong>
                             </div>
                             <span class="seat-info"
-                              >{{ fare.seats_available }} seats available</span
+                              >{{ fare.seats_available }}
+                              {{ $t('ticket_detail_seatava') }}</span
                             >
                           </div>
                         </template>
@@ -122,14 +127,7 @@
             <div class="tab-condition">
               {{ $t('ticket_condition') }}
               <ul>
-                <li>
-                  Kiểm tra phụ phí Một số hãng hàng không / đại lý tính thêm phí
-                  hành lý, bảo hiểm hoặc sử dụng thẻ tín dụng và bao gồm phí
-                  dịch vụ.
-                  <a to="/help/airlinefees" target="_blank"
-                    >Xem phí của hãng hàng không
-                  </a>
-                </li>
+                <li v-html="$t('ticket_condition_li_01')"></li>
                 <li>
                   {{ $t('ticket_condition_li_02') }}
                 </li>

@@ -10,7 +10,7 @@
       <v-text-field
         autofocus
         :label="$t('signup_email')"
-        placeholder="your@email.com"
+        :placeholder="place.email"
         outlined
         dense
         class="input-sm"
@@ -30,7 +30,14 @@
 </template>
 <script>
 export default {
-  name: 'RequestReset'
+  name: 'RequestReset',
+  dât() {
+    return {
+      place: {
+        email: this.$t('field_place_email')
+      }
+    }
+  }
 }
 </script>
 <style lang="postcss">

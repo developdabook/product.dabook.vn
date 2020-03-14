@@ -22,14 +22,14 @@
               text
               class="tw-text-xs tw-border-dashed"
             >
-              <strong>
-                Chuyến bay chiều đi khởi hành lúc
-                {{
-                  `${ticket.DEPARTURE.start_time} , ${ticket.DEPARTURE.formatStartDate}`
-                }}</strong
-              >
-              Vui lòng di chuyển tới sân bay và làm thủ tục trước khi bay ít
-              nhất 45 phút
+              <div
+                v-html="
+                  $t('label_pair_depart_startflight_noti', [
+                    ticket.DEPARTURE.start_time,
+                    ticket.DEPARTURE.formatStartDate
+                  ])
+                "
+              ></div>
             </v-alert>
           </v-timeline-item>
           <v-timeline-item
@@ -65,10 +65,19 @@
             </v-card>
           </v-timeline-item>
           <v-timeline-item small icon="mdi-bag-checked">
-            <v-alert color="info" dense text class="tw-text-xs tw-border-dashed"
-              ><strong
-                >Hành trình kết thúc lúc {{ ticket.DEPARTURE.end_time }}</strong
-              >Quý khách lưu ý thời gian chiều về
+            <v-alert
+              color="info"
+              dense
+              text
+              class="tw-text-xs tw-border-dashed"
+            >
+              <div
+                v-html="
+                  $t('label_pair_depart_endflight_noti', [
+                    ticket.DEPARTURE.end_time
+                  ])
+                "
+              ></div>
             </v-alert>
           </v-timeline-item>
         </v-timeline>
@@ -89,14 +98,14 @@
               text
               class="tw-text-xs tw-border-dashed"
             >
-              <strong>
-                Chuyến bay chiều về khởi hành lúc
-                {{
-                  `${ticket.RETURN.start_time} , ${ticket.RETURN.formatStartDate}`
-                }}</strong
-              >
-              Vui lòng di chuyển tới sân bay và làm thủ tục trước khi bay ít
-              nhất 45 phút
+              <div
+                v-html="
+                  $t('label_pair_return_startflight_noti', [
+                    ticket.RETURN.start_time,
+                    ticket.RETURN.formatStartDate
+                  ])
+                "
+              ></div>
             </v-alert>
           </v-timeline-item>
           <v-timeline-item
@@ -133,10 +142,13 @@
           </v-timeline-item>
           <v-timeline-item small icon="mdi-bag-checked">
             <v-alert color="info" dense text class="tw-text-xs tw-border-dashed"
-              ><strong
-                >Hành trình kết thúc lúc {{ ticket.RETURN.end_time }}</strong
-              >
-              Cảm ơn quý khách đã sử dụng dịch vụ của Đại Minh
+              ><div
+                v-html="
+                  $t('label_pair_return_endflight_noti', [
+                    ticket.RETURN.end_time
+                  ])
+                "
+              ></div>
             </v-alert>
           </v-timeline-item>
         </v-timeline>
@@ -172,7 +184,8 @@
                               }}</strong>
                             </div>
                             <span class="seat-info"
-                              >{{ fare.seats_available }} seats available</span
+                              >{{ fare.seats_available }}
+                              {{ $t('ticket_detail_seatava') }}</span
                             >
                           </div>
                         </template>
@@ -193,14 +206,7 @@
             <div class="tab-condition">
               {{ $t('ticket_condition') }}
               <ul>
-                <li>
-                  Kiểm tra phụ phí Một số hãng hàng không / đại lý tính thêm phí
-                  hành lý, bảo hiểm hoặc sử dụng thẻ tín dụng và bao gồm phí
-                  dịch vụ.
-                  <a to="/help/airlinefees" target="_blank"
-                    >Xem phí của hãng hàng không
-                  </a>
-                </li>
+                <li v-html="$t('ticket_condition_li_01')"></li>
                 <li>
                   {{ $t('ticket_condition_li_02') }}
                 </li>
