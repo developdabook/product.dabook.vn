@@ -194,7 +194,9 @@ export default {
   },
   watch: {
     ticket(newVal) {
-      this.fareOptionSelected = clone(newVal.formatMinFare)
+      try {
+        this.fareOptionSelected = clone(newVal.formatMinFare)
+      } catch (error) {}
     }
   },
   methods: {

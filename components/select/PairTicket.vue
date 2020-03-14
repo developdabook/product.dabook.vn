@@ -418,16 +418,6 @@ export default {
           fare: this.ticket.DEPARTURE.formatMinFare,
           fee: this.ticket.DEPARTURE.fees
         }
-        // DEPARTURE: {
-        //   ticket: this.ticket.DEPARTURE,
-        //   fare: this.ticket.DEPARTURE.formatMinFare,
-        //   fee: []
-        // },
-        // RETURN: {
-        //   ticket: this.ticket.RETURN,
-        //   fare: this.ticket.RETURN.formatMinFare,
-        //   fee: []
-        // }
       },
       timeOut: null
     }
@@ -460,9 +450,11 @@ export default {
   },
   watch: {
     ticket(newVal, oldVal) {
-      this.ticketSelected.PAIR.ticket = [newVal.DEPARTURE, newVal.RETURN]
-      this.ticketSelected.PAIR.fare = newVal.DEPARTURE.formatMinFare
-      this.ticketSelected.PAIR.fee = newVal.DEPARTURE.fees
+      try {
+        this.ticketSelected.PAIR.ticket = [newVal.DEPARTURE, newVal.RETURN]
+        this.ticketSelected.PAIR.fare = newVal.DEPARTURE.formatMinFare
+        this.ticketSelected.PAIR.fee = newVal.DEPARTURE.fees
+      } catch (error) {}
     }
   },
   mounted() {
@@ -476,22 +468,26 @@ export default {
   },
   methods: {
     selectTicket(payload) {
-      this.ticketSelected.PAIR.fare = payload
-      this.acceptSelectTicket()
+      try {
+        this.ticketSelected.PAIR.fare = payload
+        this.acceptSelectTicket()
+      } catch (error) {}
     },
     acceptSelectTicket() {
-      this.$store.dispatch('checkout/updateTicketSelected', {
-        ticket: this.ticketSelected,
-        type: 'PAIR'
-      })
-      if (this.selectState === 'DONE') {
-        this.$router.push({
-          path: 'checkout',
-          query: {
-            section: this.$store.getters['search/getSection']
-          }
+      try {
+        this.$store.dispatch('checkout/updateTicketSelected', {
+          ticket: this.ticketSelected,
+          type: 'PAIR'
         })
-      }
+        if (this.selectState === 'DONE') {
+          this.$router.push({
+            path: 'checkout',
+            query: {
+              section: this.$store.getters['search/getSection']
+            }
+          })
+        }
+      } catch (error) {}
     }
   }
 }

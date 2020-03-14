@@ -270,7 +270,9 @@ export default {
   },
   watch: {
     ticket(newVal) {
-      this.fareOptionSelected = clone(newVal.DEPARTURE.formatMinFare)
+      try {
+        this.fareOptionSelected = clone(newVal.DEPARTURE.formatMinFare)
+      } catch (error) {}
     }
   },
   methods: {

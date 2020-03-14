@@ -39,7 +39,7 @@ export default {
 .section-summary {
   @apply tw-mb-8;
 }
-@screen md {
+@screen lg {
   .pay-wrap {
     @apply tw-flex tw-flex-row tw-w-full tw-justify-between tw-items-start tw-p-0;
   }

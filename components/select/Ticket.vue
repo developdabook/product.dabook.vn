@@ -286,11 +286,14 @@ export default {
       ticketSelected: {
         ticket: [this.ticket],
         fare: this.ticket.formatMinFare,
-        fee: this.ticket.fees.filter(
-          (el) =>
-            el.fare_option.toUpperCase() ===
-            this.ticket.formatMinFare.class.toUpperCase()
-        )
+        fee: this.ticket.fees.filter((el) => {
+          try {
+            return (
+              el.fare_option.toUpperCase() ===
+              this.ticket.formatMinFare.class.toUpperCase()
+            )
+          } catch (error) {}
+        })
       },
       timeOut: null
     }
@@ -319,13 +322,15 @@ export default {
   },
   watch: {
     ticket(newVal, oldVal) {
-      this.ticketSelected.ticket = [newVal]
-      this.ticketSelected.fare = newVal.formatMinFare
-      this.ticketSelected.fee = newVal.fees.filter(
-        (el) =>
-          el.fare_option.toUpperCase() ===
-          newVal.formatMinFare.class.toUpperCase()
-      )
+      try {
+        this.ticketSelected.ticket = [newVal]
+        this.ticketSelected.fare = newVal.formatMinFare
+        this.ticketSelected.fee = newVal.fees.filter(
+          (el) =>
+            el.fare_option.toUpperCase() ===
+            newVal.formatMinFare.class.toUpperCase()
+        )
+      } catch (error) {}
     }
   },
   mounted() {
@@ -339,29 +344,33 @@ export default {
   },
   methods: {
     selectTicket(payload) {
-      this.ticketSelected.fare = payload
-      this.ticketSelected.fee = this.ticket.fees.filter(
-        (el) =>
-          el.fare_option.toUpperCase() ===
-          this.ticketSelected.fare.class.toUpperCase()
-      )
-      this.acceptSelectTicket()
+      try {
+        this.ticketSelected.fare = payload
+        this.ticketSelected.fee = this.ticket.fees.filter(
+          (el) =>
+            el.fare_option.toUpperCase() ===
+            this.ticketSelected.fare.class.toUpperCase()
+        )
+        this.acceptSelectTicket()
+      } catch (error) {}
     },
     acceptSelectTicket() {
-      const ticket = {}
-      ticket[this.ticketSelected.ticket[0].type] = this.ticketSelected
-      this.$store.dispatch('checkout/updateTicketSelected', {
-        ticket,
-        type: this.ticketSelected.ticket[0].type
-      })
-      if (this.selectState === 'DONE') {
-        this.$router.push({
-          path: 'checkout',
-          query: {
-            section: this.$store.getters['search/getSection']
-          }
+      try {
+        const ticket = {}
+        ticket[this.ticketSelected.ticket[0].type] = this.ticketSelected
+        this.$store.dispatch('checkout/updateTicketSelected', {
+          ticket,
+          type: this.ticketSelected.ticket[0].type
         })
-      }
+        if (this.selectState === 'DONE') {
+          this.$router.push({
+            path: 'checkout',
+            query: {
+              section: this.$store.getters['search/getSection']
+            }
+          })
+        }
+      } catch (error) {}
     }
   }
 }
