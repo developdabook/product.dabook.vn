@@ -77,7 +77,8 @@
                 color="blue lighten-5"
                 rounded
                 depressed
-                >Select</v-btn
+                text
+                >{{ $t('btn_select_option') }}</v-btn
               >
               <v-tooltip v-else top color="primary">
                 <template v-slot:activator="{ on }">
@@ -91,11 +92,12 @@
                       :disabled="port.PlaceId.length > 3"
                       small
                       class="tw-normal-case primary--text"
-                      color="blue lighten-5"
+                      color="primary"
                       rounded
                       depressed
+                      text
                       v-on="on"
-                      >Select</v-btn
+                      >{{ $t('btn_select_option') }}</v-btn
                     >
                   </v-badge>
                 </template>
@@ -159,10 +161,11 @@
                         <v-btn
                           small
                           class="tw-normal-case primary--text"
-                          color="blue lighten-5"
+                          color="primary"
                           rounded
+                          text
                           depressed
-                          >Select</v-btn
+                          >{{ $t('btn_select_option') }}</v-btn
                         >
                       </v-list-item-action>
                     </v-list-item>
