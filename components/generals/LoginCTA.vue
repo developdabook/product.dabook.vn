@@ -3,13 +3,12 @@
     <v-card flat class="tw-rounded-none tw-border" color="primary" dark>
       <v-card-actions class="login-cta-body">
         <div>
-          <v-card-title class="tw-text-base tw-pb-2"
-            >Get 50 coin in your wallet</v-card-title
-          >
-          <v-card-subtitle class="tw-text-xs tw-hidden md:tw-block"
-            >Hundred promotion and discount every day. Let's traver
-            free</v-card-subtitle
-          >
+          <v-card-title class="tw-text-base tw-pb-2">{{
+            $t(label_get_50coin)
+          }}</v-card-title>
+          <v-card-subtitle class="tw-text-xs tw-hidden md:tw-block">{{
+            $t(label_get_50coin_detail)
+          }}</v-card-subtitle>
         </div>
         <v-spacer></v-spacer>
         <v-btn
@@ -19,7 +18,7 @@
           dark
           class="normal-btn tw-mr-2 tw-px-2"
           @click="loginModal = !loginModal"
-          >Login now</v-btn
+          >{{ $t(btn_signin) }}</v-btn
         >
       </v-card-actions>
     </v-card>

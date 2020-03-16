@@ -37,12 +37,14 @@
         >
           <div class="cash-box-title">
             <strong
-              >{{ `${passengers[pass.type.toUpperCase()]} x ${pass.label}` }}
+              >{{
+                `${passengers[pass.type.toUpperCase()]} x ${$t(pass.label)}`
+              }}
               <v-chip
                 x-small
                 color="blue lighten-5"
                 text-color="blue lighten-1"
-                >{{ way }}</v-chip
+                >{{ $t(way) }}</v-chip
               >
             </strong>
             <strong> <PriceValidation :price="pass.total"/></strong>
@@ -57,7 +59,7 @@
               :key="k + 'fee'"
               class="box-item-detail"
             >
-              <span>{{ fee.label }}</span>
+              <span>{{ $t(fee.label) }}</span>
               <span><PriceValidation :price="fee.per_pax_amount"/></span>
             </div>
           </div>
