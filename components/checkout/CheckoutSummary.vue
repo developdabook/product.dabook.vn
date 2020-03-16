@@ -59,7 +59,7 @@
               :key="k + 'fee'"
               class="box-item-detail"
             >
-              <span>{{ $t(fee.label) }}</span>
+              <span>{{ $t(fee.charge_code) }}</span>
               <span><PriceValidation :price="fee.per_pax_amount"/></span>
             </div>
           </div>

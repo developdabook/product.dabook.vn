@@ -342,5 +342,9 @@
   "DEPARTURE":"DEPARTURE",
   "RETURN":"RETURN",
   "label_get_50coin":"Get 50 coin in your wallet",
-  "label_get_50coin_detail":"Hundred promotion and discount every day. Let's traver free"
+  "label_get_50coin_detail":"Hundred promotion and discount every day. Let's traver free",
+  "label_gender_male":"Male",
+  "label_gender_female":"Female",
+  "label_nameprefix_mr":"Mr",
+  "label_nameprefix_ms":"Ms"
 }

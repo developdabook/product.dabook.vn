@@ -1,5 +1,5 @@
 const gender = [
-  { name: 'Male', value: 'MALE' },
-  { name: 'Female', value: 'FEMALE' }
+  { name: 'label_gender_male', value: 'MALE' },
+  { name: 'label_gender_female', value: 'FEMALE' }
 ]
 export default gender

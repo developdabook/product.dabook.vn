@@ -5,7 +5,7 @@
         <v-expansion-panel>
           <v-expansion-panel-header disable-icon-rotate class="tw-p-0">
             <v-card-subtitle class="titem-title-box">
-              <strong class="titem-title">{{ ticket.type }}</strong>
+              <strong class="titem-title">{{ $t(ticket.type) }}</strong>
               <span class="titem-time">{{ ticket.formatStartDate }}</span>
               <v-chip
                 v-if="expand !== 0"
@@ -131,14 +131,14 @@
                   text
                   class="tw-text-xs tw-border-dashed"
                 >
-                  <strong>
-                    Chuyến bay khởi hành lúc
-                    {{
-                      `${ticket.start_time} , ${ticket.formatStartDate}`
-                    }}</strong
-                  >
-                  Vui lòng di chuyển tới sân bay và làm thủ tục 3 tiếng trước
-                  khi bay
+                  <div
+                    v-html="
+                      $t('label_startflight_noti', [
+                        ticket.start_time,
+                        ticket.formatStartDate
+                      ])
+                    "
+                  ></div>
                 </v-alert>
               </v-timeline-item>
               <v-timeline-item
@@ -179,10 +179,9 @@
                   dense
                   text
                   class="tw-text-xs tw-border-dashed"
-                  ><strong
-                    >Hành trình kết thúc lúc {{ ticket.end_time }}</strong
-                  >
-                  Cảm ơn quý khách đã sử dụng dịch vụ của Đại Minh
+                  ><div
+                    v-html="$t('label_endflight_noti', [ticket.end_time])"
+                  ></div>
                 </v-alert>
               </v-timeline-item>
             </v-timeline>

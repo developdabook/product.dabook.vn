@@ -341,6 +341,10 @@
   "Ticket":"Vé",
   "DEPARTURE":"CHIỀU ĐI",
   "RETURN":"CHIỀU VỀ",
-  "label_get_50coin":"Get 50 coin in your wallet",
-  "label_get_50coin_detail":"Hundred promotion and discount every day. Let's traver free"
+  "label_get_50coin":"Nhận 50 điểm thưởng ngay lập tức",
+  "label_get_50coin_detail":"Hàng trăm chuyến bay khuyến mãi và mã giảm giá mỗi ngày. Du lịch miễn phí cùng dabook.vn",
+  "label_gender_male":"Nam",
+  "label_gender_female":"Nữ",
+  "label_nameprefix_mr":"Anh",
+  "label_nameprefix_ms":"Chị"
 }

@@ -4,10 +4,10 @@
       <v-card-actions class="login-cta-body">
         <div>
           <v-card-title class="tw-text-base tw-pb-2">{{
-            $t(label_get_50coin)
+            $t('label_get_50coin')
           }}</v-card-title>
           <v-card-subtitle class="tw-text-xs tw-hidden md:tw-block">{{
-            $t(label_get_50coin_detail)
+            $t('label_get_50coin_detail')
           }}</v-card-subtitle>
         </div>
         <v-spacer></v-spacer>
@@ -18,7 +18,7 @@
           dark
           class="normal-btn tw-mr-2 tw-px-2"
           @click="loginModal = !loginModal"
-          >{{ $t(btn_signin) }}</v-btn
+          >{{ $t('btn_signin') }}</v-btn
         >
       </v-card-actions>
     </v-card>

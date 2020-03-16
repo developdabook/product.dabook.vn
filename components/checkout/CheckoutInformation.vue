@@ -135,7 +135,18 @@
                 outlined
                 dense
                 class="tw-w-1/3 input-sm"
-              ></v-select>
+              >
+                <template v-slot:item="{ item }">
+                  <span class="tw-font-bold tw-text-xs">{{
+                    $t(item.name)
+                  }}</span>
+                </template>
+                <template v-slot:selection="{ item }">
+                  <span class="tw-font-bold tw-text-xs">{{
+                    $t(item.name)
+                  }}</span>
+                </template>
+              </v-select>
             </div>
             <div class="half-right tw-flex tw-flex-row">
               <DateInput
@@ -233,7 +244,17 @@
                 outlined
                 dense
                 class="tw-w-1/3 input-sm tw-mr-1"
-              ></v-select>
+                ><template v-slot:item="{ item }">
+                  <span class="tw-font-bold tw-text-xs">{{
+                    $t(item.name)
+                  }}</span>
+                </template>
+                <template v-slot:selection="{ item }">
+                  <span class="tw-font-bold tw-text-xs">{{
+                    $t(item.name)
+                  }}</span>
+                </template>
+              </v-select>
               <v-text-field
                 v-model="checkout.contact.sur_name"
                 :hint="hint.sur_name"
