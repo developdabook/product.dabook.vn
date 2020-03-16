@@ -100,6 +100,9 @@ export const actions = {
       payload.passenger.CHILD
     }|infants:${payload.passenger.INFANT}`
     commit('UPDATE_CHECKOUT_SECTION', sectionId)
+  },
+  updateCurrentState({ commit }, payload) {
+    commit('UPDATE_CURRENT_STATE', payload)
   }
 }
 
@@ -122,83 +125,35 @@ export const getters = {
   selectState(state) {
     return state.currentState
   },
-  priceSummaryByPass(state, getters, rootState) {
+  priceSummary(state, getters, rootState) {
     const sum = {}
-    Object.keys(state.ticketSelected).forEach((way) => {
-      sum[way] = {}
-      Object.keys(rootState.search.searchCondition.passenger).forEach(
-        (element) => {
-          if (rootState.search.searchCondition.passenger[element] > 0) {
-            const feePass = state.ticketSelected[way].fee.filter((el) => {
-              return (
-                (el.type === element || el.type === 'ALL') &&
-                el.fare_option.toUpperCase() ===
-                  state.ticketSelected[way].fare.class.toUpperCase()
-              )
-            })
-            sum[way][element] = {
-              total: feePass[0].total,
-              fee: feePass[0],
-              pass: rootState.search.searchCondition.passenger[element]
-            }
-          }
-        }
-      )
-    })
     let total = 0
-    try {
-      Object.keys(sum).forEach((el) => {
-        Object.keys(sum[el]).forEach((pr) => {
-          total = total + parseFloat(sum[el][pr].total)
+    for (const key in state.ticketSelected) {
+      if (state.ticketSelected.hasOwnProperty(key)) {
+        sum[key] = {}
+        sum[key].fee = state.ticketSelected[key].fee.filter((el) => {
+          return (
+            el.fare_option.toUpperCase() ===
+              state.ticketSelected[key].fare.class.toUpperCase() &&
+            (el.type === 'ALL' ||
+              el.type.toUpperCase() in
+                rootState.search.searchCondition.passenger)
+          )
         })
-      })
-    } catch (error) {}
-    return { detail: sum, total }
-  },
-  priceSummaryWithPass(state, getters, rootState) {
-    const sum = {}
-    Object.keys(state.ticketSelected).forEach((way) => {
-      sum[way] = {
-        passenger: {},
-        fee: null
+        sum[key].total = sum[key].fee.reduce(function(total, currentValue) {
+          return total + currentValue.total
+        }, 0)
       }
-      Object.keys(rootState.search.searchCondition.passenger).forEach(
-        (element) => {
-          if (rootState.search.searchCondition.passenger[element] > 0) {
-            const feePass = state.ticketSelected[way].fee.filter((el) => {
-              return (
-                (el.type === element || el.type === 'ALL') &&
-                el.fare_option.toUpperCase() ===
-                  state.ticketSelected[way].fare.class.toUpperCase()
-              )
-            })
-            sum[way].passenger[element] = {
-              total: feePass[0].total,
-              fee: feePass[0],
-              qty: rootState.search.searchCondition.passenger[element]
-            }
-          }
-        }
-      )
-      sum[way].fee = state.ticketSelected[way].fee.filter((el) => {
-        return (
-          el.type === 'ALL' &&
-          (el.fare_option.toUpperCase() ===
-            state.ticketSelected[way].fare.class.toUpperCase() ||
-            el.fare_option === 'NONE')
-        )
-      })
-    })
-    let total = 0
-    try {
-      Object.keys(sum).forEach((way) => {
-        Object.keys(sum[way].passenger).forEach((pass) => {
-          total = total + parseFloat(sum[way].passenger[pass].total)
-        })
-        total = total + parseFloat(sum[way].fee[0].total)
-      })
-    } catch (error) {}
-    return { detail: sum, total }
+    }
+    for (const key in sum) {
+      if (sum.hasOwnProperty(key)) {
+        total = total + parseFloat(sum[key].total)
+      }
+    }
+    return {
+      detail: sum,
+      total
+    }
   },
   getCheckoutInfo(state, getters, rootState) {
     const ticket = {

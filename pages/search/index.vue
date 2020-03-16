@@ -152,7 +152,10 @@ export default {
           'fare_options' in el &&
           el.fare_options.length > 0 &&
           'fees' in el &&
-          el.fees.length > 0
+          el.fees.length > 0 &&
+          el.fare_options.reduce((total, current) => {
+            return total + parseFloat(current.fare)
+          }, 0) > 0
         )
       })
     },

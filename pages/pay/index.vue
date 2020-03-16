@@ -8,7 +8,9 @@
         <PayOption />
       </section>
       <section class="section-summary">
-        <CheckoutSummary />
+        <client-only>
+          <CheckoutSummary />
+        </client-only>
       </section>
     </div>
   </div>

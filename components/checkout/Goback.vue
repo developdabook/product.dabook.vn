@@ -10,6 +10,7 @@ export default {
   name: 'Goback',
   methods: {
     goback() {
+      this.$emit('goback')
       this.$router.go(-1)
     }
   }

@@ -1,14 +1,16 @@
 <template>
   <div class="checkout-page">
     <div class="tw-container  tw-mx-auto ">
-      <Goback />
+      <Goback @goback="backToSearch" />
     </div>
     <div class="tw-container tw-mx-auto checkout-wrap">
       <section class="section-checkout">
         <CheckoutInformation />
       </section>
       <section class="section-summary">
-        <CheckoutSummary />
+        <client-only>
+          <CheckoutSummary />
+        </client-only>
       </section>
     </div>
   </div>
@@ -28,6 +30,11 @@ export default {
       ),
     Goback: () =>
       import(/* webpackPrefetch: true */ '@/components/checkout/Goback')
+  },
+  methods: {
+    backToSearch() {
+      this.$store.dispatch('checkout/updateCurrentState', 'MISS_ALL')
+    }
   }
 }
 </script>
