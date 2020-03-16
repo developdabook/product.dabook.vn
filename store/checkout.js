@@ -128,6 +128,7 @@ export const getters = {
   priceSummary(state, getters, rootState) {
     const sum = {}
     let total = 0
+    const passenger = rootState.search.searchCondition.passenger
     for (const key in state.ticketSelected) {
       if (state.ticketSelected.hasOwnProperty(key)) {
         sum[key] = {}
@@ -136,8 +137,8 @@ export const getters = {
             el.fare_option.toUpperCase() ===
               state.ticketSelected[key].fare.class.toUpperCase() &&
             (el.type === 'ALL' ||
-              el.type.toUpperCase() in
-                rootState.search.searchCondition.passenger)
+              (el.type.toUpperCase() in passenger &&
+                passenger[el.type.toUpperCase()] > 0))
           )
         })
         sum[key].total = sum[key].fee.reduce(function(total, currentValue) {
