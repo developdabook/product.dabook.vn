@@ -180,7 +180,7 @@
           </div>
         </div>
       </v-card-text>
-      <v-btn
+      <!-- <v-btn
         :disabled="checkout.passengers.length === 1"
         color="primary"
         class="remove-btn"
@@ -191,7 +191,7 @@
         @click="removePassenger(pass)"
       >
         <v-icon>mdi-close</v-icon>
-      </v-btn>
+      </v-btn> -->
     </v-card>
     <div v-if="isAcceptAddPassenger" class="add-more-box">
       <v-btn

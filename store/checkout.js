@@ -111,16 +111,17 @@ export const getters = {
     return clone(state.ticketSelected)
   },
   isAcceptAddPassenger(state) {
-    if (
-      (state.ticketSelected.DEPARTURE !== null &&
-        typeof state.ticketSelected.DEPARTURE !== 'undefined' &&
-        state.ticketSelected.DEPARTURE.ticket[0].service === 'AMADEUS') ||
-      (state.ticketSelected.PAIR !== null &&
-        typeof state.ticketSelected.PAIR !== 'undefined' &&
-        state.ticketSelected.PAIR.ticket[0].service === 'AMADEUS')
-    ) {
-      return true
-    } else return false
+    // if (
+    //   (state.ticketSelected.DEPARTURE !== null &&
+    //     typeof state.ticketSelected.DEPARTURE !== 'undefined' &&
+    //     state.ticketSelected.DEPARTURE.ticket[0].service === 'AMADEUS') ||
+    //   (state.ticketSelected.PAIR !== null &&
+    //     typeof state.ticketSelected.PAIR !== 'undefined' &&
+    //     state.ticketSelected.PAIR.ticket[0].service === 'AMADEUS')
+    // ) {
+    //   return true
+    // } else return false
+    return false
   },
   selectState(state) {
     return state.currentState

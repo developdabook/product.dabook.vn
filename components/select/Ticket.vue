@@ -301,12 +301,21 @@ export default {
   computed: {
     totalPrice() {
       try {
+        const ticketFare =
+          'fee' in this.ticketSelected
+            ? this.ticketSelected.fee.filter(
+                (el) => el.fare_option === this.ticketSelected.fare.class
+              )
+            : []
         return {
           total:
-            this.ticketSelected.fare.fare +
-            (typeof this.ticketSelected.fee === 'undefined'
-              ? 0
-              : this.ticketSelected.fee[0].total),
+            ticketFare.length !== 0
+              ? ticketFare.length === 1
+                ? this.ticketSelected.fee[0].total
+                : ticketFare.reduce(function(p, v) {
+                    return p.total > v.total ? p : v
+                  }).total
+              : this.ticketSelected.fare.fare,
           isValid: true
         }
       } catch (error) {

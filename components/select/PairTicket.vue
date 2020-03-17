@@ -426,16 +426,26 @@ export default {
   computed: {
     totalPrice() {
       try {
+        const ticketFare =
+          'fee' in this.ticketSelected.PAIR
+            ? this.ticketSelected.PAIR.fee.filter(
+                (el) => el.fare_option === this.ticketSelected.PAIR.fare.class
+              )
+            : []
         return {
           total:
-            'fee' in this.ticketSelected.PAIR
-              ? this.ticketSelected.PAIR.fee[0].total
+            ticketFare.length !== 0
+              ? ticketFare.length === 1
+                ? ticketFare[0].total
+                : ticketFare.reduce(function(p, v) {
+                    return p.total > v.total ? p : v
+                  }).total
               : this.ticketSelected.PAIR.fare.fare,
           isValid: true
         }
       } catch (error) {
         return {
-          total: this.ticketSelected.DEPARTURE.fare.fare,
+          total: this.ticketSelected.PAIR.DEPARTURE.fare.fare,
           isValid: false
         }
       }
