@@ -428,10 +428,9 @@ export default {
       try {
         return {
           total:
-            this.ticketSelected.PAIR.fare.fare +
-            ('fee' in this.ticketSelected.PAIR
+            'fee' in this.ticketSelected.PAIR
               ? this.ticketSelected.PAIR.fee[0].total
-              : 0),
+              : this.ticketSelected.PAIR.fare.fare,
           isValid: true
         }
       } catch (error) {
