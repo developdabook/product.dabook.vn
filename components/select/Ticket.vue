@@ -217,9 +217,7 @@
                 <div class="total-price">
                   <strong class="price-title">
                     <PriceValidation
-                      :price="
-                        totalMode ? totalPrice.total : ticketSelected.fare.fare
-                      "
+                      :price="totalMode ? totalPrice.total : onlyPrice.total"
                   /></strong>
                 </div>
               </div>
@@ -310,11 +308,30 @@ export default {
         return {
           total:
             ticketFare.length !== 0
-              ? ticketFare.length === 1
-                ? this.ticketSelected.fee[0].total
-                : ticketFare.reduce(function(p, v) {
-                    return p.total > v.total ? p : v
-                  }).total
+              ? ticketFare.reduce(function(total, currentValue) {
+                  return total + currentValue.total
+                }, 0)
+              : this.ticketSelected.fare.fare,
+          isValid: true
+        }
+      } catch (error) {
+        return { total: this.ticketSelected.fare.fare, isValid: false }
+      }
+    },
+    onlyPrice() {
+      try {
+        const ticketFare =
+          'fee' in this.ticketSelected
+            ? this.ticketSelected.fee.filter(
+                (el) => el.fare_option === this.ticketSelected.fare.class
+              )
+            : []
+        return {
+          total:
+            ticketFare.length !== 0
+              ? ticketFare.reduce(function(total, currentValue) {
+                  return total + currentValue.total_fare
+                }, 0)
               : this.ticketSelected.fare.fare,
           isValid: true
         }

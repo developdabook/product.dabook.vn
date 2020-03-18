@@ -74,7 +74,7 @@
                 :disabled="port.PlaceId.length > 3"
                 small
                 class="tw-normal-case primary--text"
-                color="blue lighten-5"
+                color="primary"
                 rounded
                 depressed
                 text
