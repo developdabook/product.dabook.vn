@@ -771,7 +771,7 @@ export default {
   @apply tw-flex tw-justify-end tw-items-center tw-my-8;
 }
 .reservation-btn {
-  @apply tw-rounded-none tw-font-normal tw-normal-case;
+  @apply tw-rounded-none tw-font-normal tw-normal-case tw-bg-white;
 }
 .addmore-btn {
   @apply tw-rounded-none tw-font-normal tw-normal-case tw-shadow;

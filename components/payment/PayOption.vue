@@ -81,7 +81,7 @@
       <v-btn
         v-if="paySelected.type === 'UNDIRECT_PAY'"
         color="primary"
-        class="pay-btn"
+        class="pay-btn reservation-btn"
         large
         @click="makeReservation"
       >
@@ -206,5 +206,8 @@ export default {
 }
 .pay-btn:hover {
   @apply tw-shadow-lg;
+}
+.reservation-btn {
+  @apply tw-bg-white;
 }
 </style>

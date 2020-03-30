@@ -52,7 +52,12 @@
           <div class="cash-box-detail">
             <div class="box-item-detail">
               <span>{{ $t('label_ticket') }}</span>
-              <span><PriceValidation :price="pass.total_fare"/></span>
+              <span class="tw-flex tw-flex-row tw-flex-no-wrap"
+                ><span class="tw-mr-2">{{
+                  `${passengers[pass.type.toUpperCase()]} x`
+                }}</span
+                ><PriceValidation :price="pass.fare_per_pax_amount"
+              /></span>
             </div>
             <div
               v-for="(fee, k) in pass.breakdowns"
@@ -60,7 +65,12 @@
               class="box-item-detail"
             >
               <span>{{ $t(fee.charge_code) }}</span>
-              <span><PriceValidation :price="fee.per_pax_amount"/></span>
+              <span class="tw-flex tw-flex-row tw-flex-no-wrap"
+                ><span class="tw-mr-2">{{
+                  `${passengers[pass.type.toUpperCase()]} x`
+                }}</span
+                ><PriceValidation :price="fee.per_pax_amount"
+              /></span>
             </div>
           </div>
         </div>
