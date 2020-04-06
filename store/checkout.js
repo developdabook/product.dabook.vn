@@ -131,7 +131,7 @@ export const getters = {
     let total = 0
     const passenger = rootState.search.searchCondition.passenger
     for (const key in state.ticketSelected) {
-      if (state.ticketSelected.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(state.ticketSelected, key)) {
         sum[key] = {}
         sum[key].fee = state.ticketSelected[key].fee.filter((el) => {
           return (
@@ -148,7 +148,7 @@ export const getters = {
       }
     }
     for (const key in sum) {
-      if (sum.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(sum, key)) {
         total = total + parseFloat(sum[key].total)
       }
     }
