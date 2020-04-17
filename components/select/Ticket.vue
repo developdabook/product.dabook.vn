@@ -330,7 +330,9 @@ export default {
           total:
             ticketFare.length !== 0
               ? ticketFare.reduce(function(total, currentValue) {
-                  return total + currentValue.total_fare
+                  return total >= currentValue.total_fare
+                    ? total
+                    : currentValue.total_fare
                 }, 0)
               : this.ticketSelected.fare.fare,
           isValid: true

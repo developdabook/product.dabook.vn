@@ -391,7 +391,7 @@ export default {
       }
     }
   },
-  mounted() {
+  created() {
     this.searchingFlight()
   },
   beforeDestroy() {
@@ -459,12 +459,12 @@ export default {
               }
             })
             .catch(() => {})
-        }, 3000)
+        }, 6000)
         setTimeout(() => {
           clearInterval(this.intervalTick)
           SearchApi.DeleteSectionId(this.searchCondition)
           this.loadingStep = 'FINISH_4'
-        }, 30000)
+        }, 60000)
       } catch (error) {
         this.loading.search = false
       }
